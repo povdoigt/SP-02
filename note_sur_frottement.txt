@@ -1,0 +1,18 @@
+masse fusée = 3.5 kg
+
+µs = 1.5 (alu-alu)
+
+Fn = 3.5 * g = 35 N
+
+f = µs x Fn = 52.5 N
+
+R pignon = 6.9 mm
+R primitif ~ = 3/4 x R = 5.175 mm
+
+Tmin = Couple seuil = Fn * Rp = 52.5 * 5.175 * 0.001 = 0.272 N.m
+= 27.2 kg.cm (couple moteur)
+
+Tmin = m * 10 * µs * Rp
+
+si on prend Tmax = 5 kg.cm alors µs = 0.28
+
