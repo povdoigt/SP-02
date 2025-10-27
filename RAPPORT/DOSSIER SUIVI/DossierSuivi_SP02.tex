@@ -1,0 +1,276 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage[a4paper, total={6.5in, 10in}, margin=2.5cm]{geometry}
+\usepackage{tgpagella}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{hyphenat}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\hyphenation{mate-mática recu-perar}
+\usepackage{pifont}
+\usepackage{tikz,tikz-3dplot}
+\usepackage{listings}
+\usepackage{etoolbox}
+\usepackage{lmodern}
+% \usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage[utf8]{inputenc}
+% \usepackage[dvipsnames]{xcolor}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.symbols}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{cprotect}
+\usepackage{tabularx}
+\usepackage{pdfpages}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue]{hyperref}
+\usepackage{dirtree}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{cancel}
+\usepackage{chngcntr}
+\usepackage{amsmath}
+\usepackage{tcolorbox}
+\usepackage{colortbl}
+\usepackage[printonlyused]{acronym}
+\usepackage[xindy, acronyms]{glossaries} 
+\usepackage{xparse}
+% \usepackage{biblatex}
+
+\renewcommand{\arraystretch}{1.3}
+
+\newlength{\larg}
+\setlength{\larg}{15.5cm}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\definecolor{font}{RGB}{28, 28, 28}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{A}{RGB}{245, 87, 146}
+\definecolor{B}{RGB}{242, 142, 93}
+\definecolor{C}{RGB}{245, 206, 60}
+\definecolor{D}{RGB}{159, 210, 108}
+\definecolor{E}{RGB}{110, 210, 222}
+\definecolor{F}{RGB}{161, 147, 232}
+\definecolor{G}{RGB}{85, 83, 88}
+
+
+\renewcommand*{\lstlistlistingname}{Liste des codes}
+\renewcommand*{\lstlistingname}{Code}
+\lstdefinestyle{terminal}{
+    postbreak=\mbox{{$\hookrightarrow$}\space},
+    aboveskip=1.5em,
+    belowskip=1.5em,
+    escapeinside={(*@}{@*)},
+    breaklines=true,
+    frame=tb,
+    numbers=none,
+    inputencoding=utf8,  % Input encoding
+    extendedchars=true,  % Extended ASCII
+    literate={
+        {á}{{\'a}}1  {é}{{\'e}}1  {í}{{\'i}}1 {ó}{{\'o}}1  {ú}{{\'u}}1
+        {Á}{{\'A}}1  {É}{{\'E}}1  {Í}{{\'I}}1 {Ó}{{\'O}}1  {Ú}{{\'U}}1
+        {à}{{\`a}}1  {è}{{\`e}}1  {ì}{{\`i}}1 {ò}{{\`o}}1  {ù}{{\`u}}1
+        {À}{{\`A}}1  {È}{{\'E}}1  {Ì}{{\`I}}1 {Ò}{{\`O}}1  {Ù}{{\`U}}1
+        {ä}{{\"a}}1  {ë}{{\"e}}1  {ï}{{\"i}}1 {ö}{{\"o}}1  {ü}{{\"u}}1
+        {Ä}{{\"A}}1  {Ë}{{\"E}}1  {Ï}{{\"I}}1 {Ö}{{\"O}}1  {Ü}{{\"U}}1
+        {â}{{\^a}}1  {ê}{{\^e}}1  {î}{{\^i}}1 {ô}{{\^o}}1  {û}{{\^u}}1
+        {Â}{{\^A}}1  {Ê}{{\^E}}1  {Î}{{\^I}}1 {Ô}{{\^O}}1  {Û}{{\^U}}1
+        {œ}{{\oe}}1  {Œ}{{\OE}}1  {æ}{{\ae}}1 {Æ}{{\AE}}1  {ß}{{\ss}}1
+        {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1  {Ø}{{\O}}1   {å}{{\r a}}1
+        {Å}{{\r A}}1 {ã}{{\~a}}1  {õ}{{\~o}}1 {Ã}{{\~A}}1  {Õ}{{\~O}}1
+        {ñ}{{\~n}}1  {Ñ}{{\~N}}1  {¿}{{?`}}1  {¡}{{!`}}1
+        {°}{{\textdegree}}1 {º}{{\textordmasculine}}1 {ª}{{\textordfeminine}}1
+    }
+}
+\lstdefinestyle{prog}{
+    language=C,
+    basicstyle=\ttfamily\small,
+    stepnumber=1,                   
+    numbersep=5pt,
+    numberstyle=\tiny\color{codegray},
+    postbreak=\mbox{{$\hookrightarrow$}\space},
+    showstringspaces=false,
+    aboveskip=1.5em,
+    belowskip=1.5em,
+    % escapechar=\&,
+    escapeinside={(*@}{@*)},
+    breaklines=true,
+    frame=tb,
+    numbers=left,
+    showlines=true,
+    consecutivenumbers=false,
+    texcl=true,
+    % identifierstyle={\color{B}},
+    % backgroundcolor={\color{font}},
+    keywordstyle={\color{A}},
+    stringstyle={\color{D}},
+    commentstyle={\color{G}},
+    emph={[1]=, <, >, +, -, /, //, *}, emphstyle={[1]\color{A}},
+    emph={[5]void, uint32_t, uint16_t, uint8_t, size_t, bool, float}, emphstyle={[5]\color{E}},
+    % otherkeywords={\&},
+    % emph={&},
+    % emph={[6]True, False, None}, emphstyle={[6]\color{F}},
+    inputencoding=utf8,  % Input encoding
+    extendedchars=true,  % Extended ASCII
+    literate={
+        {á}{{\'a}}1  {é}{{\'e}}1  {í}{{\'i}}1 {ó}{{\'o}}1  {ú}{{\'u}}1
+        {Á}{{\'A}}1  {É}{{\'E}}1  {Í}{{\'I}}1 {Ó}{{\'O}}1  {Ú}{{\'U}}1
+        {à}{{\`a}}1  {è}{{\`e}}1  {ì}{{\`i}}1 {ò}{{\`o}}1  {ù}{{\`u}}1
+        {À}{{\`A}}1  {È}{{\'E}}1  {Ì}{{\`I}}1 {Ò}{{\`O}}1  {Ù}{{\`U}}1
+        {ä}{{\"a}}1  {ë}{{\"e}}1  {ï}{{\"i}}1 {ö}{{\"o}}1  {ü}{{\"u}}1
+        {Ä}{{\"A}}1  {Ë}{{\"E}}1  {Ï}{{\"I}}1 {Ö}{{\"O}}1  {Ü}{{\"U}}1
+        {â}{{\^a}}1  {ê}{{\^e}}1  {î}{{\^i}}1 {ô}{{\^o}}1  {û}{{\^u}}1
+        {Â}{{\^A}}1  {Ê}{{\^E}}1  {Î}{{\^I}}1 {Ô}{{\^O}}1  {Û}{{\^U}}1
+        {œ}{{\oe}}1  {Œ}{{\OE}}1  {æ}{{\ae}}1 {Æ}{{\AE}}1  {ß}{{\ss}}1
+        {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1  {Ø}{{\O}}1   {å}{{\r a}}1
+        {Å}{{\r A}}1 {ã}{{\~a}}1  {õ}{{\~o}}1 {Ã}{{\~A}}1  {Õ}{{\~O}}1
+        {ñ}{{\~n}}1  {Ñ}{{\~N}}1  {¿}{{?`}}1  {¡}{{!`}}1
+        {°}{{\textdegree}}1 {º}{{\textordmasculine}}1 {ª}{{\textordfeminine}}1
+        % {0}{{{\color{F}0}}}1
+        % {1}{{{\color{F}1}}}1 {2}{{{\color{F}2}}}1 {3}{{{\color{F}3}}}1
+        % {4}{{{\color{F}4}}}1 {5}{{{\color{F}5}}}1 {6}{{{\color{F}6}}}1
+        % {7}{{{\color{F}7}}}1 {8}{{{\color{F}8}}}1 {9}{{{\color{F}9}}}1
+        {=}{{{\color{A}$=$}}}1
+        {==}{{{\color{A}$=\joinrel=$}}}1
+        {<=}{{{\color{A}$\leq$}}}1
+        {>=}{{{\color{A}$\geq$}}}1
+        {!=}{{{\color{A}$\neq$}}}1
+        {:=}{{{\color{A}:=}}}1
+    }
+}
+
+\newtcbox{\mybox}[1][black]{
+    on line, 
+    arc=0pt, 
+    outer arc=0pt, 
+    colback=white,
+    colframe=#1,
+    boxsep=0pt, left=2pt, right=2pt, top=2pt, bottom=2pt, boxrule=2pt
+}
+
+% glossary
+\makenoidxglossaries
+
+\input{glossary.tex}
+
+% \addbibresource{biblio.bib}
+
+
+
+
+\titleclass{\subsubsubsection}{straight}[\subsection]
+
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}} % optional; useful if paragraphs are to be numbered
+
+\titleformat{\subsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+
+
+\title{
+    \Huge \textbf{SP - 02} \\
+    \large Projet de fusée bi-étage AéroIPSA 2025-2026 \\
+    \large Dossier de suivi de projet\\
+}
+
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\def\toclevel@subsubsubsection{4}
+\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+\def\@maketitle{
+    \begin{center}
+    \begin{tabular}{>{\raggedright\arraybackslash}m{0.5\textwidth}
+        >{\raggedleft\arraybackslash}m{0.5\textwidth}}
+        & \vspace{-2cm}\includegraphics[width=0.3\textwidth]{figures/AEROIPSA.png}
+    \end{tabular}
+    \begin{tabular}{m{0.6\textwidth}>{\raggedleft\arraybackslash}m{0.4\textwidth}}
+        & AéroIPSA \\
+        & 63 bvd de Brandbourg \\
+        & 94200 Ivry-sur-Seine
+    \end{tabular}
+    \end{center}
+    \begin{flushright}
+        {\rule{\larg}{1mm}}\\
+        \vspace{3mm}
+        \@title
+        \vspace{2mm}
+        {\rule{\larg}{1mm}}\\
+    \end{flushright}
+
+    \begin{figure}[h]
+        \centering
+        \caption{Image to be placed on the title page}
+    \end{figure}
+    \vfill
+    \begin{tabular}{>{\raggedright\arraybackslash}m{0.5\textwidth}
+        >{\raggedleft\arraybackslash}m{0.5\textwidth}}
+        Responsable de projet :      & \\
+        \hspace{1cm} - AMARANTI Malo   & \\
+        \hspace{1cm} - PAILLARD ALexis & \\
+        \hspace{1cm} - PICHON Lucas    & October 2025 \\
+        \hline
+    \end{tabular}
+}
+\makeatother
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\counterwithin{figure}{section}
+\AtBeginDocument{\numberwithin{lstlisting}{section}}
+
+
+\begin{document}
+
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt} % removes horizontal line
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\renewcommand{\subsectionmark}[1]{}
+% \fancyhead[R]{\vspace{2cm}\rightmark}
+\fancyhead[R]{\rightmark}
+\fancyfoot[L]{\thepage/\pageref{LastPage}} 
+
+%Header and footer images
+\AddToShipoutPictureBG{%
+  \AtPageUpperLeft{%
+    \makebox(\paperwidth,0)[lt]{\includegraphics[height=1.25cm]{figures/AEROIPSA_HEADER.png}}%
+  }
+  \AtPageLowerLeft{%
+    \makebox(\paperwidth,0)[rb]{\includegraphics[height=1.25cm]{figures/AEROIPSA_FOOTER.png}}%
+  }%
+}
+
+\maketitle
+
+\newpage
+
+
+
+\newpage
+\tableofcontents
+\newpage
+
+\input{sections/Introduction.tex}
+
+\addcontentsline{toc}{section}{\protect\numberline{}Références}
+\bibliographystyle{ieeetr}
+\bibliography{biblio}
+\newpage
+
+\addcontentsline{toc}{section}{\protect\numberline{}Glossaires et acronymes}
+\setglossarystyle{listgroup}
+\printnoidxglossaries
+
+
+\end{document}

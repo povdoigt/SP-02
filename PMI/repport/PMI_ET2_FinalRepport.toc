@@ -1,0 +1,4 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {}Introduction}{3}{figure.caption.1}%
+\contentsline {section}{\numberline {}Références}{5}{figure.caption.1}%
+\contentsline {section}{\numberline {}Glossaires et acronymes}{5}{figure.caption.1}%
