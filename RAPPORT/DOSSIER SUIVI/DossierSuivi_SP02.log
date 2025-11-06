@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  19 OCT 2025 22:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  4 NOV 2025 16:49
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -933,7 +933,10 @@ Package: xparse 2024-08-16 L3 Experimental document command parser
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 232.
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) (DossierSuivi_SP02.aux)
+) (DossierSuivi_SP02.aux
+\g__glossaries_gls_ref_main_int=\count407
+\g__glossaries_gls_ref_acronym_int=\count408
+)
 \openout1 = `DossierSuivi_SP02.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 232.
@@ -956,16 +959,16 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 232.
 LaTeX Font Info:    ... okay on input line 232.
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count407
+\scratchcounter=\count409
 \scratchdimen=\dimen356
 \scratchbox=\box93
-\nofMPsegments=\count408
-\nofMParguments=\count409
+\nofMPsegments=\count410
+\nofMParguments=\count411
 \everyMPshowfont=\toks67
-\MPscratchCnt=\count410
+\MPscratchCnt=\count412
 \MPscratchDim=\dimen357
-\MPnumerator=\count411
-\makeMPintoPDFobject=\count412
+\MPnumerator=\count413
+\makeMPintoPDFobject=\count414
 \everyMPtoPDFconversion=\toks68
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1007,7 +1010,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@lstlisting=\count413
+\c@lstlisting=\count415
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
@@ -1105,19 +1108,32 @@ Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 262.
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 5.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 40.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 5.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 40.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 [3])
 No file DossierSuivi_SP02.bbl.
 
-Package glossaries Warning: Empty glossary for \printnoidxglossary[type={main}]. Rerun may be required (or you may have forgotten to use commands like \gls) on input line 273.
+Package glossaries Info: Preparing to sort glossary `main' (total number of
+(glossaries)             referenced entries: 2)
 
 
-Package glossaries Warning: Empty glossary for \printnoidxglossary[type={acronym}]. Rerun may be required (or you may have forgotten to use commands like \gls) on input line 273.
+Overfull \hbox (3.03236pt too wide) in paragraph at lines 273--273
+[]\T1/lmr/m/n/10 Agence spa-tiale française, re-spon-s-able des pro-grammes spa-ti-aux civils
+ []
+
+
+Package glossaries Info: Preparing to sort glossary `acronym' (total number of
+(glossaries)             referenced entries: 1)
+
+
+Package glossaries Warning: entry `IPSA' indexing changed since previous run (or no previous run) on input line 276.
+
+
+Package glossaries Warning: Rerun required to get \printnoidxglossary up to date on input line 276.
 
 
 
@@ -1140,17 +1156,20 @@ Package rerunfilecheck Info: File `DossierSuivi_SP02.out' has not changed.
 (rerunfilecheck)             Checksum: 8079555DC1EB6534401703014069A447;387.
  ) 
 Here is how much of TeX's memory you used:
- 39211 strings out of 468129
- 797054 string characters out of 5430612
+ 39358 strings out of 468129
+ 799567 string characters out of 5430612
  1332768 words of memory out of 5000000
- 67180 multiletter control sequences out of 15000+600000
- 662497 words of font info for 60 fonts, out of 8000000 for 9000
+ 67321 multiletter control sequences out of 15000+600000
+ 665499 words of font info for 61 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 84i,13n,91p,2582b,530s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,13n,91p,2582b,552s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{glo:IPSA} has been referenced but does not exist, replaced by a fixed one
+
 <C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb>
-Output written on DossierSuivi_SP02.pdf (4 pages, 138877 bytes).
+Output written on DossierSuivi_SP02.pdf (4 pages, 149613 bytes).
 PDF statistics:
- 66 PDF objects out of 1000 (max. 8388607)
- 6 named destinations out of 1000 (max. 500000)
+ 88 PDF objects out of 1000 (max. 8388607)
+ 12 named destinations out of 1000 (max. 500000)
  52 words of extra memory for PDF output out of 10000 (max. 10000000)
 
