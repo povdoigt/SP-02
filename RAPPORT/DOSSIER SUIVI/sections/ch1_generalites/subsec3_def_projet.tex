@@ -1,18 +1,96 @@
 \subsection{Définition du projet}
 \label{subsec:def_projet}
 
-SP-02 constitue l'un des nombreux projet de fusée développé par l’association AéroIPSA. Ce projet ambitieux vise à concevoir et
-réaliser une fusée expérimentale bi-étage, destinée à participer à la campagne C'Space 2026. Il a pour finalité la conception,
-la réalisation et la qualification d’un lanceur à deux étages destiné à valider plusieurs technologies innovantes appliquées
-aux systèmes de séparation et d’avionique embarquée.
+Le projet SP-02 constitue la nouvelle fusée expérimentale bi-étage développée par l’association \newline
+AéroIPSA pour la campagne \gls{C'Space} 2026. Son objectif principal est la validation d’une technique innovante de séparation
+inter-étage par aérofreinage, permettant de dissocier deux étages sans recours à des systèmes pyrotechniques ni à des
+dispositifs mécaniques complexes. Ce concept exploite le différentiel de traînée créé par le déploiement d’aérofreins pour
+initier la séparation de manière passive et contrôlée, tout en assurant une transition stable entre les deux phases de vol.\\
 
-L’objectif principal est de démontrer la faisabilité d’une séparation inter-étage par freinage aérodynamique, alternative aux
-méthodes pyrotechniques ou mécaniques conventionnelles. Cette architecture a pour but de simplifier la chaîne d’activation tout
-en réduisant les risques liés aux opérations pyrotechniques. Parallèlement, la mission embarque un ensemble de mesures
-avioniques dédiées à la caractérisation du vol — accélérations, attitude, pression et altitude — dont les données sont
-enregistrées et transmises en temps réel par télémesure vers la station sol.
+En complément de cette expérience principale, le projet vise également la validation d’une architecture avionique complète,
+comprenant :
+\begin{itemize}
+    \item un système de mesure inertielle, de pression statique et dynamique
+    \item une chaîne d’acquisition, d’enregistrement et de télémesure ;
+    \item un contrôle embarqué des séquenceurs responsables des événements critiques (séparation, allumage du second étage,
+    récupération).
+\end{itemize}
 
-Le développement du SP-02 s’appuie sur une démarche d’ingénierie système complète, intégrant les volets mécanique, électronique,
-logiciel et essais, conformément aux spécifications du cahier des charges \acrshort{CNES}-Planète Sciences pour les fusées
-bi-étages. Ce projet vise ainsi à approfondir la maîtrise des processus de conception et de validation expérimentale propres à
-l’aéronautique et au spatial, tout en contribuant à l’enrichissement du savoir-faire technique au sein de l’association AéroIPSA.
+Ces systèmes permettront de corréler les résultats expérimentaux avec les simulations réalisées (CFD, FEM et dynamique de vol)
+afin d’évaluer l’efficacité du dispositif d’aérofreinage et la stabilité de la fusée durant les différentes phases.\\
+
+Cette stabilité est assurée par un jeu de 8 surfaces passives (4 ailerons par étage) positionnées en queue de chaque étage.
+Ils sont dimensionnés pour garantir une stabilité statique suffisante tout au long du vol de l'ensemble de la fusée ainsi que
+les étages pris individuellement après séparation.\\
+
+La stratégie de récupération de chaque étage repose sur l’ouverture de trappes latérales permettant le déploiement de
+parachutes. Elles sont commandées par les séquenceurs embarqués, qui déclenchent l’ouverture à la détection de l’apogée de chaque
+étage via des capteurs barométriques et fenêtrée temporellement. Les séquenceurs des deux étages sont les mêmes modèles, mais
+configurés différemment selon les besoins spécifiques de chaque étage.\\
+
+Le système de mesure embarqué est également conçu en double exemplaire, un pour chaque étage. Le système, nommé \gls{APEX}, a
+déjà été développer et a volé avec succès 3 fois lors de la campagne de lancements du \gls{C'Space} 2024.
+
+\newpage
+
+\subsubsection{Premier étage}
+
+Le premier étage de la fusée SP-02 est conçu pour fournir la poussée initiale nécessaire au lancement et à l’ascension jusqu’à la
+séparation. Il intègre le système d’aérofreinage destiné à ralentir l’étage supérieur au moment de la séparation et le système de
+séparation des deux étages.\\
+
+Voici les principales caractéristiques techniques du premier étage :
+\begin{itemize}
+    \item Hauteur : 1120 mm
+    \item Diamètre interne : 100 mm
+    \item Epaisseur de paroi : 2 mm
+    \item Masse à vide : 4431 g
+    \item Propulseur : Cesaroni K570 - Pro54-5G Barasinga
+\end{itemize}
+\vspace{-2cm}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/alpha.png}
+    \vspace{-2cm}
+    \caption{Vue du premier étage sur Openrocket}
+    \label{fig:sp02_s1_ork}
+\end{figure}
+
+\subsubsection{Deuxième étage}
+
+Le deuxième étage de la fusée SP-02 est conçu pour assurer la sécurité de l'allumage du moteur après la séparation et pour
+fournir la poussée nécessaire à l'atteinte d'une altitude supérieure à celle du premier étage. Il est également équipé d'un tube
+pitot.\\
+
+Voici les principales caractéristiques techniques du deuxième étage :
+\begin{itemize}
+    \item Hauteur : 992 mm
+    \item Diamètre interne : 80 mm
+    \item Epaisseur de paroi : 2 mm
+    \item Masse à vide : 2895 g
+    \item Propulseur : Cesaroni G150 - Pro24-6G Pandora
+\end{itemize}
+\vspace{-1.7cm}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/beta.png}
+    \vspace{-1.8cm}
+    \caption{Vue du second étage sur Openrocket}
+    \label{fig:sp02_s2_ork}
+\end{figure}
+
+\subsubsection{Ensemble de la fusée}
+
+L’ensemble de la fusée SP-02, une fois les deux étages assemblés, présente les caractéristiques suivantes :
+\begin{itemize}
+    \item Hauteur totale : 2050 mm
+    \item Diamètre externe : 104 mm
+    \item Masse à vide : 7327 g
+\end{itemize}
+\vspace{-0.8cm}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figures/sp02_ork.png}
+    \caption{Vue d'ensemble de la fusée SP-02 sur Openrocket}
+    \label{fig:sp02_ork}
+\end{figure}

@@ -4,7 +4,7 @@
 \usepackage[a4paper, total={6.5in, 10in}, margin=2.5cm]{geometry}
 \usepackage{tgpagella}
 \usepackage[T1]{fontenc}
-\usepackage[english]{babel}
+\usepackage[french]{babel}
 \usepackage{hyphenat}
 \usepackage{fancybox}
 \usepackage{fancyhdr}
@@ -190,7 +190,8 @@
     \begin{center}
     \begin{tabular}{>{\raggedright\arraybackslash}m{0.5\textwidth}
         >{\raggedleft\arraybackslash}m{0.5\textwidth}}
-        & \vspace{-2cm}\includegraphics[width=0.3\textwidth]{figures/AEROIPSA.png}
+        \vspace{-1.8cm}\includegraphics[width=0.3\textwidth]{figures/Logos_SP-02.png}
+        & \vspace{-1.8cm}\includegraphics[width=0.3\textwidth]{figures/AEROIPSA.png}
     \end{tabular}
     \begin{tabular}{m{0.6\textwidth}>{\raggedleft\arraybackslash}m{0.4\textwidth}}
         & AéroIPSA \\
@@ -205,12 +206,15 @@
         \vspace{2mm}
         {\rule{\larg}{1mm}}\\
     \end{flushright}
-
+    \vspace{-2cm}
     \begin{figure}[h]
         \centering
-        \caption{Image to be placed on the title page}
+        \rotatebox{115}{
+            \includegraphics[width=1\textwidth]{figures/sp02_ork_simu.png}
+        }
+        % \caption{Image to be placed on the title page}
     \end{figure}
-    \vfill
+    \vspace{-2.5cm}
     \begin{tabular}{>{\raggedright\arraybackslash}m{0.5\textwidth}
         >{\raggedleft\arraybackslash}m{0.5\textwidth}}
         Responsable de projet :      & \\

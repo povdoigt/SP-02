@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  10 NOV 2025 12:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  10 NOV 2025 20:47
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -103,19 +103,35 @@ LaTeX Encoding Info:    Ignoring declaration for text command \SS (encoding ?) o
 *
 (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
 File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
-) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/babel-english\english.ldf
-Language: english 2017/06/06 v3.3r English support from the babel system
- (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/en\babel-english.tex
-Package babel Info: Importing font and identification data for english
-(babel)             from babel-en.ini. Reported on input line 12.
-)
-Package babel Info: Hyphen rules for 'canadian' set to \l@english
-(babel)             (\language0). Reported on input line 102.
-Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
-(babel)             (\language73). Reported on input line 105.
-Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
-(babel)             (\language73). Reported on input line 108.
-)) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/hyphenat\hyphenat.sty
+) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/babel-french\french.ldf
+Language: french 2025-08-15 v4.0e French support from the babel system
+ (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/babel/locale/fr\babel-french.tex
+Package babel Info: Importing font and identification data for french
+(babel)             from babel-fr.ini. Reported on input line 12.
+) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/babel-french\french3.ldf
+Language: french 2025-08-15 v3.7e French support from the babel system
+\FB@stdchar=\count288
+Package babel Info: Making : an active character on input line 273.
+Package babel Info: Making ; an active character on input line 274.
+Package babel Info: Making ! an active character on input line 275.
+Package babel Info: Making ? an active character on input line 276.
+\FBguill@level=\count289
+\FBold@everypar=\toks19
+\FB@Mht=\dimen160
+\mc@charclass=\count290
+\mc@charfam=\count291
+\mc@charslot=\count292
+\std@mcc=\count293
+\dec@mcc=\count294
+\FB@pardim=\dimen161
+\listindentFB=\dimen162
+\descindentFB=\dimen163
+\labelindentFB=\dimen164
+\labelwidthFB=\dimen165
+\leftmarginFB=\dimen166
+\parindentFFN=\dimen167
+\FBfnindent=\dimen168
+))) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/carlisle\scalefnt.sty) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/hyphenat\hyphenat.sty
 Package: hyphenat 2009/09/02 v2.3c hyphenation utilities
 \langwohyphens=\language80
 LaTeX Info: Redefining \_ on input line 43.
@@ -124,12 +140,12 @@ Package: fancybox 2010/05/15 1.4
 
 Style option: `fancybox' v1.4 <2010/05/15> (tvz)
 \@fancybox=\box53
-\shadowsize=\dimen160
+\shadowsize=\dimen169
 \@Sbox=\box54
-\do@VerbBox=\toks19
-\the@fancyput=\toks20
-\this@fancyput=\toks21
-\EndVerbatimTokens=\toks22
+\do@VerbBox=\toks20
+\the@fancyput=\toks21
+\this@fancyput=\toks22
+\EndVerbatimTokens=\toks23
 \Verbatim@Outfile=\write3
 \Verbatim@Infile=\read3
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
@@ -148,7 +164,7 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthL=\skip62
 \f@nch@widthC=\skip63
 \f@nch@widthR=\skip64
-\@temptokenb=\toks23
+\@temptokenb=\toks24
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\pifont.sty
 Package: pifont 2020/03/25 PSNFSS-v9.3 Pi font support (SPQR) 
 LaTeX Font Info:    Trying to load font information for U+pzd on input line 63.
@@ -159,9 +175,9 @@ LaTeX Font Info:    Trying to load font information for U+psy on input line 64.
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\upsy.fd
 File: upsy.fd 2001/06/04 font definitions for U/psy.
 )) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz.sty (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfrcs.sty (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil-common.tex
-\pgfutil@everybye=\toks24
-\pgfutil@tempdima=\dimen161
-\pgfutil@tempdimb=\dimen162
+\pgfutil@everybye=\toks25
+\pgfutil@tempdima=\dimen170
+\pgfutil@tempdimb=\dimen171
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil-latex.def
 \pgfutil@abb=\box55
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfrcs.code.tex (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf\pgf.revision.tex)
@@ -171,31 +187,31 @@ Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.sty (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.sty (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsys.code.tex
 Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks25
-\pgfkeys@temptoks=\toks26
+\pgfkeys@pathtoks=\toks26
+\pgfkeys@temptoks=\toks27
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeyslibraryfiltered.code.tex
-\pgfkeys@tmptoks=\toks27
+\pgfkeys@tmptoks=\toks28
 ))
-\pgf@x=\dimen163
-\pgf@y=\dimen164
-\pgf@xa=\dimen165
-\pgf@ya=\dimen166
-\pgf@xb=\dimen167
-\pgf@yb=\dimen168
-\pgf@xc=\dimen169
-\pgf@yc=\dimen170
-\pgf@xd=\dimen171
-\pgf@yd=\dimen172
+\pgf@x=\dimen172
+\pgf@y=\dimen173
+\pgf@xa=\dimen174
+\pgf@ya=\dimen175
+\pgf@xb=\dimen176
+\pgf@yb=\dimen177
+\pgf@xc=\dimen178
+\pgf@yc=\dimen179
+\pgf@xd=\dimen180
+\pgf@yd=\dimen181
 \w@pgf@writea=\write4
 \r@pgf@reada=\read4
-\c@pgf@counta=\count288
-\c@pgf@countb=\count289
-\c@pgf@countc=\count290
-\c@pgf@countd=\count291
-\t@pgf@toka=\toks28
-\t@pgf@tokb=\toks29
-\t@pgf@tokc=\toks30
-\pgf@sys@id@count=\count292
+\c@pgf@counta=\count295
+\c@pgf@countb=\count296
+\c@pgf@countc=\count297
+\c@pgf@countd=\count298
+\t@pgf@toka=\toks29
+\t@pgf@tokb=\toks30
+\t@pgf@tokc=\toks31
+\pgf@sys@id@count=\count299
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.cfg
 File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
 )
@@ -206,8 +222,8 @@ File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
 File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
 ))) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsyssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfsyssoftpath@smallbuffer@items=\count293
-\pgfsyssoftpath@bigbuffer@items=\count294
+\pgfsyssoftpath@smallbuffer@items=\count300
+\pgfsyssoftpath@bigbuffer@items=\count301
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsysprotocol.code.tex
 File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
@@ -229,52 +245,52 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore.code.tex
 Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathutil.code.tex) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathparser.code.tex
-\pgfmath@dimen=\dimen173
-\pgfmath@count=\count295
+\pgfmath@dimen=\dimen182
+\pgfmath@count=\count302
 \pgfmath@box=\box56
-\pgfmath@toks=\toks31
-\pgfmath@stack@operand=\toks32
-\pgfmath@stack@operation=\toks33
+\pgfmath@toks=\toks32
+\pgfmath@stack@operand=\toks33
+\pgfmath@stack@operation=\toks34
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.code.tex) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.basic.code.tex) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.trigonometric.code.tex) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.random.code.tex) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.comparison.code.tex) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.base.code.tex) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.round.code.tex) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.misc.code.tex) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.integerarithmetics.code.tex) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathcalc.code.tex) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count296
+\c@pgfmathroundto@lastzeros=\count303
 )) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.tex) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@picminx=\dimen174
-\pgf@picmaxx=\dimen175
-\pgf@picminy=\dimen176
-\pgf@picmaxy=\dimen177
-\pgf@pathminx=\dimen178
-\pgf@pathmaxx=\dimen179
-\pgf@pathminy=\dimen180
-\pgf@pathmaxy=\dimen181
-\pgf@xx=\dimen182
-\pgf@xy=\dimen183
-\pgf@yx=\dimen184
-\pgf@yy=\dimen185
-\pgf@zx=\dimen186
-\pgf@zy=\dimen187
+\pgf@picminx=\dimen183
+\pgf@picmaxx=\dimen184
+\pgf@picminy=\dimen185
+\pgf@picmaxy=\dimen186
+\pgf@pathminx=\dimen187
+\pgf@pathmaxx=\dimen188
+\pgf@pathminy=\dimen189
+\pgf@pathmaxy=\dimen190
+\pgf@xx=\dimen191
+\pgf@xy=\dimen192
+\pgf@yx=\dimen193
+\pgf@yy=\dimen194
+\pgf@zx=\dimen195
+\pgf@zy=\dimen196
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@path@lastx=\dimen188
-\pgf@path@lasty=\dimen189
+\pgf@path@lastx=\dimen197
+\pgf@path@lasty=\dimen198
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathusage.code.tex
 File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@shorten@end@additional=\dimen190
-\pgf@shorten@start@additional=\dimen191
+\pgf@shorten@end@additional=\dimen199
+\pgf@shorten@start@additional=\dimen256
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 \pgfpic=\box57
 \pgf@hbox=\box58
 \pgf@layerbox@main=\box59
-\pgf@picture@serial@count=\count297
+\pgf@picture@serial@count=\count304
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgflinewidth=\dimen192
+\pgflinewidth=\dimen257
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransformations.code.tex
 File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@pt@x=\dimen193
-\pgf@pt@y=\dimen194
-\pgf@pt@temp=\dimen195
+\pgf@pt@x=\dimen258
+\pgf@pt@y=\dimen259
+\pgf@pt@temp=\dimen260
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreobjects.code.tex
@@ -283,12 +299,12 @@ File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorearrows.code.tex
 File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfarrowsep=\dimen196
+\pgfarrowsep=\dimen261
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@max=\dimen197
-\pgf@sys@shading@range@num=\count298
-\pgf@shadingcount=\count299
+\pgf@max=\dimen262
+\pgf@sys@shading@range@num=\count305
+\pgf@shadingcount=\count306
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreexternal.code.tex
@@ -309,46 +325,46 @@ File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-0-65.sty
 Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@nodesepstart=\dimen198
-\pgf@nodesepend=\dimen199
+\pgf@nodesepstart=\dimen263
+\pgf@nodesepend=\dimen264
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
 )) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgffor.sty (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfkeys.sty (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex)) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/pgf/math\pgfmath.sty (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex)) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.code.tex
 Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
-\pgffor@iter=\dimen256
-\pgffor@skip=\dimen257
-\pgffor@stack=\toks34
-\pgffor@toks=\toks35
+\pgffor@iter=\dimen265
+\pgffor@skip=\dimen266
+\pgffor@stack=\toks35
+\pgffor@toks=\toks36
 )) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz\tikz.code.tex
 Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgf@plot@mark@count=\count300
-\pgfplotmarksize=\dimen258
+\pgf@plot@mark@count=\count307
+\pgfplotmarksize=\dimen267
 )
-\tikz@lastx=\dimen259
-\tikz@lasty=\dimen260
-\tikz@lastxsaved=\dimen261
-\tikz@lastysaved=\dimen262
-\tikz@lastmovetox=\dimen263
-\tikz@lastmovetoy=\dimen264
-\tikzleveldistance=\dimen265
-\tikzsiblingdistance=\dimen266
+\tikz@lastx=\dimen268
+\tikz@lasty=\dimen269
+\tikz@lastxsaved=\dimen270
+\tikz@lastysaved=\dimen271
+\tikz@lastmovetox=\dimen272
+\tikz@lastmovetoy=\dimen273
+\tikzleveldistance=\dimen274
+\tikzsiblingdistance=\dimen275
 \tikz@figbox=\box62
 \tikz@figbox@bg=\box63
 \tikz@tempbox=\box64
 \tikz@tempbox@bg=\box65
-\tikztreelevel=\count301
-\tikznumberofchildren=\count302
-\tikznumberofcurrentchild=\count303
-\tikz@fig@count=\count304
+\tikztreelevel=\count308
+\tikznumberofchildren=\count309
+\tikznumberofcurrentchild=\count310
+\tikz@fig@count=\count311
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\pgfmatrixcurrentrow=\count305
-\pgfmatrixcurrentcolumn=\count306
-\pgf@matrix@numberofcolumns=\count307
+\pgfmatrixcurrentrow=\count312
+\pgfmatrixcurrentcolumn=\count313
+\pgf@matrix@numberofcolumns=\count314
 )
-\tikz@expandcount=\count308
+\tikz@expandcount=\count315
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 ))) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/tikz-3dplot\tikz-3dplot.sty (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
@@ -361,26 +377,26 @@ File: tikzlibrary3d.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 File: tikzlibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryarrows.code.tex
 File: pgflibraryarrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
-\arrowsize=\dimen267
+\arrowsize=\dimen276
 ))) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count309
+\lst@mode=\count316
 \lst@gtempboxa=\box66
-\lst@token=\toks36
-\lst@length=\count310
-\lst@currlwidth=\dimen268
-\lst@column=\count311
-\lst@pos=\count312
-\lst@lostspace=\dimen269
-\lst@width=\dimen270
-\lst@newlines=\count313
-\lst@lineno=\count314
-\lst@maxwidth=\dimen271
+\lst@token=\toks37
+\lst@length=\count317
+\lst@currlwidth=\dimen277
+\lst@column=\count318
+\lst@pos=\count319
+\lst@lostspace=\dimen278
+\lst@width=\dimen279
+\lst@newlines=\count320
+\lst@lineno=\count321
+\lst@maxwidth=\dimen280
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
 File: lstpatch.sty 2024/09/23 1.10c (Carsten Heinz)
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
-\c@lstnumber=\count315
-\lst@skipnumbers=\count316
+\c@lstnumber=\count322
+\lst@skipnumbers=\count323
 \lst@framebox=\box67
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2024/09/23 1.10c listings configuration
@@ -388,7 +404,7 @@ File: listings.cfg 2024/09/23 1.10c listings configuration
 Package: listings 2024/09/23 1.10c (Carsten Heinz)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count317
+\etb@tempcnta=\count324
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty
 Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
@@ -427,21 +443,21 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 Package: colortbl 2024/10/29 v1.0k Color table columns (DPC)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/06/08 v2.6j Tabular extension package (FMi)
-\col@sep=\dimen272
+\col@sep=\dimen281
 \ar@mcellbox=\box68
-\extrarowheight=\dimen273
-\NC@list=\toks37
+\extrarowheight=\dimen282
+\NC@list=\toks38
 \extratabsurround=\skip65
 \backup@length=\skip66
 \ar@cellbox=\box69
 )
-\everycr=\toks38
+\everycr=\toks39
 \minrowclearance=\skip67
-\rownum=\count318
+\rownum=\count325
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
-\inpenc@prehook=\toks39
-\inpenc@posthook=\toks40
+\inpenc@prehook=\toks40
+\inpenc@posthook=\toks41
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.geometric.code.tex
 File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.geometric.code.tex
@@ -451,89 +467,90 @@ File: tikzlibraryshapes.symbols.code.tex 2025-08-29 v3.1.11a (3.1.11a)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.symbols.code.tex
 File: pgflibraryshapes.symbols.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarydecorations.pathreplacing.code.tex (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarydecorations.code.tex (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmoduledecorations.code.tex
-\pgfdecoratedcompleteddistance=\dimen274
-\pgfdecoratedremainingdistance=\dimen275
-\pgfdecoratedinputsegmentcompleteddistance=\dimen276
-\pgfdecoratedinputsegmentremainingdistance=\dimen277
-\pgf@decorate@distancetomove=\dimen278
-\pgf@decorate@repeatstate=\count319
-\pgfdecorationsegmentamplitude=\dimen279
-\pgfdecorationsegmentlength=\dimen280
+\pgfdecoratedcompleteddistance=\dimen283
+\pgfdecoratedremainingdistance=\dimen284
+\pgfdecoratedinputsegmentcompleteddistance=\dimen285
+\pgfdecoratedinputsegmentremainingdistance=\dimen286
+\pgf@decorate@distancetomove=\dimen287
+\pgf@decorate@repeatstate=\count326
+\pgfdecorationsegmentamplitude=\dimen288
+\pgfdecorationsegmentlength=\dimen289
 )
 \tikz@lib@dec@box=\box70
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorations\pgflibrarydecorations.pathreplacing.code.tex)) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen281
-\captionmargin=\dimen282
-\caption@leftmargin=\dimen283
-\caption@rightmargin=\dimen284
-\caption@width=\dimen285
-\caption@indent=\dimen286
-\caption@parindent=\dimen287
-\caption@hangindent=\dimen288
+\caption@tempdima=\dimen290
+\captionmargin=\dimen291
+\caption@leftmargin=\dimen292
+\caption@rightmargin=\dimen293
+\caption@width=\dimen294
+\caption@indent=\dimen295
+\caption@parindent=\dimen296
+\caption@hangindent=\dimen297
 Package caption Info: Standard document class detected.
+Package caption Info: french babel package is loaded.
 )
-\c@caption@flags=\count320
-\c@continuedfloat=\count321
+\c@caption@flags=\count327
+\c@continuedfloat=\count328
 Package caption Info: listings package is loaded.
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
 Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
 Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count322
+\c@subfigure=\count329
 Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count323
+\c@subtable=\count330
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/cprotect\cprotect.sty
 Package: cprotect 2011/01/27 v1.0e (Bruno Le Floch)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/bigfoot\suffix.sty
 Package: suffix 2006/07/15 1.5a Variant command support
 )
 \CPT@WriteOut=\write5
-\c@CPT@WriteCount=\count324
-\c@CPT@numB=\count325
-\CPT@commandatend@toks=\toks41
+\c@CPT@WriteCount=\count331
+\c@CPT@numB=\count332
+\CPT@commandatend@toks=\toks42
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
-\TX@col@width=\dimen289
-\TX@old@table=\dimen290
-\TX@old@col=\dimen291
-\TX@target=\dimen292
-\TX@delta=\dimen293
-\TX@cols=\count326
-\TX@ftn=\toks42
+\TX@col@width=\dimen298
+\TX@old@table=\dimen299
+\TX@old@col=\dimen300
+\TX@target=\dimen301
+\TX@delta=\dimen302
+\TX@cols=\count333
+\TX@ftn=\toks43
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/pdfpages\pdfpages.sty
 Package: pdfpages 2025/07/23 v0.6g Insert pages of external PDF documents (AM)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty
 Package: calc 2025/03/01 v4.3b Infix arithmetic (KKT,FJ)
-\calc@Acount=\count327
-\calc@Bcount=\count328
-\calc@Adimen=\dimen294
-\calc@Bdimen=\dimen295
+\calc@Acount=\count334
+\calc@Bcount=\count335
+\calc@Adimen=\dimen303
+\calc@Bdimen=\dimen304
 \calc@Askip=\skip68
 \calc@Bskip=\skip69
 LaTeX Info: Redefining \setlength on input line 86.
 LaTeX Info: Redefining \addtolength on input line 87.
-\calc@Ccount=\count329
+\calc@Ccount=\count336
 \calc@Cskip=\skip70
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/eso-pic\eso-pic.sty
 Package: eso-pic 2023/05/03 v3.0c eso-pic (RN)
-\ESO@tempdima=\dimen296
-\ESO@tempdimb=\dimen297
+\ESO@tempdima=\dimen305
+\ESO@tempdimb=\dimen306
 )
-\AM@pagewidth=\dimen298
-\AM@pageheight=\dimen299
-\AM@fboxrule=\dimen300
+\AM@pagewidth=\dimen307
+\AM@pageheight=\dimen308
+\AM@fboxrule=\dimen309
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/pdfpages\pppdftex.def
 File: pppdftex.def 2025/07/23 v0.6g Pdfpages driver for pdfTeX (AM)
 )
-\pdfpages@includegraphics@status=\count330
+\pdfpages@includegraphics@status=\count337
 \AM@pagebox=\box71
-\AM@global@opts=\toks43
-\AM@pagecnt=\count331
-\AM@toc@title=\toks44
-\AM@lof@heading=\toks45
-\c@AM@survey=\count332
+\AM@global@opts=\toks44
+\AM@pagecnt=\count338
+\AM@toc@title=\toks45
+\AM@lof@heading=\toks46
+\c@AM@survey=\count339
 \AM@templatesizebox=\box72
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lastpage\lastpage.sty
 Package: lastpage 2025/08/14 v2.1h lastpage: 2.09 or 2e? (HMM)
@@ -541,19 +558,19 @@ Package: lastpage 2025/08/14 v2.1h lastpage: 2.09 or 2e? (HMM)
 Package: lastpage2e 2025/08/14 v2.1h Decide which 2e lastpage version to use (HMM)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lastpage\lastpagemodern.sty
 Package: lastpagemodern 2025-08-14 v2.1h Refers to last page's name (HMM; JPG)
-\c@lastpagecount=\count333
+\c@lastpagecount=\count340
 ) 
 )) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \ttl@box=\box73
 \beforetitleunit=\skip71
 \aftertitleunit=\skip72
-\ttl@plus=\dimen301
-\ttl@minus=\dimen302
-\ttl@toksa=\toks46
-\titlewidth=\dimen303
-\titlewidthlast=\dimen304
-\titlewidthfirst=\dimen305
+\ttl@plus=\dimen310
+\ttl@minus=\dimen311
+\ttl@toksa=\toks47
+\titlewidth=\dimen312
+\titlewidthlast=\dimen313
+\titlewidthfirst=\dimen314
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
@@ -577,13 +594,13 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count334
+\c@section@level=\count341
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
-\@linkdim=\dimen306
-\Hy@linkcounter=\count335
-\Hy@pagecounter=\count336
+\@linkdim=\dimen315
+\Hy@linkcounter=\count342
+\Hy@pagecounter=\count343
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -591,7 +608,7 @@ Now handling font encoding PD1 ...
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count337
+\Hy@SavedSpaceFactor=\count344
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -605,21 +622,21 @@ Package hyperref Info: Plain pages OFF on input line 4210.
 Package hyperref Info: Backreferencing OFF on input line 4215.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4462.
-\c@Hy@tempcnt=\count338
+\c@Hy@tempcnt=\count345
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4801.
-\XeTeXLinkMargin=\dimen307
+\XeTeXLinkMargin=\dimen316
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
-\Fld@menulength=\count339
-\Field@Width=\dimen308
-\Fld@charsize=\dimen309
+\Fld@menulength=\count346
+\Field@Width=\dimen317
+\Fld@charsize=\dimen318
 Package hyperref Info: Hyper figures OFF on input line 6078.
 Package hyperref Info: Link nesting OFF on input line 6083.
 Package hyperref Info: Hyper index ON on input line 6086.
@@ -627,15 +644,15 @@ Package hyperref Info: backreferencing OFF on input line 6093.
 Package hyperref Info: Link coloring ON on input line 6096.
 Package hyperref Info: Link coloring with OCG OFF on input line 6103.
 Package hyperref Info: PDF/A mode OFF on input line 6108.
-\Hy@abspage=\count340
-\c@Item=\count341
-\c@Hfootnote=\count342
+\Hy@abspage=\count347
+\c@Item=\count348
+\c@Hfootnote=\count349
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
-\Fld@listcount=\count343
-\c@bookmark@seq@number=\count344
+\Fld@listcount=\count350
+\c@bookmark@seq@number=\count351
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
 Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
@@ -647,41 +664,41 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/dirtree\dirtree.sty
 Package: dirtree 2012/12/11 v0.32 package wrapper for dirtree
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/dirtree\dirtree.tex `dirtree' v0.32, 2012/12/11 (jcc)
-\DT@offset=\dimen310
-\DT@width=\dimen311
-\DT@sep=\dimen312
-\DT@all=\dimen313
-\DT@rulewidth=\dimen314
-\DT@dotwidth=\dimen315
-\DTbaselineskip=\dimen316
-\DT@counti=\count345
-\DT@countii=\count346
-\DT@countiii=\count347
-\DT@countiv=\count348
-\DT@indent=\dimen317
-\DT@parskip=\dimen318
-\DT@baselineskip=\dimen319
+\DT@offset=\dimen319
+\DT@width=\dimen320
+\DT@sep=\dimen321
+\DT@all=\dimen322
+\DT@rulewidth=\dimen323
+\DT@dotwidth=\dimen324
+\DTbaselineskip=\dimen325
+\DT@counti=\count352
+\DT@countii=\count353
+\DT@countiii=\count354
+\DT@countiv=\count355
+\DT@indent=\dimen326
+\DT@parskip=\dimen327
+\DT@baselineskip=\dimen328
 )
 File: dirtree.tex 2012/12/11 v0.32 `dirtree' (jcc)
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/wrapfig\wrapfig.sty
-\wrapoverhang=\dimen320
-\WF@size=\dimen321
-\c@WF@wrappedlines=\count349
+\wrapoverhang=\dimen329
+\WF@size=\dimen330
+\c@WF@wrappedlines=\count356
 \WF@box=\box74
-\WF@everypar=\toks47
+\WF@everypar=\toks48
 Package: wrapfig 2003/01/31  v 3.6
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lipsum\lipsum.sty (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/l3keys2e\l3keys2e.sty (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
 Package: expl3 2025-09-02 L3 programming layer (loader) 
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count350
+\l__color_backend_stack_int=\count357
 ))
 Package: l3keys2e 2024-08-16 LaTeX2e option processing using LaTeX3 keys
 )
 Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
-\g__lipsum_par_int=\count351
-\l__lipsum_a_int=\count352
-\l__lipsum_b_int=\count353
+\g__lipsum_par_int=\count358
+\l__lipsum_a_int=\count359
+\l__lipsum_b_int=\count360
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lipsum\lipsum.ltd.tex)) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/cancel\cancel.sty
 Package: cancel 2013/04/12 v2.2 Cancel math terms
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/chngcntr\chngcntr.sty
@@ -697,22 +714,22 @@ For additional information on amsmath, use the `?' option.
 Package: amstext 2024/11/17 v2.01 AMS text
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks48
-\ex@=\dimen322
+\@emptytoks=\toks49
+\ex@=\dimen331
 )) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen323
+\pmbraise@=\dimen332
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count354
+\inf@bad=\count361
 LaTeX Info: Redefining \frac on input line 233.
-\uproot@=\count355
-\leftroot@=\count356
+\uproot@=\count362
+\leftroot@=\count363
 LaTeX Info: Redefining \overline on input line 398.
 LaTeX Info: Redefining \colon on input line 409.
-\classnum@=\count357
-\DOTSCASE@=\count358
+\classnum@=\count364
+\DOTSCASE@=\count365
 LaTeX Info: Redefining \ldots on input line 495.
 LaTeX Info: Redefining \dots on input line 498.
 LaTeX Info: Redefining \cdots on input line 619.
@@ -722,42 +739,42 @@ LaTeX Info: Redefining \big on input line 721.
 LaTeX Info: Redefining \Big on input line 722.
 LaTeX Info: Redefining \bigg on input line 723.
 LaTeX Info: Redefining \Bigg on input line 724.
-\big@size=\dimen324
+\big@size=\dimen333
 LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
-\macc@depth=\count359
+\macc@depth=\count366
 LaTeX Info: Redefining \bmod on input line 904.
 LaTeX Info: Redefining \pmod on input line 909.
 LaTeX Info: Redefining \smash on input line 939.
 LaTeX Info: Redefining \relbar on input line 969.
 LaTeX Info: Redefining \Relbar on input line 970.
-\c@MaxMatrixCols=\count360
+\c@MaxMatrixCols=\count367
 \dotsspace@=\muskip18
-\c@parentequation=\count361
-\dspbrk@lvl=\count362
-\tag@help=\toks49
-\row@=\count363
-\column@=\count364
-\maxfields@=\count365
-\andhelp@=\toks50
-\eqnshift@=\dimen325
-\alignsep@=\dimen326
-\tagshift@=\dimen327
-\tagwidth@=\dimen328
-\totwidth@=\dimen329
-\lineht@=\dimen330
-\@envbody=\toks51
+\c@parentequation=\count368
+\dspbrk@lvl=\count369
+\tag@help=\toks50
+\row@=\count370
+\column@=\count371
+\maxfields@=\count372
+\andhelp@=\toks51
+\eqnshift@=\dimen334
+\alignsep@=\dimen335
+\tagshift@=\dimen336
+\tagwidth@=\dimen337
+\totwidth@=\dimen338
+\lineht@=\dimen339
+\@envbody=\toks52
 \multlinegap=\skip75
 \multlinetaggap=\skip76
-\mathdisplay@stack=\toks52
+\mathdisplay@stack=\toks53
 LaTeX Info: Redefining \[ on input line 2949.
 LaTeX Info: Redefining \] on input line 2950.
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcolorbox.sty
 Package: tcolorbox 2025/09/09 version 6.8.0 text color boxes
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/tools\verbatim.sty
 Package: verbatim 2024-01-22 v1.5x LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks53
-\verbatim@line=\toks54
+\every@verbatim=\toks54
+\verbatim@line=\toks55
 \verbatim@in@stream=\read5
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/environ\environ.sty
 Package: environ 2014/05/04 v0.3 A new way to define environments
@@ -768,11 +785,11 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \tcb@upperbox=\box78
 \tcb@lowerbox=\box79
 \tcb@phantombox=\box80
-\c@tcbbreakpart=\count366
-\c@tcblayer=\count367
-\c@tcolorbox@number=\count368
+\c@tcbbreakpart=\count373
+\c@tcblayer=\count374
+\c@tcolorbox@number=\count375
 \l__tcobox_tmpa_box=\box81
-\l__tcobox_tmpa_dim=\dimen331
+\l__tcobox_tmpa_dim=\dimen340
 \tcb@temp=\box82
 \tcb@temp=\box83
 \tcb@temp=\box84
@@ -780,89 +797,89 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/acronym\acronym.sty
 Package: acronym 2025/01/17 v1.50 Support for acronyms (Tobias Oetiker)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/xstring\xstring.sty (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/xstring\xstring.tex
-\xs_counta=\count369
-\xs_countb=\count370
+\xs_counta=\count376
+\xs_countb=\count377
 )
 Package: xstring 2023/08/22 v1.86 String manipulations (CT)
 )
-\AC@clearlist=\toks55
+\AC@clearlist=\toks56
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/base\glossaries.sty
 Package: glossaries 2025/08/11 v4.8 (NLCT)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
 Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkeyval.tex (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.tex
-\XKV@toks=\toks56
-\XKV@tempa@toks=\toks57
+\XKV@toks=\toks57
+\XKV@tempa@toks=\toks58
 )
-\XKV@depth=\count371
+\XKV@depth=\count378
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 )) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/mfirstuc\mfirstuc.sty
 Package: mfirstuc 2025/04/03 v2.09 (NLCT)
-\@glsmfirst=\toks58
-\@glsmrest=\toks59
+\@glsmfirst=\toks59
+\@glsmrest=\toks60
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/xfor\xfor.sty
 Package: xfor 2009/02/05 v1.05 (NLCT)
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/tracklang\tracklang.sty
 Package: tracklang 2025/03/11 v1.6.6 (NLCT) Track Languages
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/generic/tracklang\tracklang.tex)
-Package tracklang Info: Tracking dialect `english' (language `english') on input line 264.
-Package tracklang Info: Tracking dialect `english' (language `english') on input line 264.
+Package tracklang Info: Tracking dialect `french' (language `french') on input line 264.
+Package tracklang Info: Tracking dialect `french' (language `french') on input line 264.
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/translator\translator.sty
 Package: translator 2021-05-31 v1.12d Easy translation of strings in LaTeX
-) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/glossaries-english\glossaries-english.ldf
-File: glossaries-english.ldf 2014/11/23 v1.0
+) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/glossaries-french\glossaries-french.ldf
+File: glossaries-french.ldf 2016/12/12 v1.1
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/datatool\datatool-base.sty
 Package: datatool-base 2025/04/25 v3.4.1 (NLCT)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/datatool\datatool-l3fp.def
 File: datatool-l3fp.def 2025/04/25 v3.4.1 (NLCT)
 )
-\@dtl@toks=\toks60
-\@dtl@tmpcount=\count372
+\@dtl@toks=\toks61
+\@dtl@tmpcount=\count379
 \dtl@tmplength=\skip77
 \l__datatool_measure_box=\box86
-\dtl@sortresult=\count373
+\dtl@sortresult=\count380
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/datatool\datatool-utf8.ldf
 File: datatool-utf8.ldf 2025/04/25 v3.4.1 (NLCT)
 )
-\@dtl@datatype=\count374
-\l__datatool_tmpa_int=\count375
-\l__datatool_tmpb_int=\count376
-\l__datatool_tmpc_int=\count377
-\l__datatool_tmpd_int=\count378
-\l__datatool_count_int=\count379
-\l__datatool_tmp_datatype_int=\count380
-\l__datatool_tmpa_dim=\dimen332
-\l__datatool_tmpb_dim=\dimen333
-\c_datatool_unknown_int=\count381
-\l__datatool_year_int=\count382
-\l__datatool_month_int=\count383
-\l__datatool_day_int=\count384
-\l__datatool_hour_int=\count385
-\l__datatool_minute_int=\count386
-\l__datatool_second_int=\count387
-\l__datatool_tzhour_int=\count388
-\l__datatool_tzminute_int=\count389
-\l__datatool_julian_int=\count390
-\l__datatool_local_julian_int=\count391
-\l__datatool_prefix_int=\count392
-\l__datatool_suffix_int=\count393
-\@dtl@foreach@level=\count394
+\@dtl@datatype=\count381
+\l__datatool_tmpa_int=\count382
+\l__datatool_tmpb_int=\count383
+\l__datatool_tmpc_int=\count384
+\l__datatool_tmpd_int=\count385
+\l__datatool_count_int=\count386
+\l__datatool_tmp_datatype_int=\count387
+\l__datatool_tmpa_dim=\dimen341
+\l__datatool_tmpb_dim=\dimen342
+\c_datatool_unknown_int=\count388
+\l__datatool_year_int=\count389
+\l__datatool_month_int=\count390
+\l__datatool_day_int=\count391
+\l__datatool_hour_int=\count392
+\l__datatool_minute_int=\count393
+\l__datatool_second_int=\count394
+\l__datatool_tzhour_int=\count395
+\l__datatool_tzminute_int=\count396
+\l__datatool_julian_int=\count397
+\l__datatool_local_julian_int=\count398
+\l__datatool_prefix_int=\count399
+\l__datatool_suffix_int=\count400
+\@dtl@foreach@level=\count401
 
 
-Package tracklang Warning: No `datatool' support for dialect `english'  on input line 9908.
+Package tracklang Warning: No `datatool' support for dialect `french'  on input line 9908.
 
-\dtl@codeA=\count395
-\dtl@codeB=\count396
+\dtl@codeA=\count402
+\dtl@codeB=\count403
 )
-\gls@level=\count397
-\@gls@tmpb=\toks61
+\gls@level=\count404
+\@gls@tmpb=\toks62
 \gls@tmplen=\skip78
-\l__glossaries_tmpa_dim=\dimen334
-\l__glossaries_tmpb_dim=\dimen335
-\glskeylisttok=\toks62
-\glslabeltok=\toks63
-\glsshorttok=\toks64
-\glslongtok=\toks65
+\l__glossaries_tmpa_dim=\dimen343
+\l__glossaries_tmpb_dim=\dimen344
+\glskeylisttok=\toks63
+\glslabeltok=\toks64
+\glsshorttok=\toks65
+\glslongtok=\toks66
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\glossary-hypernav.sty
 Package: glossary-hypernav 2025/08/11 v4.8 (NLCT)
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\glossary-list.sty
@@ -876,18 +893,18 @@ Package: longtable 2024-12-18 v4.23 Multi-page Table package (DPC)
 \LTright=\skip81
 \LTpre=\skip82
 \LTpost=\skip83
-\LTchunksize=\count398
-\LTcapwidth=\dimen336
+\LTchunksize=\count405
+\LTcapwidth=\dimen345
 \LT@head=\box87
 \LT@firsthead=\box88
 \LT@foot=\box89
 \LT@lastfoot=\box90
 \LT@gbox=\box91
-\LT@cols=\count399
-\LT@rows=\count400
-\c@LT@tables=\count401
-\c@LT@chunks=\count402
-\LT@p@ftn=\toks66
+\LT@cols=\count406
+\LT@rows=\count407
+\c@LT@tables=\count408
+\c@LT@chunks=\count409
+\LT@p@ftn=\toks67
 )
 \glsdescwidth=\skip84
 \glspagelistwidth=\skip85
@@ -895,81 +912,83 @@ Package: longtable 2024-12-18 v4.23 Multi-page Table package (DPC)
 Package: glossary-super 2025/08/11 v4.8 (NLCT)
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/supertabular\supertabular.sty
 Package: supertabular 2024/07/20 v4.2c the supertabular environment
-\c@tracingst=\count403
-\ST@wd=\dimen337
+\c@tracingst=\count410
+\ST@wd=\dimen346
 \ST@rightskip=\skip86
 \ST@leftskip=\skip87
 \ST@parfillskip=\skip88
-\ST@pageleft=\dimen338
-\ST@headht=\dimen339
-\ST@tailht=\dimen340
-\ST@pagesofar=\dimen341
-\ST@pboxht=\dimen342
-\ST@rowht=\dimen343
-\ST@prevht=\dimen344
-\ST@toadd=\dimen345
-\ST@dimen=\dimen346
+\ST@pageleft=\dimen347
+\ST@headht=\dimen348
+\ST@tailht=\dimen349
+\ST@pagesofar=\dimen350
+\ST@pboxht=\dimen351
+\ST@rowht=\dimen352
+\ST@prevht=\dimen353
+\ST@toadd=\dimen354
+\ST@dimen=\dimen355
 \ST@pbox=\box92
 )) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\glossary-tree.sty
 Package: glossary-tree 2025/08/11 v4.8 (NLCT)
-\l__glossaries_tree_max_known_level_int=\count404
-\l__glossaries_tree_offset_dim=\dimen347
-\l__glossaries_tree_namewidth_dim=\dimen348
-\l__glossaries_tree_symbolwidth_dim=\dimen349
-\l__glossaries_tree_prenamesym_width_dim=\dimen350
-\l__glossaries_tree_presubnamesym_width_dim=\dimen351
-\l__glossaries_tree_namewidth_padding_dim=\dimen352
-\l__glossaries_tree_symbolwidth_padding_dim=\dimen353
-\l__glossaries_tree_namesymbolwidth_dim=\dimen354
-\l__glossaries_tree_namesymbolwidth_padding_dim=\dimen355
-\l__glossaries_tree_level_int=\count405
+\l__glossaries_tree_max_known_level_int=\count411
+\l__glossaries_tree_offset_dim=\dimen356
+\l__glossaries_tree_namewidth_dim=\dimen357
+\l__glossaries_tree_symbolwidth_dim=\dimen358
+\l__glossaries_tree_prenamesym_width_dim=\dimen359
+\l__glossaries_tree_presubnamesym_width_dim=\dimen360
+\l__glossaries_tree_namewidth_padding_dim=\dimen361
+\l__glossaries_tree_symbolwidth_padding_dim=\dimen362
+\l__glossaries_tree_namesymbolwidth_dim=\dimen363
+\l__glossaries_tree_namesymbolwidth_padding_dim=\dimen364
+\l__glossaries_tree_level_int=\count412
 \glstreeindent=\skip89
 )) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/xparse\xparse.sty
 Package: xparse 2024-08-16 L3 Experimental document command parser
 )
 \larg=\skip90
  (glossary.tex)
-\c@subsubsubsection=\count406
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 232.
+\c@subsubsubsection=\count413
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 236.
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (DossierSuivi_SP02.aux
-\g__glossaries_gls_ref_acronym_int=\count407
-\g__glossaries_gls_ref_main_int=\count408
+Package babel Info: 'french' activates 'french' shorthands.
+(babel)             Reported on input line 15.
+\g__glossaries_gls_ref_acronym_int=\count414
+\g__glossaries_gls_ref_main_int=\count415
 )
 \openout1 = `DossierSuivi_SP02.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 232.
-LaTeX Font Info:    ... okay on input line 232.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 232.
-LaTeX Font Info:    ... okay on input line 232.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 232.
-LaTeX Font Info:    ... okay on input line 232.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 232.
-LaTeX Font Info:    ... okay on input line 232.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 232.
-LaTeX Font Info:    ... okay on input line 232.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 232.
-LaTeX Font Info:    ... okay on input line 232.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 232.
-LaTeX Font Info:    ... okay on input line 232.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 232.
-LaTeX Font Info:    ... okay on input line 232.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 232.
-LaTeX Font Info:    ... okay on input line 232.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 236.
+LaTeX Font Info:    ... okay on input line 236.
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count409
-\scratchdimen=\dimen356
+\scratchcounter=\count416
+\scratchdimen=\dimen365
 \scratchbox=\box93
-\nofMPsegments=\count410
-\nofMParguments=\count411
-\everyMPshowfont=\toks67
-\MPscratchCnt=\count412
-\MPscratchDim=\dimen357
-\MPnumerator=\count413
-\makeMPintoPDFobject=\count414
-\everyMPtoPDFconversion=\toks68
+\nofMPsegments=\count417
+\nofMParguments=\count418
+\everyMPshowfont=\toks68
+\MPscratchCnt=\count419
+\MPscratchDim=\dimen366
+\MPnumerator=\count420
+\makeMPintoPDFobject=\count421
+\everyMPtoPDFconversion=\toks69
 ) (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -1010,7 +1029,8 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@lstlisting=\count415
+LaTeX Info: Redefining \degres on input line 236.
+\c@lstlisting=\count422
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
@@ -1029,143 +1049,264 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
-Package hyperref Info: Link coloring ON on input line 232.
+Package hyperref Info: Link coloring ON on input line 236.
  (DossierSuivi_SP02.out) (DossierSuivi_SP02.out)
 \@outlinefile=\write6
 \openout6 = `DossierSuivi_SP02.out'.
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 255.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 259.
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 255.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 259.
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 255.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 259.
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 255.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 259.
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 255.
+(Font)              <10> on input line 259.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 255.
+(Font)              <7> on input line 259.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 255.
-<figures/AEROIPSA.png, id=96, 501.875pt x 355.3275pt>
+(Font)              <5> on input line 259.
+<figures/Logos_SP-02.png, id=108, 3764.0625pt x 3764.0625pt>
+File: figures/Logos_SP-02.png Graphic file (type png)
+<use figures/Logos_SP-02.png>
+Package pdftex.def Info: figures/Logos_SP-02.png  used on input line 259.
+(pdftex.def)             Requested size: 136.57462pt x 136.52274pt.
+<figures/AEROIPSA.png, id=110, 501.875pt x 355.3275pt>
 File: figures/AEROIPSA.png Graphic file (type png)
 <use figures/AEROIPSA.png>
-Package pdftex.def Info: figures/AEROIPSA.png  used on input line 255.
+Package pdftex.def Info: figures/AEROIPSA.png  used on input line 259.
 (pdftex.def)             Requested size: 136.57462pt x 96.69333pt.
 
-Overfull \hbox (24.0pt too wide) in paragraph at lines 255--255
+Overfull \hbox (24.0pt too wide) in paragraph at lines 259--259
  [] 
  []
 
 
-Overfull \hbox (23.99998pt too wide) in paragraph at lines 255--255
+Overfull \hbox (23.99998pt too wide) in paragraph at lines 259--259
  [] 
  []
 
+<figures/sp02_ork_simu.png, id=111, 505.89pt x 78.79437pt>
+File: figures/sp02_ork_simu.png Graphic file (type png)
+<use figures/sp02_ork_simu.png>
+Package pdftex.def Info: figures/sp02_ork_simu.png  used on input line 259.
+(pdftex.def)             Requested size: 455.24411pt x 70.90706pt.
 
-Overfull \hbox (39.0pt too wide) in paragraph at lines 255--255
-[][] 
+Overfull \hbox (24.0pt too wide) in paragraph at lines 259--259
+[] 
  []
 
 
 
-<figures/AEROIPSA_HEADER.png, id=98, 707.64375pt x 61.73062pt>
+<figures/AEROIPSA_HEADER.png, id=112, 707.64375pt x 61.73062pt>
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 256.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 260.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
-<figures/AEROIPSA_FOOTER.png, id=99, 193.47281pt x 61.73062pt>
+<figures/AEROIPSA_FOOTER.png, id=113, 193.47281pt x 61.73062pt>
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 256.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 260.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 [1
 
-{C:/Users/alexi/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc} <./figures/AEROIPSA_HEADER.png> <./figures/AEROIPSA_FOOTER.png> <./figures/AEROIPSA.png>] (DossierSuivi_SP02.toc)
+{C:/Users/alexi/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc} <./figures/AEROIPSA_HEADER.png> <./figures/AEROIPSA_FOOTER.png> <./figures/Logos_SP-02.png> <./figures/AEROIPSA.png> <./figures/sp02_ork_simu.png>] (DossierSuivi_SP02.toc)
 \tf@toc=\write7
 \openout7 = `DossierSuivi_SP02.toc'.
 
 
 
-File: figures/AEROIPSA_HEADER.png Graphic file (type png)
-<use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 262.
-(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
-File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
-<use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 262.
-(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[2] (sections/Introduction.tex
+Package babel Info: 'french' activates 'french' shorthands.
+(babel)             Reported on input line 266.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.80502pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.80502pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.80502pt}.
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 8.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 266.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 8.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 266.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[3]) (sections/ch1_generalites/main.tex (sections/ch1_generalites/subsec1_pres_club.tex) (sections/ch1_generalites/subsec2_pres_equipe.tex) (sections/ch1_generalites/subsec3_def_projet.tex) (sections/ch1_generalites/subsec4_retour_exp.tex) (sections/ch1_generalites/subsec5_financement_partenaires.tex) (sections/ch1_generalites/subsec6_planification.tex)) (sections/ch2_analyse_surete_fonc/main.tex (sections/ch2_analyse_surete_fonc/subsec1_analyse.tex) (sections/ch2_analyse_surete_fonc/subsec2_modes_defaillances.tex) (sections/ch2_analyse_surete_fonc/subsec3_AMDEC.tex) (sections/ch2_analyse_surete_fonc/subsec4_Bilan_action_corr.tex)) (sections/ch3_meca/main.tex) (sections/ch4_elec/main.tex (sections/ch4_elec/subsec1_sequenceurs.tex) (sections/ch4_elec/subsec2_ligne_mise_a_feu.tex) (sections/ch4_elec/subsec3_experience.tex)) (sections/ch5_tests_et_validations/main.tex (sections/ch5_tests_et_validations/subsec1_matrice_validation.tex) (sections/ch5_tests_et_validations/subsec2_registre_tests.tex))
+[2] (sections/Introduction.tex
+Underfull \hbox (badness 10000) in paragraph at lines 5--9
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--17
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--24
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--31
+
+ []
+
+
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 12.80502pt, for example:
+(fancyhdr)                \setlength{\headheight}{12.80502pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-0.80502pt}.
+
+File: figures/AEROIPSA_HEADER.png Graphic file (type png)
+<use figures/AEROIPSA_HEADER.png>
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 43.
+(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
+File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
+<use figures/AEROIPSA_FOOTER.png>
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 43.
+(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
+[3]) (sections/ch1_generalites/main.tex
+Underfull \hbox (badness 10000) in paragraph at lines 4--7
+
+ []
+
+(sections/ch1_generalites/subsec1_pres_club.tex
+Underfull \hbox (badness 10000) in paragraph at lines 4--10
+
+ []
+
+<figures/IMG_2012.png, id=176, 724.20563pt x 426.84468pt>
+File: figures/IMG_2012.png Graphic file (type png)
+<use figures/IMG_2012.png>
+Package pdftex.def Info: figures/IMG_2012.png  used on input line 20.
+(pdftex.def)             Requested size: 455.24411pt x 268.32088pt.
+) (sections/ch1_generalites/subsec2_pres_equipe.tex
+
+File: figures/AEROIPSA_HEADER.png Graphic file (type png)
+<use figures/AEROIPSA_HEADER.png>
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 13.
+(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
+File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
+<use figures/AEROIPSA_FOOTER.png>
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 13.
+(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
+[4 <./figures/IMG_2012.png>]) (sections/ch1_generalites/subsec3_def_projet.tex
+Underfull \hbox (badness 10000) in paragraph at lines 4--9
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--21
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--25
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--30
+
+ []
+
+
+
+File: figures/AEROIPSA_HEADER.png Graphic file (type png)
+<use figures/AEROIPSA_HEADER.png>
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 34.
+(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
+File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
+<use figures/AEROIPSA_FOOTER.png>
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 34.
+(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 38--41
+
+ []
+
+<figures/alpha.png, id=198, 3764.0625pt x 1332.47812pt>
+File: figures/alpha.png Graphic file (type png)
+<use figures/alpha.png>
+Package pdftex.def Info: figures/alpha.png  used on input line 53.
+(pdftex.def)             Requested size: 455.24411pt x 161.15105pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 61--64
+
+ []
+
+<figures/beta.png, id=199, 3764.0625pt x 1131.47719pt>
+File: figures/beta.png Graphic file (type png)
+<use figures/beta.png>
+Package pdftex.def Info: figures/beta.png  used on input line 76.
+(pdftex.def)             Requested size: 455.24411pt x 136.84183pt.
+<figures/sp02_ork.png, id=200, 3764.0625pt x 706.89093pt>
+File: figures/sp02_ork.png Graphic file (type png)
+<use figures/sp02_ork.png>
+Package pdftex.def Info: figures/sp02_ork.png  used on input line 93.
+(pdftex.def)             Requested size: 455.24411pt x 85.49199pt.
+) (sections/ch1_generalites/subsec4_retour_exp.tex) (sections/ch1_generalites/subsec5_financement_partenaires.tex) (sections/ch1_generalites/subsec6_planification.tex)) (sections/ch2_analyse_surete_fonc/main.tex (sections/ch2_analyse_surete_fonc/subsec1_analyse.tex) (sections/ch2_analyse_surete_fonc/subsec2_modes_defaillances.tex) (sections/ch2_analyse_surete_fonc/subsec3_AMDEC.tex) (sections/ch2_analyse_surete_fonc/subsec4_Bilan_action_corr.tex)) (sections/ch3_meca/main.tex) (sections/ch4_elec/main.tex (sections/ch4_elec/subsec1_sequenceurs.tex) (sections/ch4_elec/subsec2_ligne_mise_a_feu.tex) (sections/ch4_elec/subsec3_experience.tex)) (sections/ch5_tests_et_validations/main.tex (sections/ch5_tests_et_validations/subsec1_matrice_validation.tex) (sections/ch5_tests_et_validations/subsec2_registre_tests.tex))
 No file DossierSuivi_SP02.bbl.
 
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 274.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 278.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 274.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 278.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[4]
+[6 <./figures/alpha.png> <./figures/beta.png> <./figures/sp02_ork.png>]
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 274.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 278.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 274.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 278.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[5]
+[7]
 
 Package glossaries Info: Preparing to sort glossary `main' (total number of
-(glossaries)             referenced entries: 3)
+(glossaries)             referenced entries: 5)
 
 
-Overfull \hbox (3.03236pt too wide) in paragraph at lines 278--278
-[]\T1/lmr/m/n/10 Agence spa-tiale française, re-spon-s-able des pro-grammes spa-ti-aux civils
- []
-
-
-Overfull \hbox (12.50644pt too wide) in paragraph at lines 278--278
-[]\T1/lmr/m/n/10 Ecole d'ingénieurs aéro-nau-tiques et spa-ti-aux privée française..
+Overfull \hbox (4.673pt too wide) in paragraph at lines 282--282
+[]\T1/lmr/m/n/10 Ecole d'in-gé-nieurs aé-ro-nau-tiques et spa-tiaux pri-vée fran-
  []
 
 
 Package glossaries Info: Preparing to sort glossary `acronym' (total number of
-(glossaries)             referenced entries: 2)
+(glossaries)             referenced entries: 3)
 
 
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 281.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 285.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 281.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 285.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[6] 
+[8] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (DossierSuivi_SP02.aux)
  ***********
@@ -1173,20 +1314,20 @@ LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
 Package rerunfilecheck Info: File `DossierSuivi_SP02.out' has not changed.
-(rerunfilecheck)             Checksum: A24DE93A9E52A8797ECB39A1C09FD3A4;3870.
+(rerunfilecheck)             Checksum: 751E8D704CDDBE282614799F3553B847;4336.
  ) 
 Here is how much of TeX's memory you used:
- 39558 strings out of 468129
- 808518 string characters out of 5430612
- 1333768 words of memory out of 5000000
- 67432 multiletter control sequences out of 15000+600000
- 665499 words of font info for 61 fonts, out of 8000000 for 9000
+ 40463 strings out of 468129
+ 826608 string characters out of 5430612
+ 1349579 words of memory out of 5000000
+ 68317 multiletter control sequences out of 15000+600000
+ 668294 words of font info for 62 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 84i,13n,91p,2582b,645s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb>
-Output written on DossierSuivi_SP02.pdf (6 pages, 170651 bytes).
+ 84i,13n,91p,2582b,666s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb>
+Output written on DossierSuivi_SP02.pdf (8 pages, 5211462 bytes).
 PDF statistics:
- 206 PDF objects out of 1000 (max. 8388607)
- 35 named destinations out of 1000 (max. 500000)
- 212 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 283 PDF objects out of 1000 (max. 8388607)
+ 47 named destinations out of 1000 (max. 500000)
+ 266 words of extra memory for PDF output out of 10000 (max. 10000000)
 
