@@ -50,10 +50,10 @@ for angle in angles:
     ab_vit_max_values.append(vit_max)
     ab_acc_max_values.append(acc_max)
 
-    pos_z = ab_Calculs.range('K216').value
-    pos_x = ab_Calculs.range('J216').value
-    vit_xz = ab_Calculs.range('I216').value
-    ang_sepa = ab_Calculs.range('N216').value
+    pos_z = ab_Calculs.range('K410').value
+    pos_x = ab_Calculs.range('J410').value
+    vit_xz = ab_Calculs.range('I410').value
+    ang_sepa = ab_Calculs.range('N410').value
 
     ang_sepa_values.append(ang_sepa)
 
@@ -136,10 +136,10 @@ for i in range(2):
 
     ab_trajecto.range(TRAJECTO_RAMPE_ANGLE).value = angle
 
-    pos_z = ab_Calculs.range('K216').value
-    pos_x = ab_Calculs.range('J216').value
-    vit_xz = ab_Calculs.range('I216').value
-    ang_sepa = ab_Calculs.range('N216').value
+    pos_z = ab_Calculs.range('K410').value
+    pos_x = ab_Calculs.range('J410').value
+    vit_xz = ab_Calculs.range('I410').value
+    ang_sepa = ab_Calculs.range('N410').value
 
     a_trajecto.range('I42').value = pos_z
     a_trajecto.range('J42').value = pos_x
