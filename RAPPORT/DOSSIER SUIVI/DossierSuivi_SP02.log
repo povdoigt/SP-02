@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  4 NOV 2025 16:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  10 NOV 2025 12:59
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -934,8 +934,8 @@ LaTeX Font Info:    Trying to load font information for T1+lmr on input line 232
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (DossierSuivi_SP02.aux
-\g__glossaries_gls_ref_main_int=\count407
-\g__glossaries_gls_ref_acronym_int=\count408
+\g__glossaries_gls_ref_acronym_int=\count407
+\g__glossaries_gls_ref_main_int=\count408
 )
 \openout1 = `DossierSuivi_SP02.aux'.
 
@@ -1056,7 +1056,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 255.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 255.
-<figures/AEROIPSA.png, id=16, 501.875pt x 355.3275pt>
+<figures/AEROIPSA.png, id=96, 501.875pt x 355.3275pt>
 File: figures/AEROIPSA.png Graphic file (type png)
 <use figures/AEROIPSA.png>
 Package pdftex.def Info: figures/AEROIPSA.png  used on input line 255.
@@ -1078,12 +1078,12 @@ Overfull \hbox (39.0pt too wide) in paragraph at lines 255--255
 
 
 
-<figures/AEROIPSA_HEADER.png, id=18, 707.64375pt x 61.73062pt>
+<figures/AEROIPSA_HEADER.png, id=98, 707.64375pt x 61.73062pt>
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
 Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 256.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
-<figures/AEROIPSA_FOOTER.png, id=19, 193.47281pt x 61.73062pt>
+<figures/AEROIPSA_FOOTER.png, id=99, 193.47281pt x 61.73062pt>
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 256.
@@ -1108,44 +1108,64 @@ Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 262.
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 40.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 8.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 40.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 8.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[3])
+[3]) (sections/ch1_generalites/main.tex (sections/ch1_generalites/subsec1_pres_club.tex) (sections/ch1_generalites/subsec2_pres_equipe.tex) (sections/ch1_generalites/subsec3_def_projet.tex) (sections/ch1_generalites/subsec4_retour_exp.tex) (sections/ch1_generalites/subsec5_financement_partenaires.tex) (sections/ch1_generalites/subsec6_planification.tex)) (sections/ch2_analyse_surete_fonc/main.tex (sections/ch2_analyse_surete_fonc/subsec1_analyse.tex) (sections/ch2_analyse_surete_fonc/subsec2_modes_defaillances.tex) (sections/ch2_analyse_surete_fonc/subsec3_AMDEC.tex) (sections/ch2_analyse_surete_fonc/subsec4_Bilan_action_corr.tex)) (sections/ch3_meca/main.tex) (sections/ch4_elec/main.tex (sections/ch4_elec/subsec1_sequenceurs.tex) (sections/ch4_elec/subsec2_ligne_mise_a_feu.tex) (sections/ch4_elec/subsec3_experience.tex)) (sections/ch5_tests_et_validations/main.tex (sections/ch5_tests_et_validations/subsec1_matrice_validation.tex) (sections/ch5_tests_et_validations/subsec2_registre_tests.tex))
 No file DossierSuivi_SP02.bbl.
 
+
+File: figures/AEROIPSA_HEADER.png Graphic file (type png)
+<use figures/AEROIPSA_HEADER.png>
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 274.
+(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
+File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
+<use figures/AEROIPSA_FOOTER.png>
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 274.
+(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
+[4]
+
+File: figures/AEROIPSA_HEADER.png Graphic file (type png)
+<use figures/AEROIPSA_HEADER.png>
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 274.
+(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
+File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
+<use figures/AEROIPSA_FOOTER.png>
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 274.
+(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
+[5]
+
 Package glossaries Info: Preparing to sort glossary `main' (total number of
-(glossaries)             referenced entries: 2)
+(glossaries)             referenced entries: 3)
 
 
-Overfull \hbox (3.03236pt too wide) in paragraph at lines 273--273
+Overfull \hbox (3.03236pt too wide) in paragraph at lines 278--278
 []\T1/lmr/m/n/10 Agence spa-tiale française, re-spon-s-able des pro-grammes spa-ti-aux civils
  []
 
 
+Overfull \hbox (12.50644pt too wide) in paragraph at lines 278--278
+[]\T1/lmr/m/n/10 Ecole d'ingénieurs aéro-nau-tiques et spa-ti-aux privée française..
+ []
+
+
 Package glossaries Info: Preparing to sort glossary `acronym' (total number of
-(glossaries)             referenced entries: 1)
-
-
-Package glossaries Warning: entry `IPSA' indexing changed since previous run (or no previous run) on input line 276.
-
-
-Package glossaries Warning: Rerun required to get \printnoidxglossary up to date on input line 276.
+(glossaries)             referenced entries: 2)
 
 
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 276.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 281.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 276.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 281.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[4] 
+[6] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (DossierSuivi_SP02.aux)
  ***********
@@ -1153,23 +1173,20 @@ LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
 Package rerunfilecheck Info: File `DossierSuivi_SP02.out' has not changed.
-(rerunfilecheck)             Checksum: 8079555DC1EB6534401703014069A447;387.
+(rerunfilecheck)             Checksum: A24DE93A9E52A8797ECB39A1C09FD3A4;3870.
  ) 
 Here is how much of TeX's memory you used:
- 39358 strings out of 468129
- 799567 string characters out of 5430612
- 1332768 words of memory out of 5000000
- 67321 multiletter control sequences out of 15000+600000
+ 39558 strings out of 468129
+ 808518 string characters out of 5430612
+ 1333768 words of memory out of 5000000
+ 67432 multiletter control sequences out of 15000+600000
  665499 words of font info for 61 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 84i,13n,91p,2582b,552s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{glo:IPSA} has been referenced but does not exist, replaced by a fixed one
-
+ 84i,13n,91p,2582b,645s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb>
-Output written on DossierSuivi_SP02.pdf (4 pages, 149613 bytes).
+Output written on DossierSuivi_SP02.pdf (6 pages, 170651 bytes).
 PDF statistics:
- 88 PDF objects out of 1000 (max. 8388607)
- 12 named destinations out of 1000 (max. 500000)
- 52 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 206 PDF objects out of 1000 (max. 8388607)
+ 35 named destinations out of 1000 (max. 500000)
+ 212 words of extra memory for PDF output out of 10000 (max. 10000000)
 
