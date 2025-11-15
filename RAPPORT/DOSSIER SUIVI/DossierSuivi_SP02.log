@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  11 NOV 2025 01:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  13 NOV 2025 09:49
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1190,7 +1190,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--10
 
  []
 
-<figures/IMG_2012.png, id=191, 724.20563pt x 426.84468pt>
+<figures/IMG_2012.png, id=197, 724.20563pt x 426.84468pt>
 File: figures/IMG_2012.png Graphic file (type png)
 <use figures/IMG_2012.png>
 Package pdftex.def Info: figures/IMG_2012.png  used on input line 20.
@@ -1199,11 +1199,11 @@ Package pdftex.def Info: figures/IMG_2012.png  used on input line 20.
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 13.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 12.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 13.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 12.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 [4 <./figures/IMG_2012.png>]) (sections/ch1_generalites/subsec3_def_projet.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--9
@@ -1211,17 +1211,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--9
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 19--21
+Underfull \hbox (badness 10000) in paragraph at lines 19--22
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 22--25
+Underfull \hbox (badness 10000) in paragraph at lines 23--26
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 26--30
+Underfull \hbox (badness 10000) in paragraph at lines 27--31
 
  []
 
@@ -1229,36 +1229,36 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--30
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 34.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 35.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 34.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 35.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 38--41
+Underfull \hbox (badness 10000) in paragraph at lines 39--42
 
  []
 
-<figures/alpha.png, id=213, 3764.0625pt x 1332.47812pt>
+<figures/alpha.png, id=219, 3764.0625pt x 1332.47812pt>
 File: figures/alpha.png Graphic file (type png)
 <use figures/alpha.png>
-Package pdftex.def Info: figures/alpha.png  used on input line 53.
+Package pdftex.def Info: figures/alpha.png  used on input line 54.
 (pdftex.def)             Requested size: 455.24411pt x 161.15105pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--64
+Underfull \hbox (badness 10000) in paragraph at lines 62--65
 
  []
 
-<figures/beta.png, id=214, 3764.0625pt x 1131.47719pt>
+<figures/beta.png, id=220, 3764.0625pt x 1131.47719pt>
 File: figures/beta.png Graphic file (type png)
 <use figures/beta.png>
-Package pdftex.def Info: figures/beta.png  used on input line 76.
+Package pdftex.def Info: figures/beta.png  used on input line 77.
 (pdftex.def)             Requested size: 455.24411pt x 136.84183pt.
-<figures/sp02_ork.png, id=215, 3764.0625pt x 706.89093pt>
+<figures/sp02_ork.png, id=221, 3764.0625pt x 706.89093pt>
 File: figures/sp02_ork.png Graphic file (type png)
 <use figures/sp02_ork.png>
-Package pdftex.def Info: figures/sp02_ork.png  used on input line 93.
+Package pdftex.def Info: figures/sp02_ork.png  used on input line 94.
 (pdftex.def)             Requested size: 455.24411pt x 85.49199pt.
 ) (sections/ch1_generalites/subsec4_retour_exp.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--7
@@ -1290,7 +1290,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--21
 
  []
 
-<figures/arcturus.png, id=227, 602.25pt x 285.065pt>
+<figures/arcturus.png, id=233, 602.25pt x 285.065pt>
 File: figures/arcturus.png Graphic file (type png)
 <use figures/arcturus.png>
 Package pdftex.def Info: figures/arcturus.png  used on input line 24.
@@ -1300,7 +1300,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 29--37
 
  []
 
-<figures/sp01_2.png, id=228, 526.96875pt x 144.54pt>
+<figures/sp01_2.png, id=234, 526.96875pt x 144.54pt>
 File: figures/sp01_2.png Graphic file (type png)
 <use figures/sp01_2.png>
 Package pdftex.def Info: figures/sp01_2.png  used on input line 40.
@@ -1320,12 +1320,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 45--50
 
  []
 
-<figures/unknown1.jpg, id=239, 1247.41031pt x 890.5772pt>
+<figures/unknown1.jpg, id=245, 1247.41031pt x 890.5772pt>
 File: figures/unknown1.jpg Graphic file (type jpg)
 <use figures/unknown1.jpg>
 Package pdftex.def Info: figures/unknown1.jpg  used on input line 55.
 (pdftex.def)             Requested size: 163.88739pt x 117.0021pt.
-<figures/unknown2.jpg, id=240, 1574.88374pt x 1124.70187pt>
+<figures/unknown2.jpg, id=246, 1574.88374pt x 1124.70187pt>
 File: figures/unknown2.jpg Graphic file (type jpg)
 <use figures/unknown2.jpg>
 Package pdftex.def Info: figures/unknown2.jpg  used on input line 61.
@@ -1335,12 +1335,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 68--75
 
  []
 
-<figures/APEX_BACK.jpg, id=241, 2125.9425pt x 2835.59375pt>
+<figures/APEX_BACK.jpg, id=247, 2125.9425pt x 2835.59375pt>
 File: figures/APEX_BACK.jpg Graphic file (type jpg)
 <use figures/APEX_BACK.jpg>
 Package pdftex.def Info: figures/APEX_BACK.jpg  used on input line 80.
 (pdftex.def)             Requested size: 143.40028pt x 191.24287pt.
-<figures/APEX_FRONT.jpg, id=242, 2100.84875pt x 2802.47pt>
+<figures/APEX_FRONT.jpg, id=248, 2100.84875pt x 2802.47pt>
 File: figures/APEX_FRONT.jpg Graphic file (type jpg)
 <use figures/APEX_FRONT.jpg>
 Package pdftex.def Info: figures/APEX_FRONT.jpg  used on input line 86.
@@ -1365,19 +1365,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--9
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--19
+Underfull \hbox (badness 10000) in paragraph at lines 18--20
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--24
+Underfull \hbox (badness 10000) in paragraph at lines 22--25
 
  []
 
-<figures/gantt.jpg, id=254, 871.75688pt x 481.04718pt>
+<figures/gantt.jpg, id=262, 871.75688pt x 481.04718pt>
 File: figures/gantt.jpg Graphic file (type jpg)
 <use figures/gantt.jpg>
-Package pdftex.def Info: figures/gantt.jpg  used on input line 29.
+Package pdftex.def Info: figures/gantt.jpg  used on input line 30.
 (pdftex.def)             Requested size: 341.43307pt x 188.40771pt.
 )
 
@@ -1434,7 +1434,7 @@ Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 278.
 [13]
 
 Package glossaries Info: Preparing to sort glossary `main' (total number of
-(glossaries)             referenced entries: 5)
+(glossaries)             referenced entries: 8)
 
 
 Overfull \hbox (4.673pt too wide) in paragraph at lines 282--282
@@ -1443,7 +1443,13 @@ Overfull \hbox (4.673pt too wide) in paragraph at lines 282--282
 
 
 Package glossaries Info: Preparing to sort glossary `acronym' (total number of
-(glossaries)             referenced entries: 3)
+(glossaries)             referenced entries: 6)
+
+
+Package glossaries Warning: entry `CAO_g' indexing changed since previous run (or no previous run) on input line 285.
+
+
+Package glossaries Warning: Rerun required to get \printnoidxglossary up to date on input line 285.
 
 
 
@@ -1466,17 +1472,20 @@ Package rerunfilecheck Info: File `DossierSuivi_SP02.out' has not changed.
 (rerunfilecheck)             Checksum: 8FDD1F691E1DDD03FEB656915D34EC19;4853.
  ) 
 Here is how much of TeX's memory you used:
- 40623 strings out of 468129
- 830907 string characters out of 5430612
- 1347578 words of memory out of 5000000
- 68443 multiletter control sequences out of 15000+600000
+ 40859 strings out of 468129
+ 835084 string characters out of 5430612
+ 1352043 words of memory out of 5000000
+ 68672 multiletter control sequences out of 15000+600000
  671656 words of font info for 64 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  84i,13n,91p,2582b,745s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{glo:CAO_g} has been referenced but does not exist, replaced by a fixed one
+
 <C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb>
-Output written on DossierSuivi_SP02.pdf (14 pages, 7323453 bytes).
+Output written on DossierSuivi_SP02.pdf (14 pages, 7328151 bytes).
 PDF statistics:
- 369 PDF objects out of 1000 (max. 8388607)
- 61 named destinations out of 1000 (max. 500000)
+ 394 PDF objects out of 1000 (max. 8388607)
+ 68 named destinations out of 1000 (max. 500000)
  325 words of extra memory for PDF output out of 10000 (max. 10000000)
 
