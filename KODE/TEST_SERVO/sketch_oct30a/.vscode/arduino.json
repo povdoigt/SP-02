@@ -1,0 +1,7 @@
+{
+    "port": "COM17",
+    "board": "arduino:megaavr:nona4809",
+    "configuration": "mode=on",
+    "sketch": "sketch_oct30a.ino",
+    "programmer": "medbg"
+}

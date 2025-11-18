@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  13 NOV 2025 09:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  16 NOV 2025 16:13
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1296,6 +1296,11 @@ File: figures/arcturus.png Graphic file (type png)
 Package pdftex.def Info: figures/arcturus.png  used on input line 24.
 (pdftex.def)             Requested size: 250.38564pt x 118.51724pt.
 
+Overfull \hbox (12.46382pt too wide) in paragraph at lines 29--37
+[]\T1/lmr/b/n/10 SP-01 (2023-2024) \T1/lmr/m/n/10 ^^U fu-sée ex-pé-ri-men-tale di-ri-gée par Malo Ama-ranti et Ma-thieu Coquelle-Grandsimon. 
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 29--37
 
  []
@@ -1306,20 +1311,21 @@ File: figures/sp01_2.png Graphic file (type png)
 Package pdftex.def Info: figures/sp01_2.png  used on input line 40.
 (pdftex.def)             Requested size: 364.19667pt x 99.8981pt.
 
-
-File: figures/AEROIPSA_HEADER.png Graphic file (type png)
-<use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 45.
-(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
-File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
-<use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 45.
-(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[7 <./figures/arcturus.png> <./figures/sp01_2.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 45--50
 
  []
 
+
+
+File: figures/AEROIPSA_HEADER.png Graphic file (type png)
+<use figures/AEROIPSA_HEADER.png>
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 50.
+(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
+File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
+<use figures/AEROIPSA_FOOTER.png>
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 50.
+(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
+[7 <./figures/arcturus.png> <./figures/sp01_2.png>]
 <figures/unknown1.jpg, id=245, 1247.41031pt x 890.5772pt>
 File: figures/unknown1.jpg Graphic file (type jpg)
 <use figures/unknown1.jpg>
@@ -1434,7 +1440,7 @@ Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 278.
 [13]
 
 Package glossaries Info: Preparing to sort glossary `main' (total number of
-(glossaries)             referenced entries: 8)
+(glossaries)             referenced entries: 9)
 
 
 Overfull \hbox (4.673pt too wide) in paragraph at lines 282--282
@@ -1444,12 +1450,6 @@ Overfull \hbox (4.673pt too wide) in paragraph at lines 282--282
 
 Package glossaries Info: Preparing to sort glossary `acronym' (total number of
 (glossaries)             referenced entries: 6)
-
-
-Package glossaries Warning: entry `CAO_g' indexing changed since previous run (or no previous run) on input line 285.
-
-
-Package glossaries Warning: Rerun required to get \printnoidxglossary up to date on input line 285.
 
 
 
@@ -1472,20 +1472,17 @@ Package rerunfilecheck Info: File `DossierSuivi_SP02.out' has not changed.
 (rerunfilecheck)             Checksum: 8FDD1F691E1DDD03FEB656915D34EC19;4853.
  ) 
 Here is how much of TeX's memory you used:
- 40859 strings out of 468129
- 835084 string characters out of 5430612
- 1352043 words of memory out of 5000000
- 68672 multiletter control sequences out of 15000+600000
+ 40861 strings out of 468129
+ 835145 string characters out of 5430612
+ 1352729 words of memory out of 5000000
+ 68674 multiletter control sequences out of 15000+600000
  671656 words of font info for 64 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  84i,13n,91p,2582b,745s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{glo:CAO_g} has been referenced but does not exist, replaced by a fixed one
-
 <C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb>
-Output written on DossierSuivi_SP02.pdf (14 pages, 7328151 bytes).
+Output written on DossierSuivi_SP02.pdf (14 pages, 7327874 bytes).
 PDF statistics:
- 394 PDF objects out of 1000 (max. 8388607)
+ 393 PDF objects out of 1000 (max. 8388607)
  68 named destinations out of 1000 (max. 500000)
  325 words of extra memory for PDF output out of 10000 (max. 10000000)
 
