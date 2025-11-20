@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  16 NOV 2025 16:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  18 NOV 2025 19:15
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1405,17 +1405,62 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 9.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[10]) (sections/ch3_meca/main.tex (sections/ch3_meca/subsec1_generalite.tex) (sections/ch3_meca/subsec2_premier_etage.tex) (sections/ch3_meca/subsec3_second_etage.tex) (sections/ch3_meca/subsec4_sys_sepa.tex)
+[10]) (sections/ch3_meca/main.tex (sections/ch3_meca/subsec1_generalite.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[]|\T1/lmr/m/n/10 Résistance lon-gi-tu-di-nale
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--24
+[]|\T1/lmr/m/n/10 Résistance trans-ver-sale
+ []
+
+
+Overfull \hbox (14.83766pt too wide) in paragraph at lines 17--32
+ [][] 
+ []
+
+(sections/ch3_meca/subsec2_premier_etage.tex) (sections/ch3_meca/subsec3_second_etage.tex
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 9.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 19.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 9.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 19.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[11]) (sections/ch4_elec/main.tex (sections/ch4_elec/subsec1_sequenceurs.tex) (sections/ch4_elec/subsec2_ligne_mise_a_feu.tex) (sections/ch4_elec/subsec3_experience.tex)
+[11]) (sections/ch3_meca/subsec4_sys_sepa.tex) (sections/ch3_meca/subsec5_def_para.tex
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+
+ []
+
+
+Overfull \hbox (14.83766pt too wide) in paragraph at lines 9--24
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+)
+
+File: figures/AEROIPSA_HEADER.png Graphic file (type png)
+<use figures/AEROIPSA_HEADER.png>
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 40.
+(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
+File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
+<use figures/AEROIPSA_FOOTER.png>
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 40.
+(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
+[12{C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]) (sections/ch4_elec/main.tex (sections/ch4_elec/subsec1_sequenceurs.tex) (sections/ch4_elec/subsec2_ligne_mise_a_feu.tex) (sections/ch4_elec/subsec3_experience.tex)
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
@@ -1425,7 +1470,7 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 8.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[12]) (sections/ch5_tests_et_validations/main.tex (sections/ch5_tests_et_validations/subsec1_matrice_validation.tex) (sections/ch5_tests_et_validations/subsec2_registre_tests.tex))
+[13]) (sections/ch5_tests_et_validations/main.tex (sections/ch5_tests_et_validations/subsec1_matrice_validation.tex) (sections/ch5_tests_et_validations/subsec2_registre_tests.tex))
 No file DossierSuivi_SP02.bbl.
 
 
@@ -1437,7 +1482,7 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 278.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[13]
+[14]
 
 Package glossaries Info: Preparing to sort glossary `main' (total number of
 (glossaries)             referenced entries: 9)
@@ -1461,28 +1506,38 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 285.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[14] 
+[15] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (DossierSuivi_SP02.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
-Package rerunfilecheck Info: File `DossierSuivi_SP02.out' has not changed.
-(rerunfilecheck)             Checksum: 8FDD1F691E1DDD03FEB656915D34EC19;4853.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `DossierSuivi_SP02.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `DossierSuivi_SP02.out':
+(rerunfilecheck)             Before: 8FDD1F691E1DDD03FEB656915D34EC19;4853
+(rerunfilecheck)             After:  44818F08764A2DED24152D91357FCA67;5358.
  ) 
 Here is how much of TeX's memory you used:
- 40861 strings out of 468129
- 835145 string characters out of 5430612
- 1352729 words of memory out of 5000000
- 68674 multiletter control sequences out of 15000+600000
- 671656 words of font info for 64 fonts, out of 8000000 for 9000
+ 40897 strings out of 468129
+ 835981 string characters out of 5430612
+ 1357729 words of memory out of 5000000
+ 68693 multiletter control sequences out of 15000+600000
+ 677629 words of font info for 66 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 84i,13n,91p,2582b,745s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb>
-Output written on DossierSuivi_SP02.pdf (14 pages, 7327874 bytes).
+ 84i,16n,91p,2582b,745s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb>
+Output written on DossierSuivi_SP02.pdf (15 pages, 7378479 bytes).
 PDF statistics:
- 393 PDF objects out of 1000 (max. 8388607)
- 68 named destinations out of 1000 (max. 500000)
+ 434 PDF objects out of 1000 (max. 8388607)
+ 78 named destinations out of 1000 (max. 500000)
  325 words of extra memory for PDF output out of 10000 (max. 10000000)
 
