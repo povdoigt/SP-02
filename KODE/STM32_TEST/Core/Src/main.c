@@ -18,10 +18,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "stm32l4xx_hal_def.h"
-#include "stm32l4xx_hal_uart.h"
 #include "usart.h"
 #include "gpio.h"
+#include "wit_c_sdk.h"
+#include "SCS/SCServo.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -52,7 +52,9 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+void Wit_UART_Write(uint8_t *p_ucData, uint32_t uiLen);
+void Wit_Reg_Update_Cb(uint32_t uiReg, uint32_t uiRegNum);
+void Wit_Delayms(uint16_t ucMs);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -64,6 +66,31 @@ int _write(int file, char *ptr, int len) {
 	}
 	return len;
 }
+
+void Wit_UART_Write(uint8_t *p_ucData, uint32_t uiLen) {
+  HAL_UART_Transmit(&huart1, p_ucData, uiLen, HAL_MAX_DELAY);
+}
+
+void Wit_Reg_Update_Cb(uint32_t uiReg, uint32_t uiRegNum) {
+  // Callback function implementation
+}
+
+void Wit_Delayms(uint16_t ucMs) {
+  HAL_Delay(ucMs);
+}
+
+void ftUart_Send(uint8_t *nDat, int nLen) {
+  HAL_UART_Transmit(&huart3, nDat, nLen, HAL_MAX_DELAY);
+}
+int ftUart_Read(uint8_t *nDat, int nLen) {
+  uint16_t rx_len;
+  HAL_UARTEx_ReceiveToIdle(&huart3, nDat, nLen, &rx_len, HAL_MAX_DELAY);
+  return (int)rx_len;
+}
+void ftBus_Delay(void) {
+  HAL_Delay(1);
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -96,21 +123,30 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
+  MX_USART1_UART_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  int i = 0;
-  char msg[30] = "Hello World! %d\r\n";
+  rx_data[256] = '\n';
+  HAL_UARTEx_ReceiveToIdle_IT(&huart1, rx_data, 256);
+
+  // WitSerialWriteRegister(Wit_UART_Write);
+  // WitRegisterCallBack(Wit_Reg_Update_Cb);
+  // WitDelayMsRegister(Wit_Delayms);
+
+  // WitInit(WIT_PROTOCOL_NORMAL, 0x50);
+
+  setEnd(0);
+  WritePosEx(7, 4095, 2400, 50);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+	while (1) {
     /* USER CODE END WHILE */
-	HAL_Delay(500);
-	HAL_UART_Transmit(&huart2, (uint8_t*)msg, 30, HAL_MAX_DELAY);
 
     /* USER CODE BEGIN 3 */
-  }
+	}
   /* USER CODE END 3 */
 }
 

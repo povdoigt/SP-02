@@ -50,12 +50,6 @@ La carte intègre :
     d’événements discrets tels que décollage, séparation et signaux de capteurs mécaniques.
 \end{itemize}
 
-% \begin{figure}[h!]
-%     \centering
-%     \includegraphics[width=0.75\linewidth]{images/sequencer_schematic.png}
-%     \caption{Schéma simplifié du séquenceur}
-% \end{figure}
-
 \paragraph{Choix du microcontrôleur}
 Le STM32F072R8T6 a été sélectionné pour ses caractéristiques techniques adaptées aux exigences du projet :
 \begin{itemize}
@@ -87,76 +81,67 @@ Les deux séquenceurs sont connectés au même connecteur \textit{jack} 4-pins d
 afin d’assurer une synchronisation parfaite tout en préservant l’isolation électrique entre étages. Ce choix permet de limiter
 les risques de défaillance croisée et garantit que les deux chronomètres internes démarrent à $t=0$ exactement au même instant.
 
+\newpage
+
 \subsubsection{Principes de fonctionnement}
 
 Le fonctionnement repose sur une succession d’états décrits dans le logigramme de chaque séquenceur, cadencés par un
 chronomètre démarré au décollage.
 
-% \begin{figure}[h!]
-%     \centering
-%     \includegraphics[width=0.80\linewidth]{images/logigramme_sequencement.png}
-%     \caption{Organigramme simplifié de la logique des séquenceurs}
-% \end{figure}
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{figures/Sequenceur1.drawio.png}
+        \caption{1er étage}
+    \end{subfigure}
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{figures/Sequenceur2.drawio.png}
+        \caption{2e étage}
+    \end{subfigure}
+    \caption{Schémas fonctionnels des séquenceurs des deux étages}
+\end{figure}
 
-\paragraph{Fenêtres temporelles principales}
+Voici les principaux évenement surveillés et partagés par les deux séquenceurs :
 \begin{itemize}
-    \item $\alpha_0$ : fin attendue de la propulsion du premier étage ;
-    \item $\alpha_1$ : apogée du lanceur non séparé ;
-    \item $\alpha_2$ : apogée du premier étage après séparation ;
-    \item $\beta_0$ : fenêtre d’autorisation d’allumage du second étage ;
-    \item $\beta_1$, $\beta_2$ : apogées nominales ou sans propulsion.
+    \item $T0$ : instant du décollage ;
+    \item $T_{\alpha\beta0}$ : fin de la propulsion du premier étage ;
+    \item $T_{\alpha\beta1}$ : séparation inter-étage ;
+    \item $T_{\alpha\beta2}$ : apogée de l'ensemble du lanceur sans séparation ;
+    \item $T_{\alpha\beta3}$ : atterrissage de l'ensemble du lanceur sans séparation.\\
 \end{itemize}
 
-\subsubsection{Séquence du premier étage}
+Voici les principaux évenement surveillés par le séquenceur du premier étage :
+\begin{itemize}
+    \item $T_{\alpha0}$ : apogée du premier étage seul si séparation ;
+    \item $T_{\alpha1}$ : atterrissage du premier étage seul si séparation.\\
+\end{itemize}
 
-Le séquenceur du premier étage assure :
-\begin{enumerate}
-    \item la détection du décollage ;
-    \item la détection de la fin de propulsion ($\alpha_0$) ;
-    \item le déverrouillage du système inter-étage ;
-    \item l’extension des aérofreins pour générer le différentiel de traînée ;
-    \item la surveillance de la séparation ;
-    \item déclenchement des ressorts de séparation si le différentiel de vitesse est insuffisant ou si la séparation n’est pas détectée après un délai donné ;
-    \item ouverture de la trappe parachute à l’apogée ($\alpha_1$ ou $\alpha_2$).
-\end{enumerate}
-
-En cas d’anomalie, il émet un message « annulation séparation » au second étage.
-
-\subsubsection{Séquence du second étage}
-
-Le séquenceur du second étage gère :
-\begin{enumerate}
-    \item la synchronisation initiale ;
-    \item l’attente de l’autorisation envoyée par le premier étage ;
-    \item la détection inertielle de la séparation ;
-    \item la vérification de l’attitude ;
-    \item l’allumage du moteur Pro24 si les conditions sont nominales et dans $\beta_0$ ;
-    \item l’ouverture de la trappe parachute à l’apogée ($\beta_1$ ou $\beta_2$).
-\end{enumerate}
+Voici les principaux évenement surveillés par le séquenceur du second étage :
+\begin{itemize}
+    \item $T_{\beta0}$ : allumage du moteur du second étage si séparation ;
+    \item $T_{\beta1}$ : date de mesure de la confirmation d’allumage du moteur du second étage ;
+    \item $T_{\beta2}$ : apogée du second étage seul si séparation et allumage confirmé ;
+    \item $T_{\beta3}$ : atterrissage du second étage seul si séparation et allumage confirmé ;
+    \item $T_{\beta4}$ : apogée du second étage seul si séparation et allumage non confirmé ;
+    \item $T_{\beta5}$ : atterrissage du second étage seul si séparation et allumage non confirmé.\\
+\end{itemize}
 
 \subsubsection{Robustesse du système et immunité aux perturbations}
 
-Les entrées critiques sont isolées et conditionnées (optocoupleurs, filtrage, portes à hystérésis), garantissant la stabilité des signaux malgré les vibrations, les parasites haute fréquence et les variations rapides de tension.
+Les entrées critiques sont isolées et conditionnées (optocoupleurs, portes à hystérésis), garantissant la stabilité des signaux
+malgré les vibrations, les parasites haute fréquence et les variations rapides de tension.
 
-Les masses numérique, analogique et puissance sont séparées, et les sorties critiques isolées empêchent tout retour de perturbation vers le microcontrôleur.  
-Cette architecture assure une excellente fiabilité des déclenchements durant les phases de propulsion, de séparation et de récupération.
+Les masses numérique, analogique et puissance sont séparées, et les sorties critiques isolées empêchent tout retour de
+perturbation vers le microcontrôleur. Cette architecture assure une excellente fiabilité des déclenchements durant les phases
+de propulsion, de séparation et de récupération.
 
-% \begin{figure}[h!]
-%     \centering
-%     \includegraphics[width=0.75\linewidth]{images/sequencer_protection.png}
-%     \caption{Extrait du routage montrant protections et isolements}
-% \end{figure}
+\subsubsection{Conception PCB}
 
-\subsubsection{Conformité aux exigences Fusex et sûreté de fonctionnement}
+La conception du PCB suit une méthodologie stricte destinée à minimiser les effets EMI : séparation des plans de masse numérique
+et de puissance, retour de courant maîtrisé, longueurs de pistes critiques réduites, boucles de masse minimisées, et isolements
+renforcés autour des signaux sensibles. Les composants de commutation (buffers, optocoupleurs, transistors) sont positionnés de
+manière à réduire les couplages parasites et à garantir une immunité maximale.
 
-L’architecture du séquenceur répond strictement au cahier des charges Fusex imposé par le CNES et Planète Sciences. Les fonctions critiques sont exécutées de manière entièrement autonome, sans intervention radio durant le vol, et les conditions de déclenchement reposent sur des critères multiples et redondants (mesures inertielles, boucles électriques inter-étages, fenêtres temporelles).
 
-Le système de détection de départ via boucle \textit{jack}, les signaux de séparation, les états mécaniques et les transitions d’alimentation sont isolés, filtrés et mis en forme par optocouplage et portes à hystérésis. Cette approche garantit une forte tolérance aux vibrations, aux perturbations électromagnétiques et aux variations d’alimentation.
-
-L’ensemble des lignes exposées (alimentation, capteurs, signaux traversant le mécanisme de séparation, ligne DATA des servomoteurs) bénéficie de protections contre les surtensions et décharges électrostatiques : des diodes TVS assurent la dissipation des surtensions rapides, tandis que des réseaux ESD protègent les entrées sensibles du microcontrôleur et des buffers. Les connecteurs critiques sont équipés de détrompeurs mécaniques afin d’éviter toute inversion ou mauvaise insertion lors des phases d’intégration ou d’essais.
-
-La conception du PCB suit une méthodologie stricte destinée à minimiser les effets EMI : séparation des plans de masse numérique et de puissance, retour de courant maîtrisé, longueurs de pistes critiques réduites, boucles de masse minimisées, et isolements renforcés autour des signaux sensibles. Les composants de commutation (buffers, optocoupleurs, transistors) sont positionnés de manière à réduire les couplages parasites et à garantir une immunité maximale.
-
-Afin d’empêcher tout scénario de défaillance croisée, les deux séquenceurs reçoivent le signal de décollage via deux circuits indépendants et disposent chacun de leur propre boucle de séparation. En cas d’annulation de séparation, la logique de sûreté impose que \textbf{seul le séquenceur du premier étage déclenche l’ouverture de son parachute}, afin d’éviter tout risque d’emmêlement ou de recollision entre les étages.
-
-L’ensemble de ces protections passives et actives assure une conformité totale aux procédures Fusex, une progression contrôlée des événements critiques et une fiabilité élevée pour les deux vols prévus.
