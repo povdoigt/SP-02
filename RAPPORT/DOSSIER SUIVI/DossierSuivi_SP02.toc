@@ -24,10 +24,21 @@
 \contentsline {subsection}{\numberline {3.4}Définition des systèmes d'ouverture/parachutes}{12}{subsection.3.4}%
 \contentsline {section}{\numberline {4}Electronique}{13}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Séquenceurs}{13}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Ligne de mise à feu}{13}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Expérience}{13}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Tests et validations}{14}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Matrice de validation}{14}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Registre des tests}{14}{subsection.5.2}%
-\contentsline {section}{\numberline {}Références}{14}{subsection.5.2}%
-\contentsline {section}{\numberline {}Glossaires et acronymes}{15}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {4.1.1}Architecture matérielle}{14}{subsubsection.4.1.1}%
+\contentsline {paragraph}{Choix du microcontrôleur}{14}{paragraph*.16}%
+\contentsline {paragraph}{Portes à hystérésis}{14}{paragraph*.17}%
+\contentsline {paragraph}{Boucles électriques inter-étages}{14}{paragraph*.18}%
+\contentsline {paragraph}{Double circuit de détection de décollage}{14}{paragraph*.19}%
+\contentsline {subsubsection}{\numberline {4.1.2}Principes de fonctionnement}{14}{subsubsection.4.1.2}%
+\contentsline {paragraph}{Fenêtres temporelles principales}{15}{paragraph*.20}%
+\contentsline {subsubsection}{\numberline {4.1.3}Séquence du premier étage}{15}{subsubsection.4.1.3}%
+\contentsline {subsubsection}{\numberline {4.1.4}Séquence du second étage}{15}{subsubsection.4.1.4}%
+\contentsline {subsubsection}{\numberline {4.1.5}Robustesse du système et immunité aux perturbations}{15}{subsubsection.4.1.5}%
+\contentsline {subsubsection}{\numberline {4.1.6}Conformité aux exigences Fusex et sûreté de fonctionnement}{15}{subsubsection.4.1.6}%
+\contentsline {subsection}{\numberline {4.2}Ligne de mise à feu}{16}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Expérience}{16}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Tests et validations}{17}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Matrice de validation}{17}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Registre des tests}{17}{subsection.5.2}%
+\contentsline {section}{\numberline {}Références}{17}{subsection.5.2}%
+\contentsline {section}{\numberline {}Glossaires et acronymes}{18}{subsection.5.2}%

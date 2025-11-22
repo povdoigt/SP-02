@@ -1,68 +1,102 @@
 \subsection{Séquenceurs}
 
-Les deux étages de la fusée SP-02 sont chacun équipés d’un séquenceur embarqué identique, développé pour gérer de manière autonome l’ensemble des événements critiques du vol et assurer la conformité au cahier des charges Fusex. Cette architecture commune facilite la fabrication, les essais et la maintenance, tout en permettant une configuration logicielle propre à chaque étage.
+Les deux étages de la fusée SP-02 sont chacun équipés d’un séquenceur embarqué identique, développé pour gérer de manière
+autonome l’ensemble des événements critiques du vol et assurer la conformité au cahier des charges Fusex. Cette architecture
+commune facilite la fabrication, les essais et la maintenance, tout en permettant une configuration logicielle propre à chaque
+étage.\\
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.75\linewidth]{images/sequencer_board_front.png}
-    \caption{Vue avant du séquenceur (prototype)}
-\end{figure}
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.75\linewidth]{images/sequencer_board_front.png}
+%     \caption{Vue avant du séquenceur (prototype)}
+% \end{figure}
 
 Chaque séquenceur assure notamment :
 \begin{itemize}
     \item la détection du décollage via la coupure de la boucle \textit{jack} ;
     \item le démarrage du chronomètre interne servant de référence aux fenêtres temporelles ;
-    \item la mesure de l’attitude du lanceur à l’aide de la centrale inertielle WT901B ;
-    \item le pilotage des systèmes critiques : aérofreins, trappes parachutes, caméras, séparation, allumage moteur ;
-    \item la supervision de la séparation inter-étage et l’inhibition des actions en cas d’anomalie ;
-    \item l’échange d’un message simple avec l’autre étage pour valider ou annuler l’autorisation de séparation.
+    \item le pilotage du système de récupération (parachute, trappe) ;
+    \item la supervision de la séparation inter-étage et l’inhibition des actions en cas d’anomalie.
+\end{itemize}
+
+Le séquenceurs du première étage devra en plus se charger :
+\begin{itemize}
+    \item du pilotage du système d'aérofreins ;
+    \item du déverrouillage du mécanisme de séparation ;
+\end{itemize}
+
+Le séquenceur du second étage devra quant à lui gérer :
+\begin{itemize}
+    \item de la détection de l'attitude de la fusée ;
+    \item de l'allumage du moteur du second étage.
 \end{itemize}
 
 \subsubsection{Architecture matérielle}
 
-Les séquenceurs s’appuient sur une carte électronique dédiée intégrant un microcontrôleur STM32F072RBT6, choisi pour sa robustesse, sa faible consommation et la variété de ses interfaces (UART, timers, GPIO).  
+Les séquenceurs s’appuient sur une carte électronique dédiée intégrant un microcontrôleur STM32F072R8T6, choisi pour sa
+robustesse, sa faible consommation et la variété de ses interfaces (UART, timers, GPIO). \\
 
 La carte intègre :
 \begin{itemize}
     \item un régulateur abaisseur 3,3~V (TPS62172) alimentant l’ensemble de la logique~;
     \item une liaison UART dédiée à la centrale inertielle WT901B ;
-    \item une ligne half-duplex pour le pilotage des servomoteurs Feetech\footnote{La communication est réalisée sur une ligne \textit{DATA} unique, protégée par buffers SN74LVC1G125/126 pour la commutation TX/RX. Trois sorties PWM restent disponibles en cas d’utilisation de servomoteurs classiques.} ;
+    \item une ligne half-duplex pour le pilotage des servomoteurs Feetech\footnote{La communication est réalisée sur une ligne
+    \textit{DATA} unique, protégée par buffers SN74LVC1G125/126 pour la commutation TX/RX. Trois sorties PWM restent
+    disponibles en cas d’utilisation de servomoteurs classiques.} ;
     \item plusieurs sorties logiques optocouplées destinées aux déclenchements sécurisés (caméras, cartes expériences) ;
     \item une entrée isolée assurant la détection du décollage via la boucle \textit{jack} ;
     \item un connecteur dédié à la carte IHM (commande d’alimentation, armement, indicateurs RGB) ;
-    \item six entrées conditionnées par portes à hystérésis de type \textit{Schmitt trigger}, utilisées pour la détection d’événements discrets tels que décollage, séparation et signaux de capteurs mécaniques.
+    \item six entrées conditionnées par portes à hystérésis de type \textit{Schmitt trigger}, utilisées pour la détection
+    d’événements discrets tels que décollage, séparation et signaux de capteurs mécaniques.
 \end{itemize}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.75\linewidth]{images/sequencer_schematic.png}
-    \caption{Schéma simplifié du séquenceur}
-\end{figure}
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.75\linewidth]{images/sequencer_schematic.png}
+%     \caption{Schéma simplifié du séquenceur}
+% \end{figure}
 
-Les portes à hystérésis permettent de stabiliser les signaux provenant des capteurs sujets aux rebonds ou aux perturbations (vibrations, variations rapides de tension). Elles assurent également la mise en forme des signaux transmis d’un étage à l’autre, notamment via les connecteurs intégrés dans le mécanisme de séparation.
+\paragraph{Choix du microcontrôleur}
+Le STM32F072R8T6 a été sélectionné pour ses caractéristiques techniques adaptées aux exigences du projet :
+\begin{itemize}
+    \item architecture ARM Cortex-M0 32 bits, offrant une puissance de calcul suffisante pour la gestion des séquences et
+    le traitement des données inertielle ;
+    \item faible consommation énergétique, essentielle pour les opérations prolongées en vol ;
+    \item large gamme d’interfaces de communication (UART, SPI, I2C, GPIO), facilitant l’intégration avec les capteurs et
+    actionneurs embarqués ;
+    \item 128~kB de mémoire flash et 16~kB de RAM, permettant le stockage du firmware et des données critiques. \\
+\end{itemize}
+
+Aussi, ayant déjà travaillé avec cette famille de microcontrôleurs sur des projets antérieurs, l’équipe dispose d’une expertise
+solide pour le développement et le débogage du firmware.
+
+
+\paragraph{Portes à hystérésis}
+Les portes à hystérésis permettent de stabiliser les signaux provenant des capteurs sujets aux rebonds ou aux perturbations
+(vibrations, variations rapides de tension). Elles assurent également la mise en forme des signaux transmis d’un étage à
+l’autre, notamment via les connecteurs intégrés dans le mécanisme de séparation.
 
 \paragraph{Boucles électriques inter-étages}
-
-Chaque étage intègre une boucle électrique traversant physiquement l’autre étage. Lors de la séparation mécanique, ces deux boucles sont automatiquement rompues, fournissant une confirmation physique et indépendante de la séparation, complémentaire aux mesures inertielles. L’état de ces boucles est traité par des portes à hystérésis, garantissant une détection franche et insensible aux vibrations ou aux micro-perturbations rencontrées durant le vol.
+Chaque étage intègre une boucle électrique traversant physiquement l’autre étage. Lors de la séparation mécanique, ces deux
+boucles sont automatiquement rompues, fournissant une confirmation physique et indépendante de la séparation. L’état de ces
+boucles est traité par des portes à hystérésis, garantissant une détection franche et insensible aux vibrations ou aux
+micro-perturbations rencontrées durant le vol.
 
 \paragraph{Double circuit de détection de décollage}
-
-Les deux séquenceurs sont connectés au même connecteur \textit{jack} de décollage, mais sur deux circuits indépendants, afin d’assurer une synchronisation parfaite tout en préservant l’isolation électrique entre étages. Ce choix permet de limiter les risques de défaillance croisée et garantit que les deux chronomètres internes démarrent à $t=0$ exactement au même instant.
+Les deux séquenceurs sont connectés au même connecteur \textit{jack} 4-pins de décollage, mais sur deux circuits indépendants,
+afin d’assurer une synchronisation parfaite tout en préservant l’isolation électrique entre étages. Ce choix permet de limiter
+les risques de défaillance croisée et garantit que les deux chronomètres internes démarrent à $t=0$ exactement au même instant.
 
 \subsubsection{Principes de fonctionnement}
 
-Le fonctionnement repose sur une succession d’états décrits dans le logigramme du projet, cadencés par un chronomètre démarré au décollage. Les transitions sont déclenchées par :
-\begin{itemize}
-    \item des mesures physiques (accélération, pression, attitude) ;
-    \item des seuils inertiels (fin de propulsion, séparation) ;
-    \item des fenêtres temporelles prédéfinies ($\alpha_0$, $\alpha_1$, $\beta_0$, etc.).
-\end{itemize}
+Le fonctionnement repose sur une succession d’états décrits dans le logigramme de chaque séquenceur, cadencés par un
+chronomètre démarré au décollage.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.80\linewidth]{images/logigramme_sequencement.png}
-    \caption{Organigramme simplifié de la logique des séquenceurs}
-\end{figure}
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.80\linewidth]{images/logigramme_sequencement.png}
+%     \caption{Organigramme simplifié de la logique des séquenceurs}
+% \end{figure}
 
 \paragraph{Fenêtres temporelles principales}
 \begin{itemize}
@@ -107,11 +141,11 @@ Les entrées critiques sont isolées et conditionnées (optocoupleurs, filtrage,
 Les masses numérique, analogique et puissance sont séparées, et les sorties critiques isolées empêchent tout retour de perturbation vers le microcontrôleur.  
 Cette architecture assure une excellente fiabilité des déclenchements durant les phases de propulsion, de séparation et de récupération.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.75\linewidth]{images/sequencer_protection.png}
-    \caption{Extrait du routage montrant protections et isolements}
-\end{figure}
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.75\linewidth]{images/sequencer_protection.png}
+%     \caption{Extrait du routage montrant protections et isolements}
+% \end{figure}
 
 \subsubsection{Conformité aux exigences Fusex et sûreté de fonctionnement}
 
