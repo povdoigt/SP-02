@@ -1,0 +1,143 @@
+\subsection{Présentation des phases de vol}
+\label{subsec:phases_vol}
+
+Le vol de la fusée SP-02 se déroule selon six phases successives représentées dans la figure suivante. Ce découpage permet
+d’identifier clairement les séquences critiques du lanceur et sert de base à l’analyse de sûreté de fonctionnement présentée
+dans la suite du chapitre.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{figures/Phase_vol.drawio.png}
+\caption{Diagramme des phases nominales de vol du SP-02}
+\end{figure}
+
+\subsubsection{Phase 0 — Préparation et mise en condition du système}
+\begin{itemize}
+    \item \textbf{État initial} : Le lanceur est en configuration d’intégration au sol : les deux étages sont séparés, non armés, et
+    aucun sous-système pyrotechnique ou avionique n’est actif.
+    \item \textbf{Objectif fonctionnel} : Placer le système dans un état prêt au lancement, en assurant que :
+    \begin{itemize}
+        \item les étages sont correctement assemblés,
+        \item les systèmes avioniques sont initialisés et opérationnels,
+        \item les sécurités pyrotechniques sont actives,
+        \item les conditions mécaniques et géométriques sont conformes (verticalité, contrainte au rail).
+    \end{itemize}
+    \item \textbf{Règles du CDC ASF2 concernées}
+    \begin{itemize}
+        \item MAF1-MAF8 : système d'allumage compatible et sécurisé.
+        \item INF1-INF3 : conformité de l'inflammateur et des connectiques.
+        \item SPYTC1-SPYTC4 : sécurité pyrotechnique conforme aux spécifications.
+        \item ORDRE1, ORDRE5 : logique d'armement et de commande découplé de l'inflammateur et sûr.
+        \item FTP1-FTP4 : système de démarage de la chronométrie prêt et conforme.
+    \end{itemize}
+    \item \textbf{État final attendu} : La fusée est mécaniquement stable, correctement armée mais sécurisée, prête à entrer en
+    phase 1 :
+    \begin{itemize}
+        \item alimentation disponible mais protégée,
+        \item ligne pyro sous shunt,
+        \item avionique synchronisée,
+        \item attitude et verticalité conformes.
+        \item système mécaniquement stable et apte à supporter la propulsion du premier étage.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Phase 1 — Propulsion et ascension du premier étage}
+\begin{itemize}
+    \item \textbf{État initial} : La Fusée est armée, l'autorisation sol donnée, le moteur du 1er étage est au repos les capteurs et
+    séquenceurs sont armés et prêts au lancement.
+    \item \textbf{Objectif fonctionnel} : Assurer une ascension stable, sans perte de gabarit, jusqu’à l’altitude et la vitesse
+    permettant une séparation sûre et effective des deux étages.
+    \item \textbf{Règles du CDC ASF2 concernées} :
+    \begin{itemize}
+        \item MAF1-MAF8 : L'accélération subit ne doit pas compromètre le système d'allumage.
+        \item INF1-INF3 : L'accélération subit ne doit pas compromètre le fonctionnement de l'inflammateur.
+        \item ORDRE2, ORDRE4 : mesure du temps depuis l’allumage du moteur du 1er étage.
+        \item ATT1-ATT4 : L'accélération subit ne doit pas compromètre le système de vérification d’attitude du 2nd étage.
+        \item FTP1-FTP4 : fenêtre temporelle de vol du 1er étage fonctionnelle.
+        \item SEP1-SEP3 : L'accélération subit ne doit pas compromètre le système de détection de séparation.
+    \end{itemize}
+    \item \textbf{État final attendu} Le premier étage atteint sa fin de propulsion :
+    \begin{itemize}
+        \item stabilité assurée,
+        \item vitesse suffisante,
+        \item avionique en état de détecter la transition vers la séparation.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Phase 2 — Séparation par aérofreinage}
+\begin{itemize}
+    \item \textbf{État initial} : Les deux étages volent conjointement en balistique post-propulsion.
+    \item \textbf{Objectif fonctionnel} : Obtenir une séparation passive, franche et symétrique, générée par un différentiel
+    de traînée créé par l’ouverture d'aérofreins sur le premier étage.
+    \item \textbf{Règles du CDC ASF2 concernées} :
+    \begin{itemize}
+        \item ORDRE2, ORDRE4 : système de détection de la séparation fiable.
+        \item SEP1, SEP2 : système de détection de la séparation fiable.
+        \item SEP3 : ordre de séparation donné uniquement à la fin de propulsion du 1er étage.
+    \end{itemize}
+    \item \textbf{État final attendu} : Les deux étages sont nettement séparés et évoluent sur des trajectoires distinctes ; le
+    2e étage se trouve dans un état compatible avec un éventuel allumage. Une confirmation fiable de séparation doit être
+    établie par l’avionique des deux étages.
+\end{itemize}
+
+\subsubsection{Phase 3 — Propulsion du second étage}
+\begin{itemize}
+    \item \textbf{État initial} : Le second étage est séparé, stabilisé et en attente de conditions d’autorisation d’allumage.
+    \item \textbf{Objectif fonctionnel} : Allumer le moteur du 2e étage uniquement si les trois critères suivants sont
+    satisfaits simultanément :
+    \begin{enumerate}
+        \item Séparation confirmée (SEP1-SEP3)
+        \item Attitude dans le domaine acceptable (ATT1-ATT4)
+        \item Fenêtre temporelle active (règles FTP1–FTP4)
+    \end{enumerate}
+    \item \textbf{Règles du CDC ASF2 concernées} :
+    \begin{itemize}
+        \item MAF1–MAF8 : sécurités et alimentation de la ligne pyrotechnique.
+        \item INF1–INF3 : compatibilité avec l’inflammateur.
+        \item ORDRE1–ORDRE5 : logique d’autorisation/commande d’allumage.
+        \item ATT1-ATT4 : vérification d’attitude avant allumage.
+        \item FTP1–FTP4 : fenêtre temporelle d’allumage conforme.
+    \end{itemize}
+    \item \textbf{État final attendu} : Deux cas :
+    \begin{itemize}
+        \item Cas nominal : Allumage du moteur du 2e étage autorisé : montée propulsive stable.
+        \item Cas sécurisé : Conditions non réunies : allumage définitivement interdit.
+    \end{itemize}
+    Dans tous les cas, la trajectoire doit rester dans le gabarit.
+\end{itemize}
+
+\newpage
+
+\subsubsection{Phase 4 — Ouverture des parachutes et descente des étages}
+\begin{itemize}
+    \item \textbf{État initial} : Les deux étages sont séparés et en trajectoire balistique, le 2e étage a ou non allumé son moteur.
+    \item \textbf{Objectif fonctionnel} : Assurer un retour sécurisé au sol via :
+    \begin{itemize}
+        \item une détection robuste de l’apogée,
+        \item l’ouverture fiable de la trappe d’éjection,
+        \item le déploiement du parachute.
+    \end{itemize}
+    \item \textbf{Règles du CDC ASF2 concernées} : (pas de règle spécifique à cette phase décrit par la rubrique ASF du CDC)
+    \item \textbf{État final attendu} : Là aussi pour chaque étage, deux cas sont possibles :
+    \begin{itemize}
+        \item Cas nominal : Apogée détectée, trappe éjectée, parachute déployé.
+        \item Cas balistique : Fail du système de détection d’apogée ou d’éjection de trappe : chute libre contrôlée.
+    \end{itemize}
+    Dans les deux cas, les trajectoires de descente restent dans le gabarit de sécurité défini par le CDC.
+\end{itemize}
+
+\subsubsection{Phase 5 — Atterrissage et récupération}
+\begin{itemize}
+    \item \textbf{État initial} : Les deux étages descendent sous parachute ou en chute libre contrôlée.
+    \item \textbf{Objectif fonctionnel} : Assurer un atterrissage en toute sécurité dans le gabarit défini, minimisant les
+    risques pour les personnes, les biens et l’environnement.
+    \item \textbf{Règles du CDC ASF2 concernées} : (pas de règle spécifique à cette phase décrit par la rubrique ASF du CDC)
+    \item \textbf{État final attendu} : Ici aussi, deux cas pour chaque étage définis par la phase précédente :
+    \begin{itemize}
+        \item Cas nominal : Atterrissage sous parachute dans le gabarit, étage intact.
+        \item Cas balistique : Atterrissage en chute libre contrôlée dans le gabarit, étage détruit.
+    \end{itemize}
+    Dans les deux cas, l’atterrissage doit se faire sans risque pour les personnes, les biens et l’environnement.
+\end{itemize}
+
+\newpage
