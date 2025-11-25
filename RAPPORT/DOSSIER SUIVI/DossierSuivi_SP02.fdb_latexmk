@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex DossierSuivi_SP02"] 1764078540.78507 "DossierSuivi_SP02.aux" "DossierSuivi_SP02.bbl" "DossierSuivi_SP02" 1764078610.04319 0
+["bibtex DossierSuivi_SP02"] 1764078540.78507 "DossierSuivi_SP02.aux" "DossierSuivi_SP02.bbl" "DossierSuivi_SP02" 1764079705.68088 0
   "./biblio.bib" 1763481046.50326 174 02bafa2ec16df450e946a338b5886c7e ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/base/ieeetr.bst" 1292289607 18361 1a00e58565e7f19bf2b3e1bfb82254ae ""
-  "DossierSuivi_SP02.aux" 1764078609.45486 13895 3898568ee1fd743047ce4f8cae1eccc5 "pdflatex"
+  "DossierSuivi_SP02.aux" 1764079705.11587 13895 3898568ee1fd743047ce4f8cae1eccc5 "pdflatex"
   (generated)
   "DossierSuivi_SP02.bbl"
   "DossierSuivi_SP02.blg"
   (rewritten before read)
-["pdflatex"] 1764078601.81337 "/Users/lucaspichon/Documents/GitHub/SP-02/RAPPORT/DOSSIER SUIVI/DossierSuivi_SP02.tex" "DossierSuivi_SP02.pdf" "DossierSuivi_SP02" 1764078610.04345 0
+["pdflatex"] 1764079697.37754 "/Users/lucaspichon/Documents/GitHub/SP-02/RAPPORT/DOSSIER SUIVI/DossierSuivi_SP02.tex" "DossierSuivi_SP02.pdf" "DossierSuivi_SP02" 1764079705.68111 0
   "/Users/lucaspichon/Documents/GitHub/SP-02/RAPPORT/DOSSIER SUIVI/DossierSuivi_SP02.tex" 1764077576.74616 9188 1f7fa21ab3026184985f06064df701a9 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
@@ -269,11 +269,11 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1761842899 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1761842863 3345739 ef94b1bf6a64bd07f8e7315a67e97935 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "DossierSuivi_SP02.aux" 1764078609.45486 13895 3898568ee1fd743047ce4f8cae1eccc5 "pdflatex"
+  "DossierSuivi_SP02.aux" 1764079705.11587 13895 3898568ee1fd743047ce4f8cae1eccc5 "pdflatex"
   "DossierSuivi_SP02.bbl" 1764078540.94742 49 0eba253fc001332e731e8aba3f23127b "bibtex DossierSuivi_SP02"
-  "DossierSuivi_SP02.out" 1764078609.4588 7267 8e03bf982e79c35f5cbba3c038b2b455 "pdflatex"
+  "DossierSuivi_SP02.out" 1764079705.12076 7267 8e03bf982e79c35f5cbba3c038b2b455 "pdflatex"
   "DossierSuivi_SP02.tex" 1764077576.74616 9188 1f7fa21ab3026184985f06064df701a9 ""
-  "DossierSuivi_SP02.toc" 1764078609.45918 3625 e89943862125aa7d0a95462f8f77a73c "pdflatex"
+  "DossierSuivi_SP02.toc" 1764079705.12131 3625 e89943862125aa7d0a95462f8f77a73c "pdflatex"
   "figures/AEROIPSA.png" 1763481046.50358 35505 dcd2972f9b9426ab9271f1080548ea9c ""
   "figures/AEROIPSA_FOOTER.png" 1763481046.50373 2534 fc435c9db1124c7a60158db04f0c8b16 ""
   "figures/AEROIPSA_HEADER.png" 1763481046.50388 7036 23de3661cba67914614e97157b65974b ""
@@ -289,7 +289,7 @@
   "figures/collage_ailerons_arcturus.png" 1764078273.30419 242191 4b3fd82d0dbb51c910dcdb988fee275a ""
   "figures/gantt.jpg" 1763481046.54155 134180 215171e9a6c12a86eb052666872e76fe ""
   "figures/schema1_SP-01.PNG" 1764078186.48605 54318 928ec69ac259146072285b8458e8d3ba ""
-  "figures/schema3_SP-01.PNG" 1764078601.76618 60104 7c9c6d64a5069ea05b8c1d924eb4f85d ""
+  "figures/schema3_SP-01.PNG" 1764079588.36065 80160 13166ea6a04659b96fd94fec9314edc1 ""
   "figures/sp01_2.png" 1763481046.54193 243077 41e12e5949162c27db6420999f3ecf7c ""
   "figures/sp02_ork.png" 1763481046.54733 754785 20b5eac471b702ea41c563c08c9337df ""
   "figures/sp02_ork_simu.png" 1763481046.54758 16312 472a277816b93729e747d25c4afe136c ""
