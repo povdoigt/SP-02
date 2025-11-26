@@ -12,32 +12,33 @@
 \contentsline {subsection}{\numberline {1.6}Planification, répartition des tâches}{9}{subsection.1.6}%
 \contentsline {section}{\numberline {2}Analyse de sûreté de fonctionnement}{10}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Présentation des phases de vol}{11}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Analyse préliminaire des risques}{14}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}\acrfull {ERPs}}{14}{subsubsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2}\acrlong {APR}}{14}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}\acrlong {ERPs}}{14}{subsubsection.2.2.1}%
 \contentsline {subsubsection}{\numberline {2.2.2}Analyse des risques par phase de vol}{15}{subsubsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.3}Modes de défaillances}{16}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Méthode AMDEC}{16}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Bilan sur les actions correctives}{16}{subsection.2.5}%
-\contentsline {section}{\numberline {3}Structure mécanique}{17}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Structure du premier étage}{17}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Structure du second étage}{17}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Définition des systèmes d'ouverture/parachutes}{17}{subsection.3.3}%
-\contentsline {section}{\numberline {4}Electronique}{18}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Séquenceurs}{18}{subsection.4.1}%
-\contentsline {subsubsection}{\numberline {4.1.1}Architecture matérielle}{18}{subsubsection.4.1.1}%
-\contentsline {paragraph}{Choix du microcontrôleur}{18}{paragraph*.15}%
-\contentsline {paragraph}{Portes à hystérésis}{18}{paragraph*.16}%
-\contentsline {paragraph}{Boucles électriques inter-étages}{19}{paragraph*.17}%
-\contentsline {paragraph}{Double circuit de détection de décollage}{19}{paragraph*.18}%
-\contentsline {subsubsection}{\numberline {4.1.2}Principes de fonctionnement}{19}{subsubsection.4.1.2}%
-\contentsline {subsubsection}{\numberline {4.1.3}Robustesse du système et immunité aux perturbations}{20}{subsubsection.4.1.3}%
-\contentsline {subsubsection}{\numberline {4.1.4}Conception PCB}{20}{subsubsection.4.1.4}%
-\contentsline {subsection}{\numberline {4.2}Ligne de mise à feu}{20}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Expérience}{20}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Tests et validations}{21}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Matrice de validation}{21}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Registre des tests}{21}{subsection.5.2}%
-\contentsline {section}{\numberline {}Liste des figures}{22}{subsection.5.2}%
-\contentsline {section}{\numberline {}Liste des tableaux}{22}{subsection.5.2}%
-\contentsline {section}{\numberline {}Références}{23}{subsection.5.2}%
-\contentsline {section}{\numberline {}Glossaires et acronymes}{24}{subsection.5.2}%
+\contentsline {subsection}{\numberline {2.3}\acrlong {MDF}}{16}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Présentation des sous-systèmes}{16}{subsubsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.4}Méthode AMDEC}{18}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Bilan sur les actions correctives}{18}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Structure mécanique}{19}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Structure du premier étage}{19}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Structure du second étage}{19}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Définition des systèmes d'ouverture/parachutes}{19}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Electronique}{20}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Séquenceurs}{20}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Architecture matérielle}{20}{subsubsection.4.1.1}%
+\contentsline {paragraph}{Choix du microcontrôleur}{20}{paragraph*.15}%
+\contentsline {paragraph}{Portes à hystérésis}{20}{paragraph*.16}%
+\contentsline {paragraph}{Boucles électriques inter-étages}{21}{paragraph*.17}%
+\contentsline {paragraph}{Double circuit de détection de décollage}{21}{paragraph*.18}%
+\contentsline {subsubsection}{\numberline {4.1.2}Principes de fonctionnement}{21}{subsubsection.4.1.2}%
+\contentsline {subsubsection}{\numberline {4.1.3}Robustesse du système et immunité aux perturbations}{22}{subsubsection.4.1.3}%
+\contentsline {subsubsection}{\numberline {4.1.4}Conception PCB}{22}{subsubsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.2}Ligne de mise à feu}{22}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Expérience}{22}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Tests et validations}{23}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Matrice de validation}{23}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Registre des tests}{23}{subsection.5.2}%
+\contentsline {section}{\numberline {}Liste des figures}{24}{subsection.5.2}%
+\contentsline {section}{\numberline {}Liste des tableaux}{24}{subsection.5.2}%
+\contentsline {section}{\numberline {}Références}{25}{subsection.5.2}%
+\contentsline {section}{\numberline {}Glossaires et acronymes}{26}{subsection.5.2}%

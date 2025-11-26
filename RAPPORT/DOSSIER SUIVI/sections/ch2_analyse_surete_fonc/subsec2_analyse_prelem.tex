@@ -1,22 +1,23 @@
-\subsection{Analyse préliminaire des risques}
+\subsection{\acrlong{APR}}
 \label{subsec:analyse_prelem}
 
-L’analyse préliminaire des risques constitue le point de départ de la sûreté de fonctionnement. Elle consiste à examiner, dès
-les premières phases de conception, les situations susceptibles de mettre en cause la sécurité du vol, la protection des
-personnes et la conformité du lanceur aux exigences du \acrshort{CDC} Fusex bi-étage. Cette étape préliminaire permet
-d’identifier les domaines techniques où un niveau de vigilance particulier est nécessaire et oriente les analyses détaillées
-réalisées dans les sections suivantes. \\
+L’\acrfull{APR} constitue la première étape de la sûreté de fonctionnement. Elle vise à identifier les situations pouvant
+compromettre la sécurité du vol, l’intégrité du lanceur, ou la conformité aux exigences du \acrshort{CDC} \gls{Fusex} bi-étage.
+Cette analyse globale est réalisée avant toute étude détaillée, afin de mettre en évidence les phases critiques du vol et les
+sous-systèmes nécessitant un contrôle renforcé.
 
-Le projet SP-02 présente plusieurs caractéristiques critiques — séparation passive par aérofreinage, allumage conditionnel du
-second étage en vol, structure en peau porteuse, mécanismes de récupération et avionique distribuée — qui introduisent des
-risques spécifiques. L’analyse vise à repérer les situations potentiellement dangereuses associées à ces sous-systèmes et à
-déterminer comment elles pourraient affecter l’intégrité et le pilotage du lanceur. \\
+Dans le cadre du projet SP-02, plusieurs éléments introduisent des risques spécifiques : la séparation passive par aérofreinage,
+l’allumage conditionnel du second étage en vol, la structure en peau porteuse des deux étages, ainsi que les mécanismes
+d’ouverture des parachutes et l’avionique distribuée. L’\acrshort{APR} vise à caractériser les situations dangereuses que ces
+sous-systèmes pourraient générer au niveau du comportement global du lanceur.
 
-Cette première étape se conclut par l’identification des \acrfull{ERPs}, c’est-à-dire des situations finales dont la survenue
-compromettrait directement la sécurité ou la trajectoire du lanceur. Ils constituent la base de structuration des sections
-\ref{subsec:modes_deffaillance} et \ref{subsec:amdec}.
+Cette première étape aboutit à l’identification des \acrfull{ERPs}(section~\ref{subsubsec:ERPs}), c’est-à-dire les états finaux
+dangereux qu’il convient d’éviter. Ils servent ensuite de base pour l’analyse par phase
+(section~\ref{subsubsec:analyse_par_phase}) et pour la définition des modes de défaillance présentés en
+section~\ref{subsec:modes_deffaillance}.
 
-\subsubsection{\acrfull{ERPs}}
+\subsubsection{\acrlong{ERPs}}
+\label{subsubsec:ERPs}
 
 Les \acrfull{ERPs} correspondent aux situations dangereuses qu’il est nécessaire d’éviter pour garantir un vol sûr et conforme.
 Ils constituent les \textbf{états finaux indésirables} que des chaînes de défaillances pourraient produire, et non les pannes ou
@@ -71,6 +72,7 @@ une rotation excessive ou une dispersion hors gabarit.
 \newpage
 
 \subsubsection{Analyse des risques par phase de vol}
+\label{subsubsec:analyse_par_phase}
 
 L’analyse par phase de vol permet de déterminer, pour chaque étape du déroulement nominal, quels \acrshort{ERPs} sont
 susceptibles de se produire et dans quelles conditions générales. Cette étude complète l’identification des \acrshort{ERP} en

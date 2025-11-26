@@ -1,2 +1,100 @@
-\subsection{Modes de défaillances}
+\subsection{\acrlong{MDF}}
 \label{subsec:modes_deffaillance}
+
+
+Les \acrfull{MDF} constituent les causes techniques susceptibles de conduire aux \acrshort{ERPs} identifiés en
+\acrlong{APR}. Contrairement aux \acrshort{ERP}, qui décrivent des situations finales dangereuses au niveau système, les
+\acrlong{MDF} décrivent les anomalies, ruptures ou dysfonctionnements pouvant apparaître au sein des sous-systèmes du lanceur.\\
+
+L’objectif de cette section est d’identifier, pour chaque ensemble fonctionnel de SP-02, les défaillances susceptibles
+de conduire à un ou plusieurs \acrshort{ERPs}. Cette étape permet de caractériser l’origine potentielle des risques avant leur
+évaluation détaillée dans l’\acrshort{AMDEC} (section~\ref{subsec:AMDEC}).
+
+\subsubsection{Présentation des sous-systèmes}
+\label{subsubsec:sous_sys}
+
+Pour l’analyse des \acrshort{MDF}, les sous-systèmes du lanceur SP-02 sont regroupés en six familles principales :\\
+\begin{itemize}
+    \item \textbf{Éléments mécaniques statiques} : structures porteuses, coiffe, ailerons, bagues d’interface ou de liaison,
+    interface entre étages.
+    \item \textbf{Éléments mécaniques dynamiques} : aérofreins, trappes parachutes, mécanismes de séparation.
+    \item \textbf{Éléments électroniques} : capteurs, cartes séquenceurs, alimentation, chaîne pyrotechnique.
+    \item \textbf{Éléments logiciels} : logique d’état, traitements capteurs, conditions d’autorisation.
+    \item \textbf{Facteurs humains (procéduraux)} : opérations d’assemblage, d’armement et de préparation du vol.
+    \item \textbf{Facteurs externes (environnementaux)} : conditions météorologiques, environnement électromagnétique.\\
+\end{itemize}
+
+Les paragraphes suivants présentent les \acrshort{MDF} génériques associés à ces familles. Chaque mode est noté
+\textbf{\acrshort{MDF}$i$} et peut concerner plusieurs sous-systèmes ou familles lorsque cela est pertinent.
+
+\subsubsubsection*{Définition des \acrshort{MDF} génériques}
+
+Les \acrlong{MDF} suivants ont été retenus :
+
+\begin{itemize}
+    \item \textbf{\acrshort{MDF}1 – Perte d’intégrité structurelle} \\
+    Rupture, fissuration, délamination ou flambage d’un élément structurel (peau porteuse, aileron, coiffe, bague),
+    entraînant une modification significative de la rigidité ou de la géométrie.\\
+
+    \item \textbf{\acrshort{MDF}2 – Géométrie ou alignement non conforme} \\
+    Défaut d’alignement entre étages, flèche excessive (\og banane\fg{} du tube), jeu mécanique anormal ou montage hors
+    tolérance, pouvant perturber la stabilité ou la séparation.\\
+
+    \item \textbf{\acrshort{MDF}3 – Blocage ou mouvement incomplet d’un mécanisme} \\
+    Blocage total ou partiel d’un mécanisme mobile (aérofrein, trappe parachute, loquet, ressort), dû à des frottements, à une
+    déformation ou à une pollution.\\
+
+    \item \textbf{\acrshort{MDF}4 – Mouvement asymétrique ou non maîtrisé} \\
+    Déploiement dissymétrique (un seul aérofrein, ouverture partielle d’une trappe, séparation non symétrique), entraînant un
+    moment non désiré ou une transition de phase dégradée.\\
+
+    \item \textbf{\acrshort{MDF}5 – Perte ou corruption de mesure} \\
+    Capteur hors service, saturé ou perturbé (IMU, altimètre, GPS), câble capteur sectionné ou pincé, ou bruit électromagnétique
+    induisant des mesures incohérentes.\\
+
+    \item \textbf{\acrshort{MDF}6 – Défaut d’alimentation électrique} \\
+    Perte totale ou partielle d’alimentation (batterie déchargée, chute de tension, connecteur mal engagé), rendant inopérant un
+    ou plusieurs sous-systèmes électroniques.\\
+
+    \item \textbf{\acrshort{MDF}7 – Défaut de la chaîne pyrotechnique} \\
+    Court-circuit, isolation insuffisante, impulsion parasite ou connectique inadaptée sur la ligne pyrotechnique du second étage
+    ou des systèmes de récupération, pouvant conduire à un allumage intempestif ou à un non-allumage.\\
+
+    \item \textbf{\acrshort{MDF}8 – Erreur de logique d’état ou de séquencement} \\
+    Défaut de machine d’état (transition illégale, état bloqué), erreur de timer ou d’ordonnancement des événements (séparation,
+    allumage, ouverture parachute).\\
+
+    \item \textbf{\acrshort{MDF}9 – Interprétation erronée des conditions d’autorisation} \\
+    Mauvaise prise en compte des conditions de séparation, d’attitude ou de fenêtre temporelle, conduisant à autoriser ou
+    interdire à tort une action critique.\\
+
+    \item \textbf{\acrshort{MDF}10 – Erreur procédurale ou d’assemblage} \\
+    Erreur humaine lors du montage, du câblage, de l’armement ou du rangement (parachute mal conditionné, connecteur inversé,
+    coiffe mal fixée, shunt mal géré).\\
+
+    \item \textbf{\acrshort{MDF}11 – Préparation ou configuration non conforme} \\
+    Configuration logicielle ou matérielle incorrecte (paramètres non mis à jour, seuils mal réglés, configuration d’essai
+    laissée en place), ou non-respect d’une étape de préparation.\\
+
+    \item \textbf{\acrshort{MDF}12 – Conditions environnementales hors domaine} \\
+    Conditions extérieures (vent fort, pluie, humidité, température, perturbations électromagnétiques) dépassant le domaine pris
+    en compte en conception ou en simulation, et affectant le comportement mécanique, électronique ou logiciel.
+\end{itemize}
+
+\subsubsubsection*{Répartition des \acrshort{MDF} par famille de sous-systèmes}
+
+Les familles de sous-systèmes présentées précédemment sont principalement concernées par les modes de défaillance suivants :\\
+\begin{itemize}
+    \item \textbf{Éléments mécaniques statiques} : \acrshort{MDF}1, \acrshort{MDF}2
+    \item \textbf{Éléments mécaniques dynamiques} : \acrshort{MDF}3, \acrshort{MDF}4
+    \item \textbf{Éléments électroniques} : \acrshort{MDF}5, \acrshort{MDF}6, \acrshort{MDF}7
+    \item \textbf{Éléments logiciels} : \acrshort{MDF}8, \acrshort{MDF}9, \acrshort{MDF}11
+    \item \textbf{Facteurs humains (procéduraux)} : \acrshort{MDF}10, \acrshort{MDF}11
+    \item \textbf{Facteurs externes (environnementaux)} : \acrshort{MDF}12 (et contribution possible à \acrshort{MDF}5,
+    \acrshort{MDF}6, \acrshort{MDF}7)\\
+\end{itemize}
+
+Chacun de ces \acrlong{MDF} peut, selon le sous-système affecté et la phase de vol considérée, conduire à un ou plusieurs
+\acrshort{ERP}.
+
+\newpage
