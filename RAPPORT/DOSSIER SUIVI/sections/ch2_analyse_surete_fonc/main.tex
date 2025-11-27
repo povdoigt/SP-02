@@ -1,123 +1,51 @@
 \section{Analyse de sûreté de fonctionnement}
 \label{sec:analyse_surete_fonc}
 
-
 L’analyse de sûreté de fonctionnement a pour objectif d’identifier, de comprendre et de maîtriser l’ensemble des défaillances
-susceptibles de compromettre la sécurité des personnes, des biens et le respect du gabarit de vol du projet. Dans le cadre
-d’une fusée expérimentale bi-étages, cette démarche revêt un caractère essentiel, en particulier en raison de la présence
-d’une séquence de propulsion à deux niveaux et d’une phase critique de séparation et d’allumage du second étage.
-Conformément aux exigences du cahier des charges Fusex, cette analyse vise principalement à :
-\begin{itemize}
-    \item Prévenir l’événement redouté prioritaire : tout écart significatif entre la trajectoire réelle et la trajectoire simulée, que celui-ci se produise en propulsion, en phase balistique ou lors des séquences de séparation et de récupération.
-    \item Vérifier l’adéquation du projet aux règles techniques et de sécurité telles qu’énoncées dans le cahier des charges et proposer des contrôles supplémentaires lorsque les caractéristiques propres au projet l’exigent.
-    \item Démontrer la robustesse du système face à des situations dégradées, en particulier lors de l’occurrence d’une double panne, quel que soit le sous-système concerné (mécanique, électronique ou logiciel) et quelle que soit la phase de vie du projet.
-\end{itemize}
+susceptibles de compromettre la sécurité des personnes, des biens et le respect du gabarit de vol du projet. Dans le cadre d’une
+fusée expérimentale bi-étages, cette démarche revêt un caractère essentiel, en particulier en raison de la présence d’une phase
+critique de séparation et d’allumage du second étage. Conformément aux exigences du \acrshort{CDC} Fusex bi-étage, cette
+analyse vise à répondre aux règles suivantes :
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|p{13cm}|}
+        \hline
+        \textbf{ASF1} & L’événement redouté est l’écartement de la trajectoire réelle par rapport à la trajectoire simulée. \\
+        \hline
+        \textbf{ASF2} & L’analyse de sûreté de fonctionnement doit se conclure par la justification d’adéquation ou de
+        non-adéquation aux règles \textbf{MAF1 à 8}, \textbf{INF1 à 3}, \textbf{SECR1 à 3}, \textbf{SPYTC1 à 4},
+        \textbf{ORDRE1 à 5}, \textbf{ATT1 à 4}, \textbf{FTP1 à 4}, \textbf{SEP1 à 3}, par rapport aux spécificités du projet. On
+        attend soit la confirmation que les règles énoncées sont suffisantes, soit la proposition d’un contrôle plus adéquat.
+        Cette analyse doit être effectuée pour la première RCE2, puis une version définitive doit être présentée à la première
+        RCE3. \\
+        \hline
+        \textbf{ASF3} & L’analyse de sûreté de fonctionnement doit permettre de montrer que la fusée retombe dans le gabarit
+        lors de l’occurrence d’une double panne, quelle que soit la phase de vie du projet et le bloc étudié. \\
+        \hline
+    \end{tabular}
+    \caption{Règles concernant l'analye de sûreté de fonctionnement du \acrshort{CDC} \gls{Fusex} bi-étage \cite[p. ~21]{CDC_BiEtage}}
+    \label{tab:regles_surete_fonc}
+\end{table}
+
 La méthodologie retenue pour ce projet est la suivante :
-1.	Une analyse préliminaire des risques permettant d’identifier les événements redoutés
-2.	La définition des modes de défaillance associés aux principaux sous-systèmes
-3.	La réalisation d’une AMDEC pour les modes jugés les plus critiques
-4.	Un bilan des actions correctives visant à éliminer, réduire ou maîtriser les risques non acceptables.
-Cette étude permet de réaliser un contrôle et une validation du design global du projet. Elle éclaire les choix techniques, l’intégration des sécurité matérielles ou logicielles, et prépare les essais nécessaires à la version définitive présentée lors de la RCE3. Elle assure, enfin, que la fusée demeure exploitable en toute sécurité, même en présence de défaillances simultanées et dans l'ensemble des configurations opérationnelles.
+\begin{enumerate}
+    \item Une analyse préliminaire des risques permettant d’identifier les événements redoutés.
+    \item La définition des modes de défaillance associés aux principaux sous-systèmes.
+    \item La réalisation d’une \acrfull{AMDEC} pour les modes jugés les plus critiques.
+    \item Un bilan des actions correctives visant à éliminer, réduire ou maîtriser les risques non acceptables.\\
+\end{enumerate}
+Cette étude permet de réaliser un contrôle et une validation du design global du projet. Elle éclaire les choix techniques,
+l’intégration des sécurité matérielles ou logicielles, et prépare les essais nécessaires à la version définitive présentée lors
+de la RCE3. Elle assure, enfin, que la fusée demeure exploitable en toute sécurité, même en présence de défaillances simultanées
+et dans l'ensemble des configurations opérationnelles.
 
+\newpage
 
-2.1 Analyse préliminaire des risques
-L’analyse préliminaire des risques a pour objectif d’identifier l’ensemble des événements susceptibles de compromettre la sécurité, le bon déroulement de la mission et la conformité aux exigences du cahier des charges Fusex. Elle constitue la première étape de la sûreté de fonctionnement et permet de définir, dès la conception, les points critiques sur lesquels concentrer les efforts de prévention et de validation.
-Dans le cadre d’une fusée expérimentale bi-étages, cette démarche est particulièrement importante : la présence d’une séparation froide, d’un allumage du second étage en vol, d’une structure en peau porteuse et de mécanismes sensibles (trappes parachutes, loquets, aérofreins, collage d’ailerons, électronique répartie) multiplie les sources potentielles de défaillance. Cette analyse vise donc à dresser un panorama complet des risques, qu’ils soient mécaniques, électroniques, logiciels, structurels, environnementaux ou opérationnels.
-Les risques identifiés seront ensuite étudiés plus en détail dans les sections suivantes afin de démontrer que le système demeure sûr, contrôlé et conforme aux exigences même en cas de pannes simples ou doubles.
-
-Listing des risques par bloc (catégories : Élec / Mécanique / Structure / Log. / Environnement / Procédural)
-Ogive / Coiffe
-•	Structure : délamination résine/fibre → déformation (banane) → perturbation aérodynamique → instabilité/écartement trajectoire.
-•	Procédural : mauvaise fixation de la coiffe → ouverture involontaire en vol.
-•	Élec (si capteurs embarqués dans coiffe) : câblage pincé lors d’assemblage → faux signaux.
-Bloc électronique Beta (étage supérieur)
-•	Allumage motorisation 2 (séquence/ligne) : court-circuit / fuite de courant / mauvais isolement → allumage intempestif.
-•	Séparation physique des faisceaux : connecteurs qui ne se séparent pas (traction non isolée) → commande moteur 2 non isolée après séparation.
-•	Alimentation / batterie : coupure batterie, mauvaise polarité, chute de tension sous vibration.
-•	Logiciel : bug dans la séquence d’armement / timer erroné / mauvais traitement des capteurs.
-•	EMI / vibration : parasites provoquant impulsions d’allumage.
-Trappe parachute Beta
-•	Mécanique : trappe qui s’ouvre partiellement (frottement) → parachute coincé.
-•	Structure : charnière ou goupille mal collée / fissure due à vibrations.
-•	Déploiement : sac de parachute mal rangé / bridage trop court.
-Ailerons Beta (collés à la peau)
-•	Adhérence : mauvaise surface de collage → décollement sous charge.
-•	Effet structurel : concentration de contraintes → fissure de la peau porteuse.
-•	Aerodynamique : décollement partiel → moment de roulis / instabilité.
-Moteur Beta
-•	Sécurité pyro : allumage intempestif du moteur beta (côté supérieur ou inférieur selon config).
-•	Éjection des gaz : interaction échappement / trappe si non séparé.
-•	Vibrations : propagation vers électronique / capteurs.
-Bloc séparation supérieur (Beta)
-•	Séparation froide : ressorts insuffisants → séparation incomplète (s’enfoncement dans tube).
-•	Mécanique : loquet qui coince / résidus empêchant mouvement.
-•	Synchro : mauvaise synchronisation avec ordres électroniques.
-Bloc séparation inférieur (Alpha)
-•	Blocage loquets : défaut d’ouverture → empêche séparation.
-•	Éjection de câbles : câbles mal guidés → restent tendus après séparation → traction sur connecteurs.
-•	Timer / logique : déclenchement intempestif / non déclenchement.
-Bloc électronique Alpha
-•	Alimentation / Batterie : décharge prématurée, faiblesse sous froid.
-•	Séquenceur : envoi d’ordre incorrect si les lignes ne sont pas mécaniquement séparées.
-•	Capteurs : altimètre défaillant → mauvaise gestion de l’ouverture parachute.
-Trappe parachute Alpha
-•	mêmes risques que trappe beta; en plus : si trappe alpha s’ouvre avec moteur armé (danger pour sol/public si non respecté).
-Aérofreins
-•	Blocage mécanique : charnière grippée → surface non déployée → perte de contrôle latéral.
-•	Verrouillage accidentel : ressorts/loquets cassés qui empêchent mouvement.
-Ailerons Alpha (collés au tube moteur)
-•	Transmission de contrainte : mouvement relatif tube interne / tube externe provoque fissuration.
-•	Désolidarisation : ailerons qui passent à travers la peau extérieure mal guidés → frottement/arrachement.
-Moteur Alpha (1er étage)
-•	Allumage : non étudié en détail selon CD, mais son comportement influence trajectoire.
-•	Rupture / explosion : fragmentation → pièces projetées hors gabarit.
-Risques transverses (non liés à un bloc unique)
-•	Météo : vent fort, cisaillement, pluie → déviation trajectoire, lancement reporté, systèmes sensibles à l’humidité.
-•	Événement imprévu : oiseau, drone, intervention humaine non maîtrisée.
-•	Procédures humaines : erreurs d’armement, câblage inversé, oubli d’interlocks.
-•	Electrostatique / EMI : déclenchements non volontaires.
-
-3. Scénarios-types (exemples d’événements redoutés affectant la mission)
-•	SR1 - Allumage intempestif du moteur Beta au sol : cause = court-circuit/armement logiciel erroné. Impact = danger personnes/installation; traité par barrières CD (double interrupteur), mais vérifier isolation mécanique séparant faisceaux.
-•	SR2 - Non séparation froide (ressorts insuffisants) : cause = conception ressort/jeu insuffisant, contamination. Impact = masse et aérodynamique modifiés → trajectoire hors gabarit.
-•	SR3 - Décollement d’un aileron collé : cause = collage mal réalisé ou peau porteuse endommagée. Impact = couple non contrôlé, instabilité → sortie gabarit.
-•	SR4 - Altimètre principal HS et parachute principal ne s’ouvre pas (double panne) : situation de double panne critique; nécessité d’un altimètre secondaire et parachute de secours.
-•	SR5 - Blocage trappe parachute pendant déploiement : parachute non sorti → chute rapide → sortie gabarit.
-•	SR6 - Câblage de séparation non libéré → commande moteur 2 non déclenchée : motorisation 2 dépend d’une séparation mécanique et d’un isolement électrique.
-
-
-
-1. Chaîne d’allumage du second étage — risques et enjeux
-La chaîne d’allumage du second étage constitue l’un des points les plus critiques du projet bi-étages. En effet, elle implique non seulement un dispositif pyrotechnique sensible, mais aussi une coordination stricte entre les événements : séparation mécanique, acquisition des conditions d’allumage, confirmation de la non-détection d’un événement anormal (ex. ouverture parachute). Une défaillance peut conduire à deux cas redoutés : un allumage prématuré (au sol ou immédiatement après séparation) ou un non-allumage en vol. Les risques incluent : rupture ou arrachement du câblage, court-circuit, alimentation résiduelle, défaillance logicielle dans le séquenceur, ou encore perturbation mécanique empêchant un contact électrique franc. Une attention particulière doit être portée à l’isolement physique des lignes pyro entre les étages et à la vérification par tests vibratoires des connectiques.
-
-2. Flèche / déformation de la structure — impacts sur stabilité
-La flèche correspond à une légère courbure longitudinale du corps de la fusée. Bien que généralement faible, elle peut induire une modification locale de l’angle d’attaque et générer une dynamique instable (mise en oscillation, perte de marge statique). Ce phénomène devient critique dans un système à deux étages car :
-•	il peut entraîner une friction accrue ou un coincement mécanique entre les tubes et le bloc de séparation ;
-•	il peut augmenter la charge latérale sur les ailerons, favorisant un décollement local si la résine est insuffisamment homogène ;
-•	il peut dégrader l’alignement entre l’axe de poussée et l’axe inertiel du véhicule.
-Une analyse structurelle préalable, complétée de tests d’ovalisation du tube et de contrôle dimensionnel, permet de caractériser ce risque.
-
-3. Séparation froide — spécificités et risques associés
-La séparation froide repose exclusivement sur une énergie mécanique stockée (ressorts, élastiques, pression résiduelle). Elle élimine le risque pyrotechnique mais introduit des contraintes nouvelles : ressorts sous-dimensionnés, friction excessive, tolérances mécaniques trop strictes, ou inversement trop lâches entraînant du jeu. Le risque majeur est une séparation incomplète ou asymétrique, susceptible d’empêcher l’allumage du second étage, de bloquer l’ouverture d’un parachute ou de causer une collision entre étages.
-Dans le cas particulier de notre fusée expérimentale, les aérofreins jouent un rôle actif dans la séparation en vol : leur déploiement génère une différence de traînée qui contribue à écarter naturellement les deux étages. Toutefois, cette séparation « dynamique » ne peut pas être utilisée comme unique moyen, car elle ne fonctionne qu’en vol et sous une vitesse suffisante.
-C’est pourquoi les ressorts restent obligatoires dans le cadre du cahier des charges : ils garantissent une séparation franche au sol, en conditions statiques, sans assistance aérodynamique. Ils constituent donc un moyen de sécurité imposé afin d’assurer qu’un défaut d’aérofreins, un non-déploiement ou un vol atypique ne compromette jamais la séparation.
-Des tests répétés (mesure de vitesse de séparation, contrôle de symétrie, vérification du guidage) sont indispensables pour valider à la fois le dimensionnement des ressorts et la compatibilité de la mécanique avec le fonctionnement des aérofreins.
-
-4. Peau porteuse — conséquences d’un défaut de fabrication
-La configuration « peau porteuse » implique que l’enveloppe extérieure assure la fonction structurale principale. Un défaut mineur (décollement, défaut de stratification, bulles, onde de fibre) peut entraîner une rupture locale sous charge, voire une flambée du tube. Les risques incluent aussi un phénomène de « banane », où le tube n’est plus rectiligne et perturbe l'ajustement avec les autres blocs. Un contrôle qualité rigoureux (pesée, analyse visuelle, test de rigidité) est donc indispensable.
-
-5. Ailerons collés — points critiques du collage
-Le choix d’un collage plutôt que d’un montage vissé gagne en masse mais devient un maillon critique : la résistance dépend alors de la qualité de la préparation de surface, du type de résine, du rapport durcisseur/résine et des conditions de polymérisation. Les risques incluent : délamination, arrachement partiel générant des vibrations ou une asymétrie aérodynamique, ou rupture complète. Un protocole précis (ponçage, dégraissage, température contrôlée) limite fortement ces occurrences.
-
-6. Risques météorologiques — impact sur trajectoire et sécurité
-Les conditions météo influencent fortement la trajectoire réelle par rapport à la simulation : vent en altitude, rafales, inversion thermique, humidité pouvant perturber l’électronique, visibilité réduite compromettant la récupération. Un vent latéral important augmente la dérive et peut provoquer un basculement.
-
-
-
-
-% \input{sections/ch2_analyse_surete_fonc/subsec1_analyse.tex}
-% \input{sections/ch2_analyse_surete_fonc/subsec2_modes_defaillances.tex}
-% \input{sections/ch2_analyse_surete_fonc/subsec3_AMDEC.tex}
-% \input{sections/ch2_analyse_surete_fonc/subsec4_Bilan_action_corr.tex}
+\input{sections/ch2_analyse_surete_fonc/subsec1_phases_vol.tex}
+\input{sections/ch2_analyse_surete_fonc/subsec2_analyse_prelem.tex}
+\input{sections/ch2_analyse_surete_fonc/subsec3_modes_defaillances.tex}
+\input{sections/ch2_analyse_surete_fonc/subsec4_AMDEC.tex}
+\input{sections/ch2_analyse_surete_fonc/subsec5_Bilan_action_corr.tex}
 
 \newpage

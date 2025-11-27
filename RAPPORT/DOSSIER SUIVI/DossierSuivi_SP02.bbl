@@ -1,3 +1,29 @@
+<<<<<<< HEAD
 \begin{thebibliography}{}
+=======
+\begin{thebibliography}{1}
+
+\bibitem{CDC_BiEtage}
+{\relax \gls{Planète Sciences} et le \acrshort{CNES}}, ``Cahier des charges
+  des fusées expérimentales bi-étages.''
+  \url{https://www.planete-sciences.org/espace/scae/doc/cdc_fusex_bietage},
+  2017.
+
+\bibitem{AeroIPSA}
+AéroIPSA, ``{\relax Site officiel d'AéroIPSA}.''
+  \url{https://www.aeroipsa.com}.
+
+\bibitem{Arcturus}
+{\relax Lucas Pichon}, ``Rapport de projet arcturus.''
+  \url{https://www.aeroipsa.com/arcturus}, 2024.
+
+\bibitem{SP01}
+{\relax Malo Amaranti and Mathieu Coquelle-Grandsimon}, ``Rapport de projet
+  sp-01.'' \url{https://www.aeroipsa.com/sp01}, 2024.
+
+\bibitem{APEX}
+{\relax Malo Amaranti and Alexis Paillard}, ``Rapport de projet d'apex.''
+  \url{https://www.aeroipsa.com/apex}, 2025.
+>>>>>>> ALEXIS
 
 \end{thebibliography}

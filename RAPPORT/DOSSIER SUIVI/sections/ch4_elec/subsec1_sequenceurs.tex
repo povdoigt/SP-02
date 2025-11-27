@@ -1,7 +1,7 @@
 \subsection{Séquenceurs}
 
 Les deux étages de la fusée SP-02 sont chacun équipés d’un séquenceur embarqué identique, développé pour gérer de manière
-autonome l’ensemble des événements critiques du vol et assurer la conformité au cahier des charges Fusex. Cette architecture
+autonome l’ensemble des événements critiques du vol et assurer la conformité au \acrshort{CDC} Fusex. Cette architecture
 commune facilite la fabrication, les essais et la maintenance, tout en permettant une configuration logicielle propre à chaque
 étage.\\
 
@@ -50,7 +50,7 @@ La carte intègre :
     d’événements discrets tels que décollage, séparation et signaux de capteurs mécaniques.
 \end{itemize}
 
-\paragraph{Choix du microcontrôleur}
+\subsubsubsection*{Choix du microcontrôleur}
 Le STM32F072R8T6 a été sélectionné pour ses caractéristiques techniques adaptées aux exigences du projet :
 \begin{itemize}
     \item architecture ARM Cortex-M0 32 bits, offrant une puissance de calcul suffisante pour la gestion des séquences et
@@ -58,30 +58,28 @@ Le STM32F072R8T6 a été sélectionné pour ses caractéristiques techniques ada
     \item faible consommation énergétique, essentielle pour les opérations prolongées en vol ;
     \item large gamme d’interfaces de communication (UART, SPI, I2C, GPIO), facilitant l’intégration avec les capteurs et
     actionneurs embarqués ;
-    \item 128~kB de mémoire flash et 16~kB de RAM, permettant le stockage du firmware et des données critiques. \\
+    \item 64~kB de mémoire flash et 16~kB de RAM, permettant le stockage du firmware et des données critiques. \\
 \end{itemize}
 
 Aussi, ayant déjà travaillé avec cette famille de microcontrôleurs sur des projets antérieurs, l’équipe dispose d’une expertise
 solide pour le développement et le débogage du firmware.
 
 
-\paragraph{Portes à hystérésis}
+\subsubsubsection*{Portes à hystérésis}
 Les portes à hystérésis permettent de stabiliser les signaux provenant des capteurs sujets aux rebonds ou aux perturbations
 (vibrations, variations rapides de tension). Elles assurent également la mise en forme des signaux transmis d’un étage à
 l’autre, notamment via les connecteurs intégrés dans le mécanisme de séparation.
 
-\paragraph{Boucles électriques inter-étages}
+\subsubsubsection*{Boucles électriques inter-étages}
 Chaque étage intègre une boucle électrique traversant physiquement l’autre étage. Lors de la séparation mécanique, ces deux
 boucles sont automatiquement rompues, fournissant une confirmation physique et indépendante de la séparation. L’état de ces
 boucles est traité par des portes à hystérésis, garantissant une détection franche et insensible aux vibrations ou aux
 micro-perturbations rencontrées durant le vol.
 
-\paragraph{Double circuit de détection de décollage}
+\subsubsubsection*{Double circuit de détection de décollage}
 Les deux séquenceurs sont connectés au même connecteur \textit{jack} 4-pins de décollage, mais sur deux circuits indépendants,
 afin d’assurer une synchronisation parfaite tout en préservant l’isolation électrique entre étages. Ce choix permet de limiter
 les risques de défaillance croisée et garantit que les deux chronomètres internes démarrent à $t=0$ exactement au même instant.
-
-\newpage
 
 \subsubsection{Principes de fonctionnement}
 
@@ -111,6 +109,8 @@ Voici les principaux évenement surveillés et partagés par les deux séquenceu
     \item $T_{\alpha\beta2}$ : apogée de l'ensemble du lanceur sans séparation ;
     \item $T_{\alpha\beta3}$ : atterrissage de l'ensemble du lanceur sans séparation.\\
 \end{itemize}
+
+\newpage
 
 Voici les principaux évenement surveillés par le séquenceur du premier étage :
 \begin{itemize}

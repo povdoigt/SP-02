@@ -1,0 +1,145 @@
+\subsection{\acrlong{APR}}
+\label{subsec:analyse_prelem}
+
+L’\acrfull{APR} constitue la première étape de la sûreté de fonctionnement. Elle vise à identifier les situations pouvant
+compromettre la sécurité du vol, l’intégrité du lanceur, ou la conformité aux exigences du \acrshort{CDC} \gls{Fusex} bi-étage.
+Cette analyse globale est réalisée avant toute étude détaillée, afin de mettre en évidence les phases critiques du vol et les
+sous-systèmes nécessitant un contrôle renforcé.
+
+Dans le cadre du projet SP-02, plusieurs éléments introduisent des risques spécifiques : la séparation passive par aérofreinage,
+l’allumage conditionnel du second étage en vol, la structure en peau porteuse des deux étages, ainsi que les mécanismes
+d’ouverture des parachutes et l’avionique distribuée. L’\acrshort{APR} vise à caractériser les situations dangereuses que ces
+sous-systèmes pourraient générer au niveau du comportement global du lanceur.
+
+Cette première étape aboutit à l’identification des \acrfull{ERPs}(section~\ref{subsubsec:ERPs}), c’est-à-dire les états finaux
+dangereux qu’il convient d’éviter. Ils servent ensuite de base pour l’analyse par phase
+(section~\ref{subsubsec:analyse_par_phase}) et pour la définition des modes de défaillance présentés en
+section~\ref{subsec:modes_deffaillance}.
+
+\subsubsection{\acrlong{ERPs}}
+\label{subsubsec:ERPs}
+
+Les \acrfull{ERPs} correspondent aux situations dangereuses qu’il est nécessaire d’éviter pour garantir un vol sûr et conforme.
+Ils constituent les \textbf{états finaux indésirables} que des chaînes de défaillances pourraient produire, et non les pannes ou
+dysfonctionnements eux-mêmes.\\
+
+Leur rôle est de fournir une structure claire à l’analyse de sûreté : chaque mode de défaillance identifié ultérieurement sera
+évalué en fonction de sa capacité à conduire à l’un de ces événements, et la criticité associée sera examinée dans
+l’\acrshort{AMDEC}. La règle ASF1 du \acrshort{CDC} Fusex bi-étage stipule que :
+
+\begin{quote}
+    \textit{L’événement redouté est l’écartement de la trajectoire réelle par rapport à la trajectoire simulée.} ~\cite[p.~21]{CDC_BiEtage}
+\end{quote}
+
+Les \acrshort{ERPs} définis pour le projet SP-02 sont présentés dans le tableau \ref{tab:ERP_SP02}.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|p{12.5cm}|}
+\hline
+\textbf{\acrshort{ERP}1} & 
+\textbf{Déviation de trajectoire / sortie du gabarit.}\newline
+Perte de contrôle ou trajectoire non conforme, provoquée par une instabilité, une perturbation aérodynamique, un défaut de
+séparation, une rupture structurelle ou tout événement compromettant la dynamique nominale de vol. 
+\\ \hline
+
+\textbf{\acrshort{ERP}2} & 
+\textbf{a - Allumage intempestif ou non autorisé du second étage en phase sol ou rampe.}\newline
+Mise à feu du moteur du deuxième étage alors que la fusée n’est pas encore en vol ou dans un état non prévu pour supporter une
+propulsion, représentant un risque majeur pour les personnes et les biens. \newline\newline
+\textbf{b - Allumage intempestif ou non autorisé du second étage en vol.}\newline
+Allumage en dehors des conditions requises (séparation non confirmée, attitude non acceptable, fenêtre temporelle inactive,
+logique d’ordre erronée), lorsque la fusée est en vol et pouvant entraîner une perte de contrôle ou une violation du gabarit
+de vol.
+\\ \hline
+
+\textbf{\acrshort{ERP}3} & 
+\textbf{Non-déploiement ou déploiement dangereux du parachute (E1 ou E2).}\newline
+Absence d’ouverture, ouverture tardive, partielle ou perturbée, conduisant à une chute à vitesse excessive, susceptible de
+générer un impact dangereux.
+\\ \hline
+
+\textbf{\acrshort{ERP}4} & 
+\textbf{Rupture structurelle majeure entraînant une perte de contrôle.}\newline
+Dégradation critique de la structure (aileron, peau porteuse, jonctions, coiffe) pouvant provoquer une instabilité brutale,
+une rotation excessive ou une dispersion hors gabarit.
+\\ \hline
+\end{tabular}
+\caption{Liste des \acrfull{ERPs} du projet SP-02}
+\label{tab:ERP_SP02}
+\end{table}
+
+\newpage
+
+\subsubsection{Analyse des risques par phase de vol}
+\label{subsubsec:analyse_par_phase}
+
+L’analyse par phase de vol permet de déterminer, pour chaque étape du déroulement nominal, quels \acrshort{ERPs} sont
+susceptibles de se produire et dans quelles conditions générales. Cette étude complète l’identification des \acrshort{ERP} en
+les replaçant dans le contexte opérationnel du vol, sans encore entrer dans le détail des causes techniques qui seront
+analysées en section \ref{subsec:modes_deffaillance} (Modes de défaillance).\\
+
+Chaque phase du vol présente en effet des exigences particulières : stabilité initiale, transition correcte entre étages,
+gestion de l’attitude, respect des logiques d’autorisation ou encore déploiement de la récupération. L’analyse suivante vise à
+identifier les situations dans lesquelles une déviation de trajectoire, un allumage inapproprié, une rupture structurelle ou un
+défaut de récupération pourraient survenir.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|p{1.3cm}|p{12cm}|}
+\hline
+\textbf{Phase} &
+\textbf{\acrshort{ERPs}} &
+\textbf{Caractéristiques et points d’attention} \\ \hline
+
+\textbf{0} &
+ERP2a &
+Phase sol critique vis-à-vis de la sécurité pyrotechnique. Un allumage du second étage au sol ou en rampe constitue un risque
+immédiat pour les opérateurs. Vérification de l’état des sécurités (MAF, SECR, SPYTC) et de l’intégrité avio/mécanique
+indispensable. 
+\\ \hline
+
+\textbf{1} &
+ERP1, ERP4 &
+La stabilité aérodynamique doit être garantie durant l’accélération initiale et notammant directement en sortie de rampe. Une
+rupture structurelle ou une instabilité importante peut entraîner une déviation de trajectoire. Les sollicitations mécaniques ne
+doivent pas compromettre la future séparation ni l’intégrité des organes critiques. 
+\\ \hline
+
+\textbf{2} &
+ERP1, ERP4 &
+La séparation passive doit être franche et symétrique. Une séparation partielle ou perturbée peut conduire à une rotation
+excessive ou une trajectoire non conforme. Une perte structurelle locale lors de cette phase peut également provoquer une
+instabilité brutale. 
+\\ \hline
+
+\textbf{3} &
+ERP1, ERP2b, ERP4 &
+Phase la plus sensible pour un bi-étage. Un allumage intempestif (en dehors des conditions d’attitude, de séparation ou de
+fenêtre temporelle) peut entraîner une perte de contrôle. Une rupture structurelle ou une instabilité à l’allumage peut
+également provoquer une sortie du gabarit. 
+\\ \hline
+
+\textbf{4} &
+ERP3 &
+Le bon déclenchement de la trappe et le déploiement du parachute conditionnent la vitesse de descente. Un défaut de récupération
+(déploiement tardif ou partiel) conduit à un risque d’impact violent. 
+\\ \hline
+
+\textbf{5} &
+ERP3 &
+L’atterrissage doit se faire dans le gabarit prévu. En cas de non-déploiement ou de déploiement perturbé, l’impact peut être 
+dangereux pour les personnes et les biens. 
+\\ \hline
+
+\end{tabular}
+\caption{Analyse des \acrshort{ERPs} par phase du vol de SP-02}
+\label{tab:ERP_par_phase}
+\end{table}
+
+Cette analyse montre que les phases critiques sont principalement la séparation inter-étages (phase~2) et l’allumage du second
+étage (phase~3), où plusieurs \acrshort{ERPs} peuvent se matérialiser simultanément en fonction des conditions de vol. Les
+risques liés à la récupération (phases~4 et~5) constituent également un enjeu majeur pour la sûreté au sol. Ces éléments servent
+de base à l’identification des modes de défaillance en section \ref{subsec:modes_deffaillance}.
+
+\newpage

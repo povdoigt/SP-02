@@ -6,36 +6,16 @@
 \contentsline {subsection}{\numberline {1.3}Définition du projet}{5}{subsection.1.3}%
 \contentsline {subsubsection}{\numberline {1.3.1}Premier étage}{6}{subsubsection.1.3.1}%
 \contentsline {subsubsection}{\numberline {1.3.2}Deuxième étage}{6}{subsubsection.1.3.2}%
-\contentsline {subsubsection}{\numberline {1.3.3}Ensemble de la fusée}{6}{subsubsection.1.3.3}%
-\contentsline {subsection}{\numberline {1.4}Retours d'expérience de précédents projets}{7}{subsection.1.4}%
-\contentsline {subsection}{\numberline {1.5}Financement et partenaires}{9}{subsection.1.5}%
-\contentsline {subsection}{\numberline {1.6}Planification, répartition des tâches}{9}{subsection.1.6}%
-\contentsline {section}{\numberline {2}Analyse de sûreté de fonctionnement}{10}{section.2}%
-\contentsline {section}{\numberline {3}Structure mécanique}{13}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Généralités}{13}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Choix des matériaux}{13}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Fuselage}{13}{subsubsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.3}Structure du premier étage}{14}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}Flèche}{14}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}Fabrication et collage du bloc propulsion avec ailerons}{14}{subsubsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.4}Structure du second étage}{15}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.1}Flèche}{15}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}Fabrication et collage des ailerons}{15}{subsubsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.5}Définition des systèmes d'ouverture/parachutes}{16}{subsection.3.5}%
-\contentsline {section}{\numberline {4}Electronique}{17}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Séquenceurs}{17}{subsection.4.1}%
-\contentsline {subsubsection}{\numberline {4.1.1}Architecture matérielle}{18}{subsubsection.4.1.1}%
-\contentsline {paragraph}{Choix du microcontrôleur}{18}{paragraph*.19}%
-\contentsline {paragraph}{Portes à hystérésis}{18}{paragraph*.20}%
-\contentsline {paragraph}{Boucles électriques inter-étages}{18}{paragraph*.21}%
-\contentsline {paragraph}{Double circuit de détection de décollage}{18}{paragraph*.22}%
-\contentsline {subsubsection}{\numberline {4.1.2}Principes de fonctionnement}{19}{subsubsection.4.1.2}%
-\contentsline {subsubsection}{\numberline {4.1.3}Robustesse du système et immunité aux perturbations}{20}{subsubsection.4.1.3}%
-\contentsline {subsubsection}{\numberline {4.1.4}Conception PCB}{20}{subsubsection.4.1.4}%
-\contentsline {subsection}{\numberline {4.2}Ligne de mise à feu}{20}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Expérience}{20}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Tests et validations}{21}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Matrice de validation}{21}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Registre des tests}{21}{subsection.5.2}%
-\contentsline {section}{\numberline {}Références}{21}{subsection.5.2}%
-\contentsline {section}{\numberline {}Glossaires et acronymes}{22}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {1.3.3}Ensemble de la fusée}{7}{subsubsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.4}Retours d'expérience de précédents projets}{8}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Financement et partenaires}{10}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Planification, répartition des tâches}{10}{subsection.1.6}%
+\contentsline {section}{\numberline {2}Analyse de sûreté de fonctionnement}{11}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Présentation des phases de vol}{12}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}\acrlong {APR}}{15}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}\acrlong {ERPs}}{15}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Analyse des risques par phase de vol}{16}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}\acrlong {MDF}}{17}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Présentation des sous-systèmes}{17}{subsubsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.4}Méthode AMDEC}{19}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Bilan sur les actions correctives}{19}{subsection.2.5}%
