@@ -48,12 +48,35 @@ Voici les principales caractéristiques techniques du premier étage :
     \item Masse à vide : 4431 g
     \item Propulseur : Cesaroni K570 - Pro54-5G Barasinga
 \end{itemize}
-\vspace{-2cm}
+% \vspace{-2cm}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{figures/alpha.png}
-    \vspace{-2cm}
-    \caption{Vue du premier étage sur Openrocket}
+    \begin{tikzpicture}
+    
+        \node at (0, 0) {\includegraphics[width=\textwidth]{figures/catia_alpha.png}};
+        
+        \node (retreint_lbl)   at (+8.00, +2.5) {\textbf{Retreint}};
+        \node (bloc_propu_lbl) at (+4.30, +2.3) {\textbf{Bloc propulsion}};
+        \node (propu_lbl)      at (+2.00, +1.5) {\textbf{Pro54-5G}};
+        \node (aileron_lbl)    at (+2.00, -1.5) {\textbf{Ailerons (x4)}};
+        \node (af_lbl)         at (+0.00, +2.3) {\textbf{Aérofreins (x3)}};
+        \node (bloc_para_lbl)  at (-2.00, +1.5) {\textbf{Bloc parachute}};
+        \node (bloc_elec_lbl)  at (-6.00, +2.3) {\textbf{Bloc électroniques}};
+        \node (bloc_sepa_lbl)  at (-6.00, -1.5) {\textbf{Bloc séparation}};
+
+        \node (bloc_propu_box) at (+5.10, 0.00) [minimum width=35mm, minimum height=18mm, rectangle, line width=2, draw=red] {};
+        
+        \draw[red, ->, line width=1.5] (retreint_lbl.south)   -- (+7.20, +0.60);
+        \draw[red, ->, line width=1.5] (bloc_propu_lbl.south) -- (bloc_propu_box.140);
+        \draw[red, ->, line width=1.5] (propu_lbl.south)      -- (+2.20, +0.00);
+        \draw[red, ->, line width=1.5] (aileron_lbl.east)     -- (+6.50, -1.50);
+        \draw[red, ->, line width=1.5] (af_lbl.south)         -- (+0.30, +0.60);
+        \draw[red, ->, line width=1.5] (bloc_para_lbl.south)  -- (-2.00, +0.00);
+        \draw[red, ->, line width=1.5] (bloc_elec_lbl.south)  -- (-5.30, +0.00);
+        \draw[red, ->, line width=1.5] (bloc_sepa_lbl.north)  -- (-7.30, +0.00);
+
+    \end{tikzpicture}
+    \caption{Vue du premier étage sur \acrshort{CATIA}}
     \label{fig:sp02_s1_ork}
 \end{figure}
 
@@ -71,14 +94,36 @@ Voici les principales caractéristiques techniques du deuxième étage :
     \item Masse à vide : 2895 g
     \item Propulseur : Cesaroni G150 - Pro24-6G Pandora
 \end{itemize}
-\vspace{-1.7cm}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{figures/beta.png}
-    \vspace{-1.8cm}
-    \caption{Vue du second étage sur Openrocket}
+    \begin{tikzpicture}
+    
+        \node at (0, 0) {\includegraphics[width=\textwidth]{figures/catia_beta.png}};
+        
+        \node (bloc_sepa_lbl)   at (+8.00, +2.5) {\textbf{Interface de séparation}};
+        \node (propu_lbl)       at (+4.30, +2.3) {\textbf{Pro24-6G}};
+        \node (bague_propu_lbl) at (+3.00, +1.5) {\textbf{bague de centrage}};
+        \node (aileron_lbl)     at (+2.00, -1.5) {\textbf{Ailerons (x4)}};
+        \node (bloc_para_lbl)   at (+1.00, +2.3) {\textbf{Bloc parachute}};
+        \node (bloc_elec_lbl)   at (-2.00, +1.5) {\textbf{Bloc électroniques}};
+        \node (coiffe_lbl)      at (-5.00, +2.3) {\textbf{Coiffe conique}};
+        \node (pointe_alu_lbl)  at (-6.00, -1.5) {\textbf{Pointe aluminium}};
+
+        \draw[red, ->, line width=1.5] (bloc_sepa_lbl.south)    -- (+7.40, +0.60);
+        \draw[red, ->, line width=1.5] (propu_lbl.south)        -- (+5.20, +0.00);
+        \draw[red, ->, line width=1.5] (bague_propu_lbl.south)  -- (+3.70, +0.00);
+        \draw[red, ->, line width=1.5] (aileron_lbl.east)       -- (+6.50, -1.00);
+        \draw[red, ->, line width=1.5] (bloc_para_lbl.south)    -- (+0.30, +0.60);
+        \draw[red, ->, line width=1.5] (bloc_elec_lbl.south)    -- (-2.50, +0.00);
+        \draw[red, ->, line width=1.5] (coiffe_lbl.south)       -- (-5.30, +0.00);
+        \draw[red, ->, line width=1.5] (pointe_alu_lbl.north)   -- (-7.30, +0.00);
+
+    \end{tikzpicture}
+    \caption{Vue du second étage sur \acrshort{CATIA}}
     \label{fig:sp02_s2_ork}
 \end{figure}
+
+\newpage
 
 \subsubsection{Ensemble de la fusée}
 
@@ -88,10 +133,14 @@ L’ensemble de la fusée SP-02, une fois les deux étages assemblés, présente
     \item Diamètre externe : 104 mm
     \item Masse à vide : 7327 g
 \end{itemize}
-\vspace{-0.8cm}
+% \vfill
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{figures/sp02_ork.png}
+    \rotatebox{-75}{
+        \includegraphics[width=1.1\textwidth]{figures/catia_alpha_beta.png}
+    }
     \caption{Vue d'ensemble de la fusée SP-02 sur Openrocket}
     \label{fig:sp02_ork}
 \end{figure}
+% \vfill
+\newpage
