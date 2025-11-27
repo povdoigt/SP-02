@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  27 NOV 2025 18:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  27 NOV 2025 18:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1642,6 +1642,16 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 51.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 [19]) (sections/ch3_meca/main.tex (sections/ch3_meca/subsec1_generalite.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[]|\T1/lmr/m/n/10 Résistance lon-gi-tu-di-nale
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--24
+[]|\T1/lmr/m/n/10 Résistance trans-ver-sale
+ []
+
+
 Overfull \hbox (14.83766pt too wide) in paragraph at lines 17--32
  [][] 
  []
@@ -1764,28 +1774,18 @@ Package pdftex.def Info: figures/Sequenceur2.drawio.png  used on input line 98.
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 108.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 104.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 108.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 104.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 [25 <./figures/Sequenceur1.drawio.png> <./figures/Sequenceur2.drawio.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 110--111
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
 
-
-File: figures/AEROIPSA_HEADER.png Graphic file (type png)
-<use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 113.
-(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
-File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
-<use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 113.
-(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[26]
 Underfull \hbox (badness 10000) in paragraph at lines 118--119
 
  []
@@ -1805,7 +1805,7 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 8.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[27]) (sections/ch5_tests_et_validations/main.tex (sections/ch5_tests_et_validations/subsec1_matrice_validation.tex) (sections/ch5_tests_et_validations/subsec2_registre_tests.tex))
+[26]) (sections/ch5_tests_et_validations/main.tex (sections/ch5_tests_et_validations/subsec1_matrice_validation.tex) (sections/ch5_tests_et_validations/subsec2_registre_tests.tex))
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
@@ -1815,7 +1815,7 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 275.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[28] (DossierSuivi_SP02.lof)
+[27] (DossierSuivi_SP02.lof)
 \tf@lof=\write8
 \openout8 = `DossierSuivi_SP02.lof'.
 
@@ -1833,7 +1833,7 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 283.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[29] (DossierSuivi_SP02.bbl
+[28] (DossierSuivi_SP02.bbl
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 6.
  (C:\Users\alexi\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -1854,7 +1854,7 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 289.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[30]
+[29]
 
 Package glossaries Info: Preparing to sort glossary `main' (total number of
 (glossaries)             referenced entries: 16)
@@ -1879,7 +1879,7 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 293.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[31]
+[30]
 
 Package glossaries Info: Preparing to sort glossary `acronym' (total number of
 (glossaries)             referenced entries: 13)
@@ -1894,7 +1894,7 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 296.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[32] 
+[31] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (DossierSuivi_SP02.aux)
  ***********
@@ -1909,17 +1909,17 @@ Package rerunfilecheck Info: File `DossierSuivi_SP02.out' has not changed.
 (rerunfilecheck)             Checksum: 610B8105C3FD5936528B3A42E571DCBE;7969.
  ) 
 Here is how much of TeX's memory you used:
- 41778 strings out of 468129
- 853045 string characters out of 5430612
+ 41779 strings out of 468129
+ 853065 string characters out of 5430612
  1369364 words of memory out of 5000000
- 69486 multiletter control sequences out of 15000+600000
+ 69488 multiletter control sequences out of 15000+600000
  686486 words of font info for 69 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  84i,13n,91p,2582b,980s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri8.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
-Output written on DossierSuivi_SP02.pdf (32 pages, 5828124 bytes).
+Output written on DossierSuivi_SP02.pdf (31 pages, 5829124 bytes).
 PDF statistics:
- 965 PDF objects out of 1000 (max. 8388607)
- 149 named destinations out of 1000 (max. 500000)
+ 960 PDF objects out of 1000 (max. 8388607)
+ 148 named destinations out of 1000 (max. 500000)
  486 words of extra memory for PDF output out of 10000 (max. 10000000)
 
