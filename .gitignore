@@ -1,2 +1,11 @@
 CATIA/old_version
 *.zip
+*.aux
+*.bll
+*.blg
+*.lof
+*.log
+*.lot
+*.out
+*.gz
+*.toc
