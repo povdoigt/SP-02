@@ -1,19 +1,18 @@
 \subsection{Définition du projet}
 \label{subsec:def_projet}
 
-Le projet SP-02 constitue la nouvelle fusée expérimentale bi-étage développée par l’association \newline
-AéroIPSA pour la campagne \gls{C'Space} 2026. Son objectif principal est la validation d’une technique innovante de séparation
-inter-étage par aérofreinage, permettant de dissocier deux étages sans recours à des systèmes pyrotechniques ni à des
-dispositifs mécaniques complexes. Ce concept exploite le différentiel de traînée créé par le déploiement d’aérofreins pour
-initier la séparation de manière passive et contrôlée, tout en assurant une transition stable entre les deux phases de vol.\\
+Le projet SP-02 est une \gls{Fusex} bi-étage développée par l’association AéroIPSA pour la campagne \gls{C'Space} 2026.
+Son objectif principal est la validation d’une technique de séparation inter-étage par aérofreinage, permettant de dissocier
+deux étages sans recours à des systèmes pyrotechniques ni à des dispositifs mécaniques complexes. Ce concept exploite le
+différentiel de traînée créé par le déploiement d’aérofreins pour initier la séparation de manière passive et contrôlée, tout en
+assurant une transition stable entre les deux phases de vol.\\
 
 En complément de cette expérience principale, le projet vise également la validation d’une architecture avionique complète,
 comprenant :
 \begin{itemize}
     \item un système de mesure inertielle, de pression statique et dynamique
     \item une chaîne d’acquisition, d’enregistrement et de télémesure ;
-    \item un contrôle embarqué des séquenceurs responsables des événements critiques (séparation, allumage du second étage,
-    récupération).\\
+    \item un contrôle des événements critiques (séparation, allumage du second étage, récupération).\\
 \end{itemize}
 
 Ces systèmes permettront de corréler les résultats expérimentaux avec les simulations réalisées (\acrshort{CFD}, \acrshort{FEM}
@@ -37,7 +36,7 @@ Le système de mesure embarqué est également conçu en double exemplaire, un p
 \subsubsection{Premier étage}
 
 Le premier étage de la fusée SP-02 est conçu pour fournir la poussée initiale nécessaire au lancement et à l’ascension jusqu’à la
-séparation. Il intègre le système d’aérofreinage destiné à ralentir l’étage supérieur au moment de la séparation et le système de
+séparation. Il intègre le système d’aérofreinage destiné à ralentir l’étage inférieur au moment de la séparation et le système de
 séparation des deux étages.\\
 
 Voici les principales caractéristiques techniques du premier étage :
@@ -55,13 +54,13 @@ Voici les principales caractéristiques techniques du premier étage :
     
         \node at (0, 0) {\includegraphics[width=\textwidth]{figures/catia_alpha.png}};
         
-        \node (retreint_lbl)   at (+8.00, +2.5) {\textbf{Retreint}};
+        \node (retreint_lbl)   at (+8.00, +2.5) {\textbf{Rétreint}};
         \node (bloc_propu_lbl) at (+4.30, +2.3) {\textbf{Bloc propulsion}};
         \node (propu_lbl)      at (+2.00, +1.5) {\textbf{Pro54-5G}};
         \node (aileron_lbl)    at (+2.00, -1.5) {\textbf{Ailerons (x4)}};
         \node (af_lbl)         at (+0.00, +2.3) {\textbf{Aérofreins (x3)}};
         \node (bloc_para_lbl)  at (-2.00, +1.5) {\textbf{Bloc parachute}};
-        \node (bloc_elec_lbl)  at (-6.00, +2.3) {\textbf{Bloc électroniques}};
+        \node (bloc_elec_lbl)  at (-6.00, +2.3) {\textbf{Bloc électronique}};
         \node (bloc_sepa_lbl)  at (-6.00, -1.5) {\textbf{Bloc séparation}};
 
         \node (bloc_propu_box) at (+5.10, 0.00) [minimum width=35mm, minimum height=18mm, rectangle, line width=2, draw=red] {};
@@ -105,7 +104,7 @@ Voici les principales caractéristiques techniques du deuxième étage :
         \node (bague_propu_lbl) at (+3.00, +1.5) {\textbf{bague de centrage}};
         \node (aileron_lbl)     at (+2.00, -1.5) {\textbf{Ailerons (x4)}};
         \node (bloc_para_lbl)   at (+1.00, +2.3) {\textbf{Bloc parachute}};
-        \node (bloc_elec_lbl)   at (-2.00, +1.5) {\textbf{Bloc électroniques}};
+        \node (bloc_elec_lbl)   at (-2.00, +1.5) {\textbf{Bloc électronique}};
         \node (coiffe_lbl)      at (-5.00, +2.3) {\textbf{Coiffe conique}};
         \node (pointe_alu_lbl)  at (-6.00, -1.5) {\textbf{Pointe aluminium}};
 
@@ -133,14 +132,24 @@ L’ensemble de la fusée SP-02, une fois les deux étages assemblés, présente
     \item Diamètre externe : 104 mm
     \item Masse à vide : 7327 g
 \end{itemize}
-% \vfill
+
 \begin{figure}[h]
     \centering
     \rotatebox{-75}{
-        \includegraphics[width=1.1\textwidth]{figures/catia_alpha_beta.png}
+        \includegraphics[width=0.9\textwidth]{figures/catia_alpha_beta.png}
     }
     \caption{Vue d'ensemble de la fusée SP-02 sur \acrshort{CATIA}}
     \label{fig:sp02_ork}
 \end{figure}
-% \vfill
+
+
+\subsubsection{Choix des propulseurs}
+
+Le choix des propulseurs pour les deux étages de la fusée SP-02 a été effectué en tenant compte de deux critères clés qui sont
+les objectifs de la mission et l'accecibilité des moteurs. Le premier étage utilise un moteur Cesaroni K570 - Pro54-5G Barasinga,
+tandis que le deuxième étage est propulsé par un moteur Cesaroni G150 - Pro24-6G Pandora. Ces moteurs ont été les plus accecible
+lors des \gls{C'Space} précédentes et offrent des performances suffisante à l'atteinte des objectifs de la mission. En effet,
+aucune exigence importante d'atteindre une altitude spécifique n'a été définie. Seule la vitesse lors de la séparation des deux
+étages doit être suffisante pour garantir le bon fonctionnement du système d'aérofreinage.\\
+
 \newpage

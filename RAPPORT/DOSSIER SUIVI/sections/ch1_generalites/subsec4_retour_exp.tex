@@ -3,12 +3,12 @@
 
 Le projet SP-02 bénéficie d’un retour d’expérience direct issu de 13 projets antérieurs auxquels les membres actuels de l’équipe
 ont participé. Ce capital de compétences accumulé au fil des campagnes précédentes représente un atout majeur pour la maîtrise
-technique du développement.\\
+du développement du point de vue technique, organisationnel et méthodologique.\\
 
 Au-delà de ce noyau d’expérience directe, le projet s’appuie sur l’héritage de l’association AéroIPSA, créée en 1992. Depuis sa
 fondation, l’association a participé à 21 campagnes de lancement et présenté plus de 90 projets. Ces trente années d’activité ont
 permis de constituer un corpus méthodologique et technique considérable, transmis entre promotions à travers les archives
-internes, les rapports de vol, les plans mécaniques et les schémas électroniques documentant chaque réalisation.\cite{AeroIPSA}\\
+internes, les rapports de vol, les plans mécaniques et les schémas électroniques documentant chaque réalisation. \cite{AeroIPSA}\\
 
 Parmi les projets récents ayant eu l’influence la plus marquante sur le développement de SP-02, on distingue :\\
 
@@ -17,7 +17,7 @@ Parmi les projets récents ayant eu l’influence la plus marquante sur le déve
     Arcturus a appliqué les méthodes de fabrication composites déjà éprouvées au sein d’AéroIPSA. La fusée reposait sur une
     peau porteuse en fibre de verre, des ailerons collés directement sur la paroi externe du fuselage et un système d’éjection
     du parachute par trappe latérale commandée électroniquement par minuterie. Ces techniques seront reprises pour la conception
-    du second étage de SP-02, où les contraintes mécaniques et dimensionnelles sont similaires. (\cite{Arcturus})
+    du second étage de SP-02, où les contraintes mécaniques et dimensionnelles sont similaires. \cite{Arcturus}
 
 \begin{figure}[h]
     \centering
@@ -34,7 +34,7 @@ Parmi les projets récents ayant eu l’influence la plus marquante sur le déve
     Le projet introduisait également un rétreint à la base du fuselage, améliorant le profil aérodynamique, procédé directement
     réutilisé pour le premier étage de SP-02. Les essais et mesures embarquées ont validé le comportement mécanique de la
     structure et la fiabilité du système d’ouverture commandé, renforçant la base expérimentale du développement de SP-02.
-    (\cite{SP01})
+    \cite{SP01}
 
 \begin{figure}[h]
     \centering
@@ -46,11 +46,11 @@ Parmi les projets récents ayant eu l’influence la plus marquante sur le déve
 \newpage
 
     \item \textbf{Unknown (2023-2024)} – module électronique embarqué développé par Vincent Fauquembergue.\newline
-    Unknown, ayant volé sur SP-01, avait pour objectif la localisation des fusées et la collecte de données GNSS, barométriques
-    et inertielles. Construit autour d’un STM32F411, il combinait télémesure LoRa, capteurs BMI088, BMP380, GPS SAM-M10Q et
-    mémoire flash 16 Mo. Le vol a validé la chaîne de communication et la robustesse de l’intégration, établissant les bases
-    matérielles et logicielles des futurs systèmes avioniques d’AéroIPSA. (\footnote{Le rapport de projet d'Unknown se trouve en
-    annexe du rapport de projet d'SP-01\cite{SP01}})
+    Unknown, ayant volé sur SP-01, avait pour objectif la localisation des fusées et la collecte de données \acrshort{GNSS},
+    barométriques et inertielles. Construit autour d’un STM32F411, il combinait télémesure LoRa, capteurs BMI088, BMP380,
+    GPS SAM-M10Q et mémoire flash 16 Mo. Le vol a validé la chaîne de communication et la robustesse de l’intégration,
+    établissant les bases matérielles et logicielles des futurs systèmes avioniques d’AéroIPSA. (Le rapport de projet d'Unknown
+    se trouve en annexe du rapport de projet d'SP-01 \cite{SP01})
 
 \begin{figure}[h]
     \centering
@@ -71,11 +71,11 @@ Parmi les projets récents ayant eu l’influence la plus marquante sur le déve
 
     \item \textbf{\gls{APEX} (2024-2025)} – évolution directe d’Unknown, dirigée par Malo Amaranti et Alexis Paillard.\newline
     Le projet a donné naissance à un module avionique intégré reposant sur le STM32F411RETx, la mémoire W25Q512 (64 Mo), le
-    module LoRa RFM95W, et un ensemble complet de capteurs (BMI088, ADXL375, LSM303AGR, BMP380, SAM-M10Q). \gls{APEX} a été testé
-    sur plusieurs fusées de la campagne 2025: MROM, Prisma et Horizon, et a démontré la fiabilité mécanique et l’autonomie
-    énergétique du module, tout en identifiant des axes d’amélioration logicielle (synchronisation, filtrage et gestion de la
-    mémoire). Le système avionique de SP-02 utilisera directement cette architecture matérielle et son logicielle sera
-    directement issue des expériences passé des projets Unknown et \gls{APEX}. (\cite{APEX})
+    module \acrshort{LORA} RFM95W, et un ensemble complet de capteurs (BMI088, ADXL375, LSM303AGR, BMP380, SAM-M10Q). \gls{APEX}
+    a été testé sur plusieurs fusées de la campagne 2025: MROM, Prisma et Horizon, et a démontré la fiabilité mécanique et
+    l’autonomie énergétique du module, tout en identifiant des axes d’amélioration logicielle (synchronisation, filtrage et
+    gestion de la mémoire). Le système avionique de SP-02 utilisera directement cette architecture matérielle et son logicielle
+    sera directement issue des expériences passé des projets Unknown et \gls{APEX}. \cite{APEX}
 
 \begin{figure}[h]
     \centering
@@ -97,5 +97,7 @@ Parmi les projets récents ayant eu l’influence la plus marquante sur le déve
 
 Ainsi, SP-02 s’inscrit dans une continuité technique et expérimentale : il hérite des méthodes de conception composite issues
 d’Arcturus et SP-01, tout en intégrant la maturité avionique acquise grâce aux projets Unknown et \gls{APEX}. Cette filiation
-confère au projet un haut niveau de maturité technologique dès ses premières phases de conception, gage de fiabilité et de
-réussite pour la campagne \gls{C'Space} 2026.
+confère au projet un haut niveau de connaissance, d'un point de vu mécanique comme électronique, dès ses premières phases de
+conception, gage de fiabilité et de réussite pour la campagne \gls{C'Space} 2026.
+
+\newpage
