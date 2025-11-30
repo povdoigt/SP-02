@@ -8,6 +8,7 @@
 \usepackage{hyphenat}
 \usepackage{fancybox}
 \usepackage{fancyhdr}
+\usepackage{float}
 \hyphenation{mate-mática recu-perar}
 \usepackage{pifont}
 \usepackage{tikz,tikz-3dplot}
@@ -179,7 +180,7 @@
 \title{
     \Huge \textbf{SP - 02} \\
     \large Projet de fusée bi-étage AéroIPSA 2025-2026 \\
-    \large Dossier de suivi de projet\\
+    \large Document de définition de projet\\
 }
 
 \makeatletter
@@ -217,10 +218,12 @@
     \vspace{-2.5cm}
     \begin{tabular}{>{\raggedright\arraybackslash}m{0.5\textwidth}
         >{\raggedleft\arraybackslash}m{0.5\textwidth}}
-        Responsables de projet :       & \\
-        \hspace{1cm} - AMARANTI Malo   & \\
-        \hspace{1cm} - PAILLARD Alexis & \\
-        \hspace{1cm} - PICHON Lucas    & Novembre 2025 \\
+        Rédacteurs du document :        & \\
+        \hspace{1cm} - AMARANTI Malo    & \\
+        \hspace{1cm} - PAILLARD Alexis  & \\
+        \hspace{1cm} - PICHON Lucas     & \\
+        \hspace{1cm} - LE CAM Maxens    & \\
+        \hspace{1cm} - PEIX Guillaume   & Novembre 2025 \\
         \hline
     \end{tabular}
 }
@@ -232,6 +235,7 @@
 \counterwithin{figure}{section}
 \AtBeginDocument{\numberwithin{lstlisting}{section}}
 
+\pagenumbering{gobble}
 
 \begin{document}
 
@@ -256,6 +260,7 @@
 }
 
 \maketitle
+\thispagestyle{empty}
 
 \newpage
 
@@ -268,7 +273,7 @@
 \input{sections/Introduction.tex}
 \input{sections/ch1_generalites/main.tex}
 \input{sections/ch2_analyse_surete_fonc/main.tex}
-\input{sections/ch3_stabilite/main.tex}
+\input{sections/ch3_stabilite_gabarits/main.tex}
 \input{sections/ch4_meca/main.tex}
 \input{sections/ch5_elec/main.tex}
 % \input{sections/ch5_tests_et_validations/main.tex}
