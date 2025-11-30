@@ -1,2 +1,74 @@
-\subsection{Méthode AMDEC}
+\subsection{Méthode \acrshort{AMDEC}}
 \label{subsec:amdec}
+
+L’\acrfull{AMDEC} constitue l’étape centrale de la sûreté de fonctionnement appliquée au projet SP-02. Elle permet de compléter
+l’\acrlong{APR} et l’identification des \acrlong{MDF} en évaluant, pour chacun d’eux, la gravité potentielle de ses
+conséquences, la fréquence d’apparition attendue et la capacité à les détecter au stade du développement ou à le maîtriser
+avant qu’il ne produise un effet dangereux. L’objectif de cette démarche est:
+\begin{enumerate}
+    \item Quantifier la criticité de chaque mode de défaillance à l’aide d’indices normalisés (G, F, D) permettant de calculer
+    l’\acrfull{IPR}.
+    \item Prioriser les actions correctives en orientant les efforts de conception, de validation et d’essais vers les points du
+    système les plus sensibles et les plus susceptibles de conduire à un \acrlong{ERP}.\\
+\end{enumerate}
+
+Dans le cadre du projet SP-02, l’\acrshort{AMDEC} s’applique aux sous-systèmes mécaniques, électroniques et logiciels, ainsi qu’aux
+facteurs environnementaux. Cette approche permet d’évaluer non seulement les pannes, mais aussi leur impact dans des contextes
+opérationnels variés, y compris en présence de combinaisons de défaillances, conformément à la règle ASF3 du \acrshort{CDC}
+\gls{Fusex} bi-étage. L’\acrshort{AMDEC} présentée dans cette section s’appuie sur:
+\begin{itemize}
+    \item la liste des \acrfull{MDF} définis en section \ref{subsec:modes_deffaillance} ;
+    \item les \acrfull{ERP} identifiés en section \ref{subsec:analyse_prelem} ;
+    \item la grille de cotation adoptée pour l’évaluation de la fréquence, de la gravité et de la détectabilité.\\
+\end{itemize}
+
+Elle constitue l’outil principal de justification de l’adéquation du design, des sécurités intégrées et du plan d’essais, en vue de
+la validation finale présentée lors de la \acrshort{RCE}-3.\\
+
+Pour réaliser cette analyse, nous devons d’abord définir une échelle pour les indices de gravité, de fréquence et de détectabilité
+qui permettront ensuite de quantifier le risque de chaque \acrshort{MDF}:
+\begin{itemize}
+    \item Gravité (G) :
+    \begin{enumerate}
+        \item Effet négligeable / mission non compromise
+        \item Effet mineur, intervention facile après vol
+        \item Effet majeur partiel (réduction de performance / réparation nécessaire)
+        \item Effet critique (dégâts importants, dégradation importante de la mission)
+        \item Effet catastrophique (mise en danger des personnes, violation du gabarit, explosion)
+    \end{enumerate}
+    \item Fréquence (F)
+    \begin{enumerate}
+        \item Très rare (pratiquement impossible)
+        \item Peu fréquent
+        \item Probable occasionnellement
+        \item Fréquent
+        \item Très fréquent / tendance récurrente
+    \end{enumerate}
+    \item Détectabilité (D)
+    \begin{enumerate}
+        \item Très facile à détecter (contrôles simples détectent quasi systématiquement le problème)
+        \item Facile à détecter (tests/indicateurs montrent généralement le problème)
+        \item Moyennement détectable
+        \item Difficilement détectable
+        \item Très difficile à détecter avant l’événement (peu ou pas d’indications)\\
+    \end{enumerate}
+\end{itemize}
+
+Nous avons fait le choix d’utiliser le critère de détectabilité en tant que facteur diminuant la criticité d’un événement. Comme
+elle réduit les scores, un \acrshort{MDF} facile à détecter apparaîtra moins critique que le même \acrshort{MDF} difficilement
+détectable. La formule retenue pour le calcul de l’\acrshort{IPR} est donc la suivante: $IPR = G \times F \times D$
+
+\newpage
+
+% \begin{table}[h!]
+%     \centering
+%     \begin{tabular}{|p{cm}|c|c|c|c|p{4cm|}
+%         \hline
+%         \textbf{MDF} & \textbf{G} & \textbf{F} & \textbf{D} & \textbf{IPR (GxFxD)} & \textbf{Justification} \\
+%         \hline
+%         \acrshort{MDF}1 -- Perte d'intégrité structurelle & 5 & 3 & 2 & 30 & Gravité élevée (rupture -> perte de contrôle), Détectable par contrôle visuel. \\
+%         \hline
+%     \end{tabular}
+% \end{table}
+
+\newpage
