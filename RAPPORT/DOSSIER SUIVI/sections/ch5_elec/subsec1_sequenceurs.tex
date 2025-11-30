@@ -5,12 +5,6 @@ autonome l’ensemble des événements critiques du vol et assurer la conformit�
 commune facilite la fabrication, les essais et la maintenance, tout en permettant une configuration logicielle propre à chaque
 étage.\\
 
-% \begin{figure}[h!]
-%     \centering
-%     \includegraphics[width=0.75\linewidth]{images/sequencer_board_front.png}
-%     \caption{Vue avant du séquenceur (prototype)}
-% \end{figure}
-
 Chaque séquenceur assure notamment :
 \begin{itemize}
     \item la détection du décollage via la coupure de la boucle \textit{jack} ;
@@ -30,6 +24,15 @@ Le séquenceur du second étage devra quant à lui gérer :
     \item de la détection de l'attitude de la fusée ;
     \item de l'allumage du moteur du second étage.
 \end{itemize}
+
+\newpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/Schematic_SP02_sequenceur_Maxou_2025-11-30.pdf}
+    \caption{Schéma électrique du séquenceur embarqué}
+    \label{fig:schema_sequenceur}
+\end{figure}
 
 \subsubsection{Architecture matérielle}
 
@@ -144,4 +147,4 @@ et de puissance, retour de courant maîtrisé, longueurs de pistes critiques ré
 renforcés autour des signaux sensibles. Les composants de commutation (buffers, optocoupleurs, transistors) sont positionnés de
 manière à réduire les couplages parasites et à garantir une immunité maximale.
 
-
+\newpage

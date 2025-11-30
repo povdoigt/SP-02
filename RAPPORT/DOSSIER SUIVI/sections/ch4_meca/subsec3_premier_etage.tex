@@ -1,6 +1,8 @@
 \subsection{Structure du premier étage}
 \label{subsec:premier_etage}
 
+
+
 \subsubsection{Flèche}
 \label{subsubsec:premier_etage}
 À la suite de la conception, nous avons pu réaliser les tubes de la structure porteuse de la fusée. Nous avons procédé à un test
@@ -18,16 +20,16 @@ l’étage inférieur.
         \node (y_lbl)  at (-6.95, +0.500) {\textbf{y}};
         \node (x_lbl)  at (-6.70, -0.205) {\textbf{x}};
         \node (Cz_fbl) at (-6.60, +0.250) {\textbf{$C_z$}};
-        \node (P_lbl)  at (-0.60, +1.000) {\textbf{P}};
-        \node (F_lbl)  at (+4.50, +1.000) {\textbf{F}};
+        \node (P_lbl)  at (-0.85, +1.000) {\textbf{P}};
+        \node (F_lbl)  at (+6.00, +1.000) {\textbf{F}};
 
         \draw[red, <-, line width=1] (-7.200, +0.5) -- (-7.200, +0.0);
         \draw[red, <-, line width=1] (x_lbl.north)  -- (-7.200, +0.0);
-        \draw[red, ->, line width=1] (+4.245, +1.0) -- (+4.245, +0.3);
-        \draw[red, ->, line width=1] (-0.955, +1.0) -- (-0.955, +0.3);
+        \draw[red, ->, line width=1] (+5.800, +1.0) -- (+5.800, +0.3);
+        \draw[red, ->, line width=1] (-1.080, +1.0) -- (-1.080, +0.3);
         \draw[red, ->] (-6.7, 0) arc (0:90:.5cm);
-        \draw [<->, > = stealth, black] (-7.2, -0.75) -- (-0.955, -0.75) node [midway, fill = white] {0,880m} ;
-        \draw [<->, > = stealth, black] (-7.2, -1.25) -- (+6.100, -1.25) node [midway, fill = white] {1,800m} ;
+        \draw [<->, > = stealth, black] (-7.2, -0.75) -- (-1.080, -0.75) node [midway, fill = white] {0,880m} ;
+        \draw [<->, > = stealth, black] (-7.2, -1.25) -- (+5.800, -1.25) node [midway, fill = white] {1,800m} ;
     \end{tikzpicture}
     \caption{Schéma de calcul du couple exercé au niveau de la base du premier étage}
     \label{fig:placeholder}
@@ -39,12 +41,12 @@ l’étage inférieur.
     \\
     C_Z &= 0,880 \times  (- P) + 1,800 \times (- F) \\
     &= 0,880 \times (- 71,878) + 1,800 \times (-7,848) \\
-    &= -77,379 N\cdotp m
+    &= -77,379\ N\cdotp m
 \end{align*}
-On a donc un couple de $-77,379 N\cdotp m$, ce qui équivaut a :
+On a donc un couple de $-77,379\ N\cdotp m$, ce qui équivaut a :
 $$\frac{|-77,379|}{9,81} = m_{test} \approx 7,888\ kg$$
 $m_{test}$ étant la valeur de la masse à appliqués à un mètre du point d'encastrement pour reproduire le même couple.
-Notre estimation de masse étant approximative, nous avons décidé d’arrondir la charge $m_{test}$ à $10kg$.
+Notre estimation de masse étant approximative, nous avons décidé d’arrondir la charge $m_{test}$ à $10\ kg$.
 
 \begin{table}[h!]
     \centering
@@ -101,6 +103,23 @@ proprement les points d’injection tout en assurant une finition aérodynamique
 
 \newpage
 
+\subsubsection{Maintien du Pro54}
+Nous avons opté pour deux méthodes de fixation pour le Pro54 -- après discussion en \acrshort{RCE}-1 -- pour laisser le choix
+aux pyrotechniciens selon leur préférence (dépendamment de la rampe utilisée pour le lancement):
+\begin{itemize}
+    \item Une bague se vissant autour du propulseur (pas de vis 62mm) avec un serrage à la main (et clé si nécessaire) -- et
+    visible en bleu sur l'image,
+    \item Deux loquets à tourner à la main pour le maintien du propulseur -- visibles en rouge sur l'image.
+\end{itemize}
+
+Les deux loquets devront être vissés si utilisés, mais ne requièrent pas de changement de pièce dans l'assemblage.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/maintien2_pro54.png}
+    \caption{Méthodes de fixation du Pro54}
+    \label{fig:fixation_pro54}
+\end{figure}
+
 \subsubsection{Aérofreins}
 La place disponible dans le premier étage étant très limitée, nous avons opté pour un système d'aérofreins de type "plaque
 déployable". Ce système est composé de deux bagues en aluminium 7075 de 7 mm d'épaisseur et du même diamètre que l'intérieur du
@@ -145,7 +164,7 @@ fuselage. Entre les deux plaques, un système de bielles permet de déployer les
     \end{figure}
 \end{minipage}
 
-\newpage
+\vfill
 
 \begin{minipage}{0.55\textwidth}
     \centering
@@ -192,5 +211,91 @@ fuselage. Entre les deux plaques, un système de bielles permet de déployer les
     La plus grande partie des pièces seront usinées au \gls{Skylab}. Seuls les aérofrein seront commandés à un fournisseur
     externe au vu de la complexité de leur forme nécessitant une fraiseuse 5 axes.
 \end{minipage}
+
+\vfill
+
+\newpage
+
+\subsubsection{Définition du système d'ouverture/parachute}
+\label{subsec:defpara}
+
+Dans l'objectif de récupération de chaque étage, nous devons définir et valider nos deux systèmes de sauvegarde des lanceurs.
+Ceux-ci sont définis par des trappes latérales actionnées par un servomoteur chacun.\\
+
+Le tableau suivant récapitule les règles du \acrshort{CDC} nous concernant (règles concernant les ralentisseurs pilotés non
+présentes) et devant faire l'objet d'une validation technique.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{1.2cm}|p{4cm}|p{10cm}|}
+        \hline
+        Règles & Type & Détails du \acrshort{CDC} \\ \hline
+        REC1  & Système récupération & Chaque étage doit être équipé d’un système ralentisseur fiable permettant de réduire sa vitesse de descente. L’éjection du/des ralentisseurs doit être franche. \\ \hline
+        REC2  & Système récupération & Les systèmes ralentisseurs des étages et de tout autre élément éjecté doivent permettre une arrivée au sol à une vitesse verticale comprise entre 5 m/s et 15 m/s, y compris dans le cas dégradé où les deux étages ne se sont pas séparés. \\ \hline
+        REC3  & Cohérence du système & Les instants de déploiement des systèmes ralentisseurs doivent être compatibles avec l’expérience menée par le club. \\ \hline
+        REC4  & Séparation transversale & Non utilisé. \\ \hline
+        REC5  & Séparation latérale & La case contenant le système de récupération doit rester opérationnelle lorsqu’elle supporte en compression longitudinale une force : $F = 2 \times \text{Accélération}{\text{Max}} \times M_{\text{sup}}$ (numériquement, l’accélération en m/s$^2$ et la masse en kg donnent $F$ en newtons). \\ \hline
+        REC6  & Assemblage trappe & En position fermée, la porte latérale ne doit pas dépasser du profil de l’étage. \\ \hline
+        REC7  & Tenue en torsion & La porte ne doit pas s’ouvrir ou se bloquer lorsqu’on applique un couple de torsion de 1 N·m entre le haut et le bas de l’étage. \\ \hline
+        REC8  & Vibrations & L’accélération et les vibrations de la fusée ne doivent pas modifier le fonctionnement des systèmes de récupération. \\ \hline
+        REC9  & Tenue mécanique globale & Les systèmes de récupération utilisés doivent auparavant avoir été testés avec succès. \\ \hline
+        REC10 & Solidité du parachute & Les ralentisseurs doivent être suffisamment solides pour résister au choc à l’ouverture. \\ \hline
+        REC11 & Anneau anti-torche & Dans le cas de l’utilisation d’un parachute, celui-ci doit être équipé d’un anneau anti-torche (également appelé glisseur). \\ \hline
+    \end{tabular}
+    \caption{Règles de dimensionnement des systèmes de récupération issues du \acrshort{CDC} \gls{Fusex} \cite[p.~36-42]{CDC_BiEtage}}
+\end{table}
+
+La contrainte imposée par le \acrshort{CDC} est une vitesse de redescente comprise entre 5 et 15m/s pour les trois
+configurations (étage 1, étage 2 et non séparé). De par les dimensions des deux étages, le premier sera en charge du retour
+sous parachute de l'ensemble non séparé.
+\begin{equation}
+\begin{aligned}
+    V_d &= \sqrt{\frac{2 M g}{\rho_0 C_x S}} \
+    %V_d &= \sqrt{\frac{2 \times 7.2 \times 9.81}{1.3 \times 1 \times 0.65}}
+\end{aligned}
+\end{equation}
+
+Avec la règle REC2, nous devons dimensionner les deux parachutes pour les cas suivants :
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Cas d'étude & Pas de séparation & Étage 1 & Étage 2 \\ \hline
+        Masse de l'ensemble & 7,327kg & 4,431kg & 2,895kg \\ \hline
+        Dimensions du parachute utilisé & a=b=360mm & a=b=360mm & a=b=310mm \\ \hline
+        Vitesse sous parachute & 13,1 m/s & 9,2 m/s & 10,7 m/s \\ \hline
+    \end{tabular}
+\end{table}
+
+La forme des parachutes utilisés sera de type croix, avec a et b les valeurs d'un carré de la croix. De plus, l'ensemble du
+parachute devra résister à l'ouverture.
+\begin{equation}
+\begin{aligned}
+    F &= 2 \times Acc{max} \times K{safety} \times M_{sup} \
+    F &= 2 \times 9,7 \times 1,5 \times 3,055 \
+    F &= 88,90 N
+\end{aligned}
+\end{equation}
+
+Le parachute sera fixé à la bague principale du bloc parachute dont cette dernière sera réalisée en aluminium 7075-T6 et fixée
+au tube par 3 vis CBLX M5x12mm, qui d'après nos tests reste conforme à REC5. L'ensemble des règles REC6 à REC8 concernant la
+bonne tenue de la trappe latérale seront confirmées de par la forme du réceptacle du parachute avec des rebords pour le bon
+maintein de la trappe avec le tube ainsi que son usinage pour avoir aucun jeu lors du test en torsion. \\
+
+L'utilisation d'un émérillon en acier inoxidable de diamètre 8mm permettra une tenue maximale en traction de 2943 N, pour être
+conforme à REC10 et un émérillon pour confirmer REC11. Enfin, une batterie de tests (filmés) sera réalisée pour confirmer REC9.\\
+
+Le système d’ouverture — une brique technologique déjà développée et validée sur SP-01 — se compose d’un servomoteur et d’un
+crochet assurant le verrouillage de la trappe. En plaçant le servomoteur à la verticale, avec un axe de rotation aligné sur
+l’axe de roulis de la fusée, on améliore son efficacité au décollage : il est moins sollicité en cas d’infiltration d’air dans
+la trappe et lors de l’ouverture.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/para_etage1.png}
+    \caption{Bloc parachute du premier étage sur \acrshort{CATIA}}
+    \label{fig:para1_SP02}
+\end{figure} 
 
 \newpage

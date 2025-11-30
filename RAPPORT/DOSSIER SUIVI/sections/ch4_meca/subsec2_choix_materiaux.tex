@@ -4,33 +4,37 @@ bagues de maintien de parachute ou d'autres composants -- en prenant en compte l
 des matières brutes et de leur usinage/fabrication.
 
 \begin{table}[h!]
-\centering
-%\caption{Propriétés mécaniques et coût des matériaux sélectionnés}
-\begin{tabular}{|p{2cm}|p{1.2cm}|p{1.8cm}|p{1.8cm}|p{3cm}|p{2cm}|p{0.8cm}|}
-\hline
-Matériau & Densité (kg/m$^3$) & Module de Young (GPa) & Limite d'élasticité (MPa) & Résistance maximale en traction (MPa) & Température max. (°C) & Coût \\ \hline
-Alu 6061-T6 & 2700 & 69 & 276 & 310 & 150 & \$\$ \\ \hline
-Alu 7075-T6 & 2810 & 71 & 503 & 572 & 150 & \$\$\$ \\ \hline
-GFRP (163\,g/m$^2$) & 1850 & 25 & -- & 500 & 150 & \$\$\$ \\ \hline
-PETG & 1280 & 1,81 (x-y) / 1,54 (z) & -- & 34 (x-y) / 23 (z) & 54 & \$ \\ \hline
-\end{tabular}
-\caption{Propriétés mécaniques et coût des matériaux sélectionnés}
+    \centering
+    \begin{tabular}{|p{2cm}|p{1.2cm}|p{1.8cm}|p{1.8cm}|p{3cm}|p{2cm}|p{0.8cm}|}
+        \hline
+        Matériau & Densité (kg/m$^3$) & Module de Young (GPa) & Limite d'élasticité (MPa) & Résistance maximale en traction (MPa) & Température max. (°C) & Coût \\ \hline
+        Alu 6061-T6 & 2700 & 69 & 276 & 310 & 150 & €€ \\ \hline
+        Alu 7075-T6 & 2810 & 71 & 503 & 572 & 150 & €€€ \\ \hline
+        Acier (304) & 8000 & 193 & 240 & 620 & 650 & €€€€ \\ \hline
+        Laiton & 8530 & 105 & 300 & 450 & 200 & €€ \\ \hline
+        GFRP (163,g/m$^2$) & 1850 & 25 & -- & 500 & 150 & €€€ \\ \hline
+        PETG & 1280 & 1,81 (x-y) / 1,54 (z) & 50--55 & 55--60 (x-y) / 35--40 (z) & 80--90 & € \\ \hline
+        POM-C & 1410 & 2,8--3,2 & 60--70 & 65--75 & 100--110 & €€ \\ \hline
+        Nylon 6 & 1140 & 2,5 & 70 & 80 & 120 & €€ \\ \hline
+    \end{tabular}
+    \caption{Propriétés mécaniques et coût des matériaux sélectionnés}
+    \label{tab:choix_materiaux}
 \end{table}
 
-\subsubsection{Fuselage}
+\subsubsection{Précision du protocole de fabrication des fuselages porteurs}
 
-Les fuselages des deux étages sont entièrement en \textbf{fibre de verre} (163\,g/cm$^2$), avec un diamètre interne de 100\,mm,
-pour l'étage inférieur et 80\,mm pour l'étage supérieur. Nous avons opté pour des tubes en aluminium comme mandrins afin de
+Lors du dimensionnement de nos deux étages, nous avons opté pour des tubes dits en "\textbf{peau porteuse}", c'est-à-dire qui
+supporteront chacun l'entièreté des composants dans la fusée sans renforts internes. Les fuselages des deux étages sont
+entièrement en \textbf{fibre de verre} (163 g/cm$^2$) pour un ratio rigidité/poids optimal, avec un diamètre interne de 100 mm,
+pour l'étage inférieur et 80 mm pour l'étage supérieur. Nous avons opté pour des tubes en aluminium comme mandrins afin de
 minimiser au maximum la flèche à vide du tube, et donc la flèche globale après assemblage.\\
 
-L'objectif est de réaliser une structure en \textbf{peau porteuse} tout en limitant le poids. L'épaisseur idéale, offrant un
-compromis entre rigidité et légèreté, se situe entre :
+L'épaisseur idéale, offrant un compromis entre rigidité et légèreté, se situe entre :
 \begin{itemize}
-    \item 1,5\,mm (rigidité faible),
-    \item 2,5\,mm (rigidité optimale, mais poids élevé).\\
+    \item 1,5 mm (rigidité faible),
+    \item 2,5 mm (rigidité optimale, mais poids élevé).\\
 \end{itemize}
 
-Avec \textbf{11 couches}, nous visons une épaisseur finale d'environ 1,969\,mm.\\
 
 \noindent
 \textbf{Étapes de fabrication :}
@@ -41,17 +45,15 @@ Avec \textbf{11 couches}, nous visons une épaisseur finale d'environ 1,969\,mm.
         \item Ponçage manuel du tube, suivi d'un nettoyage à l'\textit{acétone}.
         \item Application d'un film plastique pour un démoulage instantané du tube sur le mandrin.
     \end{itemize}
-
     \item \textbf{Fabrication du tube en fibre de verre} :
     \begin{itemize}
         \item Application de la résine sur la fibre, dans le sens des fibres, pour réaliser les 11 couches. Un calcul optimal
-        pour permettre d'imprégner en bonne proportion la fibre et atteindre \textbf{291\,g/m$^2$} en surface massique du
+        pour permettre d'imprégner en bonne proportion la fibre et atteindre \textbf{291 g/m$^2$} en surface massique du
         composite stratifié final (avec 5\% de marge pour la fabrication de résine).
         \item Vérification de l'état de la résine et port des \acrfull{EPI}.
         \item Pose d'un \textit{film plastique} sur toute la surface du tube pour créer une couche protectrice homogène sur la
         surface extérieure afin de la traiter (ponçage) et d'obtenir la masse et le niveau de surface souhaité.
     \end{itemize}
-
     \item \textbf{Démoulage du tube} :
     \begin{itemize}
         \item La résine utilisée au cours de la fabrication est une résine epoxy de EasyComposites dont les propriétés mécaniques
