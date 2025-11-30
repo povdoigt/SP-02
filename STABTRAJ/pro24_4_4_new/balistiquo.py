@@ -10,21 +10,30 @@ TRAJECTO_PORTEE_X = 'J29'
 
 
 alpha_beta_name = 'Alpha_Beta/alpha_beta_actif.xlsx'
+alpha_name = 'Alpha/alpha_vol_actif.xlsx'
 beta_name = 'Beta/beta_actif.xlsx'
 
 ab_wb = xlwings.Book(alpha_beta_name)
 ab_trajecto = ab_wb.sheets['Trajecto']
 ab_Calculs = ab_wb.sheets['Calculs']
 
+a_wb = xlwings.Book(alpha_name)
+a_trajecto = a_wb.sheets['Trajecto']
+
 b_wb = xlwings.Book(beta_name)
 b_trajecto = b_wb.sheets['Trajecto']
 
-angles = np.linspace(45, 85, 10)
+angles = [45, 50, 55, 60, 65, 70, 75, 80, 85]
 
 ab_alt_z_values = []
 ab_portee_x_values = []
 ab_vit_max_values =[]
 ab_acc_max_values =[]
+
+a_alt_z_values = []
+a_portee_x_values = []
+a_vit_max_values = []
+a_acc_max_values = [] 
 
 b_alt_z_values = []
 b_portee_x_values = []
@@ -57,6 +66,23 @@ for angle in angles:
 
     ang_sepa_values.append(ang_sepa)
 
+    a_trajecto.range('I42').value = pos_z
+    a_trajecto.range('J42').value = pos_x
+    a_trajecto.range('K42').value = vit_xz
+    a_trajecto.range(TRAJECTO_RAMPE_ANGLE).value = ang_sepa
+
+    alt_z = a_trajecto.range(TRAJECTO_ALT_Z).value
+    portee_x = a_trajecto.range(TRAJECTO_PORTEE_X).value
+    vit_max = a_trajecto.range('K25').value / 340.3
+    acc_max = a_trajecto.range('L25').value / 9.81
+
+    a_alt_z_values.append(alt_z)
+    a_portee_x_values.append(portee_x)
+    a_vit_max_values.append(vit_max)
+    a_acc_max_values.append(acc_max)
+
+    print(f"Alpha      - Altitude Z: {alt_z:.2f} m, Portée X: {portee_x:.2f} m, Vitesse Max: {vit_max:.2f} Mach, Accélération Max: {acc_max:.2f} g")
+
     b_trajecto.range('I42').value = pos_z
     b_trajecto.range('J42').value = pos_x
     b_trajecto.range('K42').value = vit_xz
@@ -79,6 +105,7 @@ plt.suptitle(f'Trajectoire Actif')
 
 plt.subplot(2, 2, 1)
 plt.plot(angles, ab_alt_z_values, label='Alpha Beta')
+plt.plot(angles, a_alt_z_values, label='Alpha', linestyle=':')
 plt.plot(angles, b_alt_z_values, label='Beta', linestyle='--')
 plt.title('Altitude Z vs Angle')
 plt.xlabel('Angle (degrees)')
@@ -88,6 +115,7 @@ plt.legend()
 
 plt.subplot(2, 2, 2)
 plt.plot(angles, ab_portee_x_values, label='Alpha Beta')
+plt.plot(angles, a_portee_x_values, label='Alpha', linestyle=':')
 plt.plot(angles, b_portee_x_values, label='Beta', linestyle='--')
 plt.title('Portée X vs Angle')
 plt.xlabel('Angle (degrees)')
@@ -97,6 +125,7 @@ plt.legend()
 
 plt.subplot(2, 2, 3)
 plt.plot(angles, ab_vit_max_values, label='Alpha Beta')
+plt.plot(angles, a_vit_max_values, label='Alpha', linestyle=':')
 plt.plot(angles, b_vit_max_values, label='Beta', linestyle='--')
 plt.title('Vitesse Max vs Angle')
 plt.xlabel('Angle (degrees)')
@@ -106,6 +135,7 @@ plt.legend()
 
 plt.subplot(2, 2, 4)
 plt.plot(angles, ab_acc_max_values, label='Alpha Beta')
+plt.plot(angles, a_acc_max_values, label='Alpha', linestyle=':')
 plt.plot(angles, b_acc_max_values, label='Beta', linestyle='--')
 plt.title('Accélération Max vs Angle')
 plt.xlabel('Angle (degrees)')
@@ -115,7 +145,6 @@ plt.legend()
 
 plt.tight_layout()
 plt.show()
-
 
 angle = 80
 
