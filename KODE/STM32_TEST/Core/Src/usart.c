@@ -19,7 +19,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "usart.h"
-#include "stm32l4xx_hal_uart.h"
 
 /* USER CODE BEGIN 0 */
 
@@ -104,7 +103,7 @@ void MX_USART3_UART_Init(void)
 
   /* USER CODE END USART3_Init 1 */
   huart3.Instance = USART3;
-  huart3.Init.BaudRate = 38400;
+  huart3.Init.BaudRate = 115200;
   huart3.Init.WordLength = UART_WORDLENGTH_8B;
   huart3.Init.StopBits = UART_STOPBITS_1;
   huart3.Init.Parity = UART_PARITY_NONE;
@@ -326,6 +325,8 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
   } else if (huart->Instance == USART2) {
     // Handle reception for USART2
   } else if (huart->Instance == USART3) {
+    __NOP();
+    // HAL_UARTEx_ReceiveToIdle_IT(&huart3, rx_data, 256);
     // Handle reception for USART3
   }
 }

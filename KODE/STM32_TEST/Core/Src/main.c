@@ -18,14 +18,15 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "stm32l4xx_hal.h"
+#include "stm32l4xx_hal_uart.h"
 #include "usart.h"
 #include "gpio.h"
-#include "wit_c_sdk.h"
-#include "SCS/SCServo.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdint.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -91,6 +92,21 @@ void ftBus_Delay(void) {
   HAL_Delay(1);
 }
 
+
+
+
+uint8_t compute_checksum(uint8_t *data, uint8_t length) {
+  uint8_t sum = 0;
+  for (uint8_t i = 0; i < length; i++) {
+    sum += data[i];
+  }
+  return ~sum;
+}
+
+
+
+
+
 /* USER CODE END 0 */
 
 /**
@@ -126,8 +142,33 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  rx_data[256] = '\n';
-  HAL_UARTEx_ReceiveToIdle_IT(&huart1, rx_data, 256);
+  // uint8_t tx_data[6] = {
+  //   0xFF, 0xFF, 0x01, 0x02, 0x01, 0xFB
+  // };
+  // uint8_t tx_cmd1[13] = {
+  //   0xFF, 0xFF, 0x01, 0x09, 0x03, 0x2A, 0x00, 0x08, 0x00, 0x00, 0xE8, 0x03, 0xD5,
+  // };
+
+  // // Compute and set checksum for tx_cmd1
+  // tx_cmd1[12] = compute_checksum(&tx_cmd1[2], 10);
+  
+  // // Change position to 0 (0x0000)
+  // tx_cmd1[6] = 0x00;
+  // tx_cmd1[7] = 0x00;
+  // tx_cmd1[12] = compute_checksum(&tx_cmd1[2], 10);
+
+  // // Change speed to 2000 (0x07D0)
+  // tx_cmd1[10] = 0xD0;
+  // tx_cmd1[11] = 0x07;
+  // tx_cmd1[12] = compute_checksum(&tx_cmd1[2], 10);
+
+  // HAL_HalfDuplex_EnableTransmitter(&huart3);
+  // HAL_UART_Transmit(&huart3, tx_cmd1, 13, HAL_MAX_DELAY);
+  // HAL_HalfDuplex_EnableReceiver(&huart3);
+
+  // HAL_Delay(2000);
+
+  // __NOP();
 
   // WitSerialWriteRegister(Wit_UART_Write);
   // WitRegisterCallBack(Wit_Reg_Update_Cb);
@@ -135,14 +176,40 @@ int main(void)
 
   // WitInit(WIT_PROTOCOL_NORMAL, 0x50);
 
-  setEnd(0);
-  WritePosEx(7, 4095, 2400, 50);
+  // setEnd(0);
+  // WritePosEx(7, 4095, 2400, 50);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint8_t tx_buff[256] = "Coucou !";
 	while (1) {
+    // // Go to position 4095 (0x0FFF)
+    // tx_cmd1[6] = 0xFF;
+    // tx_cmd1[7] = 0x0F;
+    // tx_cmd1[12] = compute_checksum(&tx_cmd1[2], 10);
+  
+    // HAL_HalfDuplex_EnableTransmitter(&huart3);
+    // HAL_UART_Transmit(&huart3, tx_cmd1, 13, HAL_MAX_DELAY);
+    // HAL_HalfDuplex_EnableReceiver(&huart3);
+  
+    // HAL_Delay(2000);
+  
+    // // Go to position 0 (0x0000)
+    // tx_cmd1[6] = 0x00;
+    // tx_cmd1[7] = 0x00;
+    // tx_cmd1[12] = compute_checksum(&tx_cmd1[2], 10);
+  
+    // HAL_HalfDuplex_EnableTransmitter(&huart3);
+    // HAL_UART_Transmit(&huart3, tx_cmd1, 13, HAL_MAX_DELAY);
+    // HAL_HalfDuplex_EnableReceiver(&huart3);
+  
+    // HAL_Delay(2000);
+
+    HAL_UART_Transmit(&huart2, tx_buff, strlen((char *)tx_buff), HAL_MAX_DELAY);
+    HAL_Delay(1000);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
