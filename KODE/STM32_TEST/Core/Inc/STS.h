@@ -12,8 +12,8 @@
 #define STS_H
 
 #include "stm32l4xx_hal.h"
-#include "stm32l4xx_hal_def.h"
-#include "stm32l4xx_hal_uart.h"
+#include <stdbool.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -135,31 +135,69 @@ typedef enum STS_StatusFlags {
 #define STS_INST_REBOOT                 0x08    // Reboot instruction
 
 
-#define STS_SERIAL_BUFFER_SIZE          256      // Size of the serial communication buffer
+// Constante
+#define STS_UNIT_TO_DEGREE              (360.0f/4096.0f)    // Conversion factor from unit to degree (1 unit = 0.088 degree)
+#define STS_UNIT_TO_RPM_1               0.732               // Conversion factor from unit to RPM (1 unit = 0.7320 RPM)
+#define STS_UNIT_TO_RPM_2               0.0146              // Conversion factor from unit to RPM (1 unit = 0.0146 RPM)
+#define STS_UNIT_TO_TORQUE              (19.5f/1000.0f)     // Conversion factor from unit to Torque in Ncm (1 unit = 0.0195 kg.cm)
+#define STS_UNIT_TO_TEMPERATURE         1                   // Conversion factor from unit to degree Celsius (1 unit = 1 degree Celsius)
+#define STS_UNIT_TO_VOLTAGE             0.1                 // Conversion factor from unit to Volt (1 unit = 0.1 Volt)
+#define STS_UNIT_TO_CURRENT             6.5                 // Conversion factor from unit to mA (1 unit = 6.5 mA)
 
-typedef struct STS_Servo_t {
+#define STS_SERIAL_BUFFER_SIZE          256      // Size of the serial communication buffer
+#define STS_TIMEOUT_MS                   25      // Timeout for serial communication in milliseconds
+
+typedef struct STS_UART_Port_t {
     UART_HandleTypeDef *huart;  // UART handle
     uint8_t __rx_buffer[STS_SERIAL_BUFFER_SIZE]; // Internal RX buffer
+
+    bool rx_complete;          // RX complete flag
+} STS_UART_Port_t;
+
+extern STS_UART_Port_t huart_sts_port1;
+
+typedef struct STS_Servo_t {
+    STS_UART_Port_t *uart_port; // UART port
     uint8_t id;                 // Servo ID
 } STS_Servo_t;
 
-typedef struct STS_Servo_Current_t {
+typedef struct STS_Servo_Current_raw_t {
     uint16_t position;          // Current position
     int16_t speed;              // Current speed
     int16_t load;               // Current load
     uint8_t voltage;            // Current voltage
     uint8_t temperature;        // Current temperature
+    uint8_t current;            // Current current
+} STS_Servo_Current_raw_t;
+
+typedef struct STS_Servo_Current_t {
+    float position;         // Current position (in degrees)
+    float speed;            // Current speed (in degrees per second)
+    float load;             // Current load (in kg.cm)
+    float voltage;          // Current voltage (in Volts)
+    float temperature;      // Current temperature (in degree Celsius)
+    float current;          // Current current (in mA)
 } STS_Servo_Current_t;
 
-typedef struct STS_Servo_Status_t {
-    uint8_t voltage_protection;     // Voltage protection status
-    uint8_t encoder_protection;     // Encoder protection status
-    uint8_t overheat_protection;    // Overheat protection status
-    uint8_t overcurrent_protection; // Overcurrent protection status
-} STS_Servo_Status_t;
+
+HAL_StatusTypeDef STS_UART_Port_Init(STS_UART_Port_t *uart_port, UART_HandleTypeDef *huart);
+
+bool STS_UART_Port_VerifyHeader(STS_UART_Port_t *uart_port);
+uint8_t STS_UART_Port_GetID(STS_UART_Port_t *uart_port);
+uint8_t STS_UART_Port_GetLength(STS_UART_Port_t *uart_port);
+uint8_t STS_UART_Port_GetStatus(STS_UART_Port_t *uart_port);
+bool STS_UART_Port_VerifyChecksum(STS_UART_Port_t *uart_port, uint16_t data_length);
+
+void STS_UART_Port_Callback_RX_IRQHandler(STS_UART_Port_t *uart_port, uint16_t Size);
+
+bool STS_UART_Port_IsRXComplete(STS_UART_Port_t *uart_port);
 
 
-void STS_Servo_Init(STS_Servo_t *servo, UART_HandleTypeDef *huart, uint8_t id);
+
+
+HAL_StatusTypeDef STS_Servo_Init(STS_Servo_t *servo, STS_UART_Port_t *uart_port, uint8_t id);
+
+bool STS_Servo_IsPacketValide(STS_Servo_t *servo, uint8_t expected_data_length);
 
 HAL_StatusTypeDef STS_Servo_SendInstruction(STS_Servo_t *servo, uint8_t instruction, uint8_t *params, uint16_t params_length);
 HAL_StatusTypeDef STS_Servo_ReceiveStatus(STS_Servo_t *servo, uint8_t *status, uint8_t *data, uint16_t data_length);
@@ -173,8 +211,14 @@ HAL_StatusTypeDef STS_Servo_ResetParameters(STS_Servo_t *servo);
 HAL_StatusTypeDef STS_Servo_SaveParameters(STS_Servo_t *servo);
 HAL_StatusTypeDef STS_Servo_Reboot(STS_Servo_t *servo);
 
-HAL_StatusTypeDef STS_Servo_GetCurrentStatus(STS_Servo_t *servo, STS_Servo_Current_t *current_status);
+HAL_StatusTypeDef STS_Servo_GetCurrentStatus(STS_Servo_t *servo, STS_Servo_Current_raw_t *current_status);
+HAL_StatusTypeDef STS_Servo_SetGoalPosition(STS_Servo_t *servo, uint16_t position);
+HAL_StatusTypeDef STS_Servo_SetGoalSpeed(STS_Servo_t *servo, int16_t speed);
+HAL_StatusTypeDef STS_Servo_SetGoalLoad(STS_Servo_t *servo, int16_t load);
+HAL_StatusTypeDef STS_Servo_IsMoving(STS_Servo_t *servo, uint8_t *is_moving);
 
+void STS_Servo_raw_to_physical(const STS_Servo_Current_raw_t *raw, STS_Servo_Current_t *physical);
+void STS_Servo_physical_to_raw(const STS_Servo_Current_t *physical, STS_Servo_Current_raw_t *raw);
 
 #ifdef __cplusplus
 }

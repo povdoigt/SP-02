@@ -21,6 +21,8 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
+#include "STS.h"
+#include "stm32l4xx_hal_def.h"
 
 /* USER CODE END 0 */
 
@@ -305,30 +307,50 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 
 /* USER CODE BEGIN 1 */
 
-uint8_t rx_data[257] = { 0 };
+#ifdef USART1
+  UART_buffer_t uart_buffer_1 = { 0 };
+#endif
+#ifdef USART2
+  UART_buffer_t uart_buffer_2 = { 0 };
+#endif
+#ifdef USART3
+  UART_buffer_t uart_buffer_3 = { 0 };
+#endif
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+void UART_get_buffer(UART_HandleTypeDef *huart, UART_buffer_t **buffer_obj_ptr) {
+#ifdef USART1
   if (huart->Instance == USART1) {
-    HAL_UART_Transmit(&huart2, rx_data, 256, HAL_MAX_DELAY);
-    HAL_UART_Receive_IT(&huart1, rx_data, 256);
-  } else if (huart->Instance == USART2) {
-    // Handle reception for USART2
-  } else if (huart->Instance == USART3) {
-    // Handle reception for USART3
+    *buffer_obj_ptr = &uart_buffer_1;
+  } else
+#endif
+#ifdef USART2
+  if (huart->Instance == USART2) {
+    *buffer_obj_ptr = &uart_buffer_2;
+  } else
+#endif
+#ifdef USART3
+  if (huart->Instance == USART3) {
+    *buffer_obj_ptr = &uart_buffer_3;
+  } else
+#endif
+  {
+    *buffer_obj_ptr = NULL; // Unknown UART instance
   }
 }
 
+
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
-  if (huart->Instance == USART1) {
-    HAL_UART_Transmit(&huart2, rx_data, Size, HAL_MAX_DELAY);
-    HAL_UARTEx_ReceiveToIdle_IT(&huart1, rx_data, 256);
-  } else if (huart->Instance == USART2) {
-    // Handle reception for USART2
-  } else if (huart->Instance == USART3) {
-    __NOP();
-    // HAL_UARTEx_ReceiveToIdle_IT(&huart3, rx_data, 256);
-    // Handle reception for USART3
+  UART_buffer_t *buffer_obj;
+  HAL_StatusTypeDef res;
+  UART_get_buffer(huart, &buffer_obj);
+  if (buffer_obj != NULL) {
+    res = HAL_UARTEx_ReceiveToIdle_IT(huart, buffer_obj->rx_buffer, buffer_obj->rx_length);
   }
+
+  if (huart_sts_port1.huart == huart) {
+    STS_UART_Port_Callback_RX_IRQHandler(&huart_sts_port1, Size);
+  }
+
 }
 
 /* USER CODE END 1 */
