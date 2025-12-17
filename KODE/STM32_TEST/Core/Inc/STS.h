@@ -151,7 +151,7 @@ typedef struct STS_UART_Port_t {
     UART_HandleTypeDef *huart;  // UART handle
     uint8_t __rx_buffer[STS_SERIAL_BUFFER_SIZE]; // Internal RX buffer
 
-    bool rx_complete;          // RX complete flag
+    volatile bool rx_complete;  // RX complete flag (set in IRQ handler)
 } STS_UART_Port_t;
 
 extern STS_UART_Port_t huart_sts_port1;
@@ -163,11 +163,11 @@ typedef struct STS_Servo_t {
 
 typedef struct STS_Servo_Current_raw_t {
     uint16_t position;          // Current position
-    int16_t speed;              // Current speed
-    int16_t load;               // Current load
-    uint8_t voltage;            // Current voltage
-    uint8_t temperature;        // Current temperature
-    uint8_t current;            // Current current
+    int16_t  speed;             // Current speed
+    int16_t  load;              // Current load
+    uint8_t  voltage;           // Current voltage
+    uint8_t  temperature;       // Current temperature
+    uint16_t current;           // Current current
 } STS_Servo_Current_raw_t;
 
 typedef struct STS_Servo_Current_t {

@@ -138,7 +138,7 @@ HAL_StatusTypeDef STS_Servo_SendInstruction(STS_Servo_t *servo, uint8_t instruct
 }
 
 HAL_StatusTypeDef STS_Servo_ReceiveStatus(STS_Servo_t *servo, uint8_t *status, uint8_t *data, uint16_t data_length) {
-    uint32_t timeout = HAL_GetTick() + 100; // Max 500 us timeout so 1 ms is large enough
+    uint32_t timeout = HAL_GetTick() + 10; // Max 500 us timeout so 1 ms is large enough
 
     while (servo->uart_port->rx_complete == false && HAL_GetTick() < timeout);
     if (servo->uart_port->rx_complete == false) {
@@ -153,7 +153,9 @@ HAL_StatusTypeDef STS_Servo_ReceiveStatus(STS_Servo_t *servo, uint8_t *status, u
 
     // Extract status and data
     *status = servo->uart_port->__rx_buffer[4];
-    memcpy(data, &servo->uart_port->__rx_buffer[5], data_length);
+    if (data != NULL && data_length > 0) {
+        memcpy(data, &servo->uart_port->__rx_buffer[5], data_length);
+    }
 
     return HAL_OK;
 }
@@ -235,7 +237,7 @@ HAL_StatusTypeDef STS_Servo_GetCurrentStatus(STS_Servo_t *servo, STS_Servo_Curre
     if (res != HAL_OK) {
         return res;
     }
-    current_status->current = (uint8_t)(data[0] | (data[1] << 8));
+    current_status->current = (uint16_t)(data[0] | (data[1] << 8));
 
     return HAL_OK;
 }
@@ -293,5 +295,5 @@ void STS_Servo_physical_to_raw(const STS_Servo_Current_t *physical, STS_Servo_Cu
 
     raw->voltage = (uint8_t)(physical->voltage / STS_UNIT_TO_VOLTAGE);
     raw->temperature = (uint8_t)(physical->temperature / STS_UNIT_TO_TEMPERATURE);
-    raw->current = (uint8_t)(physical->current / STS_UNIT_TO_CURRENT);
+    raw->current = (uint16_t)(physical->current / STS_UNIT_TO_CURRENT);
 }

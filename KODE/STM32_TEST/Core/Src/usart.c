@@ -22,7 +22,8 @@
 
 /* USER CODE BEGIN 0 */
 #include "STS.h"
-#include "stm32l4xx_hal_def.h"
+#include "WT901B.h"
+#include "stm32l4xx_hal_uart.h"
 
 /* USER CODE END 0 */
 
@@ -43,7 +44,7 @@ void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 9600;
+  huart1.Init.BaudRate = 115200;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -340,17 +341,20 @@ void UART_get_buffer(UART_HandleTypeDef *huart, UART_buffer_t **buffer_obj_ptr) 
 
 
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
-  UART_buffer_t *buffer_obj;
-  HAL_StatusTypeDef res;
-  UART_get_buffer(huart, &buffer_obj);
-  if (buffer_obj != NULL) {
-    res = HAL_UARTEx_ReceiveToIdle_IT(huart, buffer_obj->rx_buffer, buffer_obj->rx_length);
-  }
 
   if (huart_sts_port1.huart == huart) {
     STS_UART_Port_Callback_RX_IRQHandler(&huart_sts_port1, Size);
   }
 
+  if (wt901b.huart == huart) {
+    WT901B_UART_Callback_RX_IRQHandler(&wt901b, Size);
+  }
+
+  UART_buffer_t *buffer_obj;
+  UART_get_buffer(huart, &buffer_obj);
+  if (buffer_obj != NULL) {
+    HAL_UARTEx_ReceiveToIdle_IT(huart, buffer_obj->rx_buffer, buffer_obj->rx_length);
+  }
 }
 
 /* USER CODE END 1 */
