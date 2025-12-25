@@ -1,0 +1,52 @@
+\section{Analyse de sûreté de fonctionnement}
+\label{sec:analyse_surete_fonc}
+
+L’analyse de sûreté de fonctionnement a pour objectif d’identifier, de comprendre et de maîtriser l’ensemble des défaillances
+susceptibles de compromettre la sécurité des personnes, des biens et le respect du gabarit de vol du projet. Dans le cadre d’une
+fusée expérimentale bi-étages, cette démarche constitue une étape essentiel, en particulier en raison de la présence d’une
+phase critique de séparation et d’allumage du second étage. Conformément aux exigences du \acrshort{CDC} \gls{Fusex} bi-étage,
+cette analyse vise à répondre aux règles suivantes :
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|p{13cm}|}
+        \hline
+        \textbf{ASF1} & L’événement redouté est l’écartement de la trajectoire réelle par rapport à la trajectoire simulée. \\
+        \hline
+        \textbf{ASF2} & L’analyse de sûreté de fonctionnement doit se conclure par la justification d’adéquation ou de
+        non-adéquation aux règles \textbf{MAF1 à 8}, \textbf{INF1 à 3}, \textbf{SECR1 à 3}, \textbf{SPYTC1 à 4},
+        \textbf{ORDRE1 à 5}, \textbf{ATT1 à 4}, \textbf{FTP1 à 4}, \textbf{SEP1 à 3}, par rapport aux spécificités du projet. On
+        attend soit la confirmation que les règles énoncées sont suffisantes, soit la proposition d’un contrôle plus adéquat.
+        Cette analyse doit être effectuée pour la première RCE2, puis une version définitive doit être présentée à la première
+        RCE3. \\
+        \hline
+        \textbf{ASF3} & L’analyse de sûreté de fonctionnement doit permettre de montrer que la fusée retombe dans le gabarit
+        lors de l’occurrence d’une double panne, quelle que soit la phase de vie du projet et le bloc étudié. \\
+        \hline
+    \end{tabular}
+    \caption{Règles concernant l'analyse de sûreté de fonctionnement du \acrshort{CDC} \gls{Fusex} bi-étage
+    \cite[p. ~21]{CDC_BiEtage}}
+    \label{tab:regles_surete_fonc}
+\end{table}
+
+La méthodologie retenue pour ce projet est la suivante :
+\begin{enumerate}
+    \item Une analyse préliminaire des risques permettant d’identifier les événements redoutés.
+    \item La définition des modes de défaillance associés aux principaux sous-systèmes.
+    \item La réalisation d’une \acrfull{AMDEC} pour les modes jugés les plus critiques.
+    \item Un bilan des actions correctives visant à éliminer, réduire ou maîtriser les risques non acceptables.\\
+\end{enumerate}
+Cette étude permet de réaliser un contrôle et une validation du design global du projet. Elle éclaire les choix techniques,
+l’intégration des sécurité matérielles ou logicielles, et prépare les essais nécessaires à la version définitive présentée lors
+de la RCE3. Elle assure, enfin, que la fusée demeure exploitable en toute sécurité, même en présence de défaillances simultanées
+et dans l'ensemble des configurations opérationnelles.
+
+\newpage
+
+\input{sections/ch2_analyse_surete_fonc/subsec1_phases_vol.tex}
+\input{sections/ch2_analyse_surete_fonc/subsec2_analyse_prelem.tex}
+\input{sections/ch2_analyse_surete_fonc/subsec3_modes_defaillances.tex}
+\input{sections/ch2_analyse_surete_fonc/subsec4_AMDEC.tex}
+\input{sections/ch2_analyse_surete_fonc/subsec5_Bilan_action_corr.tex}
+
+\newpage

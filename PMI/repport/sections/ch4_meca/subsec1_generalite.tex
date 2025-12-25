@@ -1,0 +1,32 @@
+\subsection{Généralités}
+\label{subsec:generalites}
+
+Tout lanceur à deux étages doit se reporter au cahier des charges \gls{Fusex} ainsi qu'à des règles supplémentaires. Une partie
+du travail de la partie mécanique est de confirmer l'ensemble des étapes de conception et de fabrication. Les règles issues du
+\acrshort{CDC} rappellent les conditions de validation afin de nous assurer de la conformité de nos systèmes tels que la tenue
+mécanique, le double empennage, la flèche, le bon dimensionnement des parachutes... \\
+
+Ce premier tableau ci-dessous récapitule les règles de structure globale afin de définir l'ensemble de nos matériaux pour les
+composants soumis à de fortes contraintes.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|p{1.2cm}|p{4cm}|p{10cm}|}
+\hline
+Règles & Type & Détails du cahier des charges \\ \hline
+
+MEC1  & Flèche & Les flèches statiques de l’étage 2 et de l’ensemble doivent être inférieures ou égales à 1\% (10 mm/m) \\ \hline
+MEC2  & Tenue en compression & Chaque élément de l’étage 2 et de l’ensemble doit pouvoir supporter une compression équivalente à F = 2 x Accélération Max x Msup (en N) \\ \hline
+MEC3  & Résistance longitudinale des ailerons & Les ailerons doivent pouvoir supporter une force longitudinale de : F = (2 x Masse d’un aileron x Accélération Max) + (0,02 x Surface d’un aileron x Vmax² x Coefficient de traînée) \\ \hline
+MEC4  & Résistance transversale des ailerons & Une force F = 0,1 x Surface d’un aileron x Vmax$^2$ (en NEWTON) doit entraîner une flèche transversale des ailerons inférieure à 10° \\ \hline
+MEC5  & Alignement des ailerons & Alignements des ailerons par rapport à l’axe longitudinal de la fusée < 1° \\ \hline
+MEC6  & Angle entre deux ailerons & Angle entre deux ailerons consécutifs : 90° ± 10° (fusex à 4 ailerons) ou 120° ± 10° (fusex à 3 ailerons) \\ \hline
+MEC7  & Tenue en traction & L’étage 2 et l’ensemble doivent rester intègres quand ils sont soulevés verticalement par l'ogive les ailerons vers le bas et par les ailerons l'ogive vers le bas \\ \hline
+MEC8  & Double jeu d'ailerons & Dans le cas d’une fusée à deux jeux d’ailerons, les deux jeux d’ailerons sont soumis aux règles MEC3, 4, 5 et 6 \\ \hline
+MEC9  & Tenue mécanique globale & La tenue mécanique de tous les éléments de la fusée doit leur permettre de fonctionner correctement lorsqu’ils sont soumis aux perturbations du vol (accélérations, vibrations, ...) \\ \hline
+
+\end{tabular}
+\caption{Règles de structure mécanique globale issues du \acrshort{CDC} \gls{Fusex} \cite[p.~32-33]{CDC_BiEtage}}
+\end{table}
+
+\newpage

@@ -102,6 +102,15 @@ extern "C" {
 // and have no effect on the servomotor operation
 // (see datasheet for details)
 
+
+typedef enum STS_OperatingMode {
+    STS_OP_MODE_POSITION_CONTROL    = 0x00, // Position control mode
+    STS_OP_MODE_SPEED_CONTROL       = 0x01, // Speed control mode
+    STS_OP_MODE_OPEN_LOOP_CONTROL   = 0x02, // Open-loop control mode
+    STS_OP_MODE_STEP_CONTROL        = 0x03, // Step control mode
+} STS_OperatingMode;
+
+
 // Sero status flags
 typedef enum STS_StatusFlags {
     STS_STATUS_VOLTAGE_PROTECTION       = 1 << 0,   // Voltage protection flag
@@ -206,7 +215,7 @@ HAL_StatusTypeDef STS_Servo_Ping(STS_Servo_t *servo);
 HAL_StatusTypeDef STS_Servo_ReadRegister(STS_Servo_t *servo, uint8_t reg_addr, uint8_t *data, uint16_t length);
 HAL_StatusTypeDef STS_Servo_WriteRegister(STS_Servo_t *servo, uint8_t reg_addr, uint8_t *data, uint16_t length);
 HAL_StatusTypeDef STS_Servo_Reset(STS_Servo_t *servo);
-HAL_StatusTypeDef STS_Servo_PositionCalibration(STS_Servo_t *servo);
+HAL_StatusTypeDef STS_Servo_PositionCalibration(STS_Servo_t *servo, uint16_t position_units);
 HAL_StatusTypeDef STS_Servo_ResetParameters(STS_Servo_t *servo);
 HAL_StatusTypeDef STS_Servo_SaveParameters(STS_Servo_t *servo);
 HAL_StatusTypeDef STS_Servo_Reboot(STS_Servo_t *servo);
@@ -215,7 +224,24 @@ HAL_StatusTypeDef STS_Servo_GetCurrentStatus(STS_Servo_t *servo, STS_Servo_Curre
 HAL_StatusTypeDef STS_Servo_SetGoalPosition(STS_Servo_t *servo, uint16_t position);
 HAL_StatusTypeDef STS_Servo_SetGoalSpeed(STS_Servo_t *servo, int16_t speed);
 HAL_StatusTypeDef STS_Servo_SetGoalLoad(STS_Servo_t *servo, int16_t load);
+HAL_StatusTypeDef STS_Servo_SetOperatingMode(STS_Servo_t *servo, STS_OperatingMode mode);
 HAL_StatusTypeDef STS_Servo_IsMoving(STS_Servo_t *servo, uint8_t *is_moving);
+HAL_StatusTypeDef STS_Servo_InOverload(STS_Servo_t *servo, bool *in_overload);
+
+float STS_Servo_GetPositionInDegrees(uint16_t position_units);
+float STS_Servo_GetSpeedInRPM(int16_t speed_units);
+float STS_Servo_GetLoadInKgcm(int16_t load_units);
+float STS_Servo_GetVoltageInVolts(uint8_t voltage_units);
+float STS_Servo_GetTemperatureInCelsius(uint8_t temperature_units);
+float STS_Servo_GetCurrentInmA(uint16_t current_units);
+
+uint16_t STS_Servo_GetPositionInUnits(float position_degrees);
+int16_t STS_Servo_GetSpeedInUnits(float speed_rpm);
+int16_t STS_Servo_GetLoadInUnits(float load_kgcm);
+uint8_t STS_Servo_GetVoltageInUnits(float voltage_volts);
+uint8_t STS_Servo_GetTemperatureInUnits(float temperature_celsius);
+uint16_t STS_Servo_GetCurrentInUnits(float current_mA);
+
 
 void STS_Servo_raw_to_physical(const STS_Servo_Current_raw_t *raw, STS_Servo_Current_t *physical);
 void STS_Servo_physical_to_raw(const STS_Servo_Current_t *physical, STS_Servo_Current_raw_t *raw);
