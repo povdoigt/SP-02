@@ -115,12 +115,15 @@ aux pyrotechniciens selon leur préférence (dépendamment de la rampe utilisée
 Les deux loquets devront être vissés si utilisés, mais ne requièrent pas de changement de pièce dans l'assemblage.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/maintien2_pro54.png}
+    \includegraphics[width=0.7\textwidth]{figures/maintien2_pro54.png}
     \caption{Méthodes de fixation du Pro54}
     \label{fig:fixation_pro54}
 \end{figure}
 
 \subsubsection{Aérofreins}
+
+\subsubsubsection{Définition du système d'aérofreins}
+
 La place disponible dans le premier étage étant très limitée, nous avons opté pour un système d'aérofreins de type "plaque
 déployable". Ce système est composé de deux bagues en aluminium 7075 de 7 mm d'épaisseur et du même diamètre que l'intérieur du
 fuselage. Entre les deux plaques, un système de bielles permet de déployer les aérofreins à l'aide d'un servo-moteur.\\
@@ -185,12 +188,12 @@ fuselage. Entre les deux plaques, un système de bielles permet de déployer les
         \node (aerofrein_lbl)   at (+4.50, -2.00) {\textbf{Aérofreins (x3)}};
         \node (bague_bas_lbl)   at (+4.50, -4.00) {\textbf{Bague inférieure}};
 
-        \draw [red, ->, line width=1.5] (moteur_lbl.west)     -- (-0.50, +4.50);
+        \draw [red, ->, line width=1.5] (moteur_lbl.west)     -- (+1.50, +4.50);
         \draw [red, ->, line width=1.5] (rondelle1_lbl.west)  -- (-0.25, +2.75);
         \draw [red, ->, line width=1.5] (bague_haut_lbl.west) -- (+1.50, +1.75);
-        \draw [red, ->, line width=1.5] (rondelle2_lbl.west)  -- (+0.00, -1.50) -- (-0.25, -2.25);
-        \draw [red, ->, line width=1.5] (bielle_lbl.west)     -- (+1.50, -2.00);
-        \draw [red, ->, line width=1.5] (aerofrein_lbl.west)  -- (+2.50, -2.50);
+        \draw [red, ->, line width=1.5] (rondelle2_lbl.west)  -- (+0.00, -1.25) -- (-0.25, -2.00);
+        \draw [red, ->, line width=1.5] (bielle_lbl.west)     -- (+1.50, -1.50);
+        \draw [red, ->, line width=1.5] (aerofrein_lbl.west)  -- (+2.00, -2.50);
         \draw [red, ->, line width=1.5] (bague_bas_lbl.west)  -- (+2.00, -4.00);
 
     \end{tikzpicture}
@@ -212,7 +215,128 @@ fuselage. Entre les deux plaques, un système de bielles permet de déployer les
     externe au vu de la complexité de leur forme nécessitant une fraiseuse 5 axes.
 \end{minipage}
 
+\vspace{1cm}
+
+L'ensemble des plans mécaniques du système d'aérofreins est disponible en annexe \ref{subsec:plan_aerofreins}.
+
 \vfill
+
+\newpage
+
+\subsubsubsection{Modélisation de la cinématique des aérofreins}
+
+La figure \ref{fig:cinematique_aerofrein} illustre la cinématique du système d'aérofreins.
+
+\vfill
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}
+        \node at (0, 0) {\includegraphics[width=\textwidth]{figures/Schema_AF.jpg}};
+
+        % \draw[help lines, step=1cm] (-8, -4) grid (8, 4);
+        % \draw[help lines, step=0.5cm, lightgray] (-8, -4) grid (8, 4);
+        % \draw[line width=2] (-8.0, +0.0) -- (+8.0, +0.0);
+        % \draw[line width=2] (+0.0, -4.0) -- (+0.0, +4.0);
+
+        % Add half of transparency to the background image
+        \filldraw[white, opacity=0.6] (-1, -4.5) rectangle (8, 4.5);
+
+
+
+        \node (OA) at (0.98, 1.94) {};
+        \node (OA_lbl) at (1.25, 2.25) {\textbf{O}};
+
+        \node (AA) at (0.405, 0.955) {};
+        \node (AA_lbl) at (0.25, 0.75) {\textbf{A}};
+
+        \node (BA) at (2.965, 1.94) {};
+        \node (BA_lbl) at (3.25, 2.25) {\textbf{B}};
+
+        \draw[circle, dotted, line width=1.5] (OA) circle (1.1405);
+
+        \draw[line width=1.5, red, <->] (OA.center) -- (AA.center) node [midway, above left] {\textbf{R}};
+        \draw[line width=1.5, blue, <->] (AA.center) -- (BA.center) node [midway, below] {\textbf{L}};
+
+        \draw (1.3, 1.94) arc (0:-120:0.3cm) node [midway, right] {\textbf{$\theta$}};
+
+
+        \node (OB) at (0.965, -1.97) {};
+        \node (OB_lbl) at (0.75, -1.75) {\textbf{O}};
+
+        \node (AB) at (2.11, -1.97) {};
+        \node (AB_lbl) at (2.5, -1.5) {\textbf{A}};
+
+        \node (BB) at (4.845, -1.97) {};
+        \node (BB_lbl) at (5.15, -1.75) {\textbf{B}};
+
+        \draw[circle, dotted, line width=1.5] (OB) circle (1.145);
+
+        \draw[line width=1.5, red, <->] (OB.center) -- (AB.center) node [midway, below] {\textbf{R}};
+        \draw[line width=1.5, blue, <->] (AB.center) -- (BB.center) node [midway, below] {\textbf{L}};
+
+        \draw[line width=1.5, <->] (5.4, -3.8) -- (7.4, -3.8) node [midway, below] {\textbf{D}};
+
+
+        % Add i, j units vectors
+        \draw[->, line width=1.5] (-1.0, -3.5) -- (-0.0, -3.5) node [midway, above] {\textbf{i}};
+        \draw[->, line width=1.5] (-1.0, -3.5) -- (-1.0, -2.5) node [midway, left] {\textbf{j}};
+
+    \end{tikzpicture}
+    \caption{Schéma de la cinématique des aérofreins}
+    \label{fig:cinematique_aerofrein}
+\end{figure}
+
+\vfill
+
+La cinématique du système d'aérofreins est définie par trois paramètres principaux : la longueur caractéristique des bielles
+($AB = L$), la distance entre l'axe de rotation des aérofreins et le point de fixation des bielles ($OA = R$), et l'angle de
+rotation de ce point ($\widehat{AOB}=\theta$).\\
+
+\vfill
+
+D'après la formule d'Al Kashi, on peut exprimer la distance $OB$ en fonction de ces paramètres :
+\begin{align}
+    AB^2    &= OA^2 + OB^2 - 2 \cdot OA \cdot OB \cdot \cos(\theta) \\
+    L^2     &= R^2 + OB^2 - 2 R \cdot OB \cdot \cos(\theta) \\
+    0       &= OB^2 - 2 R \cos(\theta) \cdot OB + (R^2 - L^2) \\
+    OB      &= \frac{2 R \cos(\theta) \pm \sqrt{(2 R \cos(\theta))^2 - 4 (R^2 - L^2)}}{2} \\
+            &= R \cos(\theta) \pm \sqrt{R^2 \cos^2(\theta) - (R^2 - L^2)} \\
+            &= R \cos(\theta) \pm \sqrt{L^2 - R^2 \sin^2(\theta)}
+\end{align}
+
+\vfill
+
+\newpage
+
+Pour le cas $OB = R \cos(\theta) - \sqrt{L^2 - R^2 \sin^2(\theta)}$, on remarque que:
+\begin{align}
+    0 &\leq OB\\
+    0 &\leq R \cos(\theta) - \sqrt{L^2 - R^2 \sin^2(\theta)}\\
+    \sqrt{L^2 - R^2 \sin^2(\theta)} &\leq R \cos(\theta) \\
+    L^2 - R^2 \sin^2(\theta) &\leq R^2 \cos^2(\theta) \\
+    L^2 &\leq R^2 (\sin^2(\theta) + \cos^2(\theta)) \\
+    L^2 &\leq R^2 \\
+    L &\leq R
+\end{align}
+
+Or, dans notre cas, $L > R$. Nous rejetons donc cette solution et retenons :
+
+\begin{equation}
+    OB = R \cos(\theta) + \sqrt{L^2 - R^2 \sin^2(\theta)}
+\end{equation}
+
+La distance $D$ est donnée par la différence entre $OB$ et le rayon de l'extérieur de la fusée $R_{fusee}$ :
+
+\begin{equation}
+    \boxed{D = R \cos(\theta) + \sqrt{L^2 - R^2 \sin^2(\theta)} - R_{fusee}}
+\end{equation}
+
+\subsubsubsection{Simulation de résistance mécanique des aérofreins}
+
+\newpage
+
+\subsubsubsection{Performance aérodynamique des aérofreins}
 
 \newpage
 

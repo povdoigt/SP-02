@@ -32,14 +32,4 @@ AéroIPSA, ``{\relax Site officiel d'AéroIPSA}.''
 {\relax Julien Denat}, ``Rapport de projet fast forward.''
   \url{https://www.aeroipsa.com/fastforward}, 2023.
 
-\bibitem{NavierStokes}
-Wikipedia, ``Equations de navier-stokes.''
-  \url{https://fr.wikipedia.org/wiki/Équations_de_Navier-Stokes}, 2025.
-
-\bibitem{Stabtraj}
-{\relax \gls{Planète Sciences} et le \acrshort{CNES}}, ``Logiciel de
-  simulation de trajectoire \gls{Stabtraj}.''
-  \url{https://www.planete-sciences.org/espace/Documentation-technique/Trajectoire},
-  2024.
-
 \end{thebibliography}
