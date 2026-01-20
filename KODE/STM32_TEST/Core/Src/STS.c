@@ -1,4 +1,6 @@
 #include "STS.h"
+#include "stm32l4xx_hal.h"
+#include "stm32l4xx_hal_def.h"
 #include "usart.h"
 #include <stdint.h>
 #include <string.h>
@@ -8,6 +10,50 @@
 
 STS_UART_Port_t huart_sts_port1 = { 0 };
 
+
+float STS_Servo_GetPositionInDegrees(uint16_t position_units) {
+    float pos = (float)(position_units & 0x7FFF) * STS_UNIT_TO_DEGREE;
+    return (position_units >> 15) & 0x01 ? -pos : pos;
+}
+float STS_Servo_GetSpeedInRPM(int16_t speed_units) {
+    float speed = (float)(speed_units & 0x7FFF) * STS_UNIT_TO_RPM_1;
+    return (speed_units >> 15) & 0x01 ? -speed : speed;
+}
+float STS_Servo_GetLoadInKgcm(int16_t load_units) {
+    float load = (float)(load_units & 0x3FF) * STS_UNIT_TO_TORQUE;
+    return (load_units >> 10) & 0x01 ? -load : load;
+}
+float STS_Servo_GetVoltageInVolts(uint8_t voltage_units) {
+    return (float)voltage_units * STS_UNIT_TO_VOLTAGE;
+}
+float STS_Servo_GetTemperatureInCelsius(uint8_t temperature_units) {
+    return (float)temperature_units * STS_UNIT_TO_TEMPERATURE;
+}
+float STS_Servo_GetCurrentInmA(uint16_t current_units) {
+    return (float)current_units * STS_UNIT_TO_CURRENT;
+}
+
+uint16_t STS_Servo_GetPositionInUnits(float position_degrees) {
+    uint16_t position_units = (uint16_t)(fabs(position_degrees) / STS_UNIT_TO_DEGREE);
+    return (position_degrees < 0) ? (position_units | 0x8000) : position_units;
+}
+int16_t STS_Servo_GetSpeedInUnits(float speed_rpm) {
+    int16_t speed_units = (int16_t)(fabs(speed_rpm) / STS_UNIT_TO_RPM_1);
+    return (speed_rpm < 0) ? (speed_units | 0x8000) : speed_units;
+}
+int16_t STS_Servo_GetLoadInUnits(float load_kgcm) {
+    int16_t load_units = (int16_t)(fabs(load_kgcm) / STS_UNIT_TO_TORQUE);
+    return (load_kgcm < 0) ? (load_units | 0x400) : load_units;
+}
+uint8_t STS_Servo_GetVoltageInUnits(float voltage_volts) {
+    return (uint8_t)(voltage_volts / STS_UNIT_TO_VOLTAGE);
+}
+uint8_t STS_Servo_GetTemperatureInUnits(float temperature_celsius) {
+    return (uint8_t)(temperature_celsius / STS_UNIT_TO_TEMPERATURE);
+}
+uint16_t STS_Servo_GetCurrentInUnits(float current_mA) {
+    return (uint16_t)(current_mA / STS_UNIT_TO_CURRENT);
+}
 
 
 uint8_t __compute_checksum(uint8_t *data, uint8_t length) {
@@ -117,8 +163,10 @@ HAL_StatusTypeDef STS_Servo_SendInstruction(STS_Servo_t *servo, uint8_t instruct
     packet[packet_length++] = instruction;
 
     // Add parameters
-    memcpy(packet + packet_length, params, params_length);
-    packet_length += params_length;
+    if (params_length > 0 && params != NULL) {
+        memcpy(packet + packet_length, params, params_length);
+        packet_length += params_length;
+    }
 
     // Compute checksum
     uint8_t checksum = __compute_checksum(&packet[2], 3 + params_length); // ID(1) + Length(1) + Instruction(1) + Params(n)
@@ -138,7 +186,7 @@ HAL_StatusTypeDef STS_Servo_SendInstruction(STS_Servo_t *servo, uint8_t instruct
 }
 
 HAL_StatusTypeDef STS_Servo_ReceiveStatus(STS_Servo_t *servo, uint8_t *status, uint8_t *data, uint16_t data_length) {
-    uint32_t timeout = HAL_GetTick() + 100; // Max 500 us timeout so 1 ms is large enough
+    uint32_t timeout = HAL_GetTick() + 10; // Max 500 us timeout so 1 ms is large enough
 
     while (servo->uart_port->rx_complete == false && HAL_GetTick() < timeout);
     if (servo->uart_port->rx_complete == false) {
@@ -153,7 +201,9 @@ HAL_StatusTypeDef STS_Servo_ReceiveStatus(STS_Servo_t *servo, uint8_t *status, u
 
     // Extract status and data
     *status = servo->uart_port->__rx_buffer[4];
-    memcpy(data, &servo->uart_port->__rx_buffer[5], data_length);
+    if (data != NULL && data_length > 0) {
+        memcpy(data, &servo->uart_port->__rx_buffer[5], data_length);
+    }
 
     return HAL_OK;
 }
@@ -172,7 +222,7 @@ HAL_StatusTypeDef STS_Servo_Ping(STS_Servo_t *servo) {
     if (res != HAL_OK) {
         return res;
     }
-    return (status == 0 && res == HAL_OK) ? HAL_OK : HAL_ERROR;
+    return (status == 0 && res == HAL_OK) ? HAL_OK : res;
 }
 
 HAL_StatusTypeDef STS_Servo_ReadRegister(STS_Servo_t *servo, uint8_t reg_addr, uint8_t *data, uint16_t length) {
@@ -183,7 +233,7 @@ HAL_StatusTypeDef STS_Servo_ReadRegister(STS_Servo_t *servo, uint8_t reg_addr, u
     }
     uint8_t status;
     res = STS_Servo_ReceiveStatus(servo, &status, data, length);
-    return (status == 0 && res == HAL_OK) ? HAL_OK : HAL_ERROR;
+    return (status == 0 && res == HAL_OK) ? HAL_OK : res;
 
 }
 
@@ -198,8 +248,25 @@ HAL_StatusTypeDef STS_Servo_Reset(STS_Servo_t *servo) {
     return STS_Servo_SendInstruction(servo, STS_INST_RESET, NULL, 0);
 }
 
-HAL_StatusTypeDef STS_Servo_PositionCalibration(STS_Servo_t *servo) {
-    return STS_Servo_SendInstruction(servo, STS_INST_POSITION_CALIBRATION, NULL, 0);
+HAL_StatusTypeDef STS_Servo_PositionCalibration(STS_Servo_t *servo, uint16_t position_units) {
+    HAL_StatusTypeDef res;
+    uint8_t params[2] = { position_units, position_units >> 8 };
+    // res = STS_Servo_SendInstruction(servo, STS_INST_POSITION_CALIBRATION, params, 2);
+    
+    uint8_t lock = 0;
+    res = STS_Servo_WriteRegister(servo, STS_REG_LOCK_SYMBOL, &lock, 1);
+    HAL_Delay(1);
+    
+    uint8_t status;
+    res = STS_Servo_SendInstruction(servo, STS_INST_POSITION_CALIBRATION, params, 2);
+    // res = STS_Servo_SendInstruction(servo, STS_INST_POSITION_CALIBRATION, NULL, 0);
+    res = STS_Servo_ReceiveStatus(servo, &status, NULL, 0);
+    HAL_Delay(1);
+    
+    lock = 1;
+    res = STS_Servo_WriteRegister(servo, STS_REG_LOCK_SYMBOL, &lock, 1);
+    
+    return (status == 0 && res == HAL_OK) ? HAL_OK : HAL_ERROR;
 }
 
 HAL_StatusTypeDef STS_Servo_ResetParameters(STS_Servo_t *servo) {
@@ -235,7 +302,7 @@ HAL_StatusTypeDef STS_Servo_GetCurrentStatus(STS_Servo_t *servo, STS_Servo_Curre
     if (res != HAL_OK) {
         return res;
     }
-    current_status->current = (uint8_t)(data[0] | (data[1] << 8));
+    current_status->current = (uint16_t)(data[0] | (data[1] << 8));
 
     return HAL_OK;
 }
@@ -261,37 +328,37 @@ HAL_StatusTypeDef STS_Servo_SetGoalLoad(STS_Servo_t *servo, int16_t load) {
     return STS_Servo_WriteRegister(servo, STS_REG_TORQUE_LIMIT_L, data, 2);
 }
 
+HAL_StatusTypeDef STS_Servo_SetOperatingMode(STS_Servo_t *servo, STS_OperatingMode mode) {
+    uint8_t data = (uint8_t)mode;
+    return STS_Servo_WriteRegister(servo, STS_REG_OPERATING_MODE, &data, 1);
+}
+
 HAL_StatusTypeDef STS_Servo_IsMoving(STS_Servo_t *servo, uint8_t *is_moving) {
     return STS_Servo_ReadRegister(servo, STS_REG_MOVING, is_moving, 1);
 }
 
+HAL_StatusTypeDef STS_Servo_InOverload(STS_Servo_t *servo, bool *in_overload) {
+    uint8_t status;
+    HAL_StatusTypeDef ret = STS_Servo_ReadRegister(servo, STS_REG_SERVO_STATUS, &status, 1);
+    *in_overload = (status & 0x20) != 0;
+    return ret;
+}
+
 
 void STS_Servo_raw_to_physical(const STS_Servo_Current_raw_t *raw, STS_Servo_Current_t *physical) {
-    physical->position = (float)(raw->position & 0x7FFF) * STS_UNIT_TO_DEGREE;
-    physical->position = (raw->position >> 15) & 0x01 ? -physical->position : physical->position;
-
-    physical->speed = (float)(raw->speed & 0x7FFF) * STS_UNIT_TO_RPM_1;
-    physical->speed = (raw->speed >> 15) & 0x01 ? -physical->speed : physical->speed;
-
-    physical->load = (float)(raw->load & 0x3FF) * STS_UNIT_TO_TORQUE;
-    physical->load = (raw->load >> 10) & 0x01 ? -physical->load : physical->load;
-
-    physical->voltage = (float)raw->voltage * STS_UNIT_TO_VOLTAGE;
-    physical->temperature = (float)raw->temperature * STS_UNIT_TO_TEMPERATURE;
-    physical->current = (float)raw->current * STS_UNIT_TO_CURRENT;
+    physical->position    = STS_Servo_GetPositionInDegrees(raw->position);
+    physical->speed       = STS_Servo_GetSpeedInRPM(raw->speed);
+    physical->load        = STS_Servo_GetLoadInKgcm(raw->load);
+    physical->voltage     = STS_Servo_GetVoltageInVolts(raw->voltage);
+    physical->temperature = STS_Servo_GetTemperatureInCelsius(raw->temperature);
+    physical->current     = STS_Servo_GetCurrentInmA(raw->current);
 }
 
 void STS_Servo_physical_to_raw(const STS_Servo_Current_t *physical, STS_Servo_Current_raw_t *raw) {
-    uint16_t pos = (uint16_t)(fabs(physical->position) / STS_UNIT_TO_DEGREE);
-    raw->position = (physical->position < 0) ? (pos | 0x8000) : pos;
-
-    int16_t speed = (int16_t)(fabs(physical->speed) / STS_UNIT_TO_RPM_1);
-    raw->speed = (physical->speed < 0) ? (speed | 0x8000) : speed;
-
-    int16_t load = (int16_t)(fabs(physical->load) / STS_UNIT_TO_TORQUE);
-    raw->load = (physical->load < 0) ? (load | 0x400) : load;
-
-    raw->voltage = (uint8_t)(physical->voltage / STS_UNIT_TO_VOLTAGE);
-    raw->temperature = (uint8_t)(physical->temperature / STS_UNIT_TO_TEMPERATURE);
-    raw->current = (uint8_t)(physical->current / STS_UNIT_TO_CURRENT);
+    raw->position    = STS_Servo_GetPositionInUnits(physical->position);
+    raw->speed       = STS_Servo_GetSpeedInUnits(physical->speed);
+    raw->load        = STS_Servo_GetLoadInUnits(physical->load);
+    raw->voltage     = STS_Servo_GetVoltageInUnits(physical->voltage);
+    raw->temperature = STS_Servo_GetTemperatureInUnits(physical->temperature);
+    raw->current     = STS_Servo_GetCurrentInUnits(physical->current);
 }

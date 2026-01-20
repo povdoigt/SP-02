@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "STS.h"
+#include "WT901B.h"
 #include "tools.h"
 #include <stdint.h>
 #include <string.h>
@@ -55,9 +56,7 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-void Wit_UART_Write(uint8_t *p_ucData, uint32_t uiLen);
-void Wit_Reg_Update_Cb(uint32_t uiReg, uint32_t uiRegNum);
-void Wit_Delayms(uint16_t ucMs);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -70,32 +69,6 @@ int _write(int file, char *ptr, int len) {
 	return len;
 }
 
-void Wit_UART_Write(uint8_t *p_ucData, uint32_t uiLen) {
-  HAL_UART_Transmit(&huart1, p_ucData, uiLen, HAL_MAX_DELAY);
-}
-
-void Wit_Reg_Update_Cb(uint32_t uiReg, uint32_t uiRegNum) {
-  // Callback function implementation
-}
-
-void Wit_Delayms(uint16_t ucMs) {
-  HAL_Delay(ucMs);
-}
-
-void ftUart_Send(uint8_t *nDat, int nLen) {
-  HAL_UART_Transmit(&huart3, nDat, nLen, HAL_MAX_DELAY);
-}
-int ftUart_Read(uint8_t *nDat, int nLen) {
-  uint16_t rx_len;
-  HAL_UARTEx_ReceiveToIdle(&huart3, nDat, nLen, &rx_len, HAL_MAX_DELAY);
-  return (int)rx_len;
-}
-void ftBus_Delay(void) {
-  HAL_Delay(1);
-}
-
-
-
 
 uint8_t compute_checksum(uint8_t *data, uint8_t length) {
   uint8_t sum = 0;
@@ -106,6 +79,20 @@ uint8_t compute_checksum(uint8_t *data, uint8_t length) {
 }
 
 
+typedef enum AeroBrakeState_t {
+  AERO_BRAKE_STATE_WAIT,
+  AERO_BRAKE_STATE_START,
+  AERO_BRAKE_STATE_CALIBRATION_0_START,
+  AERO_BRAKE_STATE_CALIBRATION_0_WAIT_0,
+  AERO_BRAKE_STATE_CALIBRATION_0_WAIT_1,
+  AERO_BRAKE_STATE_CALIBRATION_1_START,
+  AERO_BRAKE_STATE_CALIBRATION_1_WAIT_0,
+  AERO_BRAKE_STATE_CALIBRATION_1_WAIT_1,
+  AERO_BRAKE_STATE_RETRACT_START,
+  AERO_BRAKE_STATE_RETRACT_WAIT,
+  AERO_BRAKE_STATE_DEPLOY_START,
+  AERO_BRAKE_STATE_DEPLOY_WAIT,
+} AeroBrakeState_t;
 
 
 
@@ -147,6 +134,8 @@ int main(void)
 
   HAL_StatusTypeDef res;
 
+  // WT901B_status_t wt_res = WT901B_Init(&wt901b, &huart1);
+
   res = STS_UART_Port_Init(&huart_sts_port1, &huart3);
   if (res != HAL_OK) {
       // Initialization failed
@@ -159,15 +148,13 @@ int main(void)
       // Initialization failed
       Error_Handler();
   }
-  HAL_Delay(1);
-  STS_Servo_SetGoalPosition(&servo1, 0);
 
   STS_Servo_Current_raw_t current_raw_status;
   STS_Servo_Current_t current_status;
   uint8_t is_moving = 0;
-  uint16_t next_position = 4095;
+  bool in_overload = 0;
 
-  uint8_t usb_buff[256];
+  uint8_t usb_buff[768];
   char position_str[10];
   char speed_str[10];
   char load_str[10];
@@ -175,38 +162,197 @@ int main(void)
   char temperature_str[10];
   char current_str[10];
 
-  uint32_t t0 = HAL_GetTick();
+  
+  AeroBrakeState_t current_state = AERO_BRAKE_STATE_START;
+  AeroBrakeState_t next_state = AERO_BRAKE_STATE_START;
+  uint32_t t0;
+  uint32_t t1 = HAL_GetTick();
 
-  HAL_Delay(10); // Wait for servo to stabilize
+  // HAL_Delay(1);
+  // res = STS_Servo_SetOperatingMode(&servo1, STS_OP_MODE_SPEED_CONTROL);
+  // HAL_Delay(1);
+  // res = STS_Servo_SetGoalSpeed(&servo1, STS_Servo_GetSpeedInUnits(-200));
+  // // STS_Servo_SetGoalPosition(&servo1, 0);
+  // HAL_Delay(10);
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	while (1) {
-    STS_Servo_GetCurrentStatus(&servo1, &current_raw_status);
+  
+    // Get current status
+    res = STS_Servo_GetCurrentStatus(&servo1, &current_raw_status);
     HAL_Delay(1);
-    STS_Servo_IsMoving(&servo1, &is_moving);
+    res = STS_Servo_IsMoving(&servo1, &is_moving);
+    HAL_Delay(1);
+    res = STS_Servo_InOverload(&servo1, &in_overload);
+    HAL_Delay(1);
   
     STS_Servo_raw_to_physical(&current_raw_status, &current_status);
 
-    float_format(position_str   , current_status.position   , 4, 10);
-    float_format(speed_str      , current_status.speed      , 4, 10);
-    float_format(load_str       , current_status.load       , 4, 10);
-    float_format(voltage_str    , current_status.voltage    , 2,  6);
-    float_format(temperature_str, current_status.temperature, 2,  6);
-    float_format(current_str    , current_status.current    , 2,  6);
+    // Print status over USB UART
+    if ((HAL_GetTick() - t1 >= 10) && current_state != AERO_BRAKE_STATE_WAIT && current_state != AERO_BRAKE_STATE_START) {
+      float_format(position_str   , current_status.position   , 4, 10);
+      float_format(speed_str      , current_status.speed      , 4, 10);
+      float_format(load_str       , current_status.load       , 4, 10);
+      float_format(voltage_str    , current_status.voltage    , 2,  6);
+      float_format(temperature_str, current_status.temperature, 2,  6);
+      float_format(current_str    , current_status.current    , 2,  6);
 
-    sprintf((char*)usb_buff, "Move: %1d, Pos: %10s deg, Speed: %10s RPM, Load: %10s, Volt: %6s V, Temp: %6s C, Curr: %6s mA\r\n",
-            is_moving, position_str, speed_str, load_str, voltage_str, temperature_str, current_str);
-    HAL_UART_Transmit(&huart2, usb_buff, strlen((char*)usb_buff), HAL_MAX_DELAY);
+      sprintf((char*)usb_buff, "Move: %1d, Overload: %1d, Pos: %10s deg, Speed: %10s RPM, Load: %10s, Volt: %6s V, Temp: %6s C, Curr: %6s mA\r\n",
+              is_moving, in_overload, position_str, speed_str, load_str, voltage_str, temperature_str, current_str);
+      HAL_UART_Transmit(&huart2, usb_buff, strlen((char*)usb_buff), HAL_MAX_DELAY);
 
-    HAL_Delay(1);
-    if (is_moving == 0 && (HAL_GetTick() - t0) > 5000) {
-      STS_Servo_SetGoalPosition(&servo1, next_position);
-      next_position = (next_position == 0) ? 2 * 4095 : 0;
-      t0 = HAL_GetTick();
+      t1 = HAL_GetTick();
     }
-    HAL_Delay(10);
+
+    // State machine
+    switch (current_state) {
+
+    case AERO_BRAKE_STATE_WAIT: {
+      // Toggle LED to indicate waiting
+      if (HAL_GetTick() - t0 > 500) {
+        HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+        t0 = HAL_GetTick();
+      }
+      // Waiting for button press to proceed
+      if (HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin) == GPIO_PIN_RESET) {
+        HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET); // Turn on LED
+        current_state = next_state;
+      }
+      break; }
+
+    case AERO_BRAKE_STATE_START: {
+      // Print start message
+      sprintf((char*)usb_buff, "================ Aero-brake test code started! ================\r\n" \
+              "The test is made of several steps:\r\n" \
+              "1. Calibration of the servo at 0 degrees\r\n" \
+              "2. Calibration of the servo at the maximum angle\r\n" \
+              "3. Retraction of the aero-brake\r\n" \
+              "4. Deployment of the aero-brake\r\n" \
+              "After step 4, the test go back to step 3 until the board is reset.\r\n" \
+              "The led LD2 blinks while waiting for user input to start each step and stay on when proceed.\r\n" \
+              "While running, the servo status is printed over USB UART.\r\n" \
+              "Press the user button to start the test...\r\n");
+      HAL_UART_Transmit(&huart2, usb_buff, strlen((char*)usb_buff), HAL_MAX_DELAY);
+      next_state = AERO_BRAKE_STATE_CALIBRATION_0_START;
+      current_state = AERO_BRAKE_STATE_WAIT;
+      break; }
+
+    case AERO_BRAKE_STATE_CALIBRATION_0_START: {
+      // Start calibration at 0 degrees
+      res = STS_Servo_SetOperatingMode(&servo1, STS_OP_MODE_SPEED_CONTROL);
+      HAL_Delay(1);
+      res = STS_Servo_SetGoalSpeed(&servo1, STS_Servo_GetSpeedInUnits(-200));
+      HAL_Delay(1);
+      t0 = HAL_GetTick();
+      current_state = AERO_BRAKE_STATE_CALIBRATION_0_WAIT_0;
+      break; }
+    case AERO_BRAKE_STATE_CALIBRATION_0_WAIT_0: {
+      // Wait until servo stops moving and overload is detected
+      if ((HAL_GetTick() - t0 >= 100) && !is_moving && in_overload) {
+        res = STS_Servo_SetGoalSpeed(&servo1, 200);
+        HAL_Delay(1);
+        current_state = AERO_BRAKE_STATE_CALIBRATION_0_WAIT_1;
+      }
+      break; }
+    case AERO_BRAKE_STATE_CALIBRATION_0_WAIT_1: {
+      // Wait until servo is not in overload anymore
+      if (!in_overload) {
+        res = STS_Servo_SetGoalSpeed(&servo1, 0);
+        HAL_Delay(1);
+        res = STS_Servo_PositionCalibration(&servo1, 0);
+        HAL_Delay(1);
+        sprintf((char*)usb_buff, "Calibration at 0 degrees done.\r\nPress the user button to proceed to next step...\r\n");
+        HAL_UART_Transmit(&huart2, usb_buff, strlen((char*)usb_buff), HAL_MAX_DELAY);
+        next_state = AERO_BRAKE_STATE_CALIBRATION_1_START;
+        current_state = AERO_BRAKE_STATE_WAIT;
+      }
+      break; }
+
+    case AERO_BRAKE_STATE_CALIBRATION_1_START: {
+      // Start calibration at maximum angle
+      res = STS_Servo_SetOperatingMode(&servo1, STS_OP_MODE_SPEED_CONTROL);
+      HAL_Delay(1);
+      res = STS_Servo_SetGoalSpeed(&servo1, STS_Servo_GetSpeedInUnits(200));
+      HAL_Delay(1);
+      t0 = HAL_GetTick();
+      current_state = AERO_BRAKE_STATE_CALIBRATION_1_WAIT_0;
+      break; }
+    case AERO_BRAKE_STATE_CALIBRATION_1_WAIT_0: {
+      // Wait until servo stops moving and overload is detected
+      if ((HAL_GetTick() - t0 >= 100) && !is_moving && in_overload) {
+        res = STS_Servo_SetGoalSpeed(&servo1, -200);
+        HAL_Delay(1);
+        current_state = AERO_BRAKE_STATE_CALIBRATION_1_WAIT_1;
+      }
+      break; }
+    case AERO_BRAKE_STATE_CALIBRATION_1_WAIT_1: {
+      // Wait until servo is not in overload anymore
+      if (!in_overload) {
+        res = STS_Servo_SetGoalSpeed(&servo1, 0);
+        HAL_Delay(1);
+        res = STS_Servo_SetOperatingMode(&servo1, STS_OP_MODE_POSITION_CONTROL);
+        HAL_Delay(1);
+        float_format(position_str, current_status.position, 4, 10);
+        sprintf((char*)usb_buff, "Calibration at maximum angle done. Measured max angle: %10s degrees.\r\nPress the user button to proceed to next step...\r\n",
+                position_str);
+        HAL_UART_Transmit(&huart2, usb_buff, strlen((char*)usb_buff), HAL_MAX_DELAY);
+        next_state = AERO_BRAKE_STATE_RETRACT_START;
+        current_state = AERO_BRAKE_STATE_WAIT;
+      }
+      break; }
+
+    case AERO_BRAKE_STATE_RETRACT_START: {
+      // Retract aero-brake
+      res = STS_Servo_SetGoalPosition(&servo1, 0);
+      HAL_Delay(1);
+      t0 = HAL_GetTick();
+      current_state = AERO_BRAKE_STATE_RETRACT_WAIT;
+      break; }
+    case AERO_BRAKE_STATE_RETRACT_WAIT: {
+      // Wait until retraction is done
+      if ((HAL_GetTick() - t0 >= 100) && !is_moving) {
+        sprintf((char*)usb_buff, "Aero-brake retracted.\r\nPress the user button to deploy the aero-brake...\r\n");
+        HAL_UART_Transmit(&huart2, usb_buff, strlen((char*)usb_buff), HAL_MAX_DELAY);
+        next_state = AERO_BRAKE_STATE_DEPLOY_START;
+        current_state = AERO_BRAKE_STATE_WAIT;
+      }
+      break; }
+
+    case AERO_BRAKE_STATE_DEPLOY_START: {
+      // Deploy aero-brake
+      res = STS_Servo_SetGoalPosition(&servo1, STS_Servo_GetPositionInUnits(120));
+      HAL_Delay(1);
+      t0 = HAL_GetTick();
+      current_state = AERO_BRAKE_STATE_DEPLOY_WAIT;
+      break; }
+    case AERO_BRAKE_STATE_DEPLOY_WAIT: {
+      // Wait until deployment is done
+      if ((HAL_GetTick() - t0 >= 100) && !is_moving) {
+        sprintf((char*)usb_buff, "Aero-brake deployed.\r\nPress the user button to retract the aero-brake...\r\n");
+        HAL_UART_Transmit(&huart2, usb_buff, strlen((char*)usb_buff), HAL_MAX_DELAY);
+        next_state = AERO_BRAKE_STATE_RETRACT_START;
+        current_state = AERO_BRAKE_STATE_WAIT;
+      }
+      break; }
+    }
+
+    // HAL_Delay(1);
+    // if (in_overload) {
+    //   res = STS_Servo_SetGoalSpeed(&servo1, 0);
+    //   HAL_Delay(1);
+    //   res = STS_Servo_SetOperatingMode(&servo1, STS_OP_MODE_POSITION_CONTROL);
+    //   HAL_Delay(1);
+    //   res = STS_Servo_PositionCalibration(&servo1, 0);
+    //   HAL_Delay(1);
+    //   STS_Servo_SetGoalPosition(&servo1, 0);
+    //   HAL_Delay(1);
+    //   STS_Servo_SetGoalPosition(&servo1, STS_Servo_GetPositionInUnits(120));
+    // }
+    // HAL_Delay(10);
 
     /* USER CODE END WHILE */
 

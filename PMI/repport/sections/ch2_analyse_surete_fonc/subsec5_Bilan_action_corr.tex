@@ -1,0 +1,68 @@
+\subsection{Bilan sur les actions correctives}
+\label{subsec:bilan_action_corr}
+
+L’analyse \acrshort{AMDEC} met en évidence plusieurs modes de défaillance présentant une criticité particulièrement élevée et
+susceptibles d’affecter directement la réussite de la mission. Les actions correctives prioritaires se concentrent donc sur les
+six \acrshort{MDF} suivants, qui combinent gravité importante, occurrence significative ou détectabilité insuffisante.\\
+\begin{itemize}
+    \item \textbf{Géométrie / alignement non conforme (MDF2 - IPR = 27,78)} \newline
+    La criticité de ce mode de défaillance provient principalement de son impact direct sur la stabilité aérodynamique, la
+    qualité de la séparation et la dynamique en vol. Les défauts d’alignement ou de rectitude étant relativement fréquents, un
+    renforcement du contrôle dimensionnel est nécessaire. Les mesures correctives prioritaires incluent :
+    \begin{itemize}
+        \item utilisation de gabarits d’intégration et d’outillage de centrage ;
+        \item contrôle systématique de la coaxialité et du jeu inter-étages ;
+        \item validation mécanique des interfaces porteuses avant assemblage final.\\
+    \end{itemize}
+    \item \textbf{Perte ou corruption de mesure (MDF5 - IPR = 16)} \newline
+    Les capteurs critiques (altimètre, IMU, accéléromètre) peuvent être perturbés par des vibrations, des défauts de câblage ou
+    des interférences électromagnétiques. La détectabilité étant particulièrement faible, c’est un point majeur d'amélioration.
+    Les actions correctives portent sur :
+    \begin{itemize}
+        \item la redondance partielle ou croisée des capteurs lorsque possible ;
+        \item la sécurisation des câbles (isolation, blindage, verrouillage mécanique) ;
+        \item des tests dynamiques en environnement représentatif pour vérifier l’intégrité de la mesure.\\
+    \end{itemize}
+    \item \textbf{Défaut d’alimentation électrique (MDF6 - IPR = 21,21)} \newline
+    Une défaillance de l’alimentation compromet immédiatement l’ensemble des fonctions vitales : séquenceur, capteurs et
+    commande des mécanismes. Bien que détectable dans certains cas, la variabilité sous charge ou sous vibration nécessite une
+    action spécifique. Les améliorations prévues sont :
+    \begin{itemize}
+        \item la qualification de la batterie en conditions vibratoires et thermiques ;
+        \item le contrôle de continuité pré-vol sur l’ensemble des lignes d’alimentation ;
+        \item la sécurisation des connecteurs avec gaine, verrouillage et colle anti-arrachement.\\
+    \end{itemize}
+    \item \textbf{Interprétation erronée des conditions d’autorisation (MDF9 - IPR = 17,32)} \newline
+    Ce MDF est critique car une mauvaise interprétation d’un état capteur ou d’une condition logique peut conduire à un allumage
+    non autorisé ou à une non-séparation. Les anomalies étant souvent peu détectables avant vol, la logique d’autorisation doit
+    être fiabilisée. Les actions prioritaires incluent :
+    \begin{itemize}
+        \item clarification des conditions nécessaires et suffisantes d’autorisation ;
+        \item vérifications croisées entre plusieurs capteurs ou états ;
+        \item tests de logique en simulation, puis sur banc matériel-dans-la-boucle.\\
+    \end{itemize}
+    \item \textbf{Erreur procédurale ou d’assemblage (MDF10 - IPR = 18)} \newline
+    Les erreurs humaines demeurent une cause fréquente de défaillance. La détectabilité avant vol étant limitée, ce risque est
+    considéré comme critique. Les actions correctives visent à :
+    \begin{itemize}
+        \item formaliser des checklists exhaustives pour chaque étape ;
+        \item appliquer une vérification croisée systématique à deux opérateurs ;
+        \item supprimer les configurations intermédiaires ambiguës lors de l’intégration.\\
+    \end{itemize}
+    \item \textbf{Préparation ou configuration non conforme (MDF11 - IPR = 16,97)} \newline
+    Un paramétrage incorrect (logiciel, séquenceur, seuils capteurs) peut provoquer des comportements inattendus en vol. La
+    détection nécessite des tests ciblés qui ne sont pas toujours réalisés. Les mesures prévues comprennent :
+    \begin{itemize}
+        \item la standardisation d’un état « pré-vol » unique et vérifiable ;
+        \item un protocole de validation logiciel incluant tests fonctionnels et revue indépendante ;
+        \item la mise en place d’un contrôle final de cohérence avant armement.
+    \end{itemize}
+\end{itemize}
+
+\subsubsubsection*{Conclusion}
+La mise en œuvre de ce plan de réduction des risques permet d’améliorer significativement la fiabilité et la sécurité de SP-02.
+Les actions correctives proposées répondent aux exigences du cahier des charges Fusex, renforcent la robustesse des mécanismes critiques (séparation, aérofreins, trappe parachute), sécurisent la chaîne avionique et limitent les risques humains.
+Ce bilan constitue la base du processus de validation pour la revue de conception finale et pour l’engagement du lanceur en vol.
+
+
+
