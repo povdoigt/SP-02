@@ -72,7 +72,7 @@ jonction au niveau du 1er étage.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{figures/cart_pression_AF0.png}
+    \includegraphics[width=0.9\textwidth]{figures/cart_pression_AF0.png}
     \caption{Carte de la pression sur SP02 sans les aérofreins}
 \end{figure}
 
@@ -80,5 +80,86 @@ Pour l’ouverture des aérofreins de 50\%, une zone de surpression apparaît su
 l’effet de stagnation de l’écoulement. Et en aval de ces derniers, une zone de dépression. Cela est due à la séparation de
 l’écoulement et à la formation de structures tourbillonnaires. Ce gradient de pression entre l’amont et l’aval est le principal
 mécanisme de génération de traînée.
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/cart_AF50_amont.png}
+        \caption{Face amont}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/cart_AF50_aval.png}
+        \caption{Face aval}
+    \end{subfigure}
+    \caption{Cartes de pression sur les aérofreins déployés à 50\%}
+    \label{fig:cart_pression_AF50}
+\end{figure}
+
+Lorsque les aérofreins sont complètement ouverts, les phénomènes avant sont nettement amplifiés. La surpression en amont
+atteint des niveaux plus élevés, tandis que la dépression s’intensifie et s’étend davantage dans le sillage. Cette évolution
+confirme que l’augmentation du de la surface des aérofreins entraîne un déséquilibre de pression, encore une fois responsable de
+l’augmentation du coefficient de traînée.
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.46\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/cart_AF100_amont.png}
+        \caption{Face amont}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/cart_AF100_aval.png}
+        \caption{Face aval}
+    \end{subfigure}
+    \caption{Cartes de pression sur les aérofreins déployés à 100\%}
+    \label{fig:cart_pression_AF100}
+\end{figure}
+
+\newpage
+
+\subsubsection{Champs de vitesse et lignes de courant}
+
+Les champs de vitesse et les lignes de courant obtenus permettent d’analyser l’impact du déploiement des aérofreins sur la
+structure de l’écoulement autour de la fusée. Dans la configuration sans aérofreins, l’écoulement reste globalement attaché le
+long du corps de la fusée. La couche limite se développe de manière classique et le sillage en aval demeure relativement étroit
+et structuré. Les lignes de courant suivent la géométrie, en dehors des zones habituelles de perturbation situées à l’arrière du
+corps et au niveau de la bague de séparation (changement de diamètre).
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/ligne_courant_AF0.png}
+    \caption{Champ de vitesse autour de SP02 sans les aérofreins}
+\end{figure}
+
+Le cas intermédiaire avec une ouverture de 50\% des aérofreins présente des comportements similaires à ceux observés pour une
+ouverture de 100\%, mais avec une intensité diminuée. Les zones de recirculation et l’élargissement du sillage sont présents,
+bien que moins étendus, ce qui confirme le caractère progressif de l’influence des aérofreins sur la structure de l’écoulement.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/ligne_courant_AF50.png}
+    \caption{Champ de vitesse autour de SP02 avec les aérofreins ouverts à 50\%}
+\end{figure}
+
+Lorsque les aérofreins sont complètement ouverts (100\%), le champ d’écoulement est fortement modifié. Le déploiement des
+aérofreins provoque une perturbation importante du flux, qui se caractérise par un décollement précoce de la couche limite,
+l’apparition de zones de recirculation en aval des aérofreins et un élargissement significatif du sillage. Ces phénomènes se
+traduisent par une diminution locale de la vitesse et une augmentation de l’intensité des structures tourbillonnaires dans le
+sillage.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/ligne_courant_AF100.png}
+    \caption{Champ de vitesse autour de SP02 avec les aérofreins ouverts à 100\%}
+\end{figure}
+
+L’ensemble de ces observations met en évidence le rôle déterminant des aérofreins dans la modification de l’écoulement,
+contribuant directement à l’augmentation de la traînée aérodynamique et validant leur efficacité dans le cadre du mécanisme de
+séparation d’étages.
 
 \newpage
