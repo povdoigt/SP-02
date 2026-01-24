@@ -2,7 +2,214 @@
 
 \subsubsection{Chaîne de mesure APEX : Acquisition et transmission de données inertielle}
 
+\subsubsubsection{Architecture logicielle de la chaîne de mesure}
+
+L’architecture logicielle retenue pour la chaîne de mesure APEX repose sur une approche de type \emph{pipeline orienté données}
+(\emph{data-driven}), conçue pour garantir la robustesse du système sous contraintes temps réel et faciliter l’intégration
+progressive de nouveaux capteurs ou traitements. Le principe général de circulation des données est illustré par le logigramme
+présenté en figure~\ref{fig:APEX_pipeline}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/apex_bes/APX_algo_simplifie.drawio.png}
+    \caption{Architecture logicielle de la chaîne de mesure APEX}
+    \label{fig:APEX_pipeline}
+\end{figure}
+
+Les différents capteurs embarqués sont acquis de manière indépendante, puis leurs mesures sont synchronisées temporellement
+afin de produire des données brutes cohérentes. Cette synchronisation s’appuie sur un mécanisme d’horodatage commun,
+garantissant l’alignement temporel entre capteurs hétérogènes et assurant la traçabilité des données lors des phases dynamiques
+du vol, en particulier au moment de la séparation.\\
+
+L’architecture distingue ensuite deux niveaux fonctionnels. Un premier niveau correspond à l’acquisition et à la mise à
+disposition de données brutes synchronisées. Un second niveau, optionnel, regroupe des traitements de plus haut niveau tels que
+des corrections, des filtrages ou des opérations de fusion multi-capteurs, produisant des données dites traitées, destinées à
+l’exploitation, à l’enregistrement ou à la transmission.\\
+
+Les échanges de données entre les différentes briques logicielles reposent sur le concept de \emph{data topics}. Chaque tâche
+publie ses résultats dans un topic dédié, tandis que les tâches consommatrices accèdent aux données sans dépendance directe
+vis-à-vis de l’exécution du producteur. Cette approche permet de découpler fortement les fonctions d’acquisition, de traitement
+et de sortie, limitant les effets du jitter temporel et améliorant la robustesse globale du système.\\
+
+L’architecture autorise ainsi la coexistence de plusieurs sorties en parallèle, telles que l’enregistrement en mémoire non
+volatile et la transmission par télécommunication, sans perturber la chaîne d’acquisition principale. Un bloc de prise de
+décision est également représenté comme une extension possible de l’architecture, notamment pour le déclenchement d’événements
+ou l’activation d’actionneurs. Toutefois, dans le cadre du projet SP-02, APEX est principalement utilisé comme une chaîne
+d’acquisition et de télémesure, et non comme un système de contrôle autonome.\\
+
+Les fréquences d’exécution des différentes tâches sont paramétrables, avec une cadence d’acquisition inertielle cible de l’ordre
+de 100~Hz et une fréquence de mise à jour des données transmises supérieure à 10~Hz, assurant un compromis entre finesse de
+mesure et suivi temps réel depuis le segment sol.
+
+\subsubsubsection{Choix d’une approche temps réel embarquée}
+
+\subsubsubsection*{Justification d’une approche temps réel}
+La chaîne de mesure APEX repose sur une approche logicielle temps réel afin de garantir un comportement
+prévisible lors d’événements dynamiques critiques, tels que la séparation d’étages. Dans un système
+séquentiel classique basé sur une boucle principale monolithique, l’exécution d’une opération lente peut
+retarder l’ensemble des fonctions et introduire des variations temporelles difficiles à maîtriser. Une
+approche temps réel permet au contraire de structurer l’exécution autour de contraintes temporelles
+explicites.
+
+\subsubsubsection*{Décomposition fonctionnelle en tâches}
+Le recours à un système d’exploitation temps réel (RTOS) permet de décomposer l’application en tâches
+indépendantes correspondant aux principales fonctions du système : acquisition des capteurs,
+traitement des données, enregistrement et télécommunication. Chaque tâche dispose de son propre
+contexte d’exécution et est planifiée selon des règles de priorité et de périodicité. Cette organisation
+facilite l’exécution concurrente des fonctions et s’inscrit naturellement dans une architecture orientée
+données, où les blocs fonctionnels échangent des informations sans dépendre directement de leur ordre
+d’exécution.
+
+\subsubsubsection*{Gestion des cadences et du jitter}
+L’approche temps réel permet de dissocier les cadences d’exécution des différentes fonctions du système.
+Les tâches d’acquisition inertielle sont exécutées de manière périodique à une fréquence élevée,
+typiquement de l’ordre de 100~Hz, afin de capturer les phénomènes transitoires associés à la séparation.
+Les tâches de télécommunication sont quant à elles exécutées à une fréquence plus faible, supérieure à
+10~Hz, suffisante pour assurer un suivi temps réel depuis le sol. Cette dissociation permet de limiter
+l’impact du jitter temporel et d’éviter qu’une tâche lente ne perturbe l’acquisition des données critiques.
+
+\subsubsubsection*{Contraintes d’accès aux périphériques}
+Certaines contraintes matérielles imposent l’utilisation de mécanismes de type \emph{polling} pour l’accès
+à certains périphériques, en l’absence de lignes d’interruption dédiées. Dans ce contexte, l’ordonnancement
+temps réel permet d’en borner l’impact en maîtrisant la durée et la fréquence des accès. L’utilisation de
+ressources partagées, telles que les bus de communication, est explicitement coordonnée afin de garantir
+l’intégrité des transactions et la cohérence des échanges avec les périphériques critiques.
+
+\subsubsubsection*{Gestion déterministe des ressources}
+Afin de préserver un comportement prévisible, la gestion des ressources logicielles repose sur des
+allocations principalement statiques. Les tâches et leurs contextes d’exécution sont associés à des
+ressources mémoire préallouées, garantissant une empreinte mémoire bornée et reproductible. Des
+mécanismes de réservoirs d’objets préalloués permettent de conserver une certaine flexibilité dans la
+création et la terminaison des tâches, sans introduire d’allocation dynamique non maîtrisée. Cette
+approche contribue à la robustesse du système dans un contexte de vol expérimental à tentative unique.
+
+\subsubsubsection*{Apports et compromis de l’approche retenue}
+L’adoption d’une approche temps réel constitue un compromis entre complexité logicielle et maîtrise du
+comportement temporel. Elle permet de structurer la chaîne de mesure APEX de manière robuste et
+prévisible, tout en offrant la flexibilité nécessaire à l’intégration de nouvelles fonctions expérimentales
+et à l’évolution du système.
+
+
+\subsubsubsection{Gestion des flux de données et concept de data topics}
+
+La chaîne de mesure APEX repose sur une gestion structurée des flux de données, visant à découpler les
+fonctions d’acquisition, de traitement et de sortie, tout en garantissant la cohérence temporelle et
+l’exploitabilité des mesures. Cette organisation est fondée sur le concept de \emph{data topics}, qui
+constitue un élément central de l’architecture logicielle retenue.
+
+Un data topic peut être défini comme un conteneur de données partagé, représentant une grandeur ou un
+ensemble cohérent de grandeurs mesurées ou calculées à un instant donné. Chaque tâche productrice
+publie ses résultats dans un topic dédié, tandis que les tâches consommatrices accèdent aux données sans
+dépendance directe vis-à-vis de l’exécution du producteur. Ce mécanisme permet de dissocier
+temporellement les différentes briques fonctionnelles du système.
+
+Dans le cadre de la chaîne de mesure inertielle, les données issues des capteurs sont ainsi publiées sous
+forme de topics correspondant aux mesures brutes synchronisées. Ces topics peuvent ensuite être
+consommés par des tâches de traitement appliquant des corrections, des filtrages ou des opérations de
+fusion multi-capteurs, produisant à leur tour des topics de données traitées. Cette structuration explicite
+des flux facilite la compréhension, l’évolution et la validation de la chaîne de mesure.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/Schema_datatopic.png}
+    \caption{Concept de data topics dans la chaîne de mesure APEX}
+    \label{fig:data_topics}
+\end{figure}
+
+Sur le plan de l’exécution, les data topics sont implémentés de manière à permettre un accès non bloquant
+aux données les plus récentes. Les consommateurs peuvent ainsi récupérer le dernier échantillon
+disponible, indépendamment des éventuelles variations de fréquence ou de jitter des tâches productrices.
+Cette propriété est particulièrement importante dans un contexte temps réel, où la priorité est donnée à
+la continuité de l’acquisition et à la robustesse globale du système.
+
+L’utilisation de data topics contribue également à la scalabilité de l’architecture. De nouvelles tâches
+peuvent être ajoutées en s’abonnant à des topics existants, sans modification de la chaîne d’acquisition
+initiale. Cette approche facilite l’intégration progressive de nouvelles fonctions expérimentales, telles
+que des traitements supplémentaires ou des sorties spécifiques, tout en limitant les risques de
+régression sur les fonctions existantes.
+
+Enfin, cette gestion des flux de données constitue un prérequis pour la mise en œuvre des sorties
+multiples de la chaîne de mesure, qu’il s’agisse de l’enregistrement en mémoire non volatile, de la
+télécommunication ou de l’exploitation ultérieure des données. Elle assure la continuité entre
+l’acquisition des phénomènes physiques, leur structuration logicielle et leur transmission vers les
+différents moyens d’analyse.
+
+\subsubsubsection{Chaîne de télécommunication et synchronisation inter-étages}
+
 \newpage
+
+\subsubsection{Caméra embarquée}
+\label{sec:camera_embarquee}
+
+% \providecommand{\remarqueicon}{%
+% \tikz[baseline=-0.7ex]\node[draw=blue, fill=blue!10, circle, line width=0.6pt, inner sep=1.1pt]
+% {\textcolor{blue}{\scriptsize\bfseries !}};%
+% }
+% \providecommand{\remarque}[1]{\noindent\remarqueicon\ \textbf{Remarque :} #1\par\vspace{0.15cm}}
+
+Afin d’exploiter la phase de séparation inter-étages et de faciliter l’analyse post-vol, une instrumentation vidéo
+redondante est intégrée à bord. La stratégie retenue combine des caméras autonomes dédiées à la captation
+multi-angles et une caméra orientée vers la zone de séparation, visant l’extraction d’une information cinématique
+simple lors des premières secondes de divergence relative.
+
+\subsubsubsection{Caméra orientée séparation (Arducam).}
+L’étage inférieur embarque une caméra \textit{Arducam 12 MP} dédiée à l’observation de la zone de séparation,
+orientée vers le moteur du deuxième étage. Cette caméra est exploitée comme un capteur d’analyse : l’objectif
+est d’estimer, de façon approchée, la vitesse relative entre les deux étages au moment de la séparation tant que
+le deuxième étage reste dans le champ de vision.
+
+Le microntroleur\textit{XIAO ESP32-C3} de l’étage inférieur assure l’acquisition et l’enregistrement du flux vidéo sur carte
+microSD en temps réel, est n'est pas stockée dans la mémoire vive limitée du micocontroleur. Cette architecture vise à garantir
+la récupération des données même en
+cas de vol balistique.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.62\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/Capture_decran_2026-01-23_a_14.50.47.png}
+        \caption{Intégration de la caméra Arducam et de son support dans la structure.}
+        \label{fig:arducam_integration_cao}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.34\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/mini-module-camera-arducam-shield-ov2640-2mp-kubii.png}
+        \caption{Module caméra Arducam.}
+        \label{fig:arducam_module}
+    \end{subfigure}
+    \caption{Caméra dédiée séparation : intégration et module.}
+    \label{fig:arducam_sep}
+\end{figure}
+
+\subsubsubsection{Principe d’estimation de la vitesse relative.}
+L’exploitation repose sur un calcul d’ordre 1 à partir de la vidéo :
+\begin{itemize}
+    \item la fréquence d’enregistrement ($f_{\mathrm{img}}$) est connue ;
+    \item des éléments de dimensions connues visibles dans la jupe du deuxième étage servent de référence d’échelle
+    (conversion pixels $\rightarrow$ longueur) ;
+    \item le déplacement apparent d’un motif (ou d’un bord) entre deux images successives fournit une distance
+    $\Delta s$ sur l’intervalle $\Delta t = 1/f_{\mathrm{img}}$ ;
+    \item l’estimation de la vitesse relative s’écrit alors $v_{\mathrm{rel}} \approx \Delta s \, f_{\mathrm{img}}$.
+\end{itemize}
+Cette méthode vise un ordre de grandeur exploitable pour qualifier la cinématique de séparation (cohérence et
+répétabilité), sans chercher une reconstruction complète de trajectoire.
+
+\subsubsubsection{RunCam embarquées (multi-angles).}
+Chaque étage embarque deux caméras \textit{RunCam Thumb Pro} afin de multiplier les points de vue et de sécuriser l’exploitation
+vidéo en cas d’occultation partielle (rotation, vibrations, masquage local). Les RunCam enregistrent directement sur carte
+microSD, rendant la captation indépendante de la télémétrie. Le déclenchement et le pilotage (démarrage/arrêt, modes) sont
+réalisés par une liaison UART, commandée par un microcontrôleur \textit{XIAO ESP32-C3} présent dans chaque étage. qui recoit un
+ordre de délanchement depuis le séquanceur par un changment d'état sur, cette ligne ed commade du séquenceur est protégé grace à
+l'utilisation d'un optoculoupleur pour que la xiao  ne puisse pas atteindre le séquenceur lors d'un dysfonctionnement où de
+surtension.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.42\textwidth]{figures/002__91896.jpg}
+    \caption{Caméra RunCam Thumb Pro utilisée pour la captation embarquée.}
+    \label{fig:runcam_thumb_pro}
+\end{figure}
 
 \subsubsection{APEX BES : Banc d’essai pour la validation de la chaîne APEX}
 \label{sec:333_banc_test_apex}
@@ -13,7 +220,7 @@ véhicules d’essai capables d’exécuter une trajectoire de type parabolique 
 solliciter l’acquisition inertielle et la transmission radio dans un cadre maîtrisé. La capture vidéo en vue zénithale est
 utilisée comme \textit{référence externe} pour comparer et interpréter les mesures issues d’APEX. Le proejt APEX BES (Banc d’Essai
 SP-02) constitue ainsi un sous-système d’essai complet, permettant de valider la chaîne APEX dans des conditions proches de celles
-rencontrées en vol.\\
+rencontrées en vol.
 
 \subsubsubsection*{Objectif de l’essai}
 Le banc vise à :
@@ -37,26 +244,30 @@ Au-delà d’un simple support, ces véhicules constituent un sous-système d’
 maîtriser les interfaces mécaniques (montage des cartes, passage câbles, rigidité locale) et de disposer d’un moyen autonome
 pour reproduire des scénarios de mouvement.
 
-% -----------------------------------------------------------------
-% FIGURES : à remplacer par les figures du rapport APEX BES
-% -----------------------------------------------------------------
-\begin{figure}[H]
+
+\begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.92\textwidth]{figures/apex_bes/fig_01.png}
-    \caption{%
-    % CAPTION À COPIER-COLLER du rapport APEX BES (Figure 1)
-    }
-    \label{fig:apex_bes_fig01}
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/apex_bes/Capture d’écran 2026-01-17 à 10.09.12.png}
+        \caption{Vue de dessus (séparés)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/apex_bes/Capture d’écran 2026-01-17 à 14.48.38.png}
+        \caption{Vue de dessus (assemblée)}
+    \end{subfigure}
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/apex_bes/Capture d’écran 2026-01-17 à 10.29.32.png}
+        \caption{Vues de dessus, bille utilisé pour avoir une liverté de mouvement sur l’axe gauche droite.}
+    \end{subfigure}
+    \caption{Vues de la modélisation 3D des véhicules d’essai APEX BES}
+    \label{fig:vessels_cad_views}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.92\textwidth]{figures/apex_bes/fig_02.png}
-    \caption{%
-    % CAPTION À COPIER-COLLER du rapport APEX BES (Figure 2)
-    }
-    \label{fig:apex_bes_fig02}
-\end{figure}
+\newpage
 
 \subsubsubsection*{Protocole d’essai}
 Les essais sont conduits sur une fenêtre temporelle commune en enregistrant simultanément : (i) les données APEX (\acrshort{IMU},
@@ -85,13 +296,22 @@ Les données APEX et la vidéo ne partagent pas la même horloge. L’alignement
 identifiable (démarrage de mouvement, arrêt net, ou excitation volontaire générant un pic). Cette étape conditionne la lisibilité
 des comparaisons, en particulier sur les dérivées (accélérations).
 
-\begin{figure}[H]
-    \centering
-    % \includegraphics[width=0.92\textwidth]{figures/apex_bes/fig_03.png}
-    \caption{%
-    % CAPTION À COPIER-COLLER du rapport APEX BES (Figure 3)
-    }
-    \label{fig:apex_bes_fig03}
+\begin{figure}[h!]
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=0.5\linewidth]{figures/apex_bes/debug_overlay.png}
+        \caption{Superposition de suivi sur la vidéo enregistrée. Les points colorés correspondent aux positions de marqueur détectées utilisées pour reconstruire les trajectoires.}
+        \label{fig:traj_xy}        
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/apex_bes/traj_blue_traj_red_xy_dt0.200.png}
+        \caption{Trajectoires XY reconstruites des deux véhicules dans le cadre de référence du sol (points tous les 0,2~s). La divergence après la séparation est clairement visible.}
+        \label{fig:overlay_video}
+    \end{subfigure}
+    \caption{Extrait des résultats d’analyse vidéo pour la reconstruction des trajectoires de référence}
 \end{figure}
 
+\newpage
 \newpage

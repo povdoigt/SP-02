@@ -1,6 +1,101 @@
-\section{Emsemble des réalisations}
-\label{sec:realisation}
+% \section{Emsemble des réalisations}
+% \label{sec:realisation}
 
-\input{sections/5_Realisation/1_Aerofrein.tex}
-\input{sections/5_Realisation/2_Separation.tex}
-\input{sections/5_Realisation/3_Elec.tex}
+% \subsection{Réalisation mécanique et composite}
+
+% \subsubsection{Prototypage par impression 3D et validation d’intégration}
+% Avant toute fabrication métallique, nous avons d’abord imprimé en 3D les pièces modélisées sur \textsc{CATIA} afin de valider l’intégration et le bon fonctionnement des parties mécaniques mobiles. Cette étape nous permet de confronter la CAO (Conception Assistée par Ordinateur) à la réalité : contrôle des encombrements, vérification des interfaces, définition d’un ordre de montage réaliste, et confirmation des jeux fonctionnels nécessaires pour éviter les points durs.
+
+% Le mécanisme de séparation illustre cette démarche. Nous avons imprimé et testé plus de six versions différentes avant d’aboutir à la version finale. À chaque itération, nous avons corrigé des défauts identifiés en essai (rigidité locale insuffisante, zones de frottement, interférences, tolérances trop serrées) jusqu’à obtenir une solution intégrable, répétable au montage et fiable en fonctionnement.
+
+% \subsubsection{Usinage CNC des pièces aluminium}
+% Une fois le design figé et validé en impression 3D, nous avons lancé la fabrication des pièces définitives en aluminium. Les pièces usinées en interne ont été réalisées sur la CNC de l’école (Mechanika Pro M). Pour les géométries les plus exigeantes, nous avons fait appel à un industriel équipé d’une CNC 5 axes. L’objectif est de limiter les reprises, d’améliorer la précision sur des formes difficiles d’accès en 3 axes et de garantir l’alignement des surfaces fonctionnelles (perpendicularités, coaxialités, profils).
+
+% \subsubsection{Préparation FAO (CAM) sous Fusion 360}
+% Pour les pièces usinées par nos soins, nous réalisons la préparation \textit{CAM} (\textit{Computer-Aided Manufacturing}, ou fabrication assistée par ordinateur) dans \textsc{Fusion 360}. Ce logiciel d’Autodesk intègre un module de programmation d’usinage permettant de transformer une géométrie issue de la CAO en trajectoires outils exécutables par une machine-outil à commande numérique.
+
+% Les pièces conçues sur \textsc{CATIA} sont importées dans \textsc{Fusion 360} (généralement au format neutre STEP), puis nous définissons le \textit{setup} d’usinage : description du brut, choix de l’origine pièce (zéro programme), orientation des axes et positionnement cohérent avec le montage sur la CNC. Nous construisons ensuite une séquence d’opérations logique (dégrossissage, surfaçage, poches, contournages, perçages, finition). Le choix des outils et des paramètres (avance, vitesse de rotation, profondeur de passe, stratégie d’engagement) est ajusté selon la matière usinée, la rigidité de la pièce et le bridage, afin d’obtenir un compromis robuste entre temps d’usinage, qualité géométrique et sécurité machine. Enfin, la simulation intégrée permet de vérifier l’enlèvement de matière et d’anticiper les collisions potentielles (outil, porte-outil, bridage).
+
+
+% \begin{figure}[htbp]
+%     \centering
+%     \begin{minipage}{0.49\linewidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{figures/fusion_etapes.png}
+%         \caption*{Arborescence des opérations d’usinage dans \textsc{Fusion 360}.}
+%     \end{minipage}\hfill
+%     \begin{minipage}{0.49\linewidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{figures/fusion_previsualisation.png}
+%         \caption*{Prévisualisation du brut et du résultat après opérations.}
+%     \end{minipage}
+%     \caption{Préparation FAO (CAM) sous \textsc{Fusion 360} : définition des opérations et validation par simulation.}
+%     \label{fig:fusion_cam}
+% \end{figure}
+
+% \subsubsection{Maintien au brut : rôle des onglets d’usinage}
+% Lors du détourage final, nous conservons volontairement les pièces attachées au brut par des \textit{onglets}. Sans ces ponts de matière, la pièce peut se libérer en fin d’usinage, vibrer, se déplacer ou être éjectée, ce qui dégrade la précision et augmente le risque de casse d’outil. Les onglets garantissent un maintien rigide jusqu’à la dernière passe. Une fois l’usinage terminé, nous coupons les onglets puis nous reprenons localement la pièce pour supprimer les marques résiduelles.
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.82\linewidth]{figures/cnc_onglets_brut.png}
+%     \caption{Pièce usinée restant solidaire du brut grâce aux onglets de maintien.}
+%     \label{fig:cnc_onglets}
+% \end{figure}
+
+% \subsubsection{Finition des pièces : ébavurage et ponçage}
+% Après séparation du brut, nous réalisons un ébavurage complet puis un ponçage. L’objectif ne se limite pas à l’aspect visuel : supprimer les bavures et arêtes vives améliore l’assemblage, limite le risque de grippage sur les zones en friction, et fiabilise les interfaces mécaniques lorsque plusieurs pièces sont en contact dans un mécanisme.
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.86\linewidth]{figures/cnc_pieces_finies.png}
+%     \caption{Pièces usinées finies : éléments des aérofreins et ailerons.}
+%     \label{fig:cnc_finies}
+% \end{figure}
+
+% \subsubsection{Fabrication composite : tubes, ailerons et pièces de forme}
+% Certaines pièces ont été fabriquées directement, sans phase d’impression 3D préalable, lorsque le design était déjà suffisamment figé et que le risque d’intégration était faible. C’est notamment le cas des deux jeux d’ailerons en fibre de verre. La matière étant couteuse, il est important d'optimiser la diposition des pièces dans le brut afin d'avoir le moins de pertes possible.
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.86\linewidth]{figures/plaque_ailerons_decoupe.png}
+%     \caption{Ailerons après usinage et avant post traitements.}
+%     \label{fig:cnc_finies}
+% \end{figure}
+
+% Les tubes en fibre de verre constituant la structure ont également été réalisés par nos soins. Nous enroulons des couches successives de fibre sur un mandrin (tube en aluminium) en imprégnant la fibre de résine au pinceau, jusqu’à atteindre l’épaisseur souhaitée (11 couches). Après 24 heures de polymérisation, nous procédons au démoulage, puis à un ponçage et une rectification afin d’obtenir la longueur et le fini désirés. Les tubes sont ensuite repris pour intégrer les interfaces nécessaires : découpe des trappes, encoches d’ailerons et perçages pour les vis.
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.82\linewidth]{figures/tubes_fibre_verre.png}
+%     \caption{Réalisation des tubes en fibre de verre par enroulement sur mandrin, puis finition après polymérisation.}
+%     \label{fig:tubes_fv}
+% \end{figure}
+
+% Enfin, pour des pièces plus complexes en fibre de verre, comme la coiffe ou le rétreint, nous imprimons en 3D des masters (moules) sur mesure. Nous découpons ensuite des nappes de fibre à l’aide de gabarits et patrons, puis nous réalisons la stratification directement sur le master afin d’épouser la forme voulue et de limiter les défauts de drapage (plis, surépaisseurs, déformations).
+
+% \subsection{Réalisation logicielle et méthode de développement}
+
+% \subsubsection{Configuration matérielle : STM32CubeMX}
+% Pour la partie logicielle, nous développons sur des microcontrôleurs \textsc{STM32}. Nous utilisons \textsc{STM32CubeMX}, un outil de configuration fourni par STMicroelectronics, pour préparer la configuration matérielle : horloges, activation des périphériques (GPIO, UART, SPI, I\textsuperscript{2}C, timers, etc.), affectation des broches, puis génération du code d’initialisation. Cette étape apporte une base cohérente et vérifiable, limite les erreurs de paramétrage, et accélère la mise en route du développement.
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.82\linewidth]{figures/tinterface_cubeMX.png}
+%     \caption{Interface du logiciel STM Cube MX permetant de conficugurer les pin de nos microcontrôleurs.}
+%     \label{fig:tubes_fv}
+% \end{figure}
+
+% \subsubsection{Chaîne de compilation : projet C avec CMake}
+% Après génération du squelette, nous structurons le code en C et nous intégrons le projet dans une chaîne de compilation basée sur \textsc{CMake}. L’objectif est d’obtenir un \textit{build} reproductible et lisible, de gérer proprement les dépendances (drivers, middleware, couches applicatives), et de simplifier l’intégration dans nos environnements de travail. Cette organisation facilite l’ajout de modules, la séparation des responsabilités, et l’évolution du logiciel sans dégrader l’existant.
+
+% \subsubsection{Drivers et bibliothèques : réutilisation des briques constructeurs}
+% Pour certaines fonctions (périphériques \textsc{STM32}, bus de communication, modules de télécommunication), nous réutilisons des bibliothèques et drivers fournis par les constructeurs lorsque cela est pertinent. Cette approche permet de fiabiliser rapidement la communication avec certains composants électroniques (par exemple des modules de télémétrie) et de concentrer notre effort sur la logique système, l’intégration et la robustesse des échanges. Les adaptations spécifiques au projet sont ensuite encapsulées dans nos propres modules afin de garder une architecture maîtrisée.
+
+% \subsubsection{Développement collaboratif : GitHub et gestion de versions}
+% Le développement étant réalisé en équipe, nous utilisons \textsc{Git} et \textsc{GitHub} pour gérer les versions et travailler en parallèle. Nous avançons par branches, puis nous regroupons les contributions via des \textit{pull requests} afin de relire et valider les modifications avant intégration. Cette méthode conserve un historique clair, facilite la résolution de conflits, et sécurise l’intégration progressive des sous-systèmes (acquisition, traitement, télécommunication) au fil des itérations.
+
+% \subsubsection{Architecture logicielle : schémas et vision système}
+% Nous avons également réalisé des schémas d’architecture logicielle (présenté précédemment dans ce rapport) afin de formaliser le découpage en modules, les interfaces et les flux de données. Ces schémas servent de référence commune pour l’équipe : ils clarifient la répartition des responsabilités, rendent explicites les points d’interface, et réduisent les ambiguïtés lors de l’intégration. Ils apportent enfin une vision système utile pour anticiper les dépendances et guider les évolutions du logiciel.
+
+
