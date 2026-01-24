@@ -1,3 +1,84 @@
 \subsection{Résultats des simulations par la dynamique des fluides numérique (\acrshort{CFD})}
 
+Cette partie présente les résultats issus des simulations de dynamique des fluides numériques réalisées sur la fusée équipée de
+son système d’aérofreins. L’objectif est maintenant d’analyser l’influence du taux d’ouverture des aérofreins sur le
+comportement aérodynamique global, en particulier sur la traînée générée et la structure de l’écoulement. Les résultats sont
+étudiés à travers l’évolution du coefficient de traînée, la répartition de pression sur les aérofreins, l’analyse des champs de
+vitesse et la contribution des aérofreins à la traînée totale, afin de valider la pertinence du concept.
+
+\subsubsection{Coefficient de trainée}
+
+Les coefficients de traînée obtenus à l’issue des simulations pour différents taux d’ouverture des aérofreins sont présentés
+dans le tableau ci-dessous :
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Taux d'ouverture des aérofreins} & \textbf{Coefficient de traînée ($C_D$)} \\
+        \hline
+        \hline
+        0\%  & 164.881 \\
+        \hline
+        10\% & 295.3266 \\
+        \hline
+        30\% & 205.942 \\
+        \hline
+        50\% & 217.651 \\
+        \hline
+        70\% & 232.109 \\
+        \hline
+        100\% & 254.933 \\
+        \hline
+    \end{tabular}
+    \caption{Évolution du coefficient de traînée en fonction du taux d'ouverture des aérofreins}
+    \label{tab:Cd_vs_Aerofreins}
+\end{table}
+
+On voit une augmentation plutôt monotone de $C_d$ en fonction du taux d’ouverture. À 10\%, on remarque une hausse significative
+démontrant une forte sensibilité du système à la présence des aérofreins. Mais l’évolution n’est pas strictement linéaire sur
+l’ensemble de la plage étudiée, avec une progression plus marquée aux faibles ouvertures, puis plus modérée lorsque les
+aérofreins sont déployés (à partir de 50\% environ). Ces résultats confirment que le système d’aérofreins est capable d’impacter
+efficacement la traînée de la fusée. \\
+
+Grâce à Excel, nous avons approximer l’évolution du coefficient de traînée par la relation suivante :
+
+\begin{equation}
+    C_D(x) = 79.729 x + 177.24
+\end{equation}
+
+avec $x$ le taux d’ouverture des aérofreins exprimé en pourcentage (de 0 à 100).\\
+
+Cette loi permet de mettre en évidence la corrélation quasi-linéaire entre l’ouverture des aérofreins et la traînée générée.
+Elle constitue une première approximation qui reste pertinente, du comportement aérodynamique du système.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/graph_excel_dc.png}
+    \caption{Évolution du coefficient de traînée en fonction du taux d'ouverture des aérofreins}
+    \label{fig:Cd_vs_Aerofreins}
+\end{figure}
+
+\newpage
+
+\subsubsection{Répartitions de la pression sur les aérofreins}
+
+Les cartes de pression obtenues nous permettent d’analyser l’impact du déploiement des aérofreins sur le champ de pression
+autour de la fusée. La configuration sans aérofreins constitue un cas de référence, pour lequel la répartition de pression reste
+globalement homogène le long du corps de la fusée, en dehors des zones classiques de stagnation à l’avant et de dépression dans
+le sillage. On remarque aussi au niveau de la bague de séparation, qui est caractérisée par un changement de diamètre du corps
+de la fusée, la présence d’une augmentation de la pression à la jonction au niveau du 2e étage et une autre de dépression à la
+jonction au niveau du 1er étage.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/cart_pression_AF0.png}
+    \caption{Carte de la pression sur SP02 sans les aérofreins}
+\end{figure}
+
+Pour l’ouverture des aérofreins de 50\%, une zone de surpression apparaît sur la face en amont des aérofreins, traduisible par
+l’effet de stagnation de l’écoulement. Et en aval de ces derniers, une zone de dépression. Cela est due à la séparation de
+l’écoulement et à la formation de structures tourbillonnaires. Ce gradient de pression entre l’amont et l’aval est le principal
+mécanisme de génération de traînée.
+
 \newpage
