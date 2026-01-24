@@ -1,3 +1,97 @@
 \subsection{Processus expérimental physique}
 
+\subsubsection{Chaîne de mesure APEX : Acquisition et transmission de données inertielle}
+
+\newpage
+
+\subsubsection{APEX BES : Banc d’essai pour la validation de la chaîne APEX}
+\label{sec:333_banc_test_apex}
+
+La validation de la chaîne de mesure et de transmission d’APEX s’appuie sur un banc d’essai dédié, développé pour reproduire au
+sol des profils de mouvement représentatifs et répétables. Le cœur de ce travail est la conception et la fabrication de deux
+véhicules d’essai capables d’exécuter une trajectoire de type parabolique (au sens du profil cinématique visé), afin de
+solliciter l’acquisition inertielle et la transmission radio dans un cadre maîtrisé. La capture vidéo en vue zénithale est
+utilisée comme \textit{référence externe} pour comparer et interpréter les mesures issues d’APEX. Le proejt APEX BES (Banc d’Essai
+SP-02) constitue ainsi un sous-système d’essai complet, permettant de valider la chaîne APEX dans des conditions proches de celles
+rencontrées en vol.\\
+
+\subsubsubsection*{Objectif de l’essai}
+Le banc vise à :
+\begin{itemize}
+    \item \textbf{générer une cinématique reproductible} (profil de déplacement et changements de régime identifiables),
+    \item \textbf{valider la chaîne APEX} (acquisition \acrshort{IMU}, enregistrement, transmission et affichage station sol),
+    \item \textbf{corréler les mesures} APEX avec une trajectoire « vraie » reconstruite par suivi vidéo, afin de disposer
+    d’un outil d’analyse pour qualifier la cohérence globale (ordre de grandeur, synchronisation, détectabilité).
+\end{itemize}
+
+\subsubsubsection*{Conception et réalisation des véhicules d’essai}
+Deux véhicules ont été conçus et fabriqués spécifiquement pour ce banc. Ils servent de supports instrumentés pour embarquer
+l’électronique APEX, tout en permettant d’imposer une trajectoire et des excitations dynamiques contrôlées. Les choix de
+conception visent à garantir :
+\begin{itemize}
+    \item une \textbf{répétabilité} des essais (géométrie et masse connues, comportement stable),
+    \item une \textbf{facilité d’intégration} des cartes (fixations, accessibilité, protection),
+    \item une \textbf{cinématique exploitable} (accélérations et rotations suffisamment marquées pour émerger du bruit).
+\end{itemize}
+Au-delà d’un simple support, ces véhicules constituent un sous-système d’essai à part entière : leur fabrication a permis de
+maîtriser les interfaces mécaniques (montage des cartes, passage câbles, rigidité locale) et de disposer d’un moyen autonome
+pour reproduire des scénarios de mouvement.
+
+% -----------------------------------------------------------------
+% FIGURES : à remplacer par les figures du rapport APEX BES
+% -----------------------------------------------------------------
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.92\textwidth]{figures/apex_bes/fig_01.png}
+    \caption{%
+    % CAPTION À COPIER-COLLER du rapport APEX BES (Figure 1)
+    }
+    \label{fig:apex_bes_fig01}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.92\textwidth]{figures/apex_bes/fig_02.png}
+    \caption{%
+    % CAPTION À COPIER-COLLER du rapport APEX BES (Figure 2)
+    }
+    \label{fig:apex_bes_fig02}
+\end{figure}
+
+\subsubsubsection*{Protocole d’essai}
+Les essais sont conduits sur une fenêtre temporelle commune en enregistrant simultanément : (i) les données APEX (\acrshort{IMU},
+télémesure) et (ii) une vidéo zénithale permettant de reconstruire la trajectoire. Le déroulement est le suivant :
+\begin{enumerate}
+    \item mise en place des véhicules et vérification des intégrations APEX,
+    \item calibration de la scène (repère sol et échelle pixel $\rightarrow$ mètre),
+    \item exécution de la trajectoire par les véhicules (profil parabolique visé) et enregistrement,
+    \item traitement des données vidéo (trajectoire puis dérivation) et extraction des courbes APEX,
+    \item alignement temporel et comparaison des grandeurs.
+\end{enumerate}
+
+\subsubsubsection*{Trajectoire de référence par capture vidéo}
+La capture vidéo (vue zénithale) fournit une référence géométrique externe. La trajectoire est obtenue en suivant les positions
+$(x(t),y(t))$ des véhicules puis en appliquant la conversion d’échelle. Les vitesses et accélérations sont calculées par
+dérivation numérique sur un pas $\Delta t$ correspondant à la cadence caméra :
+\[
+v_x(t) \simeq \frac{x(t+\Delta t)-x(t)}{\Delta t}, \qquad
+a_x(t) \simeq \frac{v_x(t+\Delta t)-v_x(t)}{\Delta t}
+\]
+(analogues pour $y$). Un lissage léger peut être appliqué à la trajectoire avant dérivation afin de limiter l’amplification du
+bruit, tout en conservant la dynamique utile.
+
+\subsubsubsection*{Alignement temporel}
+Les données APEX et la vidéo ne partagent pas la même horloge. L’alignement est réalisé à partir d’un événement commun
+identifiable (démarrage de mouvement, arrêt net, ou excitation volontaire générant un pic). Cette étape conditionne la lisibilité
+des comparaisons, en particulier sur les dérivées (accélérations).
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.92\textwidth]{figures/apex_bes/fig_03.png}
+    \caption{%
+    % CAPTION À COPIER-COLLER du rapport APEX BES (Figure 3)
+    }
+    \label{fig:apex_bes_fig03}
+\end{figure}
+
 \newpage
