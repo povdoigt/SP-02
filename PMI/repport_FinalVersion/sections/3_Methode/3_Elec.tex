@@ -95,19 +95,19 @@ et à l’évolution du système.
 La chaîne de mesure APEX repose sur une gestion structurée des flux de données, visant à découpler les
 fonctions d’acquisition, de traitement et de sortie, tout en garantissant la cohérence temporelle et
 l’exploitabilité des mesures. Cette organisation est fondée sur le concept de \emph{data topics}, qui
-constitue un élément central de l’architecture logicielle retenue.
+constitue un élément central de l’architecture logicielle retenue.\\
 
 Un data topic peut être défini comme un conteneur de données partagé, représentant une grandeur ou un
 ensemble cohérent de grandeurs mesurées ou calculées à un instant donné. Chaque tâche productrice
 publie ses résultats dans un topic dédié, tandis que les tâches consommatrices accèdent aux données sans
 dépendance directe vis-à-vis de l’exécution du producteur. Ce mécanisme permet de dissocier
-temporellement les différentes briques fonctionnelles du système.
+temporellement les différentes briques fonctionnelles du système.\\
 
 Dans le cadre de la chaîne de mesure inertielle, les données issues des capteurs sont ainsi publiées sous
 forme de topics correspondant aux mesures brutes synchronisées. Ces topics peuvent ensuite être
 consommés par des tâches de traitement appliquant des corrections, des filtrages ou des opérations de
 fusion multi-capteurs, produisant à leur tour des topics de données traitées. Cette structuration explicite
-des flux facilite la compréhension, l’évolution et la validation de la chaîne de mesure.
+des flux facilite la compréhension, l’évolution et la validation de la chaîne de mesure.\\
 
 \begin{figure}[h!]
     \centering
@@ -120,13 +120,13 @@ Sur le plan de l’exécution, les data topics sont implémentés de manière à
 aux données les plus récentes. Les consommateurs peuvent ainsi récupérer le dernier échantillon
 disponible, indépendamment des éventuelles variations de fréquence ou de jitter des tâches productrices.
 Cette propriété est particulièrement importante dans un contexte temps réel, où la priorité est donnée à
-la continuité de l’acquisition et à la robustesse globale du système.
+la continuité de l’acquisition et à la robustesse globale du système.\\
 
 L’utilisation de data topics contribue également à la scalabilité de l’architecture. De nouvelles tâches
 peuvent être ajoutées en s’abonnant à des topics existants, sans modification de la chaîne d’acquisition
 initiale. Cette approche facilite l’intégration progressive de nouvelles fonctions expérimentales, telles
 que des traitements supplémentaires ou des sorties spécifiques, tout en limitant les risques de
-régression sur les fonctions existantes.
+régression sur les fonctions existantes.\\
 
 Enfin, cette gestion des flux de données constitue un prérequis pour la mise en œuvre des sorties
 multiples de la chaîne de mesure, qu’il s’agisse de l’enregistrement en mémoire non volatile, de la
@@ -135,6 +135,36 @@ l’acquisition des phénomènes physiques, leur structuration logicielle et leu
 différents moyens d’analyse.
 
 \subsubsubsection{Chaîne de télécommunication et synchronisation inter-étages}
+
+La chaîne de télécommunication constitue l’interface entre la chaîne de mesure embarquée et le segment
+sol, ainsi qu’un moyen d’échange d’informations entre les deux étages du lanceur après la séparation.
+Son rôle principal est d’assurer la transmission de données exploitables en vol, tout en garantissant une
+robustesse suffisante face aux contraintes radio et aux incertitudes liées au déroulement de la mission.\\
+
+Afin de répondre à des besoins de nature différente, deux modes de communication complémentaires
+sont mis en œuvre. Une liaison à plus haut débit, basée sur une modulation de type GFSK, est utilisée
+pour la transmission de données expérimentales nécessitant une bande passante plus importante. En
+parallèle, une liaison à plus bas débit reposant sur la technologie LoRa est dédiée à la transmission
+d’informations essentielles, telles que la dernière position GPS connue de chaque étage, dans une
+logique de robustesse et de portée maximale.\\
+
+Ces deux modes de communication sont implémentés à partir d’un même transcepteur radio, permettant
+de basculer dynamiquement entre les technologies selon les besoins expérimentaux. Cette approche
+limite la complexité matérielle tout en offrant une grande flexibilité dans la gestion des flux de données
+transmis.\\
+
+La gestion des échanges radio s’appuie sur un protocole de type \acrfull{TDMP}, assurant une synchronisation
+temporelle des communications entre les différents nœuds du
+système. Ce protocole permet l’utilisation d’une même fréquence par technologie pour les deux étages,
+tout en évitant les collisions et en garantissant une répartition maîtrisée des fenêtres de transmission.
+Il s’inscrit dans la continuité de la synchronisation temporelle mise en œuvre au niveau de la chaîne de
+mesure, et contribue à la cohérence globale des données transmises.\\
+
+La chaîne de télécommunication est ainsi conçue comme une extension naturelle de la chaîne de mesure
+APEX. Elle permet d’assurer un suivi temps réel de l’expérience depuis le sol, tout en sécurisant la
+récupération des informations critiques. Dans le cadre du projet SP-02, elle participe pleinement à la
+validation expérimentale du principe de séparation étudié, sans constituer un objectif de performance
+radio en tant que tel.
 
 \newpage
 
