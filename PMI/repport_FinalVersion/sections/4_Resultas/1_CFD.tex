@@ -18,17 +18,17 @@ dans le tableau ci-dessous :
         \textbf{Taux d'ouverture des aérofreins} & \textbf{Coefficient de traînée ($C_D$)} \\
         \hline
         \hline
-        0\%  & 164.881 \\
+        0\%  & 0.5936 \\
         \hline
-        10\% & 295.3266 \\
+        10\% & 0.6000 \\
         \hline
-        30\% & 205.942 \\
+        30\% & 0.6323 \\
         \hline
-        50\% & 217.651 \\
+        50\% & 0.6681 \\
         \hline
-        70\% & 232.109 \\
+        70\% & 0.7128 \\
         \hline
-        100\% & 254.933 \\
+        100\% & 0.7827 \\
         \hline
     \end{tabular}
     \caption{Évolution du coefficient de traînée en fonction du taux d'ouverture des aérofreins}
@@ -44,13 +44,13 @@ efficacement la traînée de la fusée. \\
 Grâce à Excel, nous avons approximer l’évolution du coefficient de traînée par la relation suivante :
 
 \begin{equation}
-    C_D(x) = 79.729 x + 177.24
+    C_D(x) = 0.0744 x^2 + 0.1187 x + 0.5906
 \end{equation}
 
-avec $x$ le taux d’ouverture des aérofreins exprimé en pourcentage (de 0 à 100).\\
+avec $x$ le taux d’ouverture des aérofreins (entre 0 et 1).\\
 
-Cette loi permet de mettre en évidence la corrélation quasi-linéaire entre l’ouverture des aérofreins et la traînée générée.
-Elle constitue une première approximation qui reste pertinente, du comportement aérodynamique du système.
+Avec un coefficient de détermination $R^2$ de 0.999, cette relation quadratique offre une excellente approximation des données
+simulées, permettant ainsi de prédire avec précision le coefficient de traînée en fonction du taux d’ouverture des aérofreins.
 
 \begin{figure}[h!]
     \centering
@@ -132,7 +132,7 @@ corps et au niveau de la bague de séparation (changement de diamètre).
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{figures/ligne_courant_AF0.png}
+    \includegraphics[width=\textwidth]{figures/ligne_courant_AF0.png}
     \caption{Champ de vitesse autour de SP02 sans les aérofreins}
 \end{figure}
 
