@@ -2,6 +2,106 @@
 
 \subsubsection{Chaîne de mesure APEX : Acquisition et transmission de données inertielle}
 
+Le module APEX est composé d’une seule carte électronique de forme rectangulaire sur laquelle sont soudés tous les composants
+nécessaires à son fonctionnement. Il est conçu pour être compact permettant une intégration facile dans une fusée ou cansat et
+est alimenté par une batterie LiPo 3.7V. Il est équipé de plusieurs capteurs dont un \acrshort{GPS}, d’une interfaces de
+communication physique, d’une mémoire flash pour le stockage des données, d’un module de télécommunication compatible avec les
+protocole \acrshort{LORA} et \acrshort{GFSK} ainsi que d’un microcontrôleur STM32F411RETx de STMicroelectronics. Le module est
+programmé en C.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+\begin{tikzpicture}
+    \node at (0, 0) {\includegraphics[width=0.70\textwidth]{figures/APEX_FRONT.jpg}};
+
+    \node (BMI_lbl) at (-4.00, +3.5) {BMI088};
+    \node (Buz_lbl) at (-3.90, +3.0) {Buzzer};
+    \node (ADX_lbl) at (-4.10, +2.5) {ADXL370};
+    \node (STM_lbl) at (-3.90, +2.0) {STM32};
+    \node (Con_lbl) at (-4.25, +1.5) {Connecteur};
+    \node (W25_lbl) at (-4.30, +1.0) {W25Q512JV};
+    \node (RGB_lbl) at (-4.30, +0.5) {LED RGB 0};
+    \node (LSM_lbl) at (-4.35,  0.0) {LSM303AGR};
+    \node (BMP_lbl) at (-4.00, -0.5) {BMP380};
+    \node (SWD_lbl) at (-4.05, -1.0) {Pin SWD};
+    \node (PW0_lbl) at (-4.15, -1.6) {Régulateur};
+    \node (PW1_lbl) at (-4.10, -1.9) {de tension};
+    \node (USB_lbl) at (-3.85, -2.5) {USB C};
+    \node (LED_lbl) at (-4.15, -3.0) {LED PWR};
+    \node (ATN_lbl) at (-4.00, -3.5) {Antenne};
+
+    \node (BMI_box) at (-0.10, +2.50) [minimum width=03mm, minimum height=05mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (Buz_box) at (-0.75, +2.30) [minimum width=05mm, minimum height=05mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (ADX_box) at (+1.20, +1.10) [minimum width=05mm, minimum height=04mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (STM_box) at (-0.25, +1.15) [minimum width=10mm, minimum height=10mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (Con_box) at (-1.80, +0.95) [minimum width=04mm, minimum height=18mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (W25_box) at (+0.90, -0.10) [minimum width=09mm, minimum height=06mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (RGB_box) at (+0.01, +0.05) [minimum width=01mm, minimum height=01mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (LSM_box) at (-1.40, -0.15) [minimum width=01mm, minimum height=01mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (BMP_box) at (-0.97, -0.18) [minimum width=01mm, minimum height=01mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (SWD_box) at (+0.45, -0.70) [minimum width=08mm, minimum height=08mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (PW0_box) at (-0.70, -0.88) [minimum width=12mm, minimum height=10mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (USB_box) at (-0.08, -1.60) [minimum width=09mm, minimum height=08mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (LED_box) at (+0.60, -1.62) [minimum width=01mm, minimum height=05mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (ATN_box) at (+0.90, -2.60) [minimum width=08mm, minimum height=13mm, rectangle, fill=red, fill opacity=0.2] {};
+
+    \draw[red, ->] (BMI_lbl.0) -- (BMI_box.center);
+    \draw[red, ->] (Buz_lbl.0) -- (Buz_box.center);
+    \draw[red, ->] (ADX_lbl.0) -- (ADX_box.center);
+    \draw[red, ->] (STM_lbl.0) -- (STM_box.center);
+    \draw[red, ->] (Con_lbl.0) -- (Con_box.center);
+    \draw[red, ->] (W25_lbl.0) -- (W25_box.center);
+    \draw[red, ->] (RGB_lbl.0) -- (RGB_box.center);
+    \draw[red, ->] (LSM_lbl.0) -- (LSM_box.center);
+    \draw[red, ->] (BMP_lbl.0) -- (BMP_box.center);
+    \draw[red, ->] (SWD_lbl.0) -- (SWD_box.center);
+    \draw[red, ->] (PW0_lbl.-10) -- (PW0_box.center);
+    \draw[red, ->] (USB_lbl.0) -- (USB_box.center);
+    \draw[red, ->] (LED_lbl.0) -- (LED_box.center);
+    \draw[red, ->] (ATN_lbl.0) -- (ATN_box.center);
+
+\end{tikzpicture}
+        \caption{Face avant du module APEX}
+        \label{fig:apex_front}
+    \end{subfigure}
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+\begin{tikzpicture}
+    \node at (0, 0) {\includegraphics[width=0.70\textwidth]{figures/APEX_BACK.jpg}};
+
+    \node (RFM_lbl) at (3.80, +3.0) {RFM95W};
+    \node (RBG_lbl) at (4.00, +2.0) {LED RGB 1};
+    \node (GPS_lbl) at (3.95, +1.0) {SAM M10Q};
+    \node (ANT_lbl) at (3.65,  0.0) {Antenne};
+    \node (BT0_lbl) at (3.85, -0.8) {Connecteur};
+    \node (BT1_lbl) at (3.60, -1.2) {batterie};
+    \node (SW0_lbl) at (3.50, -2.0) {Switch};
+    \node (SW1_lbl) at (4.10, -2.4) {d'alimentation};
+    \node (SW2_lbl) at (3.60, -2.8) {batterie};
+
+    \node (RFM_box) at (-0.05, +1.70) [minimum width=15mm, minimum height=15mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (RBG_box) at (+1.19, +1.51) [minimum width=01mm, minimum height=01mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (GPS_box) at (-0.23, +0.06) [minimum width=14mm, minimum height=14mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (ANT_box) at (-1.40, -0.30) [minimum width=10mm, minimum height=60mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (BT0_box) at (+1.16, -0.65) [minimum width=10mm, minimum height=10mm, rectangle, fill=red, fill opacity=0.2] {};
+    \node (SW0_box) at (+0.55, -1.50) [minimum width=09mm, minimum height=05mm, rectangle, fill=red, fill opacity=0.2] {};
+
+    \draw[red, ->] (RFM_lbl.180) -- (RFM_box.center);
+    \draw[red, ->] (RBG_lbl.180) -- (RBG_box.center);
+    \draw[red, ->] (GPS_lbl.180) -- (GPS_box.center);
+    \draw[red, ->] (ANT_lbl.180) -- (ANT_box.center);
+    \draw[red, ->] (BT0_lbl.-170) -- (BT0_box.center);
+    \draw[red, ->] (SW1_lbl.180) -- (SW0_box.center);
+\end{tikzpicture}
+        \caption{Face arrière du module APEX}
+        \label{fig:apex_back}
+    \end{subfigure}
+    \caption{Module APEX}
+    \label{fig:apex}
+\end{figure}
+
 \subsubsubsection{Architecture logicielle de la chaîne de mesure}
 
 L’architecture logicielle retenue pour la chaîne de mesure APEX repose sur une approche de type \emph{pipeline orienté données}
