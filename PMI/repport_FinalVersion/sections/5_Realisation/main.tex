@@ -4,18 +4,36 @@
 \subsection{Réalisation mécanique et composite}
 
 \subsubsection{Prototypage par impression 3D et validation d’intégration}
-Avant toute fabrication métallique, nous avons d’abord imprimé en 3D les pièces modélisées sur \textsc{CATIA} afin de valider l’intégration et le bon fonctionnement des parties mécaniques mobiles. Cette étape nous permet de confronter la CAO (Conception Assistée par Ordinateur) à la réalité : contrôle des encombrements, vérification des interfaces, définition d’un ordre de montage réaliste, et confirmation des jeux fonctionnels nécessaires pour éviter les points durs.
+Avant toute fabrication métallique, nous avons d’abord imprimé en 3D les pièces modélisées sur \textsc{\acrshort{CATIA}} afin de
+valider l’intégration et le bon fonctionnement des parties mécaniques mobiles. Cette étape nous permet de confronter la
+\acrshort{CAO} à la réalité : contrôle des encombrements, vérification des interfaces, définition d’un ordre de montage
+réaliste, et confirmation des jeux fonctionnels nécessaires pour éviter les points durs.\\
 
-Le mécanisme de séparation illustre cette démarche. Nous avons imprimé et testé plus de six versions différentes avant d’aboutir à la version finale. À chaque itération, nous avons corrigé des défauts identifiés en essai (rigidité locale insuffisante, zones de frottement, interférences, tolérances trop serrées) jusqu’à obtenir une solution intégrable, répétable au montage et fiable en fonctionnement.
+Le mécanisme de séparation illustre cette démarche. Nous avons imprimé et testé plus de six versions différentes avant d’aboutir
+à la version finale. À chaque itération, nous avons corrigé des défauts identifiés en essai (rigidité locale insuffisante, zones
+de frottement, interférences, tolérances trop serrées) jusqu’à obtenir une solution intégrable, répétable au montage et fiable en
+fonctionnement.
 
-\subsubsection{Usinage CNC des pièces aluminium}
-Une fois le design figé et validé en impression 3D, nous avons lancé la fabrication des pièces définitives en aluminium. Les pièces usinées en interne ont été réalisées sur la CNC de l’école (Mechanika Pro M). Pour les géométries les plus exigeantes, nous avons fait appel à un industriel équipé d’une CNC 5 axes. L’objectif est de limiter les reprises, d’améliorer la précision sur des formes difficiles d’accès en 3 axes et de garantir l’alignement des surfaces fonctionnelles (perpendicularités, coaxialités, profils).
+\subsubsection{Usinage \acrshort{CNC} des pièces aluminium}
 
-\subsubsection{Préparation FAO (CAM) sous Fusion 360}
-Pour les pièces usinées par nos soins, nous réalisons la préparation \textit{CAM} (\textit{Computer-Aided Manufacturing}, ou fabrication assistée par ordinateur) dans \textsc{Fusion 360}. Ce logiciel d’Autodesk intègre un module de programmation d’usinage permettant de transformer une géométrie issue de la CAO en trajectoires outils exécutables par une machine-outil à commande numérique.
+Une fois le design figé et validé en impression 3D, nous avons lancé la fabrication des pièces définitives en aluminium. Les
+pièces usinées en interne ont été réalisées sur la \acrshort{CNC} de l’école (Mechanika Pro M). Pour les géométries les plus
+exigeantes, nous avons fait appel à un industriel équipé d’une \acrshort{CNC} 5 axes. L’objectif est de limiter les reprises,
+d’améliorer la précision sur des formes difficiles d’accès en 3 axes et de garantir l’alignement des surfaces fonctionnelles
+(perpendicularités, coaxialités, profils).
 
-Les pièces conçues sur \textsc{CATIA} sont importées dans \textsc{Fusion 360} (généralement au format neutre STEP), puis nous définissons le \textit{setup} d’usinage : description du brut, choix de l’origine pièce (zéro programme), orientation des axes et positionnement cohérent avec le montage sur la CNC. Nous construisons ensuite une séquence d’opérations logique (dégrossissage, surfaçage, poches, contournages, perçages, finition). Le choix des outils et des paramètres (avance, vitesse de rotation, profondeur de passe, stratégie d’engagement) est ajusté selon la matière usinée, la rigidité de la pièce et le bridage, afin d’obtenir un compromis robuste entre temps d’usinage, qualité géométrique et sécurité machine. Enfin, la simulation intégrée permet de vérifier l’enlèvement de matière et d’anticiper les collisions potentielles (outil, porte-outil, bridage).
+\subsubsection{Préparation \acrshort{CAM} sous Fusion 360}
+Pour les pièces usinées par nos soins, nous réalisons la préparation \textit{\acrfull{CAM}} dans \textsc{Fusion 360}. Ce logiciel
+d’Autodesk intègre un module de programmation d’usinage permettant de transformer une géométrie issue de la CAO en trajectoires
+outils exécutables par une machine-outil à commande numérique.\\
 
+Les pièces conçues sur \textsc{\acrshort{CATIA}} sont importées dans \textsc{Fusion 360} (généralement au format neutre STEP),
+puis nous définissons le \textit{setup} d’usinage : description du brut, choix de l’origine pièce (zéro programme), orientation
+des axes et positionnement cohérent avec le montage sur la CNC. Nous construisons ensuite une séquence d’opérations logique
+(dégrossissage, surfaçage, poches, contournages, perçages, finition). Le choix des outils et des paramètres (avance, vitesse de
+rotation, profondeur de passe, stratégie d’engagement) est ajusté selon la matière usinée, la rigidité de la pièce et le bridage,
+afin d’obtenir un compromis robuste entre temps d’usinage, qualité géométrique et sécurité machine. Enfin, la simulation intégrée
+permet de vérifier l’enlèvement de matière et d’anticiper les collisions potentielles (outil, porte-outil, bridage).
 
 \begin{figure}[htbp]
     \centering
@@ -29,7 +47,7 @@ Les pièces conçues sur \textsc{CATIA} sont importées dans \textsc{Fusion 360}
         \includegraphics[width=\linewidth]{figures/fusion_previsualisation.png}
         \caption*{Prévisualisation du brut et du résultat après opérations.}
     \end{minipage}
-    \caption{Préparation FAO (CAM) sous \textsc{Fusion 360} : définition des opérations et validation par simulation.}
+    \caption{Préparation \acrshort{CAM} sous \textsc{Fusion 360} : définition des opérations et validation par simulation.}
     \label{fig:fusion_cam}
 \end{figure}
 
@@ -93,7 +111,7 @@ surépaisseurs, déformations).
 \subsubsection{Configuration matérielle : STM32CubeMX}
 Pour la partie logicielle, nous développons sur des microcontrôleurs \textsc{STM32}. Nous utilisons \textsc{STM32CubeMX}, un
 outil de configuration fourni par STMicroelectronics, pour préparer la configuration matérielle : horloges, activation des
-périphériques (GPIO, UART, SPI, I\textsuperscript{2}C, timers, etc.), affectation des broches, puis génération du code
+périphériques (GPIO, \acrshort{UART}, SPI, I\textsuperscript{2}C, timers, etc.), affectation des broches, puis génération du code
 d’initialisation. Cette étape apporte une base cohérente et vérifiable, limite les erreurs de paramétrage, et accélère la mise
 en route du développement.
 
@@ -106,16 +124,28 @@ en route du développement.
 
 \subsubsection{Chaîne de compilation : projet C avec CMake}
 Après génération du squelette, nous structurons le code en C et nous intégrons le projet dans une chaîne de compilation basée
-sur \textsc{CMake}. L’objectif est d’obtenir un \textit{build} reproductible et lisible, de gérer proprement les dépendances (drivers, middleware, couches applicatives), et de simplifier l’intégration dans nos environnements de travail. Cette organisation facilite l’ajout de modules, la séparation des responsabilités, et l’évolution du logiciel sans dégrader l’existant.
+sur \textsc{CMake}. L’objectif est d’obtenir un \textit{build} reproductible et lisible, de gérer proprement les dépendances
+(drivers, middleware, couches applicatives), et de simplifier l’intégration dans nos environnements de travail. Cette
+organisation facilite l’ajout de modules, la séparation des responsabilités, et l’évolution du logiciel sans dégrader l’existant.
 
 \subsubsection{Drivers et bibliothèques : réutilisation des briques constructeurs}
-Pour certaines fonctions (périphériques \textsc{STM32}, bus de communication, modules de télécommunication), nous réutilisons des bibliothèques et drivers fournis par les constructeurs lorsque cela est pertinent. Cette approche permet de fiabiliser rapidement la communication avec certains composants électroniques (par exemple des modules de télémétrie) et de concentrer notre effort sur la logique système, l’intégration et la robustesse des échanges. Les adaptations spécifiques au projet sont ensuite encapsulées dans nos propres modules afin de garder une architecture maîtrisée.
+Pour certaines fonctions (périphériques \textsc{STM32}, bus de communication, modules de télécommunication), nous réutilisons
+des bibliothèques et drivers fournis par les constructeurs lorsque cela est pertinent. Cette approche permet de fiabiliser
+rapidement la communication avec certains composants électroniques (par exemple des modules de télémétrie) et de concentrer
+notre effort sur la logique système, l’intégration et la robustesse des échanges. Les adaptations spécifiques au projet sont
+ensuite encapsulées dans nos propres modules afin de garder une architecture maîtrisée.
 
 \subsubsection{Développement collaboratif : GitHub et gestion de versions}
-Le développement étant réalisé en équipe, nous utilisons \textsc{Git} et \textsc{GitHub} pour gérer les versions et travailler en parallèle. Nous avançons par branches, puis nous regroupons les contributions via des \textit{pull requests} afin de relire et valider les modifications avant intégration. Cette méthode conserve un historique clair, facilite la résolution de conflits, et sécurise l’intégration progressive des sous-systèmes (acquisition, traitement, télécommunication) au fil des itérations.
+Le développement étant réalisé en équipe, nous utilisons \textsc{Git} et \textsc{GitHub} pour gérer les versions et travailler
+en parallèle. Nous avançons par branches, puis nous regroupons les contributions via des \textit{pull requests} afin de relire
+et valider les modifications avant intégration. Cette méthode conserve un historique clair, facilite la résolution de conflits,
+et sécurise l’intégration progressive des sous-systèmes (acquisition, traitement, télécommunication) au fil des itérations.
 
 \subsubsection{Architecture logicielle : schémas et vision système}
-Nous avons également réalisé des schémas d’architecture logicielle (présenté précédemment dans ce rapport) afin de formaliser le découpage en modules, les interfaces et les flux de données. Ces schémas servent de référence commune pour l’équipe : ils clarifient la répartition des responsabilités, rendent explicites les points d’interface, et réduisent les ambiguïtés lors de l’intégration. Ils apportent enfin une vision système utile pour anticiper les dépendances et guider les évolutions du logiciel.
+Nous avons également réalisé des schémas d’architecture logicielle (présenté précédemment dans ce rapport) afin de formaliser le
+découpage en modules, les interfaces et les flux de données. Ces schémas servent de référence commune pour l’équipe : ils
+clarifient la répartition des responsabilités, rendent explicites les points d’interface, et réduisent les ambiguïtés lors de
+l’intégration. Ils apportent enfin une vision système utile pour anticiper les dépendances et guider les évolutions du logiciel.
 
 \newpage
 

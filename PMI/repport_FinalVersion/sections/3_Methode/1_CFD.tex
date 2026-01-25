@@ -1,6 +1,6 @@
 \subsection{Etudes aérodynamiques assistées par ordinateur (\acrshort{CFD})}
 
-\subsection{Contexte et intérêt de la \acrshort{CFD}}
+\subsubsection{Contexte et intérêt de la \acrshort{CFD}}
 
 Afin de concrétiser ce projet, une étude aérodynamique approfondie par dynamique des fluides numérique a été menée. L’objectif
 principal de l’étude est de valider théoriquement la faisabilité et l’efficacité du système d’aérofreins intégrés au premier
@@ -20,7 +20,7 @@ possibilité d’analyser le comportement de l’écoulement autour de la fusée
 couche limite, phénomène acteur dans la génération de la trainée. Enfin, ces analyses fournissent une base théorique solide
 permettant de justifier la pertinence du concept avant sa mise en œuvre au sein de l’association AéroIPSA.
 
-\subsection{Stratégie de simulation}
+\subsubsection{Stratégie de simulation}
 
 Pour faciliter la réalisation des simulations \acrshort{CFD} et \acrshort{FEM}, une maquette numérique simplifiée de la fusée a
 été développée à l’aide du logiciel de \acrshort{CAO} \acrshort{CATIA}. Cette maquette ne prend pas en compte certaines irrégularités
@@ -85,7 +85,7 @@ d’étages dépend principalement des efforts aérodynamiques une fois les aér
 nécessiterait un couplage avec une cinématique de structure. La prise en compte de positions fixes permet donc de dissocier les
 effets aérodynamiques purs de la complexité mécanique du système.
 
-\subsection{Hypothèses de modélisation}
+\subsubsection{Hypothèses de modélisation}
 
 Sur la base de cette maquette numérique, une stratégie \acrshort{CFD} a été élaborée afin d’analyser le comportement
 aérodynamique de la fusée pour les différentes configurations. La simulation CFD a été définie en privilégiant un compromis
@@ -183,7 +183,7 @@ modèles physiques. La section suivante présente les choix effectués pour la m
     de la couche limite.
 \end{itemize}
 
-\subsection{Modélisation de la géométrie et du maillage}
+\subsubsection{Modélisation de la géométrie et du maillage}
 Pour le dimensionnement du domaine d’étude, il a été défini de manière à représenter un écoulement d’air libre autour de la fusée en limitant l’influence des conditions aux limites sur les résultats, c’est pourquoi il est modélisé sous la forme d’un domaine cylindrique de 14 mètres de longueur et de 4 mètres de rayon, au centre duquel est positionnée la fusée. Ces dimensions sont suffisamment grandes afin de garantir que les perturbations de l’écoulement induites par la fusée, et en particulier par le déploiement des aérofreins, se dissipent avant d’atteindre les frontières du domaine. Cette approche permet d’éviter toute interaction entre le sillage aérodynamique et les conditions aux limites, ce qui pourrait fausser l’évaluation des efforts aérodynamiques. La décision du domaine cylindrique permet aussi une représentation efficace de l’écoulement externe tout en limitant le volume total du domaine, et donc le coût numérique associé aux simulations.
 
 \begin{figure}[H]
@@ -283,7 +283,7 @@ du projet.
     \label{fig:maillage_global_domaine}
 \end{figure}
 
-\subsection{Résultats attendus}
+\subsubsection{Résultats attendus}
 En ce qui concerne les résultats attendus, les simulations \acrshort{CFD} vont permettre de mettre en évidence plusieurs
 éléments physiques.\\
 
