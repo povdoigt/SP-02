@@ -146,7 +146,7 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 
-angle = 80
+angle = 85
 
 for i in range(2):
     if i == 0:
