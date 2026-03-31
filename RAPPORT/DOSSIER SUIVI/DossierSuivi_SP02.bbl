@@ -1,30 +1,45 @@
 \begin{thebibliography}{1}
 
 \bibitem{CDC_BiEtage}
-{\relax \gls{Planète Sciences} et le \acrshort{CNES}}, ``Cahier des charges des fusées expérimentales bi-étages.'' \url{https://www.planete-sciences.org/espace/scae/doc/cdc_fusex_bietage}, 2017.
+{\relax \gls{Planète Sciences} et le \acrshort{CNES}}, ``Cahier des charges
+  des fusées expérimentales bi-étages.''
+  \url{https://www.planete-sciences.org/espace/scae/doc/cdc_fusex_bietage},
+  2017.
 
 \bibitem{AeroIPSA}
-AéroIPSA, ``{\relax Site officiel d'AéroIPSA}.'' \url{https://www.aeroipsa.com}.
+AéroIPSA, ``{\relax Site officiel d'AéroIPSA}.''
+  \url{https://www.aeroipsa.com}.
 
 \bibitem{Arcturus}
-{\relax Lucas Pichon}, ``Rapport de projet arcturus.'' \url{https://www.aeroipsa.com/arcturus}, 2024.
+{\relax Lucas Pichon}, ``Rapport de projet arcturus.''
+  \url{https://www.aeroipsa.com/arcturus}, 2024.
 
 \bibitem{SP01}
-{\relax Malo Amaranti and Mathieu Coquelle-Grandsimon}, ``Rapport de projet sp-01.'' \url{https://www.aeroipsa.com/sp01}, 2024.
+{\relax Malo Amaranti and Mathieu Coquelle-Grandsimon}, ``Rapport de projet
+  sp-01.'' \url{https://www.aeroipsa.com/sp01}, 2024.
 
 \bibitem{APEX}
-{\relax Malo Amaranti and Alexis Paillard}, ``{\relax Rapport de projet d'APEX}.'' \url{https://www.aeroipsa.com/apex}, 2025.
+{\relax Malo Amaranti and Alexis Paillard}, ``{\relax Rapport de projet
+  d'APEX}.'' \url{https://www.aeroipsa.com/apex}, 2025.
 
 \bibitem{Stab_doc}
-{\relax \gls{Planète Sciences} et le \acrshort{CNES}}, ``Le vol de la fusée, stabilité et trajectographie.'' \url{https://www.planete-sciences.org/espace/IMG/pdf/vol-de-la-fusee.pdf}, 2008.
+{\relax \gls{Planète Sciences} et le \acrshort{CNES}}, ``Le vol de la fusée,
+  stabilité et trajectographie.''
+  \url{https://www.planete-sciences.org/espace/IMG/pdf/vol-de-la-fusee.pdf},
+  2008.
 
 \bibitem{FF}
-{\relax Julien Denat}, ``Rapport de projet fast forward.'' \url{https://www.aeroipsa.com/fastforward}, 2023.
+{\relax Julien Denat}, ``Rapport de projet fast forward.''
+  \url{https://www.aeroipsa.com/fastforward}, 2023.
 
 \bibitem{NavierStokes}
-Wikipedia, ``Equations de navier-stokes.'' \url{https://fr.wikipedia.org/wiki/Équations_de_Navier-Stokes}, 2025.
+Wikipedia, ``Equations de navier-stokes.''
+  \url{https://fr.wikipedia.org/wiki/Équations_de_Navier-Stokes}, 2025.
 
 \bibitem{Stabtraj}
-{\relax \gls{Planète Sciences} et le \acrshort{CNES}}, ``Logiciel de simulation de trajectoire \gls{Stabtraj}.'' \url{https://www.planete-sciences.org/espace/Documentation-technique/Trajectoire}, 2024.
+{\relax \gls{Planète Sciences} et le \acrshort{CNES}}, ``Logiciel de
+  simulation de trajectoire \gls{Stabtraj}.''
+  \url{https://www.planete-sciences.org/espace/Documentation-technique/Trajectoire},
+  2024.
 
 \end{thebibliography}

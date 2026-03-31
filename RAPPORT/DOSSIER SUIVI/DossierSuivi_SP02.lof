@@ -1,33 +1,5 @@
 \babel@toc {french}{}\relax 
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Photo de groupe de membres du club de l'AéroIPSA lors du \gls {C'Space} 2025.}}{5}{figure.caption.2}%
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Vue du premier étage sur \acrshort {CATIA}}}{7}{figure.caption.3}%
-\contentsline {figure}{\numberline {1.3}{\ignorespaces Vue du second étage sur \acrshort {CATIA}}}{7}{figure.caption.4}%
-\contentsline {figure}{\numberline {1.4}{\ignorespaces Vue d'ensemble de la fusée SP-02 sur \acrshort {CATIA}}}{8}{figure.caption.5}%
-\contentsline {figure}{\numberline {1.5}{\ignorespaces Minif Arcturus}}{9}{figure.caption.6}%
-\contentsline {figure}{\numberline {1.6}{\ignorespaces Fusée SP-01}}{9}{figure.caption.7}%
-\contentsline {figure}{\numberline {1.7}{\ignorespaces Module électronique Unknown}}{10}{figure.caption.8}%
-\contentsline {figure}{\numberline {1.8}{\ignorespaces Module électronique \gls {APEX}}}{10}{figure.caption.9}%
-\contentsline {figure}{\numberline {1.9}{\ignorespaces Diagramme de Gantt du projet SP-02 (octobre 2025 – juillet 2026)}}{11}{figure.caption.10}%
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Diagramme des phases nominales de vol depuis SP-02}}{13}{figure.caption.12}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Tableau d'attribution des indices G, F, D et calcul de l'\acrshort {IPR} pour chaque \acrshort {MDF}}}{21}{figure.caption.15}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Extrait de l'analyse \acrshort {AMDEC} réalisée pour le projet SP-02}}{22}{figure.caption.16}%
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{25}{figure.caption.17}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Résultats des analyses de stabilité longitudinale de la fusée SP-02 et de ses étages (\gls {Stabtraj})}}{26}{figure.caption.18}%
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Schéma de calcul du couple exercé au niveau de la base du premier étage}}{30}{figure.caption.22}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Procédé de collage ailerons/tube porte-moteur}}{31}{figure.caption.24}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Procédé de collage ailerons/structure avec congés en résine}}{31}{figure.caption.25}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Méthodes de fixation du Pro54}}{32}{figure.caption.26}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Système d'aérofrein d'SP-02 sur \acrshort {CATIA}}}{32}{figure.4.5}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Position des aérofreins d'SP-02}}{33}{figure.caption.27}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Vu éclatée du système d'aérofrein d'SP-02}}{33}{figure.4.7}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Bloc parachute du premier étage sur \acrshort {CATIA}}}{35}{figure.caption.30}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Vue en coupe du mécanisme de séparation inter-étages}}{38}{figure.caption.31}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Évolution de la configuration des ressorts de séparation entre l'état armé et l'état libéré.}}{39}{figure.caption.33}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Illustration du collage des ailerons sur le tube de la mini-fusée \textit {Arcturus}.}}{40}{figure.caption.35}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Bloc parachute du second étage sur \acrshort {CATIA}}}{41}{figure.caption.37}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Angles entre les ailerons proches de la rampe sur la configuration de mise en rampe}}{42}{figure.caption.38}%
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Schéma fonctionnel de l'électronique embarquée}}{43}{figure.caption.39}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Schéma électrique du séquenceur embarqué}}{44}{figure.caption.40}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Schémas fonctionnels des séquenceurs des deux étages}}{45}{figure.caption.41}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Schéma électrique de la ligne de mise à feu}}{47}{figure.caption.42}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Schémas électriques de la carte APEX améliorée pour SP-02}}{48}{figure.caption.43}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Schéma simplifié du système électronique général de la fusée SP-02}}{3}{figure.caption.2}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Schémas fonctionnels des séquenceurs des deux étages}}{7}{figure.caption.4}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Batterie Li-Ion 18650-26H}}{12}{figure.1.3}%
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Batterie Li-Po plate}}{12}{figure.caption.5}%
