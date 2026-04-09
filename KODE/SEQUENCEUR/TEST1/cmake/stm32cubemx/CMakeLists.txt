@@ -8,6 +8,12 @@ set(MX_Defines_Syms
     $<$<CONFIG:Debug>:DEBUG>
 )
 
+# Configure project path
+set(CMAKE_USER_PROJECT_PATH
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test1
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq
+)
+
 # STM32CubeMX generated include paths
 set(MX_Include_Dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Inc
@@ -19,6 +25,19 @@ set(MX_Include_Dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Drivers/CMSIS/Device/ST/STM32F0xx/Include
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Drivers/CMSIS/Include
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/drivers/buzzer/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/drivers/led/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/drivers/STS/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/drivers/WT901B/Core/Inc
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/circular_buffer/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/data_topic/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/float3/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/quaternion/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/waveform/Core/Inc
+
+    ${CMAKE_USER_PROJECT_PATH}/Core/Inc
 )
 
 # STM32CubeMX generated application sources
@@ -27,13 +46,20 @@ set(MX_Application_Src
     ${CMAKE_CURRENT_SOURCE_DIR}/../../USB_DEVICE/App/usb_device.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../USB_DEVICE/App/usbd_desc.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../USB_DEVICE/App/usbd_cdc_if.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/waveform.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/waveform_built_in.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/float3.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/quaternion.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/quaternion_dynamics.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/buzzer.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/led.c
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/drivers/buzzer/Core/Src/buzzer.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/drivers/led/Core/Src/led.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/drivers/STS/Core/Src/STS.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/drivers/WT901B/Core/Src/WT901B.c
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/circular_buffer/Core/Src/circular_buffer.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/data_topic/Core/Src/data_topic.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/float3/Core/Src/float3.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/quaternion/Core/Src/quaternion_dynamics.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/quaternion/Core/Src/quaternion.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/waveform/Core/Src/waveform_built_in.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/waveform/Core/Src/waveform.c
+
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/main.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/gpio.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/i2c.c
@@ -44,6 +70,8 @@ set(MX_Application_Src
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/sysmem.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/syscalls.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../startup_stm32f072xb.s
+
+    ${CMAKE_USER_PROJECT_PATH}/Core/Src/project.c
 )
 
 # STM32 HAL/LL Drivers

@@ -22,6 +22,8 @@
 
 /* USER CODE BEGIN 0 */
 
+#include "STS.h"
+
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -73,7 +75,7 @@ void MX_USART2_UART_Init(void)
 
   /* USER CODE END USART2_Init 1 */
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 38400;
+  huart2.Init.BaudRate = 115200;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -104,7 +106,7 @@ void MX_USART3_UART_Init(void)
 
   /* USER CODE END USART3_Init 1 */
   huart3.Instance = USART3;
-  huart3.Init.BaudRate = 38400;
+  huart3.Init.BaudRate = 115200;
   huart3.Init.WordLength = UART_WORDLENGTH_8B;
   huart3.Init.StopBits = UART_STOPBITS_1;
   huart3.Init.Parity = UART_PARITY_NONE;
@@ -201,6 +203,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF1_USART2;
     HAL_GPIO_Init(DATA_SM2_GPIO_Port, &GPIO_InitStruct);
 
+    /* USART2 interrupt Init */
+    HAL_NVIC_SetPriority(USART2_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(USART2_IRQn);
   /* USER CODE BEGIN USART2_MspInit 1 */
 
   /* USER CODE END USART2_MspInit 1 */
@@ -224,6 +229,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF1_USART3;
     HAL_GPIO_Init(DATA_SM1_GPIO_Port, &GPIO_InitStruct);
 
+    /* USART3 interrupt Init */
+    HAL_NVIC_SetPriority(USART3_4_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(USART3_4_IRQn);
   /* USER CODE BEGIN USART3_MspInit 1 */
 
   /* USER CODE END USART3_MspInit 1 */
@@ -248,6 +256,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF4_USART4;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+    /* USART4 interrupt Init */
+    HAL_NVIC_SetPriority(USART3_4_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(USART3_4_IRQn);
   /* USER CODE BEGIN USART4_MspInit 1 */
 
   /* USER CODE END USART4_MspInit 1 */
@@ -288,6 +299,8 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(DATA_SM2_GPIO_Port, DATA_SM2_Pin);
 
+    /* USART2 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(USART2_IRQn);
   /* USER CODE BEGIN USART2_MspDeInit 1 */
 
   /* USER CODE END USART2_MspDeInit 1 */
@@ -304,6 +317,15 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     PC4     ------> USART3_TX
     */
     HAL_GPIO_DeInit(DATA_SM1_GPIO_Port, DATA_SM1_Pin);
+
+    /* USART3 interrupt Deinit */
+  /* USER CODE BEGIN USART3:USART3_4_IRQn disable */
+    /**
+    * Uncomment the line below to disable the "USART3_4_IRQn" interrupt
+    * Be aware, disabling shared interrupt may affect other IPs
+    */
+    /* HAL_NVIC_DisableIRQ(USART3_4_IRQn); */
+  /* USER CODE END USART3:USART3_4_IRQn disable */
 
   /* USER CODE BEGIN USART3_MspDeInit 1 */
 
@@ -323,6 +345,15 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOA, TX_OUT_Pin|RX_OUT_Pin);
 
+    /* USART4 interrupt Deinit */
+  /* USER CODE BEGIN USART4:USART3_4_IRQn disable */
+    /**
+    * Uncomment the line below to disable the "USART3_4_IRQn" interrupt
+    * Be aware, disabling shared interrupt may affect other IPs
+    */
+    /* HAL_NVIC_DisableIRQ(USART3_4_IRQn); */
+  /* USER CODE END USART4:USART3_4_IRQn disable */
+
   /* USER CODE BEGIN USART4_MspDeInit 1 */
 
   /* USER CODE END USART4_MspDeInit 1 */
@@ -330,5 +361,77 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+#ifdef USART1
+  UART_buffer_t uart_buffer_1 = { 0 };
+#endif
+#ifdef USART2
+  UART_buffer_t uart_buffer_2 = { 0 };
+#endif
+#ifdef USART3
+  UART_buffer_t uart_buffer_3 = { 0 };
+#endif
+#ifdef UART4
+  UART_buffer_t uart_buffer_4 = { 0 };
+#endif
+#ifdef UART5
+  UART_buffer_t uart_buffer_5 = { 0 };
+#endif
+
+void UART_get_buffer(UART_HandleTypeDef *huart, UART_buffer_t **buffer_obj_ptr) {
+#ifdef USART1
+  if (huart->Instance == USART1) {
+    *buffer_obj_ptr = &uart_buffer_1;
+  } else
+#endif
+#ifdef USART2
+  if (huart->Instance == USART2) {
+    *buffer_obj_ptr = &uart_buffer_2;
+  } else
+#endif
+#ifdef USART3
+  if (huart->Instance == USART3) {
+    *buffer_obj_ptr = &uart_buffer_3;
+  } else
+#endif
+#ifdef UART4
+  if (huart->Instance == UART4) {
+    *buffer_obj_ptr = &uart_buffer_4;
+  } else
+#endif
+#ifdef UART5
+  if (huart->Instance == UART5) {
+    *buffer_obj_ptr = &uart_buffer_5;
+  } else
+#endif
+  {
+    *buffer_obj_ptr = NULL; // Unknown UART instance
+  }
+}
+
+
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
+
+  if (huart_sts_port1.huart == huart) {
+    STS_UART_Port_Callback_RX_IRQHandler(&huart_sts_port1, Size);
+  }
+
+  if (huart_sts_port2.huart == huart) {
+    STS_UART_Port_Callback_RX_IRQHandler(&huart_sts_port2, Size);
+  }
+
+  // if (wt901b.huart == huart) {
+  //   HAL_UART_AbortReceive_IT(huart);
+  //   // HAL_UART_Abort_IT(huart); // Dont work if not aborted for some reason...
+  //   WT901B_UART_Callback_RX_IRQHandler(&wt901b, Size);
+  // }
+
+  UART_buffer_t *buffer_obj;
+  UART_get_buffer(huart, &buffer_obj);
+  if (buffer_obj != NULL) {
+    // HAL_UART_Transmit(&huart2, buffer_obj->rx_buffer, Size, HAL_MAX_DELAY); // Echo received data for debugging
+    HAL_UARTEx_ReceiveToIdle_IT(huart, buffer_obj->rx_buffer, buffer_obj->rx_length);
+  }
+}
 
 /* USER CODE END 1 */
