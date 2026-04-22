@@ -4,7 +4,7 @@
 La ligne de mise à feu est conçue pour assurer un allumage fiable et sécurisé du moteur du 2e étage de la fusée. Son objectif est
 d'être capable de fournir assez de puissance à l'inflamateur lorsque le séquenceur donne l'odre de la mise à feu.
 
-\begin{figure}[h!]
+\begin{figure}[h!]o
     \centering
     \begin{subfigure}{\textwidth}
         \centering
@@ -16,7 +16,24 @@ d'être capable de fournir assez de puissance à l'inflamateur lorsque le séque
         \includegraphics[width=0.6\textwidth]{figures/PCB_Allumage_main_back.jpg}
         \caption{(côté interface)}
     \end{subfigure}
-    \caption{Rendu 3D de la carte allumage}
+    \caption{Rendu 3D de la carte allumage principale}
 \end{figure}
+
+\subsubsection{Principe de fonctionnement}
+
+Le système repose sur une alimentation constituée d’une batterie Li-Po de faible puissance associée à un réhausseur de tension,
+permettant la charge d’une banque de condensateurs (déportée de la carte d’allumage principale) à travers une résistance, sur une
+durée courte.\\
+
+Une fois le système armé, cette banque de condensateurs est connectée à deux transistors \acrshort{MOSFET} normalement bloquants.
+L’ordre de mise à feu est transmis par le séquenceur sous forme d’une impulsion commandant deux optocoupleurs, lesquels pilotent
+l’ouverture des \acrshort{MOSFET}. Ceux-ci deviennent alors conducteurs et autorisent le passage du courant.\\
+
+Deux shunts de sécurité, réalisés sous forme de courts-circuits, peuvent être insérés afin d’assurer une protection pyrotechnique.
+En leur absence, un buzzer est activé et la ligne pyrotechnique reliée à l’inflammateur du moteur du second étage est mise sous
+tension.\\
+
+La banque de condensateurs, directement connectée à cette ligne de faible impédance, est alors capable de délivrer un courant
+élevé, suffisant pour activer l’inflammateur et initier la combustion du moteur du deuxième étage.
 
 \newpage
