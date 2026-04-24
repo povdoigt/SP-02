@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  22 APR 2026 14:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  24 APR 2026 14:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1394,17 +1394,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--35
 
  []
 
+<figures/PCB_Alumage_condo.jpg, id=253, 750.55406pt x 344.78813pt>
+File: figures/PCB_Alumage_condo.jpg Graphic file (type jpg)
+<use figures/PCB_Alumage_condo.jpg>
+Package pdftex.def Info: figures/PCB_Alumage_condo.jpg  used on input line 41.
+(pdftex.def)             Requested size: 227.62206pt x 104.5631pt.
 
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 39.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 45.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 39.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 45.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[9 <./figures/PCB_Allumage_main.jpg> <./figures/PCB_Allumage_main_back.jpg>]) (sections/ch5_elec/subsec4_apex.tex
+[9 <./figures/PCB_Allumage_main.jpg> <./figures/PCB_Allumage_main_back.jpg> <./figures/PCB_Alumage_condo.jpg>]) (sections/ch5_elec/subsec4_apex.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--11
 
  []
@@ -1444,7 +1449,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--16
 
  []
 
-<figures/batterie_RS.jpg, id=283, 490.83376pt x 293.59688pt>
+<figures/batterie_RS.jpg, id=285, 490.83376pt x 293.59688pt>
 File: figures/batterie_RS.jpg Graphic file (type jpg)
 <use figures/batterie_RS.jpg>
 Package pdftex.def Info: figures/batterie_RS.jpg  used on input line 20.
@@ -1459,7 +1464,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 29--33
 
  []
 
-<figures/LiPo500.jpg, id=284, 1003.75pt x 1003.75pt>
+<figures/LiPo500.jpg, id=286, 1003.75pt x 1003.75pt>
 File: figures/LiPo500.jpg Graphic file (type jpg)
 <use figures/LiPo500.jpg>
 Package pdftex.def Info: figures/LiPo500.jpg  used on input line 42.
@@ -1517,23 +1522,13 @@ Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 295.
 [14]
 
 Package glossaries Info: Preparing to sort glossary `main' (total number of
-(glossaries)             referenced entries: 9)
+(glossaries)             referenced entries: 4)
 
 
 Package glossaries Info: Preparing to sort glossary `acronym' (total number of
-(glossaries)             referenced entries: 10)
+(glossaries)             referenced entries: 8)
 
 
-
-File: figures/AEROIPSA_HEADER.png Graphic file (type png)
-<use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 299.
-(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
-File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
-<use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 299.
-(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[15]
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
@@ -1543,7 +1538,7 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 301.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[16] (sections/annexe.tex
+[15] (sections/annexe.tex
 
 Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
@@ -1552,7 +1547,7 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 
 
 pdfTeX warning: pdflatex (file ./figures/annexe/SP02_2_STAGE_2.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figures/annexe/SP02_2_STAGE_2.drawio.pdf, id=400, 1690.39525pt x 2384.91pt>
+<figures/annexe/SP02_2_STAGE_2.drawio.pdf, id=379, 1690.39525pt x 2384.91pt>
 File: figures/annexe/SP02_2_STAGE_2.drawio.pdf Graphic file (type pdf)
 <use figures/annexe/SP02_2_STAGE_2.drawio.pdf>
 Package pdftex.def Info: figures/annexe/SP02_2_STAGE_2.drawio.pdf  used on input line 5.
@@ -1563,7 +1558,7 @@ pdfTeX warning: pdflatex (file ./figures/annexe/SP02_2_STAGE_2.drawio.pdf): PDF 
 
 
 pdfTeX warning: pdflatex (file ./figures/annexe/SP02_2_STAGE_2.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figures/annexe/SP02_2_STAGE_2.drawio.pdf, id=402, page=1, 1690.39525pt x 2384.91pt>
+<figures/annexe/SP02_2_STAGE_2.drawio.pdf, id=381, page=1, 1690.39525pt x 2384.91pt>
 File: figures/annexe/SP02_2_STAGE_2.drawio.pdf Graphic file (type pdf)
 <use figures/annexe/SP02_2_STAGE_2.drawio.pdf, page 1>
 Package pdftex.def Info: figures/annexe/SP02_2_STAGE_2.drawio.pdf , page1 used on input line 5.
@@ -1594,7 +1589,7 @@ File: figures/annexe/SP02_2_STAGE_2.drawio.pdf Graphic file (type pdf)
 <use figures/annexe/SP02_2_STAGE_2.drawio.pdf, page 1>
 Package pdftex.def Info: figures/annexe/SP02_2_STAGE_2.drawio.pdf , page1 used on input line 5.
 (pdftex.def)             Requested size: 1690.39114pt x 2384.90422pt.
-[17
+[16
 
  <./figures/annexe/SP02_2_STAGE_2.drawio.pdf>]
 
@@ -1605,7 +1600,7 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 
 
 pdfTeX warning: pdflatex (file ./figures/annexe/SP02_2_STAGE_1.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figures/annexe/SP02_2_STAGE_1.drawio.pdf, id=430, 1690.39525pt x 2384.91pt>
+<figures/annexe/SP02_2_STAGE_1.drawio.pdf, id=409, 1690.39525pt x 2384.91pt>
 File: figures/annexe/SP02_2_STAGE_1.drawio.pdf Graphic file (type pdf)
 <use figures/annexe/SP02_2_STAGE_1.drawio.pdf>
 Package pdftex.def Info: figures/annexe/SP02_2_STAGE_1.drawio.pdf  used on input line 9.
@@ -1616,7 +1611,7 @@ pdfTeX warning: pdflatex (file ./figures/annexe/SP02_2_STAGE_1.drawio.pdf): PDF 
 
 
 pdfTeX warning: pdflatex (file ./figures/annexe/SP02_2_STAGE_1.drawio.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figures/annexe/SP02_2_STAGE_1.drawio.pdf, id=432, page=1, 1690.39525pt x 2384.91pt>
+<figures/annexe/SP02_2_STAGE_1.drawio.pdf, id=411, page=1, 1690.39525pt x 2384.91pt>
 File: figures/annexe/SP02_2_STAGE_1.drawio.pdf Graphic file (type pdf)
 <use figures/annexe/SP02_2_STAGE_1.drawio.pdf, page 1>
 Package pdftex.def Info: figures/annexe/SP02_2_STAGE_1.drawio.pdf , page1 used on input line 9.
@@ -1647,7 +1642,7 @@ File: figures/annexe/SP02_2_STAGE_1.drawio.pdf Graphic file (type pdf)
 <use figures/annexe/SP02_2_STAGE_1.drawio.pdf, page 1>
 Package pdftex.def Info: figures/annexe/SP02_2_STAGE_1.drawio.pdf , page1 used on input line 9.
 (pdftex.def)             Requested size: 1690.39114pt x 2384.90422pt.
-[18
+[17
 
  <./figures/annexe/SP02_2_STAGE_1.drawio.pdf>]
 
@@ -1655,12 +1650,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=459, 1195.02466pt x 845.0471pt>
+<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=438, 1195.02466pt x 845.0471pt>
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf>
 Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf  used on input line 15.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
-<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=461, page=1, 1195.02466pt x 845.0471pt>
+<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=440, page=1, 1195.02466pt x 845.0471pt>
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 1>
 Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page1 used on input line 15.
@@ -1691,7 +1686,7 @@ File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 1>
 Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page1 used on input line 15.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
-[19
+[18
 
  <./figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf>]
 
@@ -1703,7 +1698,7 @@ File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf>
 Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf  used on input line 16.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
-<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=470, page=2, 1195.02466pt x 845.0471pt>
+<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=448, page=2, 1195.02466pt x 845.0471pt>
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 2>
 Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page2 used on input line 16.
@@ -1733,18 +1728,44 @@ Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 16.
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 2>
 Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page2 used on input line 16.
+(pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
+[19
+
+ <./figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf>]
+<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=455, page=3, 1195.02466pt x 845.0471pt>
+File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
+<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 3>
+Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page3 used on input line 16.
+(pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
+File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
+<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 3>
+Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page3 used on input line 16.
+(pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
+
+
+File: figures/AEROIPSA_HEADER.png Graphic file (type png)
+<use figures/AEROIPSA_HEADER.png>
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 16.
+(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
+File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
+<use figures/AEROIPSA_FOOTER.png>
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 16.
+(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
+File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
+<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 3>
+Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page3 used on input line 16.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
 [20
 
  <./figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf>]
-<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=476, page=3, 1195.02466pt x 845.0471pt>
+<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=461, page=4, 1195.02466pt x 845.0471pt>
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
-<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 3>
-Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page3 used on input line 16.
+<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 4>
+Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page4 used on input line 16.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
-<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 3>
-Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page3 used on input line 16.
+<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 4>
+Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page4 used on input line 16.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
 
 
@@ -1757,20 +1778,20 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 16.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
-<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 3>
-Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page3 used on input line 16.
+<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 4>
+Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page4 used on input line 16.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
 [21
 
  <./figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf>]
-<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=482, page=4, 1195.02466pt x 845.0471pt>
+<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=467, page=5, 1195.02466pt x 845.0471pt>
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
-<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 4>
-Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page4 used on input line 16.
+<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 5>
+Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page5 used on input line 16.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
-<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 4>
-Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page4 used on input line 16.
+<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 5>
+Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page5 used on input line 16.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
 
 
@@ -1783,20 +1804,20 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 16.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
-<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 4>
-Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page4 used on input line 16.
+<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 5>
+Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page5 used on input line 16.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
 [22
 
  <./figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf>]
-<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=488, page=5, 1195.02466pt x 845.0471pt>
+<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=473, page=6, 1195.02466pt x 845.0471pt>
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
-<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 5>
-Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page5 used on input line 16.
+<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 6>
+Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page6 used on input line 16.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
-<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 5>
-Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page5 used on input line 16.
+<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 6>
+Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page6 used on input line 16.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
 
 
@@ -1809,36 +1830,10 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 16.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
-<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 5>
-Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page5 used on input line 16.
+<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 6>
+Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page6 used on input line 16.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
 [23
-
- <./figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf>]
-<figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, id=494, page=6, 1195.02466pt x 845.0471pt>
-File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
-<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 6>
-Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page6 used on input line 16.
-(pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
-File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
-<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 6>
-Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page6 used on input line 16.
-(pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
-
-
-File: figures/AEROIPSA_HEADER.png Graphic file (type png)
-<use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 16.
-(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
-File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
-<use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 16.
-(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-File: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf Graphic file (type pdf)
-<use figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf, page 6>
-Package pdftex.def Info: figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf , page6 used on input line 16.
-(pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
-[24
 
  <./figures/annexe/MECA/SP02_ALPHA_AF_BLOC_DRAW.pdf>]
 
@@ -1846,12 +1841,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/MECA/Beta_sepa_principale.pdf, id=500, 1195.02466pt x 845.0471pt>
+<figures/annexe/MECA/Beta_sepa_principale.pdf, id=479, 1195.02466pt x 845.0471pt>
 File: figures/annexe/MECA/Beta_sepa_principale.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_sepa_principale.pdf>
 Package pdftex.def Info: figures/annexe/MECA/Beta_sepa_principale.pdf  used on input line 22.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
-<figures/annexe/MECA/Beta_sepa_principale.pdf, id=502, page=1, 1195.02466pt x 845.0471pt>
+<figures/annexe/MECA/Beta_sepa_principale.pdf, id=481, page=1, 1195.02466pt x 845.0471pt>
 File: figures/annexe/MECA/Beta_sepa_principale.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_sepa_principale.pdf, page 1>
 Package pdftex.def Info: figures/annexe/MECA/Beta_sepa_principale.pdf , page1 used on input line 22.
@@ -1882,7 +1877,7 @@ File: figures/annexe/MECA/Beta_sepa_principale.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_sepa_principale.pdf, page 1>
 Package pdftex.def Info: figures/annexe/MECA/Beta_sepa_principale.pdf , page1 used on input line 22.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
-[25
+[24
 
  <./figures/annexe/MECA/Beta_sepa_principale.pdf>]
 
@@ -1894,7 +1889,7 @@ File: figures/annexe/MECA/Beta_sepa_principale.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_sepa_principale.pdf>
 Package pdftex.def Info: figures/annexe/MECA/Beta_sepa_principale.pdf  used on input line 23.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
-<figures/annexe/MECA/Beta_sepa_principale.pdf, id=511, page=2, 1195.02466pt x 845.0471pt>
+<figures/annexe/MECA/Beta_sepa_principale.pdf, id=489, page=2, 1195.02466pt x 845.0471pt>
 File: figures/annexe/MECA/Beta_sepa_principale.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_sepa_principale.pdf, page 2>
 Package pdftex.def Info: figures/annexe/MECA/Beta_sepa_principale.pdf , page2 used on input line 23.
@@ -1925,7 +1920,7 @@ File: figures/annexe/MECA/Beta_sepa_principale.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_sepa_principale.pdf, page 2>
 Package pdftex.def Info: figures/annexe/MECA/Beta_sepa_principale.pdf , page2 used on input line 23.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
-[26
+[25
 
  <./figures/annexe/MECA/Beta_sepa_principale.pdf>]
 
@@ -1933,12 +1928,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/MECA/Beta_crochet_trappe.pdf, id=517, 845.0471pt x 597.51233pt>
+<figures/annexe/MECA/Beta_crochet_trappe.pdf, id=496, 845.0471pt x 597.51233pt>
 File: figures/annexe/MECA/Beta_crochet_trappe.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_crochet_trappe.pdf>
 Package pdftex.def Info: figures/annexe/MECA/Beta_crochet_trappe.pdf  used on input line 28.
 (pdftex.def)             Requested size: 845.04504pt x 597.51086pt.
-<figures/annexe/MECA/Beta_crochet_trappe.pdf, id=519, page=1, 845.0471pt x 597.51233pt>
+<figures/annexe/MECA/Beta_crochet_trappe.pdf, id=498, page=1, 845.0471pt x 597.51233pt>
 File: figures/annexe/MECA/Beta_crochet_trappe.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_crochet_trappe.pdf, page 1>
 Package pdftex.def Info: figures/annexe/MECA/Beta_crochet_trappe.pdf , page1 used on input line 28.
@@ -1969,7 +1964,7 @@ File: figures/annexe/MECA/Beta_crochet_trappe.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_crochet_trappe.pdf, page 1>
 Package pdftex.def Info: figures/annexe/MECA/Beta_crochet_trappe.pdf , page1 used on input line 28.
 (pdftex.def)             Requested size: 845.04504pt x 597.51086pt.
-[27
+[26
 
  <./figures/annexe/MECA/Beta_crochet_trappe.pdf>]
 
@@ -1977,12 +1972,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf, id=526, 597.51233pt x 845.0471pt>
+<figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf, id=505, 597.51233pt x 845.0471pt>
 File: figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf>
 Package pdftex.def Info: figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf  used on input line 33.
 (pdftex.def)             Requested size: 597.51086pt x 845.04504pt.
-<figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf, id=528, page=1, 597.51233pt x 845.0471pt>
+<figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf, id=507, page=1, 597.51233pt x 845.0471pt>
 File: figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf, page 1>
 Package pdftex.def Info: figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf , page1 used on input line 33.
@@ -2013,7 +2008,7 @@ File: figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf Graphic file (type pdf
 <use figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf, page 1>
 Package pdftex.def Info: figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf , page1 used on input line 33.
 (pdftex.def)             Requested size: 597.51086pt x 845.04504pt.
-[28
+[27
 
  <./figures/annexe/MECA/Beta_maintien_pointe_coiffe.pdf, page is rotated 90 degrees>]
 
@@ -2021,12 +2016,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/MECA/Beta_pointe_coiffe.pdf, id=535, 1195.02466pt x 845.0471pt>
+<figures/annexe/MECA/Beta_pointe_coiffe.pdf, id=514, 1195.02466pt x 845.0471pt>
 File: figures/annexe/MECA/Beta_pointe_coiffe.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_pointe_coiffe.pdf>
 Package pdftex.def Info: figures/annexe/MECA/Beta_pointe_coiffe.pdf  used on input line 38.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
-<figures/annexe/MECA/Beta_pointe_coiffe.pdf, id=537, page=1, 1195.02466pt x 845.0471pt>
+<figures/annexe/MECA/Beta_pointe_coiffe.pdf, id=516, page=1, 1195.02466pt x 845.0471pt>
 File: figures/annexe/MECA/Beta_pointe_coiffe.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_pointe_coiffe.pdf, page 1>
 Package pdftex.def Info: figures/annexe/MECA/Beta_pointe_coiffe.pdf , page1 used on input line 38.
@@ -2057,7 +2052,7 @@ File: figures/annexe/MECA/Beta_pointe_coiffe.pdf Graphic file (type pdf)
 <use figures/annexe/MECA/Beta_pointe_coiffe.pdf, page 1>
 Package pdftex.def Info: figures/annexe/MECA/Beta_pointe_coiffe.pdf , page1 used on input line 38.
 (pdftex.def)             Requested size: 1195.02174pt x 845.04504pt.
-[29
+[28
 
  <./figures/annexe/MECA/Beta_pointe_coiffe.pdf>]
 
@@ -2065,12 +2060,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf, id=544, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf, id=523, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf  used on input line 43.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-<figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf, id=546, page=1, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf, id=525, page=1, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf , page1 used on input line 43.
@@ -2101,7 +2096,7 @@ File: figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf Graphic file (
 <use figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf , page1 used on input line 43.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-[30
+[29
 
  <./figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf>]
 
@@ -2113,7 +2108,7 @@ File: figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf Graphic file (
 <use figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf  used on input line 44.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-<figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf, id=568, page=2, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf, id=547, page=2, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf, page 2>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf , page2 used on input line 44.
@@ -2144,7 +2139,7 @@ File: figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf Graphic file (
 <use figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf, page 2>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf , page2 used on input line 44.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-[31
+[30
 
  <./figures/annexe/ELEC/Schematic_APEX_LE_RETOUR_2026-03-23.pdf>]
 
@@ -2152,12 +2147,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf, id=575, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf, id=553, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf  used on input line 45.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-<figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf, id=577, page=1, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf, id=555, page=1, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf , page1 used on input line 45.
@@ -2188,7 +2183,7 @@ File: figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf Graphic file (ty
 <use figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf , page1 used on input line 45.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-[32
+[31
 
  <./figures/annexe/ELEC/Schematic_SP02_APEX_EX_2026-03-23.pdf>]
 
@@ -2196,12 +2191,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf, id=598, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf, id=577, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf  used on input line 46.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-<figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf, id=600, page=1, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf, id=579, page=1, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf , page1 used on input line 46.
@@ -2232,7 +2227,7 @@ File: figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf Graphic file (type
 <use figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf , page1 used on input line 46.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-[33
+[32
 
  <./figures/annexe/ELEC/Schematic_SP02_PITOT_2026-03-23.pdf>]
 
@@ -2240,12 +2235,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf, id=619, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf, id=598, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf  used on input line 47.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-<figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf, id=621, page=1, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf, id=600, page=1, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf , page1 used on input line 47.
@@ -2276,7 +2271,7 @@ File: figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf Graphic file (typ
 <use figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf , page1 used on input line 47.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-[34
+[33
 
  <./figures/annexe/ELEC/Schematic_SP02_CAMERA_2026-03-23.pdf>]
 
@@ -2284,12 +2279,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf, id=644, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf, id=623, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf  used on input line 48.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-<figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf, id=646, page=1, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf, id=625, page=1, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf , page1 used on input line 48.
@@ -2320,10 +2315,10 @@ File: figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf Graphic
 <use figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf , page1 used on input line 48.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-[35
+[34
 
  <./figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf>]
-<figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf, id=667, page=2, 1173.38374pt x 830.0009pt>
+<figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf, id=646, page=2, 1173.38374pt x 830.0009pt>
 File: figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf, page 2>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf , page2 used on input line 48.
@@ -2346,7 +2341,7 @@ File: figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf Graphic
 <use figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf, page 2>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf , page2 used on input line 48.
 (pdftex.def)             Requested size: 1173.38087pt x 829.99887pt.
-[36
+[35
 
  <./figures/annexe/ELEC/Schematic_SP02_sequenceur_Maxou_2026-03-23.pdf>]
 
@@ -2354,12 +2349,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf, id=673, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf, id=652, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf  used on input line 49.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-<figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf, id=675, page=1, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf, id=654, page=1, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf , page1 used on input line 49.
@@ -2390,7 +2385,7 @@ File: figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf Graphic file (type
 <use figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf , page1 used on input line 49.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-[37
+[36
 
  <./figures/annexe/ELEC/Schematic_SP02_IHM_2_2026-03-23.pdf>]
 
@@ -2398,12 +2393,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf, id=695, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf, id=673, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf  used on input line 50.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-<figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf, id=697, page=1, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf, id=675, page=1, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf , page1 used on input line 50.
@@ -2434,7 +2429,7 @@ File: figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf Graphic 
 <use figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf , page1 used on input line 50.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-[38
+[37
 
  <./figures/annexe/ELEC/Schematic_SP02_Allumage_2_main_2026-03-23.pdf>]
 
@@ -2442,12 +2437,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf, id=714, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf, id=693, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf  used on input line 51.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-<figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf, id=716, page=1, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf, id=695, page=1, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf , page1 used on input line 51.
@@ -2478,7 +2473,7 @@ File: figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf Graphic
 <use figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf , page1 used on input line 51.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-[39
+[38
 
  <./figures/annexe/ELEC/Schematic_SP02_Allumage_2_Condo_2026-03-23.pdf>]
 
@@ -2486,12 +2481,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf, id=730, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf, id=709, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf  used on input line 52.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-<figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf, id=732, page=1, 1173.38374pt x 830.10126pt>
+<figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf, id=711, page=1, 1173.38374pt x 830.10126pt>
 File: figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf , page1 used on input line 52.
@@ -2522,7 +2517,7 @@ File: figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf Graphic 
 <use figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf , page1 used on input line 52.
 (pdftex.def)             Requested size: 1173.38087pt x 830.09924pt.
-[40
+[39
 
  <./figures/annexe/ELEC/Schematic_SP02_CONNECTION_SEPA_2026-03-23.pdf>]
 
@@ -2530,12 +2525,12 @@ Package pdfpages Warning: Option `page' is unknow to \includepdf.
 (pdfpages)                Did you mean `pages'? (Note the `s'!)
 (pdfpages)                OK, I'll proceed as if it were `pages'.
 
-<figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf, id=746, 1173.38374pt x 831.20535pt>
+<figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf, id=725, 1173.38374pt x 831.20535pt>
 File: figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf  used on input line 53.
 (pdftex.def)             Requested size: 1173.38087pt x 831.20332pt.
-<figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf, id=748, page=1, 1173.38374pt x 831.20535pt>
+<figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf, id=727, page=1, 1173.38374pt x 831.20535pt>
 File: figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf Graphic file (type pdf)
 <use figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf , page1 used on input line 53.
@@ -2566,9 +2561,25 @@ File: figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf Graphic file (ty
 <use figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf, page 1>
 Package pdftex.def Info: figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf , page1 used on input line 53.
 (pdftex.def)             Requested size: 1173.38087pt x 831.20332pt.
-[41
+[40
 
- <./figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf>]) 
+ <./figures/annexe/ELEC/Schematic_SP02_ROUTEUR_2026-03-23.pdf>])
+
+Package glossaries Warning: entry `C'Space' indexing changed since previous run (or no previous run) on input line 306.
+
+
+Package glossaries Warning: entry `CNES_g' indexing changed since previous run (or no previous run) on input line 306.
+
+
+Package glossaries Warning: entry `GNSS_g' indexing changed since previous run (or no previous run) on input line 306.
+
+
+Package glossaries Warning: entry `LORA_g' indexing changed since previous run (or no previous run) on input line 306.
+
+
+Package glossaries Warning: Rerun required to get \printnoidxglossary up to date on input line 306.
+
+
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (DossierSuivi_SP02.aux)
  ***********
@@ -2576,20 +2587,32 @@ LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
 Package rerunfilecheck Info: File `DossierSuivi_SP02.out' has not changed.
-(rerunfilecheck)             Checksum: 1785E4264E335F499C093AF77007FD84;6086.
+(rerunfilecheck)             Checksum: D95C315D9E1D5070FB0C8A08415EC015;6086.
  ) 
 Here is how much of TeX's memory you used:
- 42569 strings out of 468129
- 868454 string characters out of 5430612
+ 42556 strings out of 468129
+ 868215 string characters out of 5430612
  1383863 words of memory out of 5000000
- 70370 multiletter control sequences out of 15000+600000
+ 70360 multiletter control sequences out of 15000+600000
  686439 words of font info for 69 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 84i,20n,91p,2582b,963s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,20n,91p,2582b,723s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{glo:LORA_g} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{glo:GNSS_g} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{glo:CNES_g} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{glo:C'Space} has been referenced but does not exist, replaced by a fixed one
+
 <C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri8.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtk10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
-Output written on DossierSuivi_SP02.pdf (41 pages, 6675572 bytes).
+Output written on DossierSuivi_SP02.pdf (40 pages, 6736029 bytes).
 PDF statistics:
- 863 PDF objects out of 1000 (max. 8388607)
- 113 named destinations out of 1000 (max. 500000)
- 623 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 842 PDF objects out of 1000 (max. 8388607)
+ 110 named destinations out of 1000 (max. 500000)
+ 628 words of extra memory for PDF output out of 10000 (max. 10000000)
 
