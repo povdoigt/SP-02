@@ -4,42 +4,226 @@
 La ligne de mise à feu est conçue pour assurer un allumage fiable et sécurisé du moteur du 2e étage de la fusée. Son objectif est
 d'être capable de fournir assez de puissance à l'inflamateur lorsque le séquenceur donne l'odre de la mise à feu.
 
-\begin{figure}[h!]
+% \begin{figure}[h!]
+%     \centering
+%     \begin{subfigure}{\textwidth}
+%         \centering
+%         \includegraphics[width=0.6\textwidth]{figures/PCB_Allumage_main.jpg}
+%         \caption{(côté composants)}
+%     \end{subfigure}
+%     \begin{subfigure}{\textwidth}
+%         \centering
+%         \includegraphics[width=0.6\textwidth]{figures/PCB_Allumage_main_back.jpg}
+%         \caption{(côté interface)}
+%     \end{subfigure}
+%     \caption{Rendu 3D de la carte allumage principale}
+% \end{figure}
+
+\begin{figure}[!h]
     \centering
-    \begin{subfigure}{\textwidth}
-        \centering
-        \includegraphics[width=0.6\textwidth]{figures/PCB_Allumage_main.jpg}
-        \caption{(côté composants)}
-    \end{subfigure}
-    \begin{subfigure}{\textwidth}
-        \centering
-        \includegraphics[width=0.6\textwidth]{figures/PCB_Allumage_main_back.jpg}
-        \caption{(côté interface)}
-    \end{subfigure}
-    \caption{Rendu 3D de la carte allumage principale}
+    \begin{tabular}{rl}
+        \begin{tabular}[b]{c}% if you add [t], than sub images are pushed down
+            \begin{subfigure}{0.5\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figures/PCB_Allumage_main.jpg}
+                \caption{(principale, côté composants)}
+            \end{subfigure}\\
+            \begin{subfigure}{0.5\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{figures/PCB_Allumage_main_back.jpg}
+                \caption{(principale, côté interface)}
+            \end{subfigure}
+        \end{tabular}
+        &
+        \begin{subfigure}{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth,angle=90]{figures/PCB_Alumage_condo.jpg}
+            \caption{(condensateurs)}
+        \end{subfigure}
+    \end{tabular}
+    \caption{Rendu 3D des cartes PCBs principale et condensateurs dy système d'allumage}
 \end{figure}
 
 \subsubsection{Principe de fonctionnement}
 
-Le système repose sur une alimentation constituée d’une batterie Li-Po de faible puissance associée à un réhausseur de tension,
-permettant la charge d’une banque de condensateurs (déportée de la carte d’allumage principale) à travers une résistance, sur une
-durée courte.\\
+\begin{minipage}{0.55\textwidth}
+    Le système repose sur une alimentation constituée d’une batterie Li-Po de faible puissance associée à un réhausseur de
+    tension, permettant la charge d’une banque de condensateurs (déportée de la carte d’allumage principale) à travers une
+    résistance, sur une durée courte.\\
 
-Une fois le système armé, cette banque de condensateurs est connectée à deux transistors \acrshort{MOSFET} normalement bloquants.
-L’ordre de mise à feu est transmis par le séquenceur sous forme d’une impulsion commandant deux optocoupleurs, lesquels pilotent
-l’ouverture des \acrshort{MOSFET}. Ceux-ci deviennent alors conducteurs et autorisent le passage du courant.\\
+    Une fois le système armé, cette banque de condensateurs est connectée à deux transistors \acrshort{MOSFET} normalement
+    bloquants. L’ordre de mise à feu est transmis par le séquenceur sous forme d’une impulsion commandant deux optocoupleurs,
+    lesquels pilotent l’ouverture des \acrshort{MOSFET}. Ceux-ci deviennent alors conducteurs et autorisent le passage du
+    courant.\\
 
-Deux shunts de sécurité, réalisés sous forme de courts-circuits, peuvent être insérés afin d’assurer une protection pyrotechnique.
-En leur absence, un buzzer est activé et la ligne pyrotechnique reliée à l’inflammateur du moteur du second étage est mise sous
-tension.\\
+    Deux shunts de sécurité, réalisés sous forme de courts-circuits, peuvent être insérés afin d’assurer une protection
+    pyrotechnique. En leur absence, un buzzer est activé et la ligne pyrotechnique reliée à l’inflammateur du moteur du second
+    étage est mise sous tension.
+\end{minipage}
+\hfill
+\begin{minipage}{0.40\textwidth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figures/syno_allumage.jpg}
+        \caption{Zoom sur le sinopsis de la ligne de mise à feu (ref. annexe \ref{subsec:synoptique_fusee})}
+    \end{figure}
+\end{minipage}
+
+\newpage
 
 La banque de condensateurs, directement connectée à cette ligne de faible impédance, est alors capable de délivrer un courant
-élevé, suffisant pour activer l’inflammateur et initier la combustion du moteur du deuxième étage.
+élevé, suffisant pour activer l'inflammateur et initier la combustion du moteur du deuxième étage.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/PCB_Alumage_condo.jpg}
-    \caption{Rendu 3D de la carte allumage condensateur}
+    \includegraphics[width=\textwidth]{figures/Syno_Allumage_2.jpg}
+    \caption{Schéma de la ligne de mise à feu}
+    \label{fig:schema_allumage}
 \end{figure}
+
+Le schema ci-haut (figure \ref{fig:schema_allumage}) présente une autre vision de la ligne de mise à feu.
+
+\subsubsubsection{Circuit de charge/décharge des condensateurs}
+
+Le circuit de charge/décharge des condensateurs est conçu pour assurer une charge et une décharge contrôlées de la banque de
+condensateur à l'aide de résistances évitant les courants d'appel élevés qui pourraient endommager les composants ou présenter un
+danger pour les opérateurs.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.55\textwidth]{figures/Syno_allumage_charge.jpg}
+    \caption{Zoom sur le circuit de charge/décharge des condensateurs}
+    \label{fig:schema_allumage_charge}
+\end{figure}
+
+Il se compose en premier lieu d'un interrupteur batterie qui permet d'alimenter ou de couper l'alimentation de la ligne de mise à
+feu. Lorsque l'interrupteur est fermé, une led rouge s'allume. La batterie alimente un circuit réhausseur de tension passant de
+3.7V à 24V et basé sur le composants MSKSEMI-MSDB628. Cela permet d'augmenter la densité énergétique stockée dans les
+condensateurs. Ensuite, deux boutons poussoir autobloquant nommé "charge" et "décharge" permet connecter la banque de
+condensateurs soit au 24V, soit à la masse et ce au travers d'une résistance de 402 $\Omega$. Le courant maximal de charge ou de
+décharge est alors de :
+
+$$I = \frac{V}{R} = \frac{24V}{402\Omega} \approx 60mA$$
+
+\subsubsubsection{Circuit condensateurs}
+
+Le circuit de condensateurs est conçu pour stocker l'énergie nécessaire à l'allumage du moteur du deuxième étage et pour la
+délivrer suffisamment rapidement lorsque le séquenceur donne l'ordre de mise à feu.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.55\textwidth]{figures/Syno_Allumage_Condo.jpg}
+    \caption{Zoom sur le circuit de condensateurs}
+    \label{fig:schema_allumage_condensateurs}
+\end{figure}
+
+Il se compose d'une banque de 5 condensateurs électrolytiques de 2200 $\mu$F chacun, connectés en parallèle, ce qui donne une
+capacité totale de 11 mF.\\
+
+Il est écrit dans le \acrlong{CDC} :
+
+\begin{quote}
+    (Règle) \textit{INF1 : Pour détoner, l’inflammateur doit être alimenté par un courant de 4A pendant 30ms.
+    Sa résistance interne (tant qu’il n’a pas détoné) est de 1$\Omega$.}\newline\cite[p.~73]{CDC_BiEtage}
+\end{quote}
+
+La cinématique de décharge des condensateurs est donnée par la formule suivante :
+
+\begin{align*}
+    I(t) &= \frac{V_{max}}{R} e^{-\frac{t}{RC}} \\
+    &= \frac{24}{1} e^{-\frac{t}{1\times0.011}} \\
+    &\approx 24e^{-\frac{t}{0.011}}
+\end{align*}
+
+Vu que la fonction est bijective, on peut également déterminer la fonction inverse qui nous donne l'instant à laquel le courant
+atteint une valeur donnée :
+
+\begin{align*}
+    I &= \frac{V_{max}}{R} e^{-\frac{t(I)}{RC}} \\
+    \frac{RI}{V_{max}} &= e^{-\frac{t(I)}{RC}} \\
+    \ln{\left(\frac{V_{max}}{RI}\right)} &= -\frac{t(I)}{RC} \\
+    t(I) &= RC\ln{\left(\frac{V_{max}}{RI}\right)} \\
+    t(I) &= 0.011 \times \ln{\left(\frac{24}{I}\right)}
+\end{align*}
+
+Cela nous permet de trouver l'instant tel que système se trouve en dessous des 4 A : $t(4) = 0.0197 s$. Cependant, la présence
+d'un eFuse change cette dynamique. Le eFuse en sortie de la banque de condensateurs est conçu pour permettre une décharge
+contrôlée en limitant le courant à une valeur arbitrée à 6A. Lorsque la ligne de mise à feu est armée et qu'elle doit fournir le
+courant nécessaire à l'allumage du moteur du deuxième étage, le eFuse empêche les condensateurs à se décharger à leur plein
+pententiel. Il contraint le courant à 6A pendant une durée de 168ms avant de se mettre en sécurité et de couper la ligne de mise
+à feu. Il suffit de le réinitialiser en déchargeant les condensateurs pour pouvoir réarmer le eFuse.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/allumage_matlab.jpg}
+    \caption{Simulation matlab}
+\end{figure}
+
+On remarque qu'avec la présence du limiteur de courant, la barre des 4 A est atteinte bien après les 30 ms.
+
+\newpage
+
+\subsubsubsection{Circuit isolateur}
+
+Le circuit isolateur est conçu pour assurer une isolation galvanique entre la ligne de mise à feu et les autres éléments du
+système électronique de la fusée tout en permettant la transmission du signal de mise à feu du séquenceur au circuit d'allumage.
+
+\begin{minipage}{0.45\textwidth}
+    Il se compose tout d'abord de deux interrupteurs correspondant aux interrupteur des pyrotechniciens.\\
+
+    Puis, deux optocoupleurs et de deux transistors \acrshort{MOSFET} jouant le rôle respectivement de commutateur à haut
+    potentiel et de commutateur à bas potentiel, l'un étant sur la ligne positive et l'autre sur la ligne neutre.\\
+    
+    Lorsque le séquenceur donne l'ordre de mise à feu, il envoie une impulsion qui active les optocoupleurs. Ceux-ci pilotent
+    l'ouverture des \acrshort{MOSFET} qui deviennent alors conducteurs et permettent le passage du courant de la banque de
+    condensateurs vers l'inflammateur du moteur du deuxième étage.
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figures/Syno_Alumage_Iso.jpg}
+        \caption{Zoom sur le circuit isolateur}
+        \label{fig:schema_allumage_isolateur}
+    \end{figure}
+\end{minipage}
+
+\subsubsubsection{Circuit final}
+
+La fin du circuit comporte un buzzer, deux shunts et une résistance à relativement haute impédence.\\
+
+\begin{minipage}{0.4\textwidth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figures/Syno_Allumage_end.jpg}
+        \caption{Zoom sur le circuit final}
+        \label{fig:schema_allumage_final}
+    \end{figure}
+\end{minipage}
+\hfill
+\begin{minipage}{0.55\textwidth}
+    Le buzzer joue le rôle d'indicateur sonore indiquant que la ligne pyrotechnique est sous tension.\\
+
+    Les deux shunts sont des sécurités supplémentaires faisant court-circuit au cas où un courant est présent alors que les
+    conditions d'allumage ne sont pas réuni. En pratique, qu'un seul des deux shunts sera utilisé et sera attaché à la rampe de la fusée rendat ainsi les
+    opérations aux sols plus sûr. \\
+
+    La résistance permet au système de se déchargé une fois l'inflamateur utilisé.
+\end{minipage}
+
+\subsubsection{Interface}
+
+\begin{minipage}{0.65\textwidth}
+    Blablabla
+\end{minipage}
+\hfill
+\begin{minipage}{0.3\textwidth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\textwidth, angle=90]{figures/PCB_Alumage_main_interface.jpg}
+        \caption{Zoom sur l'interface de la carte principale du système d'allumage}
+    \end{figure}
+\end{minipage}
+
 
 \newpage
