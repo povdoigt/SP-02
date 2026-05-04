@@ -4,21 +4,6 @@
 La ligne de mise à feu est conçue pour assurer un allumage fiable et sécurisé du moteur du 2e étage de la fusée. Son objectif est
 d'être capable de fournir assez de puissance à l'inflamateur lorsque le séquenceur donne l'odre de la mise à feu.
 
-% \begin{figure}[h!]
-%     \centering
-%     \begin{subfigure}{\textwidth}
-%         \centering
-%         \includegraphics[width=0.6\textwidth]{figures/PCB_Allumage_main.jpg}
-%         \caption{(côté composants)}
-%     \end{subfigure}
-%     \begin{subfigure}{\textwidth}
-%         \centering
-%         \includegraphics[width=0.6\textwidth]{figures/PCB_Allumage_main_back.jpg}
-%         \caption{(côté interface)}
-%     \end{subfigure}
-%     \caption{Rendu 3D de la carte allumage principale}
-% \end{figure}
-
 \begin{figure}[!h]
     \centering
     \begin{tabular}{rl}
@@ -37,7 +22,7 @@ d'être capable de fournir assez de puissance à l'inflamateur lorsque le séque
         &
         \begin{subfigure}{0.4\textwidth}
             \centering
-            \includegraphics[width=\textwidth,angle=90]{figures/PCB_Alumage_condo.jpg}
+            \includegraphics[width=\textwidth]{figures/PCB_Allumage_Condo_2.jpg}
             \caption{(condensateurs)}
         \end{subfigure}
     \end{tabular}
@@ -83,7 +68,7 @@ La banque de condensateurs, directement connectée à cette ligne de faible imp�
 
 Le schema ci-haut (figure \ref{fig:schema_allumage}) présente une autre vision de la ligne de mise à feu.
 
-\subsubsubsection{Circuit de charge/décharge des condensateurs}
+\paragraph*{Circuit de charge/décharge des condensateurs}
 
 Le circuit de charge/décharge des condensateurs est conçu pour assurer une charge et une décharge contrôlées de la banque de
 condensateur à l'aide de résistances évitant les courants d'appel élevés qui pourraient endommager les composants ou présenter un
@@ -105,20 +90,22 @@ décharge est alors de :
 
 $$I = \frac{V}{R} = \frac{24V}{402\Omega} \approx 60mA$$
 
-\subsubsubsection{Circuit condensateurs}
+\paragraph*{Circuit condensateurs}
 
 Le circuit de condensateurs est conçu pour stocker l'énergie nécessaire à l'allumage du moteur du deuxième étage et pour la
 délivrer suffisamment rapidement lorsque le séquenceur donne l'ordre de mise à feu.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.55\textwidth]{figures/Syno_Allumage_Condo.jpg}
+    \includegraphics[width=0.5\textwidth]{figures/Syno_Allumage_Condo.jpg}
     \caption{Zoom sur le circuit de condensateurs}
     \label{fig:schema_allumage_condensateurs}
 \end{figure}
 
-Il se compose d'une banque de 5 condensateurs électrolytiques de 2200 $\mu$F chacun, connectés en parallèle, ce qui donne une
-capacité totale de 11 mF.\\
+Il se compose d'une banque de 6 condensateurs électrolytiques de 4700 $\mu$F chacun, connectés en parallèle, ce qui donne une
+capacité totale de 28.2 mF.
+
+\newpage
 
 Il est écrit dans le \acrlong{CDC} :
 
@@ -131,8 +118,8 @@ La cinématique de décharge des condensateurs est donnée par la formule suivan
 
 \begin{align*}
     I(t) &= \frac{V_{max}}{R} e^{-\frac{t}{RC}} \\
-    &= \frac{24}{1} e^{-\frac{t}{1\times0.011}} \\
-    &\approx 24e^{-\frac{t}{0.011}}
+    &= \frac{24}{1} e^{-\frac{t}{1\times0.0282}} \\
+    &\approx 24e^{-\frac{t}{0.0282}}
 \end{align*}
 
 Vu que la fonction est bijective, on peut également déterminer la fonction inverse qui nous donne l'instant à laquel le courant
@@ -143,27 +130,20 @@ atteint une valeur donnée :
     \frac{RI}{V_{max}} &= e^{-\frac{t(I)}{RC}} \\
     \ln{\left(\frac{V_{max}}{RI}\right)} &= -\frac{t(I)}{RC} \\
     t(I) &= RC\ln{\left(\frac{V_{max}}{RI}\right)} \\
-    t(I) &= 0.011 \times \ln{\left(\frac{24}{I}\right)}
+    t(I) &= 0.0282 \times \ln{\left(\frac{24}{I}\right)}
 \end{align*}
 
-Cela nous permet de trouver l'instant tel que système se trouve en dessous des 4 A : $t(4) = 0.0197 s$. Cependant, la présence
-d'un eFuse change cette dynamique. Le eFuse en sortie de la banque de condensateurs est conçu pour permettre une décharge
-contrôlée en limitant le courant à une valeur arbitrée à 6A. Lorsque la ligne de mise à feu est armée et qu'elle doit fournir le
-courant nécessaire à l'allumage du moteur du deuxième étage, le eFuse empêche les condensateurs à se décharger à leur plein
-pententiel. Il contraint le courant à 6A pendant une durée de 168ms avant de se mettre en sécurité et de couper la ligne de mise
-à feu. Il suffit de le réinitialiser en déchargeant les condensateurs pour pouvoir réarmer le eFuse.
+Cela nous permet de trouver l'instant tel que système se trouve en dessous des 4 A : $t(4) = 50.52\ ms$. Nous sommes donc
+bien au dessus des 30 ms requis pour l'allumage de l'inflammateur. Nous pouvons également calculer le delta de courant entre
+ce que le cahier des charges demande et ce que le système délivre à l'instant de 30 ms : $I(0.03) = 8.283\ A$. Nous avons donc une
+marge de 4.283 A à l'instant de 30 ms, ce qui est largement suffisant pour assurer un allumage fiable du moteur du deuxième étage.\\
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{figures/allumage_matlab.jpg}
-    \caption{Simulation matlab}
-\end{figure}
-
-On remarque qu'avec la présence du limiteur de courant, la barre des 4 A est atteinte bien après les 30 ms.
+On estime le temps de charge complet théorique de la banque de condensateurs à 5 fois la constante de temps, soit :
+$5\tau = 5\times RC = 5 \times 402 \times 0.0282 = 5 \times 11.3364 = 56.682\ s$
 
 \newpage
 
-\subsubsubsection{Circuit isolateur}
+\paragraph*{Circuit isolateur}
 
 Le circuit isolateur est conçu pour assurer une isolation galvanique entre la ligne de mise à feu et les autres éléments du
 système électronique de la fusée tout en permettant la transmission du signal de mise à feu du séquenceur au circuit d'allumage.
@@ -188,7 +168,7 @@ système électronique de la fusée tout en permettant la transmission du signal
     \end{figure}
 \end{minipage}
 
-\subsubsubsection{Circuit final}
+\paragraph*{Circuit final}
 
 La fin du circuit comporte un buzzer, deux shunts et une résistance à relativement haute impédence.\\
 
@@ -205,19 +185,26 @@ La fin du circuit comporte un buzzer, deux shunts et une résistance à relative
     Le buzzer joue le rôle d'indicateur sonore indiquant que la ligne pyrotechnique est sous tension.\\
 
     Les deux shunts sont des sécurités supplémentaires faisant court-circuit au cas où un courant est présent alors que les
-    conditions d'allumage ne sont pas réuni. En pratique, qu'un seul des deux shunts sera utilisé et sera attaché à la rampe de la fusée rendat ainsi les
-    opérations aux sols plus sûr. \\
+    conditions d'allumage ne sont pas réuni. En pratique, qu'un seul des deux shunts sera utilisé et sera attaché à la rampe de
+    la fusée rendat ainsi les opérations aux sols plus sûr. \\
 
-    La résistance permet au système de se déchargé une fois l'inflamateur utilisé.
+    La résistance permet au système de se déchargé une fois l'inflammateur utilisé.
 \end{minipage}
 
 \subsubsection{Interface}
 
-\begin{minipage}{0.65\textwidth}
-    Blablabla
+\begin{minipage}{0.55\textwidth}
+    L'interface du système d'allumage se compose de 3 interrupteurs, de 2 boutons autobloquant et de 6 LEDs.\\
+
+    Parmi les 3 interrupteurs, le premier (le plus haut) est nommé interrupteur \verb|BAT|. Il connecte ou déconnecte la batterie
+    au système. Lorsque la batterie est connecté, la led nommé \verb|BAT| s'illumine en rouge.\\
+    
+    Les deux autres inerrupteurs correspondent aux interrupteurs pyrotechique. Ils connectent (respectivement de haut en bas) le 
+    haut potentielle (\verb|VCC|) et le bas potentiel (\verb|GND|) des condensateurs aux \acrshort{MOSFET} de blocage. La led
+    \verb|ARME| indique le niveau de tension entre les deux \acrshort{MOSFET} entre 0 et 24 V.\\
 \end{minipage}
 \hfill
-\begin{minipage}{0.3\textwidth}
+\begin{minipage}{0.4\textwidth}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.9\textwidth, angle=90]{figures/PCB_Alumage_main_interface.jpg}
@@ -225,5 +212,51 @@ La fin du circuit comporte un buzzer, deux shunts et une résistance à relative
     \end{figure}
 \end{minipage}
 
+\vspace{0.2cm}
+
+Le bouton de gauche (nommé \verb|CHARGE|) permet de charger les condensateurs tandi que le bouton de droite (nommé
+\verb|DECHARGE|) permet de les décharger. Pour les deux boutons, lorsque l'un d'entre eux est enfoncé, une led située juste
+au dessus de lui s'illumine en bleu indiquant l'état courant de charge ou de décharge. A noté que le fait de charger et décharger
+les condensateurs en même temps a pour effet potentiel de placer les condensateurs dans un état indéterminé mais non dangereux.\\
+
+La led nommée \verb|CONDO| indique l'état de charge des condensateurs entre 0 et 24 V.\\
+
+La led nommée \verb|SEQ| indique l'état du signal électrique venant du séquenceur et commendant l'état ouvert ou fermé des
+\acrshort{MOSFET}.\\
+
+A noté que toutes les led sont directement allimenté par la batterie et non pas les condensateurs, permettant ainsi de maximiser
+l'énergie présent dans la banque de condensateur avant libération d'énergie dans l'inflamateur.
+
+\subsubsection{Séquence de vol}
+
+Voici la chronologie des événements attendu concernant la ligne de mise à feu :
+
+\begin{enumerate}
+    \item Vérifier la présence du shunt de sécurité et de son bon état. 
+    \item Vérifier l'état de tous les interrupteurs: \verb|OFF|.
+    \item Vérifier l'état de toutes les LEDs: éteint.
+    \item Changer l'état de l'interrupteur \verb|BAT| à \verb|ON|.
+    \item Vérifier que la led \verb|BAT| s'allume en \textcolor{red}{rouge} et que les autres LEDs restent éteintes.
+    \item Si la les \verb|DECHARGE| s'allume en \textcolor{blue}{bleu}, changer l'état du bouton \verb|DECHARGE| à \verb|OFF|.
+\end{enumerate}
+A cette étape, le système est prêt à être charger en énergie.
+\begin{enumerate}[resume]
+    \item Changer l'état du bouton \verb|CHARGE| à \verb|ON|.
+    \item Vérifier que la led \verb|CHARGE| s'allume en \textcolor{blue}{bleu}.
+    \item Attendre 1 minute pour que les condensateurs soient complètement chargé.
+    \item Vérifier que la led \verb|CONDO| soit allumée en \textcolor{red}{rouge}.
+    \item Vérifier que la led \verb|SEQ| soit éteinte et que le buzzer soit éteint.
+\end{enumerate}
+A cette étape, le système est prêt à être armé.
+\begin{enumerate}[resume]
+    \item Changer l'état de l'interrupteur \verb|VCC| à \verb|ON|.
+    \item Changer l'état de l'interrupteur \verb|GND| à \verb|ON|.
+    \item Vérifier que la led \verb|ARME| s'allume en \textcolor{green}{vert}.
+    \item Vérifier que la led \verb|CHARGE| est toujours allumée en \textcolor{blue}{bleu}.
+\end{enumerate}
+A cette étape, le système est armé et prêt à être mis à feu. C'est l'état final du système avant le lancement de la fusée.\\
+
+Lorsque le séquenceur donne l'ordre de mise à feu, la led \verb|SEQ| s'allume en \textcolor{red}{rouge}. Le buzzer se met
+également en route tant qu'il y a du courant dans les condensateurs et que les shunts de sécurité ne sont pas en place.
 
 \newpage
