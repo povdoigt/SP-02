@@ -23,6 +23,7 @@
 /* USER CODE BEGIN 0 */
 
 #include "STS.h"
+#include "project.h"
 
 /* USER CODE END 0 */
 
@@ -411,10 +412,10 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 #ifdef USART3
   UART_buffer_t uart_buffer_3 = { 0 };
 #endif
-#ifdef UART4
+#ifdef USART4
   UART_buffer_t uart_buffer_4 = { 0 };
 #endif
-#ifdef UART5
+#ifdef USART5
   UART_buffer_t uart_buffer_5 = { 0 };
 #endif
 
@@ -434,18 +435,18 @@ void UART_get_buffer(UART_HandleTypeDef *huart, UART_buffer_t **buffer_obj_ptr) 
     *buffer_obj_ptr = &uart_buffer_3;
   } else
 #endif
-#ifdef UART4
-  if (huart->Instance == UART4) {
+#ifdef USART4
+  if (huart->Instance == USART4) {
     *buffer_obj_ptr = &uart_buffer_4;
   } else
 #endif
-#ifdef UART5
-  if (huart->Instance == UART5) {
+#ifdef USART5
+  if (huart->Instance == USART5) {
     *buffer_obj_ptr = &uart_buffer_5;
   } else
 #endif
   {
-    *buffer_obj_ptr = NULL; // Unknown UART instance
+    *buffer_obj_ptr = NULL; // Unknown USART instance
   }
 }
 
@@ -465,6 +466,11 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
   //   // HAL_UART_Abort_IT(huart); // Dont work if not aborted for some reason...
   //   WT901B_UART_Callback_RX_IRQHandler(&wt901b, Size);
   // }
+
+  if (huart->Instance == USART4) {
+    HAL_UART_AbortReceive_IT(huart);
+    flag_rx = true; // Set flag to indicate data reception for USART4
+  }
 
   UART_buffer_t *buffer_obj;
   UART_get_buffer(huart, &buffer_obj);

@@ -66,10 +66,10 @@ typedef struct UART_buffer_t {
 #ifdef USART3
   extern UART_buffer_t uart_buffer_3;
 #endif
-#ifdef UART4
+#ifdef USART4
   extern UART_buffer_t uart_buffer_4;
 #endif
-#ifdef UART5
+#ifdef USART5
   extern UART_buffer_t uart_buffer_5;
 #endif
 
