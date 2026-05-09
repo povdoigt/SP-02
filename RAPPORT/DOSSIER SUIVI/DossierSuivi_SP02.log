@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  4 MAY 2026 17:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.6)  6 MAY 2026 13:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1317,18 +1317,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--7
 
  []
 
+<figures/PCB_Sequenceur_front.jpg, id=171, 466.74374pt x 662.475pt>
+File: figures/PCB_Sequenceur_front.jpg Graphic file (type jpg)
+<use figures/PCB_Sequenceur_front.jpg>
+Package pdftex.def Info: figures/PCB_Sequenceur_front.jpg  used on input line 12.
+(pdftex.def)             Requested size: 153.64384pt x 218.07156pt.
+<figures/PCB_Sequenceur_back.jpg, id=172, 447.92343pt x 636.87938pt>
+File: figures/PCB_Sequenceur_back.jpg Graphic file (type jpg)
+<use figures/PCB_Sequenceur_back.jpg>
+Package pdftex.def Info: figures/PCB_Sequenceur_back.jpg  used on input line 18.
+(pdftex.def)             Requested size: 153.64384pt x 218.45056pt.
 
-Overfull \hbox (25.95097pt too wide) in paragraph at lines 30--32
+Overfull \hbox (25.95097pt too wide) in paragraph at lines 46--48
 []\T1/lmr/m/n/10 Les sé-quen-ceurs s'ap-puient sur une carte élec-tro-nique dé-diée in-té-grant un mi-cro-con-trô-leur STM32F072R8T6,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 30--32
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 55--56
+Underfull \hbox (badness 10000) in paragraph at lines 46--48
 
  []
 
@@ -1336,24 +1341,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--56
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 66.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 59.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 66.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 59.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[6]
-<figures/Sequenceur1.drawio.png, id=181, 532.99126pt x 1143.27126pt>
+[6 <./figures/PCB_Sequenceur_front.jpg> <./figures/PCB_Sequenceur_back.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 71--72
+
+ []
+
+<figures/Sequenceur1.drawio.png, id=185, 532.99126pt x 1143.27126pt>
 File: figures/Sequenceur1.drawio.png Graphic file (type png)
 <use figures/Sequenceur1.drawio.png>
-Package pdftex.def Info: figures/Sequenceur1.drawio.png  used on input line 87.
+Package pdftex.def Info: figures/Sequenceur1.drawio.png  used on input line 103.
 (pdftex.def)             Requested size: 174.81284pt x 374.97795pt.
-<figures/Sequenceur2.drawio.png, id=182, 583.17876pt x 1074.0125pt>
+<figures/Sequenceur2.drawio.png, id=186, 583.17876pt x 1074.0125pt>
 File: figures/Sequenceur2.drawio.png Graphic file (type png)
 <use figures/Sequenceur2.drawio.png>
-Package pdftex.def Info: figures/Sequenceur2.drawio.png  used on input line 92.
+Package pdftex.def Info: figures/Sequenceur2.drawio.png  used on input line 108.
 (pdftex.def)             Requested size: 174.81284pt x 321.94402pt.
-
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
@@ -1361,59 +1369,59 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 98.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 114.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 98.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 114.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 [7{C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 106--107
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 112--113
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 122--123
 
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 128--129
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 138--139
+
+ []
+
+
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 129.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 145.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 129.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 145.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 [8 <./figures/Sequenceur1.drawio.png> <./figures/Sequenceur2.drawio.png>]
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
-Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 141.
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 157.
 (pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
 File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
-Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 141.
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 157.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 [9]) (sections/ch5_elec/subsec3_ligne_mise_a_feu.tex
-<figures/PCB_Allumage_main.jpg, id=207, 941.01563pt x 330.48468pt>
+<figures/PCB_Allumage_main.jpg, id=210, 941.01563pt x 330.48468pt>
 File: figures/PCB_Allumage_main.jpg Graphic file (type jpg)
 <use figures/PCB_Allumage_main.jpg>
 Package pdftex.def Info: figures/PCB_Allumage_main.jpg  used on input line 13.
 (pdftex.def)             Requested size: 227.62206pt x 79.9382pt.
-<figures/PCB_Allumage_main_back.jpg, id=208, 884.55469pt x 316.93407pt>
+<figures/PCB_Allumage_main_back.jpg, id=211, 884.55469pt x 316.93407pt>
 File: figures/PCB_Allumage_main_back.jpg Graphic file (type jpg)
 <use figures/PCB_Allumage_main_back.jpg>
 Package pdftex.def Info: figures/PCB_Allumage_main_back.jpg  used on input line 18.
 (pdftex.def)             Requested size: 227.62206pt x 81.5546pt.
-<figures/PCB_Allumage_Condo_2.jpg, id=209, 654.94687pt x 631.60968pt>
+<figures/PCB_Allumage_Condo_2.jpg, id=212, 654.94687pt x 631.60968pt>
 File: figures/PCB_Allumage_Condo_2.jpg Graphic file (type jpg)
 <use figures/PCB_Allumage_Condo_2.jpg>
 Package pdftex.def Info: figures/PCB_Allumage_Condo_2.jpg  used on input line 25.
@@ -1443,7 +1451,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 39--43
 
  []
 
-<figures/syno_allumage.jpg, id=212, 391.4625pt x 492.33937pt>
+<figures/syno_allumage.jpg, id=215, 391.4625pt x 492.33937pt>
 File: figures/syno_allumage.jpg Graphic file (type jpg)
 <use figures/syno_allumage.jpg>
 Package pdftex.def Info: figures/syno_allumage.jpg  used on input line 52.
@@ -1465,17 +1473,17 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 57.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 [10 <./figures/PCB_Allumage_main.jpg> <./figures/PCB_Allumage_main_back.jpg> <./figures/PCB_Allumage_Condo_2.jpg> <./figures/syno_allumage.jpg>]
-<figures/Syno_Allumage_2.jpg, id=221, 1279.78125pt x 331.99031pt>
+<figures/Syno_Allumage_2.jpg, id=224, 1279.78125pt x 331.99031pt>
 File: figures/Syno_Allumage_2.jpg Graphic file (type jpg)
 <use figures/Syno_Allumage_2.jpg>
 Package pdftex.def Info: figures/Syno_Allumage_2.jpg  used on input line 64.
 (pdftex.def)             Requested size: 455.24411pt x 118.09799pt.
-<figures/Syno_allumage_charge.jpg, id=223, 1313.6578pt x 370.38374pt>
+<figures/Syno_allumage_charge.jpg, id=226, 1313.6578pt x 370.38374pt>
 File: figures/Syno_allumage_charge.jpg Graphic file (type jpg)
 <use figures/Syno_allumage_charge.jpg>
 Package pdftex.def Info: figures/Syno_allumage_charge.jpg  used on input line 79.
 (pdftex.def)             Requested size: 250.38564pt x 70.59404pt.
-<figures/Syno_Allumage_Condo.jpg, id=224, 275.52937pt x 106.14656pt>
+<figures/Syno_Allumage_Condo.jpg, id=227, 275.52937pt x 106.14656pt>
 File: figures/Syno_Allumage_Condo.jpg Graphic file (type jpg)
 <use figures/Syno_Allumage_Condo.jpg>
 Package pdftex.def Info: figures/Syno_Allumage_Condo.jpg  used on input line 100.
@@ -1520,7 +1528,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 154--156
 
  []
 
-<figures/Syno_Alumage_Iso.jpg, id=248, 632.3625pt x 630.10406pt>
+<figures/Syno_Alumage_Iso.jpg, id=251, 632.3625pt x 630.10406pt>
 File: figures/Syno_Alumage_Iso.jpg Graphic file (type jpg)
 <use figures/Syno_Alumage_Iso.jpg>
 Package pdftex.def Info: figures/Syno_Alumage_Iso.jpg  used on input line 165.
@@ -1530,7 +1538,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 173--174
 
  []
 
-<figures/Syno_Allumage_end.jpg, id=249, 455.45157pt x 225.09094pt>
+<figures/Syno_Allumage_end.jpg, id=252, 455.45157pt x 225.09094pt>
 File: figures/Syno_Allumage_end.jpg Graphic file (type jpg)
 <use figures/Syno_Allumage_end.jpg>
 Package pdftex.def Info: figures/Syno_Allumage_end.jpg  used on input line 178.
@@ -1565,7 +1573,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 202--205
 
  []
 
-<figures/PCB_Alumage_main_interface.jpg, id=252, 606.01407pt x 618.81187pt>
+<figures/PCB_Alumage_main_interface.jpg, id=255, 606.01407pt x 618.81187pt>
 File: figures/PCB_Alumage_main_interface.jpg Graphic file (type jpg)
 <use figures/PCB_Alumage_main_interface.jpg>
 Package pdftex.def Info: figures/PCB_Alumage_main_interface.jpg  used on input line 210.
@@ -1650,7 +1658,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--16
 
  []
 
-<figures/batterie_RS.jpg, id=307, 490.83376pt x 293.59688pt>
+<figures/batterie_RS.jpg, id=310, 490.83376pt x 293.59688pt>
 File: figures/batterie_RS.jpg Graphic file (type jpg)
 <use figures/batterie_RS.jpg>
 Package pdftex.def Info: figures/batterie_RS.jpg  used on input line 20.
@@ -1665,7 +1673,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 29--33
 
  []
 
-<figures/LiPo500.jpg, id=308, 1003.75pt x 1003.75pt>
+<figures/LiPo500.jpg, id=311, 1003.75pt x 1003.75pt>
 File: figures/LiPo500.jpg Graphic file (type jpg)
 <use figures/LiPo500.jpg>
 Package pdftex.def Info: figures/LiPo500.jpg  used on input line 42.
@@ -1682,7 +1690,7 @@ Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 21.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
 [17 <./figures/batterie_RS.jpg> <./figures/LiPo500.jpg>]) (DossierSuivi_SP02.lof
 
-LaTeX Warning: Reference `subsec:synoptique_fusee' on page 18 undefined on input line 5.
+LaTeX Warning: Reference `subsec:synoptique_fusee' on page 18 undefined on input line 6.
 
 )
 \tf@lof=\write8
@@ -1726,9 +1734,19 @@ Package glossaries Info: Preparing to sort glossary `main' (total number of
 
 
 Package glossaries Info: Preparing to sort glossary `acronym' (total number of
-(glossaries)             referenced entries: 8)
+(glossaries)             referenced entries: 10)
 
 
+
+File: figures/AEROIPSA_HEADER.png Graphic file (type png)
+<use figures/AEROIPSA_HEADER.png>
+Package pdftex.def Info: figures/AEROIPSA_HEADER.png  used on input line 300.
+(pdftex.def)             Requested size: 407.72343pt x 35.56593pt.
+File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
+<use figures/AEROIPSA_FOOTER.png>
+Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 300.
+(pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
+[20]
 
 File: figures/AEROIPSA_HEADER.png Graphic file (type png)
 <use figures/AEROIPSA_HEADER.png>
@@ -1738,12 +1756,9 @@ File: figures/AEROIPSA_FOOTER.png Graphic file (type png)
 <use figures/AEROIPSA_FOOTER.png>
 Package pdftex.def Info: figures/AEROIPSA_FOOTER.png  used on input line 302.
 (pdftex.def)             Requested size: 111.47331pt x 35.56593pt.
-[20]
+[21]
 
-Package glossaries Warning: entry `GPS' indexing changed since previous run (or no previous run) on input line 307.
-
-
-Package glossaries Warning: entry `IoT' indexing changed since previous run (or no previous run) on input line 307.
+Package glossaries Warning: entry `GPS_g' indexing changed since previous run (or no previous run) on input line 307.
 
 
 Package glossaries Warning: Rerun required to get \printnoidxglossary up to date on input line 307.
@@ -1759,27 +1774,27 @@ L3 programming layer <2025-09-02>
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `DossierSuivi_SP02.out' has not changed.
-(rerunfilecheck)             Checksum: CE4E60F8C94EE4843B7151117D484A7D;3915.
+(rerunfilecheck)             Checksum: 23718080606FF8E08CCFC56A30992486;3915.
  ) 
 Here is how much of TeX's memory you used:
- 42691 strings out of 468129
- 860626 string characters out of 5430612
+ 42713 strings out of 468129
+ 861327 string characters out of 5430612
  1392537 words of memory out of 5000000
- 70504 multiletter control sequences out of 15000+600000
+ 70523 multiletter control sequences out of 15000+600000
  686439 words of font info for 69 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 84i,22n,91p,2582b,805s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,22n,91p,2582b,986s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-pdfTeX warning (dest): name{glo:IoT} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{glo:GPS} has been referenced but does not exist, replaced by a fixed one
+pdfTeX warning (dest): name{glo:GPS_g} has been referenced but does not exist, replaced by a fixed one
 
 <C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmb10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi5.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri8.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy5.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtk10.pfb><C:/Users/alexi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
-Output written on DossierSuivi_SP02.pdf (20 pages, 2568767 bytes).
+Output written on DossierSuivi_SP02.pdf (21 pages, 2860147 bytes).
 PDF statistics:
- 514 PDF objects out of 1000 (max. 8388607)
- 101 named destinations out of 1000 (max. 500000)
- 281 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 529 PDF objects out of 1000 (max. 8388607)
+ 104 named destinations out of 1000 (max. 500000)
+ 291 words of extra memory for PDF output out of 10000 (max. 10000000)
 
