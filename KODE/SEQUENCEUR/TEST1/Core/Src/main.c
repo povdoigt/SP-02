@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "stm32f0xx_hal.h"
 #include "usb_device.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -32,7 +31,7 @@
 
 #include "usbd_cdc_if.h"
 
-#include "project.h"
+// #include "project.h"
 
 /* USER CODE END Includes */
 
@@ -107,10 +106,10 @@ int main(void)
   MX_USART3_UART_Init();
   MX_USART4_UART_Init();
   MX_I2C1_Init();
-  // MX_USB_DEVICE_Init();
+  MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
 
-	setup();
+	// setup();
 
   /* USER CODE END 2 */
 
@@ -119,7 +118,7 @@ int main(void)
 	while (1)
 	{
 		
-    loop();
+    // loop();
 
     /* USER CODE END WHILE */
 

@@ -21,25 +21,43 @@ commune facilite la fabrication, les essais et la maintenance, tout en permettan
     \caption{Rendu 3D de la carte séquenceur}
 \end{figure}
 
-Chaque séquenceur assure notamment :
-\begin{itemize}
-    \item la détection du décollage via la coupure de la boucle \textit{jack} ;
-    \item le démarrage du chronomètre interne servant de référence aux fenêtres temporelles ;
-    \item le pilotage du système de récupération (parachute, trappe) ;
-    \item la supervision de la séparation inter-étage et l’inhibition des actions en cas d’anomalie.
-\end{itemize}
+\hspace*{-\parindent}%
+\begin{minipage}{0.60\textwidth}
+    \noindent Chaque séquenceur assure notamment :
+    \begin{itemize}
+        \item la détection du décollage via la coupure de la boucle \textit{jack} ;
+        \item le démarrage du chronomètre interne servant de référence aux fenêtres temporelles ;
+        \item le pilotage du système de récupération (parachute, trappe) ;
+        \item la supervision de la séparation inter-étage et l’inhibition des actions en cas d’anomalie. \\
+    \end{itemize}
 
-Le séquenceurs du première étage devra en plus se charger :
-\begin{itemize}
-    \item du pilotage du système d'aérofreins ;
-    \item du déverrouillage du mécanisme de séparation ;
-\end{itemize}
+    Le séquenceurs du première étage devra en plus se charger :
+    \begin{itemize}
+        \item du pilotage du système d'aérofreins ;
+        \item du déverrouillage du mécanisme de séparation. \\
+    \end{itemize}
 
-Le séquenceur du second étage devra quant à lui gérer :
-\begin{itemize}
-    \item de la détection de l'attitude de la fusée ;
-    \item de l'allumage du moteur du second étage.
-\end{itemize}
+    Le séquenceur du second étage devra quant à lui gérer :
+    \begin{itemize}
+        \item de la détection de l'attitude de la fusée ;
+        \item de l'allumage du moteur du second étage.
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.4\textwidth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figures/synopsis_sequ.jpg}
+        \caption{Zoom sur le séquenceur et interface}
+        \label{fig:schema_synopsis}
+    \end{figure}
+\end{minipage}
+
+\vspace{0.5cm}
+
+[TEXT EXPLICATIF DU SYNOPTIQUE]
+
+\newpage
 
 \subsubsection{Architecture matérielle}
 

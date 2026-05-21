@@ -11,8 +11,10 @@ set(MX_Defines_Syms
 # Configure project path
 set(CMAKE_USER_PROJECT_PATH
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test1
-    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_uart
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_uart
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_infla
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_conn_jack_sepa
 )
 
 # STM32CubeMX generated include paths
@@ -34,9 +36,11 @@ set(MX_Include_Dirs
 
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/circular_buffer/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/data_topic/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/event_uart/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/float3/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/quaternion/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/waveform/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/window_time/Core/Inc
 
     ${CMAKE_USER_PROJECT_PATH}/Core/Inc
 )
@@ -55,11 +59,13 @@ set(MX_Application_Src
 
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/circular_buffer/Core/Src/circular_buffer.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/data_topic/Core/Src/data_topic.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/event_uart/Core/Src/event_uart.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/float3/Core/Src/float3.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/quaternion/Core/Src/quaternion_dynamics.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/quaternion/Core/Src/quaternion.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/waveform/Core/Src/waveform_built_in.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/waveform/Core/Src/waveform.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/window_time/Core/Src/window_time.c
 
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/main.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/gpio.c

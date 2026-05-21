@@ -5,6 +5,7 @@
 #include "data_topic.h"
 
 #include <math.h>
+#include <stdint.h>
 
 
 
@@ -80,7 +81,7 @@ void loop(void);
 void setup_servomotors(void);
 void setup_data_acquisition(void);
 void setup_attitude(void);
-
+void setup_event_uart(void);
 
 
 
@@ -94,32 +95,38 @@ void on_new_gyro_frame(data_sub_t *sub);
 void on_new_pressure_frame(data_sub_t *sub);
 
 
-
+typedef enum stage_phase_type_t {
+	STAGE_PHASE_FIRST_STAGE_INIT,
+	STAGE_PHASE_FIRST_STAGE_FLIGHT,
+	STAGE_PHASE_SECOND_STAGE_INIT,
+	STAGE_PHASE_SECOND_STAGE_FLIGHT
+} stage_phase_type_t;
 
 /* ===================================================
    FIRST STAGE STATE MACHINE
    =================================================== */
 
-
 typedef enum first_stage_initialisation_phase_t {
-	FIRST_STAGE_AF_ZERO,
-	FIRST_STAGE_WAIT_AF_ZERO,
-	FIRST_STAGE_SEPA_ZERO,
-	FIRST_STAGE_WAIT_SEPA_ZERO,
-	FIRST_STAGE_WAIT_STAGE_ASSEMBLY_CONFIRMATION,
+	FIRST_STAGE_INIT_AF_ZERO,
+	FIRST_STAGE_INIT_WAIT_AF_ZERO,
+	FIRST_STAGE_INIT_SEPA_ZERO,
+	FIRST_STAGE_INIT_WAIT_SEPA_ZERO,
+	FIRST_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION,
 } first_stage_initialisation_phase_t;
 
 typedef enum first_stage_flight_phase_t {
-	FIRST_STAGE_INITIALISATION,
-	FIRST_STAGE_WAIT_LAUNCH_CONFIRMATION,
-	FIRST_STAGE_WAIT_BURN_END,
-	FIRST_STAGE_SEPARATION,
-	FIRST_STAGE_WAIT_SEPARATION_CONFIRMATION,
-	FIRST_STAGE_WAIT_APOGEE_CONFIRMATION,
+	FIRST_STAGE_FLIGHT_INITIALISATION,
+	FIRST_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION,
+	FIRST_STAGE_FLIGHT_WAIT_BURN_END,
+	FIRST_STAGE_FLIGHT_SEPARATION,
+	FIRST_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION,
+	FIRST_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION,
+	FIRST_STAGE_FLIGHT_WAIT_DROGUE_CONFIRMATION,
+	FIRST_STAGE_FLIGHT_WAIT_LANDING_CONFIRMATION,
 } first_stage_flight_phase_t;
 
-void first_stage_initialisation(void);
-void first_stage_state_machine(void);
+void first_stage_init_state_machine(void);
+void first_stage_flight_state_machine(void);
 
 
 
@@ -129,21 +136,32 @@ void first_stage_state_machine(void);
    =================================================== */
 
 typedef enum second_stage_initialisation_phase_t {
-	SECOND_STAGE_NOP, // TODO: fill this in with actual initialisation phases
+	SECOND_STAGE_INIT_NOP, // TODO: fill this in with actual initialisation phases
 } second_stage_initialisation_phase_t;
 
 typedef enum second_stage_flight_phase_t {
-	SECOND_STAGE_WAIT_STAGE_ASSEMBLY_CONFIRMATION,
-	SECOND_STAGE_WAIT_LAUNCH_CONFIRMATION,
-	SECOND_STAGE_WAIT_SEPARATION_CONFIRMATION,
-	SECOND_STAGE_WAIT_ATTITUDE_CONFIRMATION,
-	SECOND_STAGE_BURN_SECOND_BURN_COMMAND,
-	SECOND_STAGE_WAIT_SECOND_BURN_CONFIRMATION,
-	SECOND_STAGE_WAIT_APOGEE_CONFIRMATION,
+	SECOND_STAGE_FLIGHT_WAIT_STAGE_ASSEMBLY_CONFIRMATION,
+	SECOND_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION,
+	SECOND_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION,
+	SECOND_STAGE_FLIGHT_WAIT_ATTITUDE_CONFIRMATION,
+	SECOND_STAGE_FLIGHT_BURN_SECOND_BURN_COMMAND,
+	SECOND_STAGE_FLIGHT_WAIT_SECOND_BURN_CONFIRMATION,
+	SECOND_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION,
 } second_stage_flight_phase_t;
 
-void second_stage_initialisation(void);
-void second_stage_state_machine(void);
+void second_stage_init_state_machine(void);
+void second_stage_flight_state_machine(void);
 
 
 
+
+/* ===================================================
+   UTILS
+   =================================================== */
+
+typedef struct stage_phase_transition_t {
+	stage_phase_type_t stage_phase_type;
+	uint8_t *phase_variable;
+} stage_phase_transition_t;
+
+void change_state_and_notify(uint8_t new_state);

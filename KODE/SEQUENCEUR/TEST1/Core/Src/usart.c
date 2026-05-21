@@ -24,6 +24,7 @@
 
 #include "STS.h"
 #include "project.h"
+#include "event_uart.h"
 
 /* USER CODE END 0 */
 
@@ -461,16 +462,16 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
     STS_UART_Port_Callback_RX_IRQHandler(&huart_sts_port2, Size);
   }
 
-  // if (wt901b.huart == huart) {
-  //   HAL_UART_AbortReceive_IT(huart);
-  //   // HAL_UART_Abort_IT(huart); // Dont work if not aborted for some reason...
-  //   WT901B_UART_Callback_RX_IRQHandler(&wt901b, Size);
-  // }
-
-  if (huart->Instance == USART4) {
+  if (wt901b.huart == huart) {
     HAL_UART_AbortReceive_IT(huart);
-    flag_rx = true; // Set flag to indicate data reception for USART4
+    // HAL_UART_Abort_IT(huart); // Dont work if not aborted for some reason...
+    WT901B_UART_Callback_RX_IRQHandler(&wt901b, Size);
   }
+
+  // if (event_uart_producer.huart == huart) {
+  //   // HAL_UART_AbortReceive_IT(huart);
+  //   event_uart_callback();
+  // }
 
   UART_buffer_t *buffer_obj;
   UART_get_buffer(huart, &buffer_obj);
@@ -479,5 +480,11 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
     HAL_UARTEx_ReceiveToIdle_IT(huart, buffer_obj->rx_buffer, buffer_obj->rx_length);
   }
 }
+
+// void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+//   if (huart->Instance == USART4) {
+//     uart_apex_callback(); // Call the user-defined callback function for USART4 data reception
+//   }
+// }
 
 /* USER CODE END 1 */

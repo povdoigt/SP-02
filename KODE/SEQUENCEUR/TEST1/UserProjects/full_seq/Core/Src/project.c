@@ -1,5 +1,6 @@
 #include "project.h"
 
+#include "main.h"
 #include "stm32f0xx_hal.h"
 
 #include "STS.h"
@@ -7,12 +8,35 @@
 
 #include "quaternion_dynamics.h"
 #include "data_topic.h"
+#include "event_uart.h"
+#include "window_time.h"
 
 #include <math.h>
 
 /* ===================================================
    STATIC VARIABLES
    =================================================== */
+
+static const window_time_t window_time_sepa = {
+	.id = 0,
+	.start_time_ms = T_ALPHA_BETA_1,
+	.duration_ms = 5000
+};
+
+static const window_time_t window_time_alpha_apogee_sepa = {
+	.id = 1,
+	.start_time_ms = T_ALPHA_BETA_2,
+	.duration_ms = 3000
+};
+
+static const window_time_t window_time_alpha_apogee_no_sepa = {
+	.id = 2,
+	.start_time_ms = T_ALPHA_BETA_3,
+	.duration_ms = 3000
+};
+
+static window_time_t window_time_alpha_apogee;
+
 
 static STS_Servo_t servo1 = { 0 };
 static STS_Servo_t servo2 = { 0 };
@@ -46,19 +70,23 @@ static float current_pressure_variation_pa_s; // Latest pressure variation in Pa
 static rocket_attitude_dynamics_t attitude;
 
 
+static stage_phase_transition_t current_stage_phase_transition;
+
+
 void setup() {
 
 	setup_servomotors();
 	setup_data_acquisition();
 	setup_attitude();
+	setup_event_uart();
 
 	// Set up initial state machine state
-	first_stage_init_phase = FIRST_STAGE_WAIT_SEPA_ZERO;
-	first_stage_flight_phase = FIRST_STAGE_INITIALISATION;
-	second_stage_flight_phase = SECOND_STAGE_WAIT_STAGE_ASSEMBLY_CONFIRMATION;
+	first_stage_init_phase = FIRST_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION;
+	first_stage_flight_phase = FIRST_STAGE_FLIGHT_INITIALISATION;
+	second_stage_flight_phase = SECOND_STAGE_FLIGHT_WAIT_STAGE_ASSEMBLY_CONFIRMATION;
 
 	// Set up initial confirmations
-	is_launch_confirmed = true;
+	is_launch_confirmed = false;
 	is_separation_confirmed = false;
 	is_second_burn_confirmed = false;
 
@@ -79,7 +107,17 @@ void setup() {
 }
 
 void loop() {
-	// Main code here
+	on_new_accel_frame(&accel_sub);
+	on_new_gyro_frame(&gyro_sub);
+	on_new_pressure_frame(&pressure_sub);
+
+	if (current_stage == ROCKET_FIRST_STAGE) {
+		first_stage_flight_state_machine();
+	} else if (current_stage == ROCKET_SECOND_STAGE) {
+		second_stage_flight_state_machine();
+	}
+
+	// event_uart_producer_send_events(&event_uart_producer);
 }
 
 
@@ -128,6 +166,9 @@ void setup_attitude(void) {
 	attitude.azimuth_deg = 0.0f;
 }
 
+void setup_event_uart(void) {
+	// event_uart_producer_init(&event_uart_producer, TX_OPTO_N1_GPIO_Port, TX_OPTO_N1_Pin, &huart4);
+}
 
 
 
@@ -196,17 +237,21 @@ void on_new_pressure_frame(data_sub_t *sub) {
    =================================================== */
 
 
-void first_stage_initialisation(void) {
+void first_stage_init_state_machine(void) {
+
+	current_stage_phase_transition.stage_phase_type = STAGE_PHASE_FIRST_STAGE_INIT;
+	current_stage_phase_transition.phase_variable = (uint8_t *)&first_stage_init_phase;
+
 	switch (first_stage_init_phase) {
-		case FIRST_STAGE_AF_ZERO: {
+		case FIRST_STAGE_INIT_AF_ZERO: {
 			STS_Servo_SetOperatingMode(&servo1, STS_OP_MODE_SPEED_CONTROL);
 			HAL_Delay(1);
 			STS_Servo_SetGoalSpeed(&servo1, STS_Servo_GetSpeedInUnits(-200));
 			HAL_Delay(1);
-			first_stage_init_phase = FIRST_STAGE_WAIT_AF_ZERO;
+			first_stage_init_phase = FIRST_STAGE_INIT_WAIT_AF_ZERO;
 			break;
 		}
-		case FIRST_STAGE_WAIT_AF_ZERO: {
+		case FIRST_STAGE_INIT_WAIT_AF_ZERO: {
 			bool in_overload;
 			HAL_Delay(1);
 			STS_Servo_InOverload(&servo1, &in_overload);
@@ -220,19 +265,19 @@ void first_stage_initialisation(void) {
 				HAL_Delay(1);
 				STS_Servo_SetGoalPosition(&servo1, STS_Servo_GetPositionInUnits(30));
 				HAL_Delay(1);
-				first_stage_init_phase = FIRST_STAGE_SEPA_ZERO;
+				first_stage_init_phase = FIRST_STAGE_INIT_SEPA_ZERO;
 			}
 			break;
 		}
-		case FIRST_STAGE_SEPA_ZERO: {
+		case FIRST_STAGE_INIT_SEPA_ZERO: {
 			STS_Servo_SetOperatingMode(&servo3, STS_OP_MODE_SPEED_CONTROL);
 			HAL_Delay(1);
 			STS_Servo_SetGoalSpeed(&servo3, STS_Servo_GetSpeedInUnits(-200));
 			HAL_Delay(1);
-			first_stage_init_phase = FIRST_STAGE_WAIT_SEPA_ZERO;
+			first_stage_init_phase = FIRST_STAGE_INIT_WAIT_SEPA_ZERO;
 			break;
 		}
-		case FIRST_STAGE_WAIT_SEPA_ZERO: {
+		case FIRST_STAGE_INIT_WAIT_SEPA_ZERO: {
 			bool in_overload;
 			HAL_Delay(1);
 			STS_Servo_InOverload(&servo3, &in_overload);
@@ -246,23 +291,23 @@ void first_stage_initialisation(void) {
 				HAL_Delay(1);
 				STS_Servo_SetGoalPosition(&servo3, STS_Servo_GetPositionInUnits(120));
 				HAL_Delay(1);
-				first_stage_init_phase = FIRST_STAGE_WAIT_STAGE_ASSEMBLY_CONFIRMATION;
+				first_stage_init_phase = FIRST_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION;
 			}
 			break;
 		}
-		case FIRST_STAGE_WAIT_STAGE_ASSEMBLY_CONFIRMATION: {
-			// if (HAL_GPIO_ReadPin(SEPA_GPIO_Port, SEPA_Pin) == GPIO_PIN_RESET) {
-			// 	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-			// 	HAL_Delay(100);
-			// 	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-			// 	first_stage_flight_phase = FIRST_STAGE_WAIT_LAUNCH_CONFIRMATION;
-			// }
+		case FIRST_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION: {
+			if (HAL_GPIO_ReadPin(IN_TRG_N2_GPIO_Port, IN_TRG_N2_Pin) == GPIO_PIN_RESET) {
+				HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
+				HAL_Delay(100);
+				HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
+				first_stage_flight_phase = FIRST_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION;
+			}
 			break;
 		}
 	}
 }
 
-void first_stage_state_machine(void) {
+void first_stage_flight_state_machine(void) {
 	// FIRST_STAGE_INITIALISATION,
 	// FIRST_STAGE_WAIT_LAUNCH_CONFIRMATION,
 	// FIRST_STAGE_WAIT_BURN_END,
@@ -270,61 +315,127 @@ void first_stage_state_machine(void) {
 	// FIRST_STAGE_WAIT_SEPARATION_CONFIRMATION,
 	// FIRST_STAGE_WAIT_APOGEE_CONFIRMATION,
 
+	current_stage_phase_transition.stage_phase_type = STAGE_PHASE_FIRST_STAGE_FLIGHT;
+	current_stage_phase_transition.phase_variable = (uint8_t *)&first_stage_flight_phase;
+
 	switch (first_stage_flight_phase) {
-		case FIRST_STAGE_INITIALISATION: {
-			first_stage_initialisation();
+		case FIRST_STAGE_FLIGHT_INITIALISATION: {
+			first_stage_init_state_machine();
 			break;
 		}
-		case FIRST_STAGE_WAIT_LAUNCH_CONFIRMATION: {
+		case FIRST_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION: {
 			// Wait for launch confirmation
-			// if (HAL_GPIO_ReadPin(JACK_GPIO_Port, JACK_Pin) == GPIO_PIN_SET) {
-			// 	t_launch = HAL_GetTick();
-			// 	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-			// 	HAL_Delay(100);
-			// 	HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-			// 	is_launch_confirmed = true;
-			// 	first_stage_flight_phase = FIRST_STAGE_WAIT_BURN_END;
-			// }
+			if (HAL_GPIO_ReadPin(IN_TRG_N1_GPIO_Port, IN_TRG_N1_Pin) == GPIO_PIN_SET) {
+				t_launch = HAL_GetTick();
+
+				HAL_GPIO_TogglePin(LED1R_GPIO_Port, LED1R_Pin);
+				HAL_Delay(100);
+				HAL_GPIO_TogglePin(LED1R_GPIO_Port, LED1R_Pin);
+				is_launch_confirmed = true;
+				change_state_and_notify(FIRST_STAGE_FLIGHT_WAIT_BURN_END);
+			}
 			break;
 		}
-		case FIRST_STAGE_WAIT_BURN_END: {
+		case FIRST_STAGE_FLIGHT_WAIT_BURN_END: {
 			if (HAL_GetTick() - t_launch > T_ALPHA_BETA_0) {
-				// HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-				first_stage_flight_phase = FIRST_STAGE_SEPARATION;
+				// HAL_GPIO_TogglePin(LED1R_GPIO_Port, LED1R_Pin);
+				// first_stage_flight_phase = FIRST_STAGE_FLIGHT_SEPARATION;
+				change_state_and_notify(FIRST_STAGE_FLIGHT_SEPARATION);
 			}
 			break;
 		}
-		case FIRST_STAGE_SEPARATION: {
+		case FIRST_STAGE_FLIGHT_SEPARATION: {
 			if (HAL_GetTick() - t_launch > T_ALPHA_BETA_1) {
-				// HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-				STS_Servo_SetGoalPosition(&servo1, STS_Servo_GetPositionInUnits(120));
-				HAL_Delay(1);
-				STS_Servo_SetGoalPosition(&servo3, STS_Servo_GetPositionInUnits(120));
-				HAL_Delay(1);
-				first_stage_flight_phase = FIRST_STAGE_WAIT_SEPARATION_CONFIRMATION;
+				HAL_GPIO_TogglePin(LED1R_GPIO_Port, LED1R_Pin);
+				// STS_Servo_SetGoalPosition(&servo1, STS_Servo_GetPositionInUnits(120));
+				// HAL_Delay(1);
+				// STS_Servo_SetGoalPosition(&servo3, STS_Servo_GetPositionInUnits(120));
+				// HAL_Delay(1);
+				change_state_and_notify(FIRST_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION);
 			}
 			break;
 		}
-		case FIRST_STAGE_WAIT_SEPARATION_CONFIRMATION: {
-			// if (HAL_GPIO_ReadPin(SEPA_GPIO_Port, SEPA_Pin) == GPIO_PIN_RESET) {
+		case FIRST_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION: {
+			// if (HAL_GPIO_ReadPin(IN_TRG_N2_GPIO_Port, IN_TRG_N2_Pin) == GPIO_PIN_RESET) {
 			// 	is_separation_confirmed = true;
-			// 	first_stage_flight_phase = FIRST_STAGE_WAIT_APOGEE_CONFIRMATION;
+			// 	// event_uart_producer_add_event(&event_uart_producer, &(event_uart_msg_t){
+			// 	// 	.header = EVENT_UART_HEADER_MAGIC,
+			// 	// 	.timestamp = HAL_GetTick(),
+			// 	// 	.type = EVENT_UART_TYPE_WINDOW_TIME,
+			// 	// 	.payload.window_time_payload = {
+			// 	// 		.window_id = 0, // You can define specific window IDs for different events
+			// 	// 		.result = EVENT_UART_WINDOW_TIME_RESULT_PASS
+			// 	// 	}
+			// 	// });
+			// 	change_state_and_notify(FIRST_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION);
 			// } else if (HAL_GetTick() - t_launch > T_ALPHA_BETA_1 + 5000) { // 5 seconds after expected separation time, if no confirmation received
 			// 	is_separation_confirmed = false;
-			// 	first_stage_flight_phase = FIRST_STAGE_WAIT_APOGEE_CONFIRMATION; 
+			// 	change_state_and_notify(FIRST_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION);
 			// }
+			switch (window_time_get_state(&window_time_sepa, HAL_GetTick() - t_launch)) {
+				case WINDOW_TIME_STATE_WAITING: {
+					// Still waiting for separation confirmation
+					break;
+				}
+				case WINDOW_TIME_STATE_ACTIVE: {
+					if (HAL_GPIO_ReadPin(IN_TRG_N2_GPIO_Port, IN_TRG_N2_Pin) == GPIO_PIN_RESET) {
+						is_separation_confirmed = true;
+						window_time_alpha_apogee = window_time_alpha_apogee_sepa;
+						event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(
+							HAL_GetTick(), EVENT_UART_TYPE_WINDOW_TIME, (event_uart_payload_u){ .window_time_payload = {
+								.window_id = window_time_sepa.id,
+								.result = EVENT_UART_WINDOW_TIME_RESULT_PASS
+							}}
+						));
+						change_state_and_notify(FIRST_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION);
+					}
+					break;
+				}
+				case WINDOW_TIME_STATE_EXPIRED: {
+					is_separation_confirmed = false;
+					window_time_alpha_apogee = window_time_alpha_apogee_no_sepa;
+					event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(
+						HAL_GetTick(), EVENT_UART_TYPE_WINDOW_TIME, (event_uart_payload_u){ .window_time_payload = {
+							.window_id = window_time_sepa.id,
+							.result = EVENT_UART_WINDOW_TIME_RESULT_TIMEOUT
+						}}
+					));
+					change_state_and_notify(FIRST_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION);
+					break;
+				}
+			}
 			break;
 		}
-		case FIRST_STAGE_WAIT_APOGEE_CONFIRMATION: {
-			uint32_t t_apogee_estimated = is_separation_confirmed ? T_ALPHA_0 : T_ALPHA_BETA_2;
-			if (HAL_GetTick() - t_launch < t_apogee_estimated) {
-				// Wait to reach estimated apogee time
-			} else if (current_pressure_variation_pa_s < 5.0f) { // If we are near apogee (low pressure variation), confirm apogee
-				// Apogee confirmed
-				// ...
-			} else if (HAL_GetTick() - t_launch > t_apogee_estimated + 3000) { // 3 seconds after estimated apogee time, if no confirmation received
-				// Apogee not confirmed, but we can consider it passed
-				// ...
+		case FIRST_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION: {
+			switch (window_time_get_state(&window_time_alpha_apogee, HAL_GetTick() - t_launch)) {
+				case WINDOW_TIME_STATE_WAITING: {
+					// Still waiting for apogee confirmation
+					break;
+				}
+				case WINDOW_TIME_STATE_ACTIVE: {
+					if (current_pressure_variation_pa_s < 5.0f) { // If we are near apogee (low pressure variation), confirm apogee
+						// Apogee confirmed
+						event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(
+							HAL_GetTick(), EVENT_UART_TYPE_WINDOW_TIME, (event_uart_payload_u){ .window_time_payload = {
+								.window_id = window_time_alpha_apogee.id,
+								.result = EVENT_UART_WINDOW_TIME_RESULT_PASS
+							}}
+						));
+						change_state_and_notify(FIRST_STAGE_FLIGHT_WAIT_DROGUE_CONFIRMATION);
+					}
+					break;
+				}
+				case WINDOW_TIME_STATE_EXPIRED: {
+					// Apogee not confirmed, but we can consider it passed
+					event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(
+						HAL_GetTick(), EVENT_UART_TYPE_WINDOW_TIME, (event_uart_payload_u){ .window_time_payload = {
+							.window_id = window_time_alpha_apogee.id,
+							.result = EVENT_UART_WINDOW_TIME_RESULT_TIMEOUT
+						}}
+					));
+					change_state_and_notify(FIRST_STAGE_FLIGHT_WAIT_DROGUE_CONFIRMATION);
+					break;
+				}
 			}
 			break;
 		}
@@ -336,11 +447,15 @@ void first_stage_state_machine(void) {
    SECOND STAGE STATE MACHINE
    =================================================== */
 
-void second_stage_initialisation(void) {
+void second_stage_init_state_machine(void) {
+
+	current_stage_phase_transition.stage_phase_type = STAGE_PHASE_SECOND_STAGE_INIT;
+	current_stage_phase_transition.phase_variable = (uint8_t *)&second_stage_init_phase;
+
 	// TODO: fill this in with actual initialisation steps for the second stage	
 }
 
-void second_stage_state_machine(void) {
+void second_stage_flight_state_machine(void) {
 	// SECOND_STAGE_WAIT_STAGE_ASSEMBLY_CONFIRMATION,
 	// SECOND_STAGE_WAIT_LAUNCH_CONFIRMATION,
 	// SECOND_STAGE_WAIT_SEPARATION_CONFIRMATION,
@@ -349,61 +464,64 @@ void second_stage_state_machine(void) {
 	// SECOND_STAGE_WAIT_SECOND_BURN_CONFIRMATION,
 	// SECOND_STAGE_WAIT_APOGEE_CONFIRMATION,
 
+	current_stage_phase_transition.stage_phase_type = STAGE_PHASE_SECOND_STAGE_FLIGHT;
+	current_stage_phase_transition.phase_variable = (uint8_t *)&second_stage_flight_phase;
+
 	switch (second_stage_flight_phase) {
-		case SECOND_STAGE_WAIT_STAGE_ASSEMBLY_CONFIRMATION: {
+		case SECOND_STAGE_FLIGHT_WAIT_STAGE_ASSEMBLY_CONFIRMATION: {
 			if (false) {
-				second_stage_flight_phase = SECOND_STAGE_WAIT_LAUNCH_CONFIRMATION;
+				second_stage_flight_phase = SECOND_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION;
 			}
 			break;
 		}
-		case SECOND_STAGE_WAIT_LAUNCH_CONFIRMATION: {
+		case SECOND_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION: {
 			if (false) {
 				is_launch_confirmed = true;
-				second_stage_flight_phase = SECOND_STAGE_WAIT_SEPARATION_CONFIRMATION;
+				second_stage_flight_phase = SECOND_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION;
 			}
 			break;
 		}
-		case SECOND_STAGE_WAIT_SEPARATION_CONFIRMATION: {
+		case SECOND_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION: {
 			if (false) {
 				is_separation_confirmed = true;
-				second_stage_flight_phase = SECOND_STAGE_WAIT_ATTITUDE_CONFIRMATION;
+				second_stage_flight_phase = SECOND_STAGE_FLIGHT_WAIT_ATTITUDE_CONFIRMATION;
 			} else if (HAL_GetTick() - t_launch > T_BETA_0 + 5000) { // 5 seconds after expected separation time, if no confirmation received
 				is_separation_confirmed = false;
-				second_stage_flight_phase = SECOND_STAGE_WAIT_ATTITUDE_CONFIRMATION; 
+				second_stage_flight_phase = SECOND_STAGE_FLIGHT_WAIT_ATTITUDE_CONFIRMATION; 
 			}
 			break;
 		}
-		case SECOND_STAGE_WAIT_ATTITUDE_CONFIRMATION: {
+		case SECOND_STAGE_FLIGHT_WAIT_ATTITUDE_CONFIRMATION: {
 			if (fabsf(attitude.elevation_deg - ATTITUDE_ELEVATION_GOAL_DEG	) < 10.0f) {
 				if (fabsf(attitude.azimuth_deg - ATTITUDE_AZIMUTH_GOAL_DEG) < 45.0f) {
 					// Attitude confirmed
-					second_stage_flight_phase = SECOND_STAGE_BURN_SECOND_BURN_COMMAND;
+					second_stage_flight_phase = SECOND_STAGE_FLIGHT_BURN_SECOND_BURN_COMMAND;
 				}
 			} else if (HAL_GetTick() - t_launch > T_BETA_1 + 3000) { // 3 seconds after expected attitude confirmation time, if no confirmation received
 				// Attitude not confirmed, but we can still command the burn
-				second_stage_flight_phase = SECOND_STAGE_WAIT_APOGEE_CONFIRMATION; 
+				second_stage_flight_phase = SECOND_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION; 
 			}
 			break;
 		}
-		case SECOND_STAGE_BURN_SECOND_BURN_COMMAND: {
+		case SECOND_STAGE_FLIGHT_BURN_SECOND_BURN_COMMAND: {
 			// Command second burn (e.g., by sending a signal to the engine)
 			// ...
-			second_stage_flight_phase = SECOND_STAGE_WAIT_SECOND_BURN_CONFIRMATION;
+			second_stage_flight_phase = SECOND_STAGE_FLIGHT_WAIT_SECOND_BURN_CONFIRMATION;
 			break;
 		}
-		case SECOND_STAGE_WAIT_SECOND_BURN_CONFIRMATION: {
+		case SECOND_STAGE_FLIGHT_WAIT_SECOND_BURN_CONFIRMATION: {
 			if (HAL_GetTick() - t_launch < T_BETA_1) {
 				// Wait to reach expected burn confirmation time
 			} else if (current_accel_g	> 1.5f) { // If we detect a significant acceleration increase, confirm second burn
 				is_second_burn_confirmed = true;
-				second_stage_flight_phase = SECOND_STAGE_WAIT_APOGEE_CONFIRMATION;
+				second_stage_flight_phase = SECOND_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION;
 			} else if (HAL_GetTick() - t_launch > T_BETA_1 + 100) { // 0.1 seconds after expected burn confirmation time, if no confirmation received
 				is_second_burn_confirmed = false;
-				second_stage_flight_phase = SECOND_STAGE_WAIT_APOGEE_CONFIRMATION; 
+				second_stage_flight_phase = SECOND_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION; 
 			}
 			break;
 		}
-		case SECOND_STAGE_WAIT_APOGEE_CONFIRMATION: {
+		case SECOND_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION: {
 			uint32_t t_apogee_estimated = is_second_burn_confirmed ? T_BETA_2 : T_BETA_4;
 			if (HAL_GetTick() - t_launch < t_apogee_estimated) {
 				// Wait to reach estimated apogee time
@@ -416,5 +534,26 @@ void second_stage_state_machine(void) {
 			}
 			break;
 		}
+	}
+}
+
+
+
+
+/* ===================================================
+   UTILS
+   =================================================== */
+
+
+void change_state_and_notify(uint8_t new_state) {
+	if (current_stage_phase_transition.phase_variable != NULL) {
+		event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(HAL_GetTick(), EVENT_UART_TYPE_STATE_MACHINE_STATE_CHANGE,
+			(event_uart_payload_u){.state_change_payload = {
+				.state_machine_id = current_stage_phase_transition.stage_phase_type,
+				.old_state_id = *(current_stage_phase_transition.phase_variable),
+				.new_state_id = new_state
+			}}
+		));
+		*(current_stage_phase_transition.phase_variable) = new_state;
 	}
 }
