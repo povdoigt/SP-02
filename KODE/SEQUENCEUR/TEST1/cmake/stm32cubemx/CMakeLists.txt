@@ -11,10 +11,12 @@ set(MX_Defines_Syms
 # Configure project path
 set(CMAKE_USER_PROJECT_PATH
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test1
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_uart
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_infla
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_conn_jack_sepa
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_servo
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_wt901b
 )
 
 # STM32CubeMX generated include paths

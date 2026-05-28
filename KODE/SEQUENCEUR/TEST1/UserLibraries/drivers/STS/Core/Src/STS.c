@@ -11,48 +11,76 @@
 STS_UART_Port_t huart_sts_port1 = { 0 };
 STS_UART_Port_t huart_sts_port2 = { 0 };
 
+uint32_t STS_GetBaudRateValue(STS_BaudRate baudrate) {
+    switch (baudrate) {
+        case STS_BAUDRATE_1000000   : return 1000000;
+        case STS_BAUDRATE_500000    : return 500000;
+        case STS_BAUDRATE_250000    : return 250000;
+        case STS_BAUDRATE_128000    : return 128000;
+        case STS_BAUDRATE_115200    : return 115200;
+        case STS_BAUDRATE_76800     : return 76800;
+        case STS_BAUDRATE_57600     : return 57600;
+        case STS_BAUDRATE_38400     : return 38400;
+        default                     : return 0; // Invalid baudrate
+    }
+}
 
-float STS_Servo_GetPositionInDegrees(uint16_t position_units) {
+STS_BaudRate STS_GetBaudRateFromValue(uint32_t baudrate_value) {
+    switch (baudrate_value) {
+        case 1000000    : return STS_BAUDRATE_1000000;
+        case 500000     : return STS_BAUDRATE_500000;
+        case 250000     : return STS_BAUDRATE_250000;
+        case 128000     : return STS_BAUDRATE_128000;
+        case 115200     : return STS_BAUDRATE_115200;
+        case 76800      : return STS_BAUDRATE_76800;
+        case 57600      : return STS_BAUDRATE_57600;
+        case 38400      : return STS_BAUDRATE_38400;
+        default         : return STS_BAUDRATE_UNDEFINED; // Invalid baudrate value
+    }
+}
+
+
+float STS_GetPositionInDegrees(uint16_t position_units) {
     float pos = (float)(position_units & 0x7FFF) * STS_UNIT_TO_DEGREE;
     return (position_units >> 15) & 0x01 ? -pos : pos;
 }
-float STS_Servo_GetSpeedInRPM(int16_t speed_units) {
+float STS_GetSpeedInRPM(int16_t speed_units) {
     float speed = (float)(speed_units & 0x7FFF) * STS_UNIT_TO_RPM_2;
     return (speed_units >> 15) & 0x01 ? -speed : speed;
 }
-float STS_Servo_GetLoadInKgcm(int16_t load_units) {
+float STS_GetLoadInKgcm(int16_t load_units) {
     float load = (float)(load_units & 0x3FF) * STS_UNIT_TO_TORQUE;
     return (load_units >> 10) & 0x01 ? -load : load;
 }
-float STS_Servo_GetVoltageInVolts(uint8_t voltage_units) {
+float STS_GetVoltageInVolts(uint8_t voltage_units) {
     return (float)voltage_units * STS_UNIT_TO_VOLTAGE;
 }
-float STS_Servo_GetTemperatureInCelsius(uint8_t temperature_units) {
+float STS_GetTemperatureInCelsius(uint8_t temperature_units) {
     return (float)temperature_units * STS_UNIT_TO_TEMPERATURE;
 }
-float STS_Servo_GetCurrentInmA(uint16_t current_units) {
+float STS_GetCurrentInmA(uint16_t current_units) {
     return (float)current_units * STS_UNIT_TO_CURRENT;
 }
 
-uint16_t STS_Servo_GetPositionInUnits(float position_degrees) {
+uint16_t STS_GetPositionInUnits(float position_degrees) {
     uint16_t position_units = (uint16_t)(fabs(position_degrees) / STS_UNIT_TO_DEGREE);
     return (position_degrees < 0) ? (position_units | 0x8000) : position_units;
 }
-int16_t STS_Servo_GetSpeedInUnits(float speed_rpm) {
+int16_t STS_GetSpeedInUnits(float speed_rpm) {
     int16_t speed_units = (int16_t)(fabs(speed_rpm) / STS_UNIT_TO_RPM_2);
     return (speed_rpm < 0) ? (speed_units | 0x8000) : speed_units;
 }
-uint16_t STS_Servo_GetLoadInUnits(float load_kgcm) {
+uint16_t STS_GetLoadInUnits(float load_kgcm) {
     uint16_t load_units = (uint16_t)(fabs(load_kgcm) / STS_UNIT_TO_TORQUE);
     return (load_kgcm < 0) ? (load_units | 0x400) : load_units;
 }
-uint8_t STS_Servo_GetVoltageInUnits(float voltage_volts) {
+uint8_t STS_GetVoltageInUnits(float voltage_volts) {
     return (uint8_t)(voltage_volts / STS_UNIT_TO_VOLTAGE);
 }
-uint8_t STS_Servo_GetTemperatureInUnits(float temperature_celsius) {
+uint8_t STS_GetTemperatureInUnits(float temperature_celsius) {
     return (uint8_t)(temperature_celsius / STS_UNIT_TO_TEMPERATURE);
 }
-uint16_t STS_Servo_GetCurrentInUnits(float current_mA) {
+uint16_t STS_GetCurrentInUnits(float current_mA) {
     return (uint16_t)(current_mA / STS_UNIT_TO_CURRENT);
 }
 
@@ -349,20 +377,20 @@ HAL_StatusTypeDef STS_Servo_InOverload(STS_Servo_t *servo, bool *in_overload) {
 }
 
 
-void STS_Servo_raw_to_physical(const STS_Servo_Current_raw_t *raw, STS_Servo_Current_t *physical) {
-    physical->position    = STS_Servo_GetPositionInDegrees(raw->position);
-    physical->speed       = STS_Servo_GetSpeedInRPM(raw->speed);
-    physical->load        = STS_Servo_GetLoadInKgcm(raw->load);
-    physical->voltage     = STS_Servo_GetVoltageInVolts(raw->voltage);
-    physical->temperature = STS_Servo_GetTemperatureInCelsius(raw->temperature);
-    physical->current     = STS_Servo_GetCurrentInmA(raw->current);
+void STS_raw_to_physical(const STS_Servo_Current_raw_t *raw, STS_Servo_Current_t *physical) {
+    physical->position    = STS_GetPositionInDegrees(raw->position);
+    physical->speed       = STS_GetSpeedInRPM(raw->speed);
+    physical->load        = STS_GetLoadInKgcm(raw->load);
+    physical->voltage     = STS_GetVoltageInVolts(raw->voltage);
+    physical->temperature = STS_GetTemperatureInCelsius(raw->temperature);
+    physical->current     = STS_GetCurrentInmA(raw->current);
 }
 
-void STS_Servo_physical_to_raw(const STS_Servo_Current_t *physical, STS_Servo_Current_raw_t *raw) {
-    raw->position    = STS_Servo_GetPositionInUnits(physical->position);
-    raw->speed       = STS_Servo_GetSpeedInUnits(physical->speed);
-    raw->load        = STS_Servo_GetLoadInUnits(physical->load);
-    raw->voltage     = STS_Servo_GetVoltageInUnits(physical->voltage);
-    raw->temperature = STS_Servo_GetTemperatureInUnits(physical->temperature);
-    raw->current     = STS_Servo_GetCurrentInUnits(physical->current);
+void STS_physical_to_raw(const STS_Servo_Current_t *physical, STS_Servo_Current_raw_t *raw) {
+    raw->position    = STS_GetPositionInUnits(physical->position);
+    raw->speed       = STS_GetSpeedInUnits(physical->speed);
+    raw->load        = STS_GetLoadInUnits(physical->load);
+    raw->voltage     = STS_GetVoltageInUnits(physical->voltage);
+    raw->temperature = STS_GetTemperatureInUnits(physical->temperature);
+    raw->current     = STS_GetCurrentInUnits(physical->current);
 }

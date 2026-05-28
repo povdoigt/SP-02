@@ -106,6 +106,20 @@ extern "C" {
 #define STS_REG_MAX_ACCELERATION		0x55    // Maximum acceleration
 #define STS_REG_ACCELERATION_MULTIPLIER	0x56    // Acceleration multiplier
 
+
+// 1000000(0)，500000(1)，250000(2)，128000(3)，115200(4)，76800(5)，57600(6)，38400(7)
+typedef enum STS_BaudRate {
+	STS_BAUDRATE_1000000	= 0x00,   // 1 Mbps
+	STS_BAUDRATE_500000		= 0x01,   // 500 kbps
+	STS_BAUDRATE_250000		= 0x02,   // 250 kbps
+	STS_BAUDRATE_128000		= 0x03,   // 128 kbps
+	STS_BAUDRATE_115200		= 0x04,   // 115.2 kbps
+	STS_BAUDRATE_76800		= 0x05,   // 76.8 kbps
+	STS_BAUDRATE_57600		= 0x06,   // 57.6 kbps
+	STS_BAUDRATE_38400		= 0x07,   // 38.4 kbps
+	STS_BAUDRATE_UNDEFINED	= 0xFF,   // Undefined baudrate
+} STS_BaudRate;
+
 typedef enum STS_OperatingMode {
 	STS_OP_MODE_POSITION_CONTROL    = 0x00, // Position control mode
 	STS_OP_MODE_SPEED_CONTROL       = 0x01, // Speed control mode
@@ -192,6 +206,8 @@ typedef struct STS_Servo_Current_t {
 	float current;          // Current current (in mA)
 } STS_Servo_Current_t;
 
+uint32_t STS_GetBaudRateValue(STS_BaudRate baudrate);
+STS_BaudRate STS_GetBaudRateFromValue(uint32_t baudrate_value);
 
 HAL_StatusTypeDef STS_UART_Port_Init(STS_UART_Port_t *uart_port, UART_HandleTypeDef *huart);
 
@@ -232,23 +248,23 @@ HAL_StatusTypeDef STS_Servo_SetOperatingMode(STS_Servo_t *servo, STS_OperatingMo
 HAL_StatusTypeDef STS_Servo_IsMoving(STS_Servo_t *servo, uint8_t *is_moving);
 HAL_StatusTypeDef STS_Servo_InOverload(STS_Servo_t *servo, bool *in_overload);
 
-float STS_Servo_GetPositionInDegrees(uint16_t position_units);
-float STS_Servo_GetSpeedInRPM(int16_t speed_units);
-float STS_Servo_GetLoadInKgcm(int16_t load_units);
-float STS_Servo_GetVoltageInVolts(uint8_t voltage_units);
-float STS_Servo_GetTemperatureInCelsius(uint8_t temperature_units);
-float STS_Servo_GetCurrentInmA(uint16_t current_units);
+float STS_GetPositionInDegrees(uint16_t position_units);
+float STS_GetSpeedInRPM(int16_t speed_units);
+float STS_GetLoadInKgcm(int16_t load_units);
+float STS_GetVoltageInVolts(uint8_t voltage_units);
+float STS_GetTemperatureInCelsius(uint8_t temperature_units);
+float STS_GetCurrentInmA(uint16_t current_units);
 
-uint16_t STS_Servo_GetPositionInUnits(float position_degrees);
-int16_t STS_Servo_GetSpeedInUnits(float speed_rpm);
-uint16_t STS_Servo_GetLoadInUnits(float load_kgcm);
-uint8_t STS_Servo_GetVoltageInUnits(float voltage_volts);
-uint8_t STS_Servo_GetTemperatureInUnits(float temperature_celsius);
-uint16_t STS_Servo_GetCurrentInUnits(float current_mA);
+uint16_t STS_GetPositionInUnits(float position_degrees);
+int16_t STS_GetSpeedInUnits(float speed_rpm);
+uint16_t STS_GetLoadInUnits(float load_kgcm);
+uint8_t STS_GetVoltageInUnits(float voltage_volts);
+uint8_t STS_GetTemperatureInUnits(float temperature_celsius);
+uint16_t STS_GetCurrentInUnits(float current_mA);
 
 
-void STS_Servo_raw_to_physical(const STS_Servo_Current_raw_t *raw, STS_Servo_Current_t *physical);
-void STS_Servo_physical_to_raw(const STS_Servo_Current_t *physical, STS_Servo_Current_raw_t *raw);
+void STS_raw_to_physical(const STS_Servo_Current_raw_t *raw, STS_Servo_Current_t *physical);
+void STS_physical_to_raw(const STS_Servo_Current_t *physical, STS_Servo_Current_raw_t *raw);
 
 #ifdef __cplusplus
 }

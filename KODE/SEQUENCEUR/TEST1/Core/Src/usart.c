@@ -24,6 +24,7 @@
 
 #include "STS.h"
 #include "project.h"
+#include "WT901B.h"
 #include "event_uart.h"
 
 /* USER CODE END 0 */
@@ -48,7 +49,7 @@ void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 38400;
+  huart1.Init.BaudRate = 9600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -488,3 +489,4 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
 // }
 
 /* USER CODE END 1 */
+
