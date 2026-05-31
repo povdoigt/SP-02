@@ -24,8 +24,8 @@
 
 #include "STS.h"
 #include "project.h"
-#include "WT901B.h"
-#include "event_uart.h"
+// #include "WT901B.h"
+// #include "event_uart.h"
 
 /* USER CODE END 0 */
 
@@ -468,11 +468,11 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
     STS_UART_Port_Callback_RX_IRQHandler(&huart_sts_port2, Size);
   }
 
-  if (wt901b.huart == huart) {
-    HAL_UART_AbortReceive_IT(huart);
-    // HAL_UART_Abort_IT(huart); // Dont work if not aborted for some reason...
-    WT901B_UART_Callback_RX_IRQHandler(&wt901b, Size);
-  }
+  // if (wt901b.huart == huart) {
+  //   HAL_UART_AbortReceive_IT(huart);
+  //   // HAL_UART_Abort_IT(huart); // Dont work if not aborted for some reason...
+  //   WT901B_UART_Callback_RX_IRQHandler(&wt901b, Size);
+  // }
 
   // if (event_uart_producer.huart == huart) {
   //   // HAL_UART_AbortReceive_IT(huart);

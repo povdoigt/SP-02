@@ -75,40 +75,47 @@ static stage_phase_transition_t current_stage_phase_transition;
 
 void setup() {
 
-	setup_servomotors();
-	setup_data_acquisition();
-	setup_attitude();
-	setup_event_uart();
+	// Looking for which stage we are
+	if (HAL_GPIO_ReadPin(ETAGE1_GPIO_Port, ETAGE1_Pin) == GPIO_PIN_RESET) {
+		current_stage = ROCKET_FIRST_STAGE;
+		HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
+		HAL_Delay(500);
+		HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
 
-	// Set up initial state machine state
-	first_stage_init_phase = FIRST_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION;
-	first_stage_flight_phase = FIRST_STAGE_FLIGHT_INITIALISATION;
-	second_stage_flight_phase = SECOND_STAGE_FLIGHT_WAIT_STAGE_ASSEMBLY_CONFIRMATION;
+		setup_servomotors_stage_1();
+		// setup_data_acquisition_stage_1();
+
+		first_stage_init_phase = FIRST_STAGE_INIT_AF_ZERO;
+		first_stage_flight_phase = FIRST_STAGE_FLIGHT_INITIALISATION;
+	} else if (HAL_GPIO_ReadPin(ETAGE2_GPIO_Port, ETAGE2_Pin) == GPIO_PIN_RESET) {
+		current_stage = ROCKET_SECOND_STAGE;
+		HAL_GPIO_TogglePin(LED1G_GPIO_Port, LED1G_Pin);
+		HAL_Delay(500);
+		HAL_GPIO_TogglePin(LED1G_GPIO_Port, LED1G_Pin);
+
+		setup_servomotors_stage_2();
+		setup_data_acquisition_stage_2();
+		setup_attitude();
+		
+		second_stage_flight_phase = SECOND_STAGE_FLIGHT_WAIT_STAGE_ASSEMBLY_CONFIRMATION;
+	} else {
+		Error_Handler();
+	}
+
+	setup_event_uart();
 
 	// Set up initial confirmations
 	is_launch_confirmed = false;
 	is_separation_confirmed = false;
 	is_second_burn_confirmed = false;
 
-	// // Looking for which stage we are
-	// if (HAL_GPIO_ReadPin(SET_STAGE_GPIO_Port, SET_STAGE_Pin) == GPIO_PIN_RESET) {
-	// 	current_stage = ROCKET_SECOND_STAGE;
-	// 	for (size_t i = 0; i < 10; i++) {
-	// 		HAL_GPIO_TogglePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
-	// 		HAL_Delay(500);
-	// 	}
-	// } else {
-	// 	current_stage = ROCKET_FIRST_STAGE;
-	// 	for (size_t i = 0; i < 10; i++) {
-	// 		HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-	// 		HAL_Delay(500);
-	// 	}
-	// }
 }
 
 void loop() {
-	on_new_accel_frame(&accel_sub);
-	on_new_gyro_frame(&gyro_sub);
+	if (current_stage == ROCKET_SECOND_STAGE) {
+		on_new_accel_frame(&accel_sub);
+		on_new_gyro_frame(&gyro_sub);
+	}
 	on_new_pressure_frame(&pressure_sub);
 
 	if (current_stage == ROCKET_FIRST_STAGE) {
@@ -126,12 +133,12 @@ void loop() {
    SETUP FUNCTIONS
    =================================================== */
 
-void setup_servomotors(void) {
+void setup_servomotors_stage_1(void) {
 	HAL_StatusTypeDef res;
 
-	res = STS_UART_Port_Init(&huart_sts_port1, &huart1);
+	res = STS_UART_Port_Init(&huart_sts_port1, &huart2);
 	if (res != HAL_OK) { Error_Handler(); }
-	res = STS_UART_Port_Init(&huart_sts_port2, &huart4);
+	res = STS_UART_Port_Init(&huart_sts_port2, &huart3);
 	if (res != HAL_OK) { Error_Handler(); }
 
 	res = STS_Servo_Init(&servo1, &huart_sts_port1, 1);
@@ -143,13 +150,28 @@ void setup_servomotors(void) {
 	res = STS_Servo_Init(&servo3, &huart_sts_port2, 3);
 	if (res != HAL_OK) { Error_Handler(); }
 	HAL_Delay(1);
+}
+
+void setup_servomotors_stage_2(void) {
+	HAL_StatusTypeDef res;
+
+	res = STS_UART_Port_Init(&huart_sts_port2, &huart3);
+	if (res != HAL_OK) { Error_Handler(); }
+
 	res = STS_Servo_Init(&servo4, &huart_sts_port2, 4);
 	if (res != HAL_OK) { Error_Handler(); }
 	HAL_Delay(1);
 }
 
-void setup_data_acquisition(void) {
+void setup_data_acquisition_stage_1(void) {
 	WT901B_status_t wt_res = WT901B_Init(&wt901b, &huart3);
+	if (wt_res != WT901B_OK) { Error_Handler(); }
+
+	data_sub_attach(&pressure_sub, &wt901b.data_topic, DATA_ATTACH_FROM_OLDEST);
+}
+
+void setup_data_acquisition_stage_2(void) {
+	WT901B_status_t wt_res = WT901B_Init(&wt901b, &huart1);
 	if (wt_res != WT901B_OK) { Error_Handler(); }
 
 	data_sub_attach(&accel_sub, &wt901b.data_topic, DATA_ATTACH_FROM_OLDEST);
@@ -246,7 +268,7 @@ void first_stage_init_state_machine(void) {
 		case FIRST_STAGE_INIT_AF_ZERO: {
 			STS_Servo_SetOperatingMode(&servo1, STS_OP_MODE_SPEED_CONTROL);
 			HAL_Delay(1);
-			STS_Servo_SetGoalSpeed(&servo1, STS_Servo_GetSpeedInUnits(-200));
+			STS_Servo_SetGoalSpeed(&servo1, STS_GetSpeedInUnits(-200));
 			HAL_Delay(1);
 			first_stage_init_phase = FIRST_STAGE_INIT_WAIT_AF_ZERO;
 			break;
@@ -261,9 +283,9 @@ void first_stage_init_state_machine(void) {
 				HAL_Delay(1);
 				STS_Servo_SetOperatingMode(&servo1, STS_OP_MODE_POSITION_CONTROL);
 				HAL_Delay(1);
-				STS_Servo_PositionCalibration(&servo1, 0);
+				STS_Servo_PositionCalibration(&servo1, STS_GetPositionInUnits(0));
 				HAL_Delay(1);
-				STS_Servo_SetGoalPosition(&servo1, STS_Servo_GetPositionInUnits(30));
+				STS_Servo_SetGoalPosition(&servo1, STS_GetPositionInUnits(30));
 				HAL_Delay(1);
 				first_stage_init_phase = FIRST_STAGE_INIT_SEPA_ZERO;
 			}
@@ -272,7 +294,7 @@ void first_stage_init_state_machine(void) {
 		case FIRST_STAGE_INIT_SEPA_ZERO: {
 			STS_Servo_SetOperatingMode(&servo3, STS_OP_MODE_SPEED_CONTROL);
 			HAL_Delay(1);
-			STS_Servo_SetGoalSpeed(&servo3, STS_Servo_GetSpeedInUnits(-200));
+			STS_Servo_SetGoalSpeed(&servo3, STS_GetSpeedInUnits(-200));
 			HAL_Delay(1);
 			first_stage_init_phase = FIRST_STAGE_INIT_WAIT_SEPA_ZERO;
 			break;
@@ -281,7 +303,7 @@ void first_stage_init_state_machine(void) {
 			bool in_overload;
 			HAL_Delay(1);
 			STS_Servo_InOverload(&servo3, &in_overload);
-			if (true) {
+			if (in_overload) {
 				HAL_Delay(1);
 				STS_Servo_SetGoalSpeed(&servo3, 0);
 				HAL_Delay(1);
@@ -289,7 +311,7 @@ void first_stage_init_state_machine(void) {
 				HAL_Delay(1);
 				STS_Servo_PositionCalibration(&servo3, 0);
 				HAL_Delay(1);
-				STS_Servo_SetGoalPosition(&servo3, STS_Servo_GetPositionInUnits(120));
+				STS_Servo_SetGoalPosition(&servo3, STS_GetPositionInUnits(120));
 				HAL_Delay(1);
 				first_stage_init_phase = FIRST_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION;
 			}

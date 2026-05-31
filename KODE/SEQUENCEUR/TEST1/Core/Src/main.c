@@ -189,6 +189,7 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+    HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, GPIO_PIN_RESET);
   }
   /* USER CODE END Error_Handler_Debug */
 }

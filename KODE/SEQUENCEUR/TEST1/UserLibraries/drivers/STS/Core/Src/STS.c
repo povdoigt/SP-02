@@ -1,5 +1,6 @@
 #include "STS.h"
 
+#include "stm32f0xx_hal.h"
 #include "usart.h"
 
 #include <stdint.h>
@@ -179,6 +180,8 @@ bool STS_Servo_IsPacketValide(STS_Servo_t *servo, uint8_t expected_data_length) 
 
 
 HAL_StatusTypeDef STS_Servo_SendInstruction(STS_Servo_t *servo, uint8_t instruction, uint8_t *params, uint16_t params_length) {
+    HAL_Delay(1);
+    
     uint8_t packet[STS_SERIAL_BUFFER_SIZE];
     uint16_t packet_length = 0;
 
@@ -370,7 +373,7 @@ HAL_StatusTypeDef STS_Servo_IsMoving(STS_Servo_t *servo, uint8_t *is_moving) {
 }
 
 HAL_StatusTypeDef STS_Servo_InOverload(STS_Servo_t *servo, bool *in_overload) {
-    uint8_t status;
+    uint8_t status = 0;
     HAL_StatusTypeDef ret = STS_Servo_ReadRegister(servo, STS_REG_SERVO_STATUS, &status, 1);
     *in_overload = (status & 0x20) != 0;
     return ret;

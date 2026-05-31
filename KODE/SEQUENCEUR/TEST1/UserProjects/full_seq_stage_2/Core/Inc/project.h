@@ -16,20 +16,17 @@
 
 // Les temps sont en millisecondes par rapport au T0 (lancement)
 
-#define T_ALPHA_BETA_0 5000 /* Fin de propulsion du premier étage */
-#define T_ALPHA_BETA_1 5300 /* Séparation du premier étage */
-#define T_ALPHA_BETA_2 0 /* Apogée de l'ensemble de la fusée (1er et 2e étage sans séparation) */
-#define T_ALPHA_BETA_3 0 /* Atterrisage de l'ensemble de la fusée (1er et 2e étage sans séparation) */
+#define T_ALPHA_BETA_0 3600		/* Fin de propulsion du premier étage */
+#define T_ALPHA_BETA_1 3700		/* Séparation du premier étage */
+#define T_ALPHA_BETA_2 16200	/* Apogée de l'ensemble de la fusée (1er et 2e étage sans séparation) */
+// #define T_ALPHA_BETA_3 34500	/* Atterrisage de l'ensemble de la fusée (1er et 2e étage sans séparation) */
 
-#define T_ALPHA_0 0 /* Apogée du premier étage */
-#define T_ALPHA_1 0 /* Atterrissage du premier étage */
-
-#define T_BETA_0 0 /* Allumage du second étage */
-#define T_BETA_1 0 /* Confirmation de l'allumage du second étage */
-#define T_BETA_2 0 /* Apogée du second étage si séparation et actif */
-#define T_BETA_3 0 /* Atterrissage du second étage si séparation et actif */
-#define T_BETA_4 0 /* Apogée du second étage si séparation mais passif */
-#define T_BETA_5 0 /* Atterrissage du second étage si séparation mais passif */
+#define T_BETA_0 4700	/* Allumage du second étage */
+#define T_BETA_1 4800	/* Confirmation de l'allumage du second étage */
+#define T_BETA_2 15900	/* Apogée du second étage si séparation et actif */
+// #define T_BETA_3 35400	/* Atterrissage du second étage si séparation et actif */
+#define T_BETA_4 15000	/* Apogée du second étage si séparation mais passif */
+// #define T_BETA_5 33500 /* Atterrissage du second étage si séparation mais passif */
 
 #define DEG_TO_RAD (M_PI / 180.0f)
 #define RAD_TO_DEG (180.0f / M_PI)
@@ -98,37 +95,10 @@ void on_new_pressure_frame(data_sub_t *sub);
 
 
 typedef enum stage_phase_type_t {
-	STAGE_PHASE_FIRST_STAGE_INIT,
-	STAGE_PHASE_FIRST_STAGE_FLIGHT,
 	STAGE_PHASE_SECOND_STAGE_INIT,
 	STAGE_PHASE_SECOND_STAGE_FLIGHT
 } stage_phase_type_t;
 
-/* ===================================================
-   FIRST STAGE STATE MACHINE
-   =================================================== */
-
-typedef enum first_stage_initialisation_phase_t {
-	FIRST_STAGE_INIT_AF_ZERO,
-	FIRST_STAGE_INIT_WAIT_AF_ZERO,
-	FIRST_STAGE_INIT_SEPA_ZERO,
-	FIRST_STAGE_INIT_WAIT_SEPA_ZERO,
-	FIRST_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION,
-} first_stage_initialisation_phase_t;
-
-typedef enum first_stage_flight_phase_t {
-	FIRST_STAGE_FLIGHT_INITIALISATION,
-	FIRST_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION,
-	FIRST_STAGE_FLIGHT_WAIT_BURN_END,
-	FIRST_STAGE_FLIGHT_SEPARATION,
-	FIRST_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION,
-	FIRST_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION,
-	FIRST_STAGE_FLIGHT_WAIT_DROGUE_CONFIRMATION,
-	FIRST_STAGE_FLIGHT_WAIT_LANDING_CONFIRMATION,
-} first_stage_flight_phase_t;
-
-void first_stage_init_state_machine(void);
-void first_stage_flight_state_machine(void);
 
 
 
@@ -138,17 +108,24 @@ void first_stage_flight_state_machine(void);
    =================================================== */
 
 typedef enum second_stage_initialisation_phase_t {
-	SECOND_STAGE_INIT_NOP, // TODO: fill this in with actual initialisation phases
+	SECOND_STAGE_INIT_PARA_ZERO,
+	SECOND_STAGE_INIT_WAIT_PARA_ZERO,
+	SECOND_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION,
+	SECOND_STAGE_INIT_WAIT_JACK,
 } second_stage_initialisation_phase_t;
 
 typedef enum second_stage_flight_phase_t {
-	SECOND_STAGE_FLIGHT_WAIT_STAGE_ASSEMBLY_CONFIRMATION,
+	SECOND_STAGE_FLIGHT_INITIALISATION,
 	SECOND_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION,
 	SECOND_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION,
 	SECOND_STAGE_FLIGHT_WAIT_ATTITUDE_CONFIRMATION,
-	SECOND_STAGE_FLIGHT_BURN_SECOND_BURN_COMMAND,
-	SECOND_STAGE_FLIGHT_WAIT_SECOND_BURN_CONFIRMATION,
+	SECOND_STAGE_FLIGHT_IGNITION,
+	SECOND_STAGE_FLIGHT_WAIT_IGNITION_CONFIRMATION,
 	SECOND_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION,
+	SECOND_STAGE_FLIGHT_APOGEE,
+	SECOND_STAGE_FLIGHT_WAIT_DROGUE_CONFIRMATION,
+	SECOND_STAGE_FLIGHT_WAIT_LANDING_CONFIRMATION,
+	SECOND_STAGE_FLIGHT_IDLE,
 } second_stage_flight_phase_t;
 
 void second_stage_init_state_machine(void);

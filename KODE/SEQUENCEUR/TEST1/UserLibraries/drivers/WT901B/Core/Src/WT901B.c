@@ -10,6 +10,7 @@
  */
 
 #include "WT901B.h"
+#include "stm32f0xx_hal_uart.h"
 #include "usart.h"
 
 #include <string.h>
@@ -75,6 +76,11 @@ WT901B_status_t WT901B_Init(WT901B_t *wt, UART_HandleTypeDef *huart) {
     if (buffer_obj != NULL) {
         buffer_obj->rx_buffer = wt->uart_buffer;
         buffer_obj->rx_length = sizeof(wt->uart_buffer);
+        res = HAL_UART_Abort_IT(huart);
+        if (res != HAL_OK) {
+            wt->last_status = WT901B_UART_ERROR;
+            return WT901B_UART_ERROR; // UART receive error
+        }
         res = HAL_UARTEx_ReceiveToIdle_IT(huart, buffer_obj->rx_buffer, buffer_obj->rx_length);
         if (res != HAL_OK) {
             wt->last_status = WT901B_UART_ERROR;

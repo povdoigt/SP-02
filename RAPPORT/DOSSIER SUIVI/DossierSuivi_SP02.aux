@@ -14,74 +14,513 @@
 \@newglossary{acronym}{alg}{acr}{acn}
 \babel@aux{french}{}
 \providecommand\@gls@reference[3]{}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Electronique}{3}{section.1}\protected@file@percent }
-\newlabel{sec:electronique}{{1}{3}{Electronique}{section.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Présentation du système électronique général}{3}{subsection.1.1}\protected@file@percent }
-\newlabel{subsec:presentation}{{1.1}{3}{Présentation du système électronique général}{subsection.1.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces Schéma simplifié du système électronique général de la fusée SP-02}}{3}{figure.caption.2}\protected@file@percent }
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:schema_electronique_general}{{1.1}{3}{Schéma simplifié du système électronique général de la fusée SP-02}{figure.caption.2}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.1}Principaux éléments du système}{4}{subsubsection.1.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.2}Interactions entre les éléments du système}{4}{subsubsection.1.1.2}\protected@file@percent }
-\@gls@reference{acronym}{UART}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Présentation des cartes électroniques}{5}{subsection.1.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Présentation de l'ensemble des cartes électroniques}}{5}{table.caption.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Séquenceurs}{6}{subsection.1.3}\protected@file@percent }
-\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.2}{\ignorespaces Rendu 3D de la carte séquenceur}}{6}{figure.caption.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.3}{\ignorespaces Zoom sur le séquenceur et interface}}{6}{figure.caption.5}\protected@file@percent }
-\newlabel{fig:schema_synopsis}{{1.3}{6}{Zoom sur le séquenceur et interface}{figure.caption.5}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.1}Architecture matérielle}{7}{subsubsection.1.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.2}Principes de fonctionnement}{7}{subsubsection.1.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.4}{\ignorespaces Schémas fonctionnels des séquenceurs des deux étages}}{8}{figure.caption.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.3}Robustesse du système et immunité aux perturbations}{9}{subsubsection.1.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.4}Conception PCB}{9}{subsubsection.1.3.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Ligne de mise à feu}{10}{subsection.1.4}\protected@file@percent }
-\newlabel{subsec:ligne_mise_a_feu}{{1.4}{10}{Ligne de mise à feu}{subsection.1.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.5}{\ignorespaces Rendu 3D des cartes PCBs principale et condensateurs dy système d'allumage}}{10}{figure.caption.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.4.1}Principe de fonctionnement}{10}{subsubsection.1.4.1}\protected@file@percent }
-\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{10}}
-\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{10}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.6}{\ignorespaces Zoom sur le sinopsis de la ligne de mise à feu (ref. annexe \ref {subsec:synoptique_fusee})}}{10}{figure.caption.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1.7}{\ignorespaces Schéma de la ligne de mise à feu}}{11}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:schema_allumage}{{1.7}{11}{Schéma de la ligne de mise à feu}{figure.caption.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.8}{\ignorespaces Zoom sur le circuit de charge/décharge des condensateurs}}{11}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:schema_allumage_charge}{{1.8}{11}{Zoom sur le circuit de charge/décharge des condensateurs}{figure.caption.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.9}{\ignorespaces Zoom sur le circuit de condensateurs}}{11}{figure.caption.11}\protected@file@percent }
-\newlabel{fig:schema_allumage_condensateurs}{{1.9}{11}{Zoom sur le circuit de condensateurs}{figure.caption.11}{}}
 \citation{CDC_BiEtage}
+\@writefile{toc}{\contentsline {section}{\numberline {}Introduction}{3}{figure.caption.1}\protected@file@percent }
+\newlabel{sec:introduction}{{}{3}{}{figure.caption.1}{}}
+\@gls@reference{acronym}{IPSA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{main}{C'Space}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{acronym}{CNES}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{main}{CNES_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{main}{Planète Sciences}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{acronym}{PMI}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{main}{PMI_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{acronym}{IPSA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{acronym}{CNES}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{main}{Planète Sciences}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{3}}
+\citation{AeroIPSA}
+\citation{AeroIPSA}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Généralités}{4}{section.1}\protected@file@percent }
+\newlabel{sec:generalites}{{1}{4}{Généralités}{section.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Présentation du club}{4}{subsection.1.1}\protected@file@percent }
+\newlabel{subsec:pres_club}{{1.1}{4}{Présentation du club}{subsection.1.1}{}}
+\@gls@reference{acronym}{IPSA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{4}}
+\@gls@reference{main}{Minif}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{4}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{4}}
+\@gls@reference{main}{Cansat}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{4}}
+\@gls@reference{main}{C'Space}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{4}}
+\@gls@reference{acronym}{CNES}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{4}}
+\@gls@reference{main}{Planète Sciences}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces Photo de groupe de membres du club de l'AéroIPSA lors du \gls {C'Space} 2025.}}{4}{figure.caption.2}\protected@file@percent }
+\@gls@reference{main}{C'Space}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{4}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:pres_club}{{1.1}{4}{Photo de groupe de membres du club de l'AéroIPSA lors du \gls {C'Space} 2025}{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Présentation de l'équipe}{5}{subsection.1.2}\protected@file@percent }
+\newlabel{subsec:pres_equipe}{{1.2}{5}{Présentation de l'équipe}{subsection.1.2}{}}
+\@gls@reference{acronym}{IPSA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{5}}
+\@gls@reference{acronym}{PMI}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Définition du projet}{5}{subsection.1.3}\protected@file@percent }
+\newlabel{subsec:def_projet}{{1.3}{5}{Définition du projet}{subsection.1.3}{}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{5}}
+\@gls@reference{main}{C'Space}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{5}}
+\@gls@reference{acronym}{CFD}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{5}}
+\@gls@reference{acronym}{FEM}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{5}}
+\@gls@reference{main}{APEX}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{5}}
+\@gls@reference{main}{C'Space}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.1}Premier étage}{6}{subsubsection.1.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.2}{\ignorespaces Vue du premier étage sur \acrshort {CATIA}}}{6}{figure.caption.3}\protected@file@percent }
+\@gls@reference{acronym}{CATIA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{6}}
+\newlabel{fig:sp02_s1_ork}{{1.2}{6}{Vue du premier étage sur \acrshort {CATIA}}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.2}Deuxième étage}{6}{subsubsection.1.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.3}{\ignorespaces Vue du second étage sur \acrshort {CATIA}}}{6}{figure.caption.4}\protected@file@percent }
+\@gls@reference{acronym}{CATIA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{6}}
+\newlabel{fig:sp02_s2_ork}{{1.3}{6}{Vue du second étage sur \acrshort {CATIA}}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.3}Ensemble de la fusée}{7}{subsubsection.1.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.4}{\ignorespaces Vue d'ensemble de la fusée SP-02 sur \acrshort {CATIA}}}{7}{figure.caption.5}\protected@file@percent }
+\@gls@reference{acronym}{CATIA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{7}}
+\newlabel{fig:sp02_ork}{{1.4}{7}{Vue d'ensemble de la fusée SP-02 sur \acrshort {CATIA}}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.3.4}Choix des propulseurs}{7}{subsubsection.1.3.4}\protected@file@percent }
+\@gls@reference{main}{C'Space}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{7}}
+\citation{AeroIPSA}
+\citation{Arcturus}
+\citation{SP01}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Retours d'expérience de précédents projets}{8}{subsection.1.4}\protected@file@percent }
+\newlabel{subsec:retour_exp}{{1.4}{8}{Retours d'expérience de précédents projets}{subsection.1.4}{}}
+\@gls@reference{main}{Minif}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.5}{\ignorespaces Minif Arcturus}}{8}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:arcturus}{{1.5}{8}{Minif Arcturus}{figure.caption.6}{}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.6}{\ignorespaces Fusée SP-01}}{8}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:sp01}{{1.6}{8}{Fusée SP-01}{figure.caption.7}{}}
+\citation{SP01}
+\citation{APEX}
+\@gls@reference{acronym}{GNSS}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{9}}
+\newlabel{fig:unknown1}{{1.7a}{9}{face arrière}{figure.caption.8}{}}
+\newlabel{sub@fig:unknown1}{{a}{9}{face arrière}{figure.caption.8}{}}
+\newlabel{fig:unknown2}{{1.7b}{9}{face avant}{figure.caption.8}{}}
+\newlabel{sub@fig:unknown2}{{b}{9}{face avant}{figure.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.7}{\ignorespaces Module électronique Unknown}}{9}{figure.caption.8}\protected@file@percent }
+\@gls@reference{main}{APEX}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{9}}
+\@gls@reference{acronym}{LORA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{9}}
+\@gls@reference{main}{APEX}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{9}}
+\@gls@reference{main}{APEX}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{9}}
+\newlabel{fig:apex_back}{{1.8a}{9}{face arrière}{figure.caption.9}{}}
+\newlabel{sub@fig:apex_back}{{a}{9}{face arrière}{figure.caption.9}{}}
+\newlabel{fig:apex_front}{{1.8b}{9}{face avant}{figure.caption.9}{}}
+\newlabel{sub@fig:apex_front}{{b}{9}{face avant}{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.8}{\ignorespaces Module électronique \gls {APEX}}}{9}{figure.caption.9}\protected@file@percent }
+\@gls@reference{main}{APEX}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{9}}
+\@gls@reference{main}{APEX}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{9}}
+\@gls@reference{main}{C'Space}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5}Financement et partenaires}{10}{subsection.1.5}\protected@file@percent }
+\newlabel{subsec:financement_partenaires}{{1.5}{10}{Financement et partenaires}{subsection.1.5}{}}
+\@gls@reference{acronym}{IPSA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{10}}
+\@gls@reference{acronym}{PMI}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{10}}
+\@gls@reference{main}{Skylab}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{10}}
+\@gls@reference{acronym}{PMI}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6}Planification, répartition des tâches}{10}{subsection.1.6}\protected@file@percent }
+\newlabel{subsec:planification}{{1.6}{10}{Planification, répartition des tâches}{subsection.1.6}{}}
+\@gls@reference{acronym}{PMI}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{10}}
+\@gls@reference{main}{C'Space}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{10}}
+\@gls@reference{acronym}{CAO}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{10}}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\@writefile{lof}{\contentsline {figure}{\numberline {1.9}{\ignorespaces Diagramme de Gantt du projet SP-02 (octobre 2025 – juillet 2026)}}{11}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:gantt_sp02}{{1.9}{11}{Diagramme de Gantt du projet SP-02 (octobre 2025 – juillet 2026)}{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Analyse de sûreté de fonctionnement}{11}{section.2}\protected@file@percent }
+\newlabel{sec:analyse_surete_fonc}{{2}{11}{Analyse de sûreté de fonctionnement}{section.2}{}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{11}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{11}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Règles concernant l'analyse de sûreté de fonctionnement du \acrshort {CDC} \gls {Fusex} bi-étage \cite  [p. ~21]{CDC_BiEtage}}}{11}{table.caption.11}\protected@file@percent }
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{11}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{11}}
+\newlabel{tab:regles_surete_fonc}{{1}{11}{Règles concernant l'analyse de sûreté de fonctionnement du \acrshort {CDC} \gls {Fusex} bi-étage \cite [p. ~21]{CDC_BiEtage}}{table.caption.11}{}}
+\@gls@reference{acronym}{AMDEC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{11}}
+\@gls@reference{main}{AMDEC_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{11}}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Présentation des phases de vol}{12}{subsection.2.1}\protected@file@percent }
+\newlabel{subsec:phases_vol}{{2.1}{12}{Présentation des phases de vol}{subsection.2.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Diagramme des phases nominales de vol depuis SP-02}}{12}{figure.caption.12}\protected@file@percent }
 \@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{12}}
-\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{13}}
-\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{13}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.10}{\ignorespaces Zoom sur le circuit isolateur}}{13}{figure.caption.12}\protected@file@percent }
-\newlabel{fig:schema_allumage_isolateur}{{1.10}{13}{Zoom sur le circuit isolateur}{figure.caption.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.11}{\ignorespaces Zoom sur le circuit final}}{13}{figure.caption.13}\protected@file@percent }
-\newlabel{fig:schema_allumage_final}{{1.11}{13}{Zoom sur le circuit final}{figure.caption.13}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.4.2}Interface}{13}{subsubsection.1.4.2}\protected@file@percent }
-\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{13}}
-\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{13}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.12}{\ignorespaces Zoom sur l'interface de la carte principale du système d'allumage}}{13}{figure.caption.14}\protected@file@percent }
-\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{14}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.4.3}Séquence de vol}{14}{subsubsection.1.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.5}Expérience}{15}{subsection.1.5}\protected@file@percent }
-\newlabel{subsec:experience}{{1.5}{15}{Expérience}{subsection.1.5}{}}
-\@gls@reference{main}{APEX}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{15}}
-\@gls@reference{main}{APEX}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{15}}
-\@gls@reference{acronym}{GNSS}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{15}}
-\@gls@reference{acronym}{LORA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{15}}
-\@gls@reference{acronym}{SNR}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{15}}
-\@gls@reference{acronym}{FSK}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{15}}
-\@gls@reference{main}{APEX}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{15}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.6}Caméra embarquée}{16}{subsection.1.6}\protected@file@percent }
-\newlabel{subsec:camera}{{1.6}{16}{Caméra embarquée}{subsection.1.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.7}Allimentations et masses électriques}{17}{subsection.1.7}\protected@file@percent }
-\newlabel{subsec:alimentation}{{1.7}{17}{Allimentations et masses électriques}{subsection.1.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.13}{\ignorespaces Batterie Li-Ion 18650-26H}}{17}{figure.1.13}\protected@file@percent }
-\newlabel{fig:batterie_RS}{{1.13}{17}{Batterie Li-Ion 18650-26H}{figure.1.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.14}{\ignorespaces Batterie Li-Po plate}}{17}{figure.caption.15}\protected@file@percent }
-\newlabel{fig:batterie_LiPo}{{1.14}{17}{Batterie Li-Po plate}{figure.caption.15}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {}Liste des figures}{18}{figure.caption.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {}Liste des tableaux}{18}{figure.caption.15}\protected@file@percent }
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{13}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{13}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{13}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{15}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{15}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{15}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{15}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{15}}
+\citation{CDC_BiEtage}
+\@gls@reference{acronym}{APR}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{main}{APR_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}\acrlong {APR}}{16}{subsection.2.2}\protected@file@percent }
+\newlabel{subsec:analyse_prelem}{{2.2}{16}{\acrlong {APR}}{subsection.2.2}{}}
+\@gls@reference{acronym}{APR}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{main}{APR_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{acronym}{APR}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{acronym}{ERPs}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{acronym}{ERPs}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}\acrlong {ERPs}}{16}{subsubsection.2.2.1}\protected@file@percent }
+\newlabel{subsubsec:ERPs}{{2.2.1}{16}{\acrlong {ERPs}}{subsubsection.2.2.1}{}}
+\@gls@reference{acronym}{ERPs}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{acronym}{AMDEC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{acronym}{ERPs}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{acronym}{ERP}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{acronym}{ERP}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{acronym}{ERP}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@gls@reference{acronym}{ERP}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Liste des \acrfull {ERPs} du projet SP-02}}{16}{table.caption.13}\protected@file@percent }
+\@gls@reference{acronym}{ERPs}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{16}}
+\newlabel{tab:ERP_SP02}{{2}{16}{Liste des \acrfull {ERPs} du projet SP-02}{table.caption.13}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Analyse des risques par phase de vol}{17}{subsubsection.2.2.2}\protected@file@percent }
+\newlabel{subsubsec:analyse_par_phase}{{2.2.2}{17}{Analyse des risques par phase de vol}{subsubsection.2.2.2}{}}
+\@gls@reference{acronym}{ERPs}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{17}}
+\@gls@reference{acronym}{ERP}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{17}}
+\@gls@reference{acronym}{ERPs}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{17}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Analyse des \acrshort {ERPs} par phase du vol de SP-02}}{17}{table.caption.14}\protected@file@percent }
+\@gls@reference{acronym}{ERPs}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{17}}
+\newlabel{tab:ERP_par_phase}{{3}{17}{Analyse des \acrshort {ERPs} par phase du vol de SP-02}{table.caption.14}{}}
+\@gls@reference{acronym}{ERPs}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{17}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{main}{MDF_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}\acrlong {MDF}}{18}{subsection.2.3}\protected@file@percent }
+\newlabel{subsec:modes_deffaillance}{{2.3}{18}{\acrlong {MDF}}{subsection.2.3}{}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{main}{MDF_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{ERPs}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{APR}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{main}{APR_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{ERP}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{main}{MDF_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{ERPs}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{AMDEC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Présentation des sous-systèmes}{18}{subsubsection.2.3.1}\protected@file@percent }
+\newlabel{subsubsec:sous_sys}{{2.3.1}{18}{Présentation des sous-systèmes}{subsubsection.2.3.1}{}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{main}{MDF_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{18}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{main}{MDF_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{ERP}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@gls@reference{acronym}{AMDEC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Méthode \acrshort {AMDEC}}{20}{subsection.2.4}\protected@file@percent }
+\newlabel{subsec:amdec}{{2.4}{20}{Méthode \acrshort {AMDEC}}{subsection.2.4}{}}
+\@gls@reference{acronym}{AMDEC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{main}{AMDEC_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{acronym}{APR}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{main}{APR_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{main}{MDF_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{acronym}{IPR}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{main}{IPR_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{acronym}{ERP}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{acronym}{AMDEC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{acronym}{AMDEC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{main}{MDF_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{acronym}{ERPs}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{acronym}{RCE}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{21}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{21}}
+\@gls@reference{acronym}{IPR}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Tableau d'attribution des indices G, F, D et calcul de l'\acrshort {IPR} pour chaque \acrshort {MDF}}}{21}{figure.caption.15}\protected@file@percent }
+\@gls@reference{acronym}{IPR}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{21}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Extrait de l'analyse \acrshort {AMDEC} réalisée pour le projet SP-02}}{22}{figure.caption.16}\protected@file@percent }
+\@gls@reference{acronym}{AMDEC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{22}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Bilan sur les actions correctives}{23}{subsection.2.5}\protected@file@percent }
+\newlabel{subsec:bilan_action_corr}{{2.5}{23}{Bilan sur les actions correctives}{subsection.2.5}{}}
+\@gls@reference{acronym}{AMDEC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{23}}
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{23}}
+\citation{Stab_doc}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Stabilité et gabarits}{25}{section.3}\protected@file@percent }
+\newlabel{sec:stabilite}{{3}{25}{Stabilité et gabarits}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Stabilité}{25}{subsection.3.1}\protected@file@percent }
+\newlabel{subsec:stabilite}{{3.1}{25}{Stabilité}{subsection.3.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Méthodologie}{25}{subsubsection.3.1.1}\protected@file@percent }
+\newlabel{subsubsec:stabilite_methode}{{3.1.1}{25}{Méthodologie}{subsubsection.3.1.1}{}}
+\@gls@reference{main}{Stabtraj}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{main}{OpenRocket}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{acronym}{CAO}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{acronym}{CAO}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{main}{OpenRocket}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{acronym}{CAO}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{main}{OpenRocket}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{acronym}{CdG}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{main}{OpenRocket}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{acronym}{CdP}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{main}{Stabtraj}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{main}{Stabtraj}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{acronym}{CdG}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{main}{OpenRocket}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{main}{Stabtraj}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{acronym}{CdP}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@gls@reference{acronym}{CdG}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{25}{figure.caption.17}\protected@file@percent }
+\@gls@reference{main}{OpenRocket}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{25}}
+\newlabel{fig:sp02_ork_model}{{3.1}{25}{Modélisation de la fusée SP-02 dans \gls {OpenRocket}}{figure.caption.17}{}}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Résultats}{26}{subsubsection.3.1.2}\protected@file@percent }
+\newlabel{subsubsec:stabilite_resultats}{{3.1.2}{26}{Résultats}{subsubsection.3.1.2}{}}
+\@writefile{toc}{\contentsline {subsubsubsection}{\numberline {3.1.2.1}Configuration adoptée}{26}{subsubsubsection.3.1.2.1}\protected@file@percent }
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{26}}
+\@writefile{toc}{\contentsline {subsubsubsection}{\numberline {3.1.2.2}Résultats des analyses}{26}{subsubsubsection.3.1.2.2}\protected@file@percent }
+\newlabel{fig:stabilite_sp02}{{3.2a}{26}{Fusée SP-02 complète}{figure.caption.18}{}}
+\newlabel{sub@fig:stabilite_sp02}{{a}{26}{Fusée SP-02 complète}{figure.caption.18}{}}
+\newlabel{fig:stabilite_etage1}{{3.2b}{26}{Premier étage}{figure.caption.18}{}}
+\newlabel{sub@fig:stabilite_etage1}{{b}{26}{Premier étage}{figure.caption.18}{}}
+\newlabel{fig:stabilite_etage2}{{3.2c}{26}{Second étage}{figure.caption.18}{}}
+\newlabel{sub@fig:stabilite_etage2}{{c}{26}{Second étage}{figure.caption.18}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Résultats des analyses de stabilité longitudinale de la fusée SP-02 et de ses étages (\gls {Stabtraj})}}{26}{figure.caption.18}\protected@file@percent }
+\@gls@reference{main}{Stabtraj}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{26}}
+\newlabel{fig:stabilite_resultats}{{3.2}{26}{Résultats des analyses de stabilité longitudinale de la fusée SP-02 et de ses étages (\gls {Stabtraj})}{figure.caption.18}{}}
+\@gls@reference{acronym}{RCE}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{26}}
+\@gls@reference{main}{OpenRocket}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Gabarits}{27}{subsection.3.2}\protected@file@percent }
+\newlabel{subsec:gabarits}{{3.2}{27}{Gabarits}{subsection.3.2}{}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{27}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Résumé des gabarits de vol de la fusée SP-02 dans différentes configurations}}{27}{table.caption.19}\protected@file@percent }
+\newlabel{tab:gabarits_vol}{{4}{27}{Résumé des gabarits de vol de la fusée SP-02 dans différentes configurations}{table.caption.19}{}}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Structure mécanique}{28}{section.4}\protected@file@percent }
+\newlabel{sec:structure_meca}{{4}{28}{Structure mécanique}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Généralités}{28}{subsection.4.1}\protected@file@percent }
+\newlabel{subsec:generalites}{{4.1}{28}{Généralités}{subsection.4.1}{}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{28}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{28}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Règles de structure mécanique globale issues du \acrshort {CDC} \gls {Fusex} \cite  [p.~32-33]{CDC_BiEtage}}}{28}{table.caption.20}\protected@file@percent }
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{28}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{28}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Choix des matériaux}{29}{subsection.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Propriétés mécaniques et coût des matériaux sélectionnés}}{29}{table.caption.21}\protected@file@percent }
+\newlabel{tab:choix_materiaux}{{6}{29}{Propriétés mécaniques et coût des matériaux sélectionnés}{table.caption.21}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Précision du protocole de fabrication des fuselages porteurs}{29}{subsubsection.4.2.1}\protected@file@percent }
+\@gls@reference{acronym}{EPI}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{29}}
+\citation{CDC_BiEtage}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Structure du premier étage}{30}{subsection.4.3}\protected@file@percent }
+\newlabel{subsec:premier_etage}{{4.3}{30}{Structure du premier étage}{subsection.4.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}Flèche}{30}{subsubsection.4.3.1}\protected@file@percent }
+\newlabel{subsubsec:premier_etage}{{4.3.1}{30}{Flèche}{subsubsection.4.3.1}{}}
+\@gls@reference{main}{C'Space}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Schéma de calcul du couple exercé au niveau de la base du premier étage}}{30}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:placeholder}{{4.1}{30}{Schéma de calcul du couple exercé au niveau de la base du premier étage}{figure.caption.22}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Résultats des tests de flèche du tube du premier étage}}{30}{table.caption.23}\protected@file@percent }
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{30}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}Fabrication et collage du bloc propulsion avec ailerons}{31}{subsubsection.4.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Procédé de collage ailerons/tube porte-moteur}}{31}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:collage_aileronsSP01}{{4.2}{31}{Procédé de collage ailerons/tube porte-moteur}{figure.caption.24}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Procédé de collage ailerons/structure avec congés en résine}}{31}{figure.caption.25}\protected@file@percent }
+\newlabel{fig:collage2_aileronsSP01}{{4.3}{31}{Procédé de collage ailerons/structure avec congés en résine}{figure.caption.25}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3}Maintien du Pro54}{32}{subsubsection.4.3.3}\protected@file@percent }
+\@gls@reference{acronym}{RCE}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Méthodes de fixation du Pro54}}{32}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:fixation_pro54}{{4.4}{32}{Méthodes de fixation du Pro54}{figure.caption.26}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4}Aérofreins}{32}{subsubsection.4.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Système d'aérofrein d'SP-02 sur \acrshort {CATIA}}}{32}{figure.4.5}\protected@file@percent }
+\@gls@reference{acronym}{CATIA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{32}}
+\newlabel{fig:aerofrein_SP02}{{4.5}{32}{Système d'aérofrein d'SP-02 sur \acrshort {CATIA}}{figure.4.5}{}}
+\@gls@reference{acronym}{POMc}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Position des aérofreins d'SP-02}}{33}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:aerofrein_SP02_ouvert_ferme}{{4.6}{33}{Position des aérofreins d'SP-02}{figure.caption.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Vu éclatée du système d'aérofrein d'SP-02}}{33}{figure.4.7}\protected@file@percent }
+\newlabel{fig:aerofrein_SP02_eclate}{{4.7}{33}{Vu éclatée du système d'aérofrein d'SP-02}{figure.4.7}{}}
+\@gls@reference{acronym}{POMc}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{33}}
+\@gls@reference{acronym}{POMc}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{33}}
+\@gls@reference{acronym}{POMc}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{33}}
+\@gls@reference{acronym}{CAO}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{33}}
+\@gls@reference{acronym}{CATIA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{33}}
+\@gls@reference{main}{Skylab}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{33}}
+\citation{CDC_BiEtage}
+\citation{CDC_BiEtage}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.5}Définition du système d'ouverture/parachute}{34}{subsubsection.4.3.5}\protected@file@percent }
+\newlabel{subsec:defpara}{{4.3.5}{34}{Définition du système d'ouverture/parachute}{subsubsection.4.3.5}{}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{34}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{34}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Règles de dimensionnement des systèmes de récupération issues du \acrshort {CDC} \gls {Fusex} \cite  [p.~36-42]{CDC_BiEtage}}}{34}{table.caption.28}\protected@file@percent }
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{34}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{34}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{34}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Bloc parachute du premier étage sur \acrshort {CATIA}}}{35}{figure.caption.30}\protected@file@percent }
+\@gls@reference{acronym}{CATIA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{35}}
+\newlabel{fig:para1_SP02}{{4.8}{35}{Bloc parachute du premier étage sur \acrshort {CATIA}}{figure.caption.30}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Système de séparation}{36}{subsection.4.4}\protected@file@percent }
+\newlabel{subsec:sys_sepa}{{4.4}{36}{Système de séparation}{subsection.4.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Objectifs mécaniques et intégration structurelle}{36}{subsubsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Architecture mécanique générale}{36}{subsubsection.4.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Cinématique de déverrouillage en vol}{36}{subsubsection.4.4.3}\protected@file@percent }
+\citation{CDC_BiEtage}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Séparation mécanique de secours par ressorts}{37}{subsubsection.4.4.4}\protected@file@percent }
+\@gls@reference{acronym}{MDF}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{37}}
+\@gls@reference{main}{MDF_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{37}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.5}Gestion d'un allumage intempestif du moteur du second étage}{37}{subsubsection.4.4.5}\protected@file@percent }
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{37}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{37}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.6}Matériaux et procédés de fabrication}{37}{subsubsection.4.4.6}\protected@file@percent }
+\@gls@reference{acronym}{CNC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{37}}
+\@gls@reference{acronym}{RCE}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{37}}
+\@gls@reference{acronym}{CNC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{37}}
+\@gls@reference{main}{Skylab}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{37}}
+\@gls@reference{acronym}{PLA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{37}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.7}Instrumentation vidéo de la séparation}{38}{subsubsection.4.4.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.8}Illustrations du mécanisme de séparation}{38}{subsubsection.4.4.8}\protected@file@percent }
+\newlabel{fig:separation_coupe_ouverte}{{4.9a}{38}{position de déverrouillage, loquets dégagés}{figure.caption.31}{}}
+\newlabel{sub@fig:separation_coupe_ouverte}{{a}{38}{position de déverrouillage, loquets dégagés}{figure.caption.31}{}}
+\newlabel{fig:separation_coupe_fermee}{{4.9b}{38}{position verrouillée, loquets engagés et ressorts armés}{figure.caption.31}{}}
+\newlabel{sub@fig:separation_coupe_fermee}{{b}{38}{position verrouillée, loquets engagés et ressorts armés}{figure.caption.31}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Vue en coupe du mécanisme de séparation inter-étages}}{38}{figure.caption.31}\protected@file@percent }
+\newlabel{fig:separation_ensemble}{{4.10a}{39}{Vue d'ensemble éclatée du bloc de séparation et des jupes d'étage, montrant l'intégration structurelle et les évents d'évacuation des gaz}{figure.caption.32}{}}
+\newlabel{sub@fig:separation_ensemble}{{a}{39}{Vue d'ensemble éclatée du bloc de séparation et des jupes d'étage, montrant l'intégration structurelle et les évents d'évacuation des gaz}{figure.caption.32}{}}
+\newlabel{fig:separation_mecanisme_nu}{{4.10b}{39}{Mécanisme de séparation nu avec les quatre bielles, les loquets et la vis sans fin actionnée par le servomoteur Feetech}{figure.caption.32}{}}
+\newlabel{sub@fig:separation_mecanisme_nu}{{b}{39}{Mécanisme de séparation nu avec les quatre bielles, les loquets et la vis sans fin actionnée par le servomoteur Feetech}{figure.caption.32}{}}
+\newlabel{fig:separation_ressorts_armes}{{4.11a}{39}{Ressorts de séparation armés, interface inter-étages verrouillée}{figure.caption.33}{}}
+\newlabel{sub@fig:separation_ressorts_armes}{{a}{39}{Ressorts de séparation armés, interface inter-étages verrouillée}{figure.caption.33}{}}
+\newlabel{fig:separation_ressorts_libres}{{4.11b}{39}{Ressorts de séparation libérés après la course complète du chariot}{figure.caption.33}{}}
+\newlabel{sub@fig:separation_ressorts_libres}{{b}{39}{Ressorts de séparation libérés après la course complète du chariot}{figure.caption.33}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces Évolution de la configuration des ressorts de séparation entre l'état armé et l'état libéré.}}{39}{figure.caption.33}\protected@file@percent }
+\newlabel{fig:separation_ressorts}{{4.11}{39}{Évolution de la configuration des ressorts de séparation entre l'état armé et l'état libéré}{figure.caption.33}{}}
+\citation{FF}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Structure du second étage}{40}{subsection.4.5}\protected@file@percent }
+\newlabel{subsec:second_etage}{{4.5}{40}{Structure du second étage}{subsection.4.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}Flèche}{40}{subsubsection.4.5.1}\protected@file@percent }
+\newlabel{subsubsec:second_etage}{{4.5.1}{40}{Flèche}{subsubsection.4.5.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}Fabrication et collage des ailerons}{40}{subsubsection.4.5.2}\protected@file@percent }
+\@gls@reference{acronym}{CNC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{40}}
+\@gls@reference{main}{Minif}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{40}}
+\@gls@reference{main}{C'Space}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{40}}
+\@gls@reference{main}{Fusex}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{40}}
+\@gls@reference{acronym}{FAR}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{40}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces Illustration du collage des ailerons sur le tube de la mini-fusée \textit  {Arcturus}.}}{40}{figure.caption.35}\protected@file@percent }
+\newlabel{fig:collage_ailerons_arcturus}{{4.12}{40}{Illustration du collage des ailerons sur le tube de la mini-fusée \textit {Arcturus}}{figure.caption.35}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.3}Définition du système d'ouverture/parachute}{41}{subsubsection.4.5.3}\protected@file@percent }
+\newlabel{subsec:def_para2}{{4.5.3}{41}{Définition du système d'ouverture/parachute}{subsubsection.4.5.3}{}}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{41}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.13}{\ignorespaces Bloc parachute du second étage sur \acrshort {CATIA}}}{41}{figure.caption.37}\protected@file@percent }
+\@gls@reference{acronym}{CATIA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{41}}
+\newlabel{fig:para_etage2}{{4.13}{41}{Bloc parachute du second étage sur \acrshort {CATIA}}{figure.caption.37}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Mise en rampe}{42}{subsection.4.6}\protected@file@percent }
+\newlabel{subsec:mise_en_rampe}{{4.6}{42}{Mise en rampe}{subsection.4.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.14}{\ignorespaces Angles entre les ailerons proches de la rampe sur la configuration de mise en rampe}}{42}{figure.caption.38}\protected@file@percent }
+\newlabel{fig:para_etage2}{{4.14}{42}{Angles entre les ailerons proches de la rampe sur la configuration de mise en rampe}{figure.caption.38}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Electronique}{43}{section.5}\protected@file@percent }
+\newlabel{sec:electronique}{{5}{43}{Electronique}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Présentation du système électronique général}{43}{subsection.5.1}\protected@file@percent }
+\newlabel{subsec:presentation}{{5.1}{43}{Présentation du système électronique général}{subsection.5.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Schéma simplifié du système électronique général de la fusée SP-02}}{43}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:schema_electronique_general}{{5.1}{43}{Schéma simplifié du système électronique général de la fusée SP-02}{figure.caption.39}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Principaux éléments du système}{44}{subsubsection.5.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}Interactions entre les éléments du système}{44}{subsubsection.5.1.2}\protected@file@percent }
+\@gls@reference{acronym}{UART}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{44}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Présentation des cartes électroniques}{45}{subsection.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Présentation de l'ensemble des cartes électroniques}}{45}{table.caption.40}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Séquenceurs}{46}{subsection.5.3}\protected@file@percent }
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{46}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Rendu 3D de la carte séquenceur}}{46}{figure.caption.41}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Zoom sur le séquenceur et interface}}{46}{figure.caption.42}\protected@file@percent }
+\newlabel{fig:schema_synopsis}{{5.3}{46}{Zoom sur le séquenceur et interface}{figure.caption.42}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}Architecture matérielle}{47}{subsubsection.5.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}Principes de fonctionnement}{47}{subsubsection.5.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Schémas fonctionnels des séquenceurs des deux étages}}{48}{figure.caption.43}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.3}Robustesse du système et immunité aux perturbations}{49}{subsubsection.5.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.4}Conception PCB}{49}{subsubsection.5.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Ligne de mise à feu}{50}{subsection.5.4}\protected@file@percent }
+\newlabel{subsec:ligne_mise_a_feu}{{5.4}{50}{Ligne de mise à feu}{subsection.5.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Rendu 3D des cartes PCBs principale et condensateurs dy système d'allumage}}{50}{figure.caption.44}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.1}Principe de fonctionnement}{50}{subsubsection.5.4.1}\protected@file@percent }
+\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{50}}
+\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{50}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces Zoom sur le sinopsis de la ligne de mise à feu (ref. annexe \ref {subsec:synoptique_fusee})}}{50}{figure.caption.45}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces Schéma de la ligne de mise à feu}}{51}{figure.caption.46}\protected@file@percent }
+\newlabel{fig:schema_allumage}{{5.7}{51}{Schéma de la ligne de mise à feu}{figure.caption.46}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces Zoom sur le circuit de charge/décharge des condensateurs}}{51}{figure.caption.47}\protected@file@percent }
+\newlabel{fig:schema_allumage_charge}{{5.8}{51}{Zoom sur le circuit de charge/décharge des condensateurs}{figure.caption.47}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces Zoom sur le circuit de condensateurs}}{51}{figure.caption.48}\protected@file@percent }
+\newlabel{fig:schema_allumage_condensateurs}{{5.9}{51}{Zoom sur le circuit de condensateurs}{figure.caption.48}{}}
+\citation{CDC_BiEtage}
+\@gls@reference{acronym}{CDC}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{52}}
+\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{53}}
+\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{53}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.10}{\ignorespaces Zoom sur le circuit isolateur}}{53}{figure.caption.49}\protected@file@percent }
+\newlabel{fig:schema_allumage_isolateur}{{5.10}{53}{Zoom sur le circuit isolateur}{figure.caption.49}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.11}{\ignorespaces Zoom sur le circuit final}}{53}{figure.caption.50}\protected@file@percent }
+\newlabel{fig:schema_allumage_final}{{5.11}{53}{Zoom sur le circuit final}{figure.caption.50}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.2}Interface}{53}{subsubsection.5.4.2}\protected@file@percent }
+\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{53}}
+\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{53}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.12}{\ignorespaces Zoom sur l'interface de la carte principale du système d'allumage}}{53}{figure.caption.51}\protected@file@percent }
+\@gls@reference{acronym}{MOSFET}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{54}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.3}Séquence de vol}{54}{subsubsection.5.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Expérience}{55}{subsection.5.5}\protected@file@percent }
+\newlabel{subsec:experience}{{5.5}{55}{Expérience}{subsection.5.5}{}}
+\@gls@reference{main}{APEX}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{55}}
+\@gls@reference{main}{APEX}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{55}}
+\@gls@reference{acronym}{GNSS}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{55}}
+\@gls@reference{acronym}{LORA}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{55}}
+\@gls@reference{acronym}{SNR}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{55}}
+\@gls@reference{acronym}{FSK}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{55}}
+\@gls@reference{main}{APEX}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{55}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Caméra embarquée}{56}{subsection.5.6}\protected@file@percent }
+\newlabel{subsec:camera}{{5.6}{56}{Caméra embarquée}{subsection.5.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}Allimentations et masses électriques}{57}{subsection.5.7}\protected@file@percent }
+\newlabel{subsec:alimentation}{{5.7}{57}{Allimentations et masses électriques}{subsection.5.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.13}{\ignorespaces Batterie Li-Ion 18650-26H}}{57}{figure.5.13}\protected@file@percent }
+\newlabel{fig:batterie_RS}{{5.13}{57}{Batterie Li-Ion 18650-26H}{figure.5.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.14}{\ignorespaces Batterie Li-Po plate}}{57}{figure.caption.52}\protected@file@percent }
+\newlabel{fig:batterie_LiPo}{{5.14}{57}{Batterie Li-Po plate}{figure.caption.52}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {}Liste des figures}{58}{figure.caption.52}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {}Liste des tableaux}{58}{figure.caption.52}\protected@file@percent }
 \bibstyle{ieeetr}
 \bibdata{biblio}
 \bibcite{CDC_BiEtage}{1}
@@ -91,26 +530,26 @@
 \bibcite{APEX}{5}
 \bibcite{Stab_doc}{6}
 \bibcite{FF}{7}
-\@writefile{toc}{\contentsline {section}{\numberline {}Références}{19}{figure.caption.15}\protected@file@percent }
-\@gls@reference{main}{Planète Sciences}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
-\@gls@reference{acronym}{CNES}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
-\@gls@reference{main}{Planète Sciences}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
-\@gls@reference{acronym}{CNES}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{19}}
+\@writefile{toc}{\contentsline {section}{\numberline {}Références}{59}{figure.caption.52}\protected@file@percent }
+\@gls@reference{main}{Planète Sciences}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{59}}
+\@gls@reference{acronym}{CNES}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{59}}
+\@gls@reference{main}{Planète Sciences}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{59}}
+\@gls@reference{acronym}{CNES}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{59}}
 \citation{APEX}
-\@writefile{toc}{\contentsline {section}{\numberline {}Glossaires et acronymes}{20}{figure.caption.15}\protected@file@percent }
-\@gls@reference{acronym}{CNES}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
-\@gls@reference{main}{Planète Sciences}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
-\@gls@reference{acronym}{GPS}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
-\@gls@reference{acronym}{GNSS}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
-\@gls@reference{acronym}{IoT}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
-\@gls@reference{main}{C'Space}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
-\@gls@reference{acronym}{CNES}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
-\@gls@reference{main}{CNES_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
-\@gls@reference{main}{GNSS_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
-\@gls@reference{main}{GPS_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{20}}
-\@gls@reference{main}{LORA_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{21}}
-\@gls@reference{main}{UART_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{21}}
-\newlabel{LastPage}{{1.7}{21}{}{page.21}{}}
-\gdef\lastpage@lastpage{21}
-\gdef\lastpage@lastpageHy{21}
-\gdef \@abspage@last{21}
+\@writefile{toc}{\contentsline {section}{\numberline {}Glossaires et acronymes}{60}{figure.caption.52}\protected@file@percent }
+\@gls@reference{acronym}{CNES}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{60}}
+\@gls@reference{main}{Planète Sciences}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{60}}
+\@gls@reference{acronym}{GPS}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{60}}
+\@gls@reference{acronym}{GNSS}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{60}}
+\@gls@reference{acronym}{IoT}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{60}}
+\@gls@reference{main}{C'Space}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{60}}
+\@gls@reference{acronym}{CNES}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{60}}
+\@gls@reference{main}{CNES_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{60}}
+\@gls@reference{main}{GNSS_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{60}}
+\@gls@reference{main}{GPS_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{60}}
+\@gls@reference{main}{LORA_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{61}}
+\@gls@reference{main}{UART_g}{\glsnoidxdisplayloc{}{page}{glsnumberformat}{61}}
+\newlabel{LastPage}{{5.7}{61}{}{page.61}{}}
+\gdef\lastpage@lastpage{61}
+\gdef\lastpage@lastpageHy{61}
+\gdef \@abspage@last{61}
