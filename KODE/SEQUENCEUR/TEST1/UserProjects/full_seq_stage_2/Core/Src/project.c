@@ -9,7 +9,6 @@
 #include "quaternion_dynamics.h"
 #include "data_topic.h"
 #include "event_uart.h"
-#include "stm32f0xx_hal_gpio.h"
 #include "window_time.h"
 
 #include <math.h>
