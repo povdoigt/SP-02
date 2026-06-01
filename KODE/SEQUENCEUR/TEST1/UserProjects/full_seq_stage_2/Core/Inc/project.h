@@ -22,7 +22,7 @@
 // #define T_ALPHA_BETA_3 34500	/* Atterrisage de l'ensemble de la fusée (1er et 2e étage sans séparation) */
 
 #define T_BETA_0 4700	/* Allumage du second étage */
-#define T_BETA_1 4800	/* Confirmation de l'allumage du second étage */
+#define T_BETA_1 4700	/* Confirmation de l'allumage du second étage */
 #define T_BETA_2 15900	/* Apogée du second étage si séparation et actif */
 // #define T_BETA_3 35400	/* Atterrissage du second étage si séparation et actif */
 #define T_BETA_4 15000	/* Apogée du second étage si séparation mais passif */
