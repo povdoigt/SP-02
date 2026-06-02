@@ -19,9 +19,11 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "usart.h"
-#include "stm32l4xx_hal_uart.h"
 
 /* USER CODE BEGIN 0 */
+#include "STS.h"
+#include "WT901B.h"
+#include "stm32l4xx_hal_uart.h"
 
 /* USER CODE END 0 */
 
@@ -42,7 +44,7 @@ void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 9600;
+  huart1.Init.BaudRate = 115200;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -104,7 +106,7 @@ void MX_USART3_UART_Init(void)
 
   /* USER CODE END USART3_Init 1 */
   huart3.Instance = USART3;
-  huart3.Init.BaudRate = 38400;
+  huart3.Init.BaudRate = 115200;
   huart3.Init.WordLength = UART_WORDLENGTH_8B;
   huart3.Init.StopBits = UART_STOPBITS_1;
   huart3.Init.Parity = UART_PARITY_NONE;
@@ -306,27 +308,52 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 
 /* USER CODE BEGIN 1 */
 
-uint8_t rx_data[257] = { 0 };
+#ifdef USART1
+  UART_buffer_t uart_buffer_1 = { 0 };
+#endif
+#ifdef USART2
+  UART_buffer_t uart_buffer_2 = { 0 };
+#endif
+#ifdef USART3
+  UART_buffer_t uart_buffer_3 = { 0 };
+#endif
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+void UART_get_buffer(UART_HandleTypeDef *huart, UART_buffer_t **buffer_obj_ptr) {
+#ifdef USART1
   if (huart->Instance == USART1) {
-    HAL_UART_Transmit(&huart2, rx_data, 256, HAL_MAX_DELAY);
-    HAL_UART_Receive_IT(&huart1, rx_data, 256);
-  } else if (huart->Instance == USART2) {
-    // Handle reception for USART2
-  } else if (huart->Instance == USART3) {
-    // Handle reception for USART3
+    *buffer_obj_ptr = &uart_buffer_1;
+  } else
+#endif
+#ifdef USART2
+  if (huart->Instance == USART2) {
+    *buffer_obj_ptr = &uart_buffer_2;
+  } else
+#endif
+#ifdef USART3
+  if (huart->Instance == USART3) {
+    *buffer_obj_ptr = &uart_buffer_3;
+  } else
+#endif
+  {
+    *buffer_obj_ptr = NULL; // Unknown UART instance
   }
 }
 
+
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
-  if (huart->Instance == USART1) {
-    HAL_UART_Transmit(&huart2, rx_data, Size, HAL_MAX_DELAY);
-    HAL_UARTEx_ReceiveToIdle_IT(&huart1, rx_data, 256);
-  } else if (huart->Instance == USART2) {
-    // Handle reception for USART2
-  } else if (huart->Instance == USART3) {
-    // Handle reception for USART3
+
+  if (huart_sts_port1.huart == huart) {
+    STS_UART_Port_Callback_RX_IRQHandler(&huart_sts_port1, Size);
+  }
+
+  if (wt901b.huart == huart) {
+    WT901B_UART_Callback_RX_IRQHandler(&wt901b, Size);
+  }
+
+  UART_buffer_t *buffer_obj;
+  UART_get_buffer(huart, &buffer_obj);
+  if (buffer_obj != NULL) {
+    HAL_UARTEx_ReceiveToIdle_IT(huart, buffer_obj->rx_buffer, buffer_obj->rx_length);
   }
 }
 

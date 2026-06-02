@@ -1,0 +1,35 @@
+{
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "pdflatex ➜ bibtex ➜ pdflatex ×2",
+      "tools": [
+        "pdflatex",
+        "bibtex",
+        "pdflatex",
+        "pdflatex"
+      ]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "pdflatex",
+      "command": "pdflatex",
+      "args": [
+        "-interaction=nonstopmode",
+        "-synctex=1",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "bibtex",
+      "command": "bibtex",
+      "args": [
+        "%DOCFILE%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.latex.outDir": "./",
+  "latex-workshop.latex.rootFile.doNotPrompt": true
+}

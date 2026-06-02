@@ -1,0 +1,202 @@
+\section*{Fiche de synthèse}
+
+% ==========================================================
+% Summary Sheet (English) - layout matching the Word template
+% Fixes:
+%  - lists are inside proper paragraph cells (p{...}) so they don't "escape" the table
+%  - full frame on the right side (no overflow)
+%  - extra vertical padding above/below paragraphs
+%
+% To insert at the beginning of the report (no preamble here).
+% Main document should include: \usepackage{array}
+% ==========================================================
+\begingroup
+
+\setlength{\tabcolsep}{10pt}           
+\renewcommand{\arraystretch}{1.15}      
+\setlength{\arrayrulewidth}{1.1pt}      
+
+
+\setlength{\emergencystretch}{2em}
+\raggedbottom
+
+% --- helpers ---
+\newcommand{\cellpadA}[1]{\vspace{0.45em}\noindent #1 \vspace{0.45em}}
+\newcommand{\cellpadB}[1]{\vspace{0.30em}\noindent #1 \vspace{0.30em}}
+
+
+\newenvironment{dashlist}{%
+  \begin{list}{--}{%
+    \setlength{\leftmargin}{2.2em}%
+    \setlength{\labelsep}{0.6em}%
+    \setlength{\itemsep}{0.35em}%
+    \setlength{\topsep}{0.25em}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
+  }%
+}{\end{list}}
+
+\begin{center}
+    {\fontsize{36}{40}\selectfont \textbf{Fiche de synthèse}}
+\end{center}
+
+\vspace{0.9em}
+
+\noindent
+\begin{tabular}{|
+p{\dimexpr0.5\textwidth-\tabcolsep-0.55\arrayrulewidth\relax}|
+p{\dimexpr0.5\textwidth-\tabcolsep-0.55\arrayrulewidth\relax}|}
+\hline
+
+\multicolumn{2}{|c|}{\Large \textbf{Sujet du PMI}}\\
+\hline
+\multicolumn{2}{|p{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth\relax}|}{\cellpadB{\centering\large
+Perspective d’expérience d’un système de séparation d’étages de fusée par aérofreinage
+}}\\
+\hline
+
+{\Large \textbf{Objectifs}} & {\Large \textbf{Outils utilisés}}\\
+\hline
+\cellpadA{\large
+Étudier la faisabilité d’un système d’aérofreins, de séparation inter-étage, de contrôle et de mesure électronique dans la perspective d’un vol d’essai.
+}
+&
+\cellpadA{\large
+Python ; STAR-CCM+ ; CATIA V5 ; Patran \& Nastran ; Fusion 360 ; STM32CubeMX ; EasyEDA ; VS Code ; Drawio
+}
+\\
+\hline
+
+\multicolumn{2}{|p{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth\relax}|}{\cellpadB{\Large \textbf{Études réalisées}}}\\
+\hline
+\multicolumn{2}{|p{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth\relax}|}{\cellpadA{\large
+\begin{dashlist}
+    \item Modélisation et réalisation des systèmes d’aérofreins et de séparation inter-étages
+    \item Conception du système de séquencement et de commandes électroniques
+    \item Modélisation et simulation d’une étude CFD sur STAR-CCM+ pour déterminer la performance des aérofreins
+    \item Réalisation de plusieurs études structurelles par la méthode des éléments finis (FEM)
+    \item Réalisation d’un banc d’essai pour valider la chaîne de mesure APEX
+    \item Conception et réalisation d’une fusée expérimentale dans le cadre du C’Space
+\end{dashlist}
+}}\\
+\hline
+
+{\Large \textbf{Résultats}} & {\Large \textbf{Difficultés rencontrées}}\\
+\hline
+\cellpadA{\large
+\begin{dashlist}
+    \item Acquisitions APEX reçues et exploitables
+    \item Systèmes d’aérofreins et de séparation inter-étages réalisés
+    \item Validation des performances aérodynamiques des aérofreins avec les simulations CFD
+\end{dashlist}
+}
+&
+\cellpadA{\large
+\begin{dashlist}
+    \item Gestion du temps
+    \item Ressources numériques limitées
+\end{dashlist}
+}
+\\
+\hline
+\end{tabular}
+
+\endgroup
+
+\newpage
+
+\begingroup
+
+% --- Table look & feel ---
+\setlength{\tabcolsep}{10pt}            % horizontal padding
+\renewcommand{\arraystretch}{1.15}      % baseline stretch
+\setlength{\arrayrulewidth}{1.1pt}      % thicker borders
+
+% reduce risk of overfull lines inside narrow columns
+\setlength{\emergencystretch}{2em}
+\raggedbottom
+
+% --- helpers ---
+\newcommand{\cellpadA}[1]{\vspace{0.45em}\noindent #1 \vspace{0.45em}}
+\newcommand{\cellpadB}[1]{\vspace{0.30em}\noindent #1 \vspace{0.30em}}
+
+% custom dash list without enumitem (safe inside tabular p-cells)
+\newenvironment{dashlist}{%
+  \begin{list}{--}{%
+    \setlength{\leftmargin}{2.2em}%
+    \setlength{\labelsep}{0.6em}%
+    \setlength{\itemsep}{0.35em}%
+    \setlength{\topsep}{0.25em}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
+  }%
+}{\end{list}}
+
+\begin{center}
+    {\fontsize{36}{40}\selectfont \textbf{Summary Sheet}}
+\end{center}
+
+\vspace{0.9em}
+
+\noindent
+\begin{tabular}{|
+p{\dimexpr0.5\textwidth-\tabcolsep-0.55\arrayrulewidth\relax}|
+p{\dimexpr0.5\textwidth-\tabcolsep-0.55\arrayrulewidth\relax}|}
+\hline
+
+\multicolumn{2}{|c|}{\Large \textbf{PMI Topic}}\\
+\hline
+\multicolumn{2}{|p{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth\relax}|}{\cellpadB{\centering\large
+Experimental perspective of a rocket stage separation system using aerobraking
+}}\\
+\hline
+
+{\Large \textbf{Objectives}} & {\Large \textbf{Tools used}}\\
+\hline
+\cellpadA{\large
+Study the feasibility of an airbrake system, an inter-stage separation mechanism, and electronic control and measurement, with a view to a test flight.
+}
+&
+\cellpadA{\large
+Python; STAR-CCM+; CATIA V5; Patran \& Nastran; Fusion 360; STM32CubeMX; EasyEDA; VS Code; draw.io
+}
+\\
+\hline
+
+\multicolumn{2}{|p{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth\relax}|}{\cellpadB{\Large \textbf{Studies conducted}}}\\
+\hline
+\multicolumn{2}{|p{\dimexpr\textwidth-2\tabcolsep-2\arrayrulewidth\relax}|}{\cellpadA{\large
+\begin{dashlist}
+    \item Modelling and manufacturing of the airbrake and inter-stage separation systems
+    \item Design of the electronic sequencing and command system
+    \item Modelling and simulation of a CFD study in STAR-CCM+ to determine airbrake performance
+    \item Conducting several structural analyses using the Finite Element Method (FEM)
+    \item Building a test bench to validate the APEX measurement chain
+    \item Design and manufacturing of an experimental rocket within the C’Space framework
+\end{dashlist}
+}}\\
+\hline
+
+{\Large \textbf{Results}} & {\Large \textbf{Difficulties encountered}}\\
+\hline
+\cellpadA{\large
+\begin{dashlist}
+    \item APEX data acquired and usable
+    \item Airbrake and inter-stage separation systems manufactured
+    \item Validation of airbrake aerodynamic performance using CFD simulations
+\end{dashlist}
+}
+&
+\cellpadA{\large
+\begin{dashlist}
+    \item Time management
+    \item Limited digital/computational resources
+\end{dashlist}
+}
+\\
+\hline
+\end{tabular}
+
+\endgroup
+
+\newpage

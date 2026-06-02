@@ -1,0 +1,165 @@
+\subsection{Résultats des simulations par la dynamique des fluides numérique (\acrshort{CFD})}
+
+Cette partie présente les résultats issus des simulations de dynamique des fluides numériques réalisées sur la fusée équipée de
+son système d’aérofreins. L’objectif est maintenant d’analyser l’influence du taux d’ouverture des aérofreins sur le
+comportement aérodynamique global, en particulier sur la traînée générée et la structure de l’écoulement. Les résultats sont
+étudiés à travers l’évolution du coefficient de traînée, la répartition de pression sur les aérofreins, l’analyse des champs de
+vitesse et la contribution des aérofreins à la traînée totale, afin de valider la pertinence du concept.
+
+\subsubsection{Coefficient de trainée}
+
+Les coefficients de traînée obtenus à l’issue des simulations pour différents taux d’ouverture des aérofreins sont présentés
+dans le tableau ci-dessous :
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Taux d'ouverture des aérofreins} & \textbf{Coefficient de traînée ($C_D$)} \\
+        \hline
+        \hline
+        0\%  & 0.5936 \\
+        \hline
+        10\% & 0.6000 \\
+        \hline
+        30\% & 0.6323 \\
+        \hline
+        50\% & 0.6681 \\
+        \hline
+        70\% & 0.7128 \\
+        \hline
+        100\% & 0.7827 \\
+        \hline
+    \end{tabular}
+    \caption{Évolution du coefficient de traînée en fonction du taux d'ouverture des aérofreins}
+    \label{tab:Cd_vs_Aerofreins}
+\end{table}
+
+On voit une augmentation plutôt monotone de $C_d$ en fonction du taux d’ouverture. À 10\%, on remarque une hausse significative
+démontrant une forte sensibilité du système à la présence des aérofreins. Mais l’évolution n’est pas strictement linéaire sur
+l’ensemble de la plage étudiée, avec une progression plus marquée aux faibles ouvertures, puis plus modérée lorsque les
+aérofreins sont déployés (à partir de 50\% environ). Ces résultats confirment que le système d’aérofreins est capable d’impacter
+efficacement la traînée de la fusée. \\
+
+Grâce à Excel, nous avons approximer l’évolution du coefficient de traînée par la relation suivante :
+
+\begin{equation}
+    C_D(x) = 0.0744 x^2 + 0.1187 x + 0.5906
+\end{equation}
+
+avec $x$ le taux d’ouverture des aérofreins (entre 0 et 1).\\
+
+Avec un coefficient de détermination $R^2$ de 0.999, cette relation quadratique offre une excellente approximation des données
+simulées, permettant ainsi de prédire avec précision le coefficient de traînée en fonction du taux d’ouverture des aérofreins.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/graph_excel_dc.png}
+    \caption{Évolution du coefficient de traînée en fonction du taux d'ouverture des aérofreins}
+    \label{fig:Cd_vs_Aerofreins}
+\end{figure}
+
+\newpage
+
+\subsubsection{Répartitions de la pression sur les aérofreins}
+
+Les cartes de pression obtenues nous permettent d’analyser l’impact du déploiement des aérofreins sur le champ de pression
+autour de la fusée. La configuration sans aérofreins constitue un cas de référence, pour lequel la répartition de pression reste
+globalement homogène le long du corps de la fusée, en dehors des zones classiques de stagnation à l’avant et de dépression dans
+le sillage. On remarque aussi au niveau de la bague de séparation, qui est caractérisée par un changement de diamètre du corps
+de la fusée, la présence d’une augmentation de la pression à la jonction au niveau du 2e étage et une autre de dépression à la
+jonction au niveau du 1er étage.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/cart_pression_AF0.png}
+    \caption{Carte de la pression sur SP02 sans les aérofreins}
+\end{figure}
+
+Pour l’ouverture des aérofreins de 50\%, une zone de surpression apparaît sur la face en amont des aérofreins, traduisible par
+l’effet de stagnation de l’écoulement. Et en aval de ces derniers, une zone de dépression. Cela est due à la séparation de
+l’écoulement et à la formation de structures tourbillonnaires. Ce gradient de pression entre l’amont et l’aval est le principal
+mécanisme de génération de traînée.
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/cart_AF50_amont.png}
+        \caption{Face amont}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/cart_AF50_aval.png}
+        \caption{Face aval}
+    \end{subfigure}
+    \caption{Cartes de pression sur les aérofreins déployés à 50\%}
+    \label{fig:cart_pression_AF50}
+\end{figure}
+
+Lorsque les aérofreins sont complètement ouverts, les phénomènes avant sont nettement amplifiés. La surpression en amont
+atteint des niveaux plus élevés, tandis que la dépression s’intensifie et s’étend davantage dans le sillage. Cette évolution
+confirme que l’augmentation du de la surface des aérofreins entraîne un déséquilibre de pression, encore une fois responsable de
+l’augmentation du coefficient de traînée.
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.46\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{figures/cart_AF100_amont.png}
+        \caption{Face amont}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.46\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/cart_AF100_aval.png}
+        \caption{Face aval}
+    \end{subfigure}
+    \caption{Cartes de pression sur les aérofreins déployés à 100\%}
+    \label{fig:cart_pression_AF100}
+\end{figure}
+
+\newpage
+
+\subsubsection{Champs de vitesse et lignes de courant}
+
+Les champs de vitesse et les lignes de courant obtenus permettent d’analyser l’impact du déploiement des aérofreins sur la
+structure de l’écoulement autour de la fusée. Dans la configuration sans aérofreins, l’écoulement reste globalement attaché le
+long du corps de la fusée. La couche limite se développe de manière classique et le sillage en aval demeure relativement étroit
+et structuré. Les lignes de courant suivent la géométrie, en dehors des zones habituelles de perturbation situées à l’arrière du
+corps et au niveau de la bague de séparation (changement de diamètre).
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/ligne_courant_AF0.png}
+    \caption{Champ de vitesse autour de SP02 sans les aérofreins}
+\end{figure}
+
+Le cas intermédiaire avec une ouverture de 50\% des aérofreins présente des comportements similaires à ceux observés pour une
+ouverture de 100\%, mais avec une intensité diminuée. Les zones de recirculation et l’élargissement du sillage sont présents,
+bien que moins étendus, ce qui confirme le caractère progressif de l’influence des aérofreins sur la structure de l’écoulement.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/ligne_courant_AF50.png}
+    \caption{Champ de vitesse autour de SP02 avec les aérofreins ouverts à 50\%}
+\end{figure}
+
+Lorsque les aérofreins sont complètement ouverts (100\%), le champ d’écoulement est fortement modifié. Le déploiement des
+aérofreins provoque une perturbation importante du flux, qui se caractérise par un décollement précoce de la couche limite,
+l’apparition de zones de recirculation en aval des aérofreins et un élargissement significatif du sillage. Ces phénomènes se
+traduisent par une diminution locale de la vitesse et une augmentation de l’intensité des structures tourbillonnaires dans le
+sillage.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/ligne_courant_AF100.png}
+    \caption{Champ de vitesse autour de SP02 avec les aérofreins ouverts à 100\%}
+\end{figure}
+
+L’ensemble de ces observations met en évidence le rôle déterminant des aérofreins dans la modification de l’écoulement,
+contribuant directement à l’augmentation de la traînée aérodynamique et validant leur efficacité dans le cadre du mécanisme de
+séparation d’étages.
+
+\newpage

@@ -1,5 +1,6 @@
 #include <SCServo.h>
 #include <SoftwareSerial.h>
+#include "Wire.h"
 
 SMS_STS sms_sts;
 SoftwareSerial mySerial(2, 3); // RX, TX
