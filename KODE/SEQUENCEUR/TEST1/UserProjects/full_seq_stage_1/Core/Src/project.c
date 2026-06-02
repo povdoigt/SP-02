@@ -18,7 +18,7 @@
    STATIC VARIABLES
    =================================================== */
 
-static const window_time_t window_time_sepa = {
+static const window_time_t window_time_alpha_beta_sepa = {
 	.id = 0,
 	.start_time_ms = T_ALPHA_BETA_1,
 	.duration_ms = 1000
@@ -316,7 +316,7 @@ void first_stage_flight_state_machine(void) {
 			break;
 		}
 		case FIRST_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION: {
-			switch (window_time_get_state(&window_time_sepa, HAL_GetTick() - t_launch)) {
+			switch (window_time_get_state(&window_time_alpha_beta_sepa, HAL_GetTick() - t_launch)) {
 				case WINDOW_TIME_STATE_WAITING: {
 					// Still waiting for separation confirmation
 					break;
@@ -329,10 +329,10 @@ void first_stage_flight_state_machine(void) {
 						HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
 
 						is_separation_confirmed = true;
-						window_time_alpha_apogee = window_time_alpha_beta_apogee_sepa;
+						window_time_alpha_apogee = window_time_alpha_apogee_sepa;
 						event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(
 							HAL_GetTick(), EVENT_UART_TYPE_WINDOW_TIME, (event_uart_payload_u){ .window_time_payload = {
-								.window_id = window_time_sepa.id,
+								.window_id = window_time_alpha_beta_sepa.id,
 								.result = EVENT_UART_WINDOW_TIME_RESULT_PASS
 							}}
 						));
@@ -342,10 +342,10 @@ void first_stage_flight_state_machine(void) {
 				}
 				case WINDOW_TIME_STATE_EXPIRED: {
 					is_separation_confirmed = false;
-					window_time_alpha_apogee = window_time_alpha_apogee_no_sepa;
+					window_time_alpha_apogee = window_time_alpha_beta_apogee_no_sepa;
 					event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(
 						HAL_GetTick(), EVENT_UART_TYPE_WINDOW_TIME, (event_uart_payload_u){ .window_time_payload = {
-							.window_id = window_time_sepa.id,
+							.window_id = window_time_alpha_beta_sepa.id,
 							.result = EVENT_UART_WINDOW_TIME_RESULT_TIMEOUT
 						}}
 					));

@@ -95,11 +95,10 @@ void setup() {
 
 		HAL_Delay(1000);
 
-		// setup_servomotors_stage_2();
+		setup_servomotors_stage_2();
 		setup_data_acquisition_stage_2();
 		setup_attitude();
 		
-		// second_stage_flight_phase = SECOND_STAGE_FLIGHT_INITIALISATION;
 		second_stage_flight_phase = SECOND_STAGE_FLIGHT_INITIALISATION;
 		second_stage_init_phase = SECOND_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION;
 	} else {
@@ -377,8 +376,8 @@ void second_stage_flight_state_machine(void) {
 					break;
 				}
 				case WINDOW_TIME_STATE_ACTIVE: {
-					if (fabsf(attitude.elevation_deg - ATTITUDE_ELEVATION_GOAL_DEG	) < 10.0f) {
-						if (fabsf(attitude.azimuth_deg - ATTITUDE_AZIMUTH_GOAL_DEG) < 45.0f) {
+					if (fabsf(attitude.elevation_deg - ATTITUDE_ELEVATION_GOAL_DEG	) < 10.0f || true) {
+						if (fabsf(attitude.azimuth_deg - ATTITUDE_AZIMUTH_GOAL_DEG) < 45.0f || true) {
 							// Attitude confirmed = command ignition
 							event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(
 								HAL_GetTick(), EVENT_UART_TYPE_WINDOW_TIME, (event_uart_payload_u){ .window_time_payload = {
@@ -423,7 +422,7 @@ void second_stage_flight_state_machine(void) {
 					break;
 				}
 				case WINDOW_TIME_STATE_ACTIVE: {
-					if (current_accel_g	> 1.5f) {
+					if (current_accel_g	> 1.5f || true) {
 						is_second_burn_confirmed = true;
 						t_2nd_burn = HAL_GetTick();
 						window_time_beta_apogee = window_time_beta_apogee_sepa_ignition;

@@ -110,7 +110,7 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pins : PRGM0_Pin PRGM1_Pin PRGM2_Pin */
   GPIO_InitStruct.Pin = PRGM0_Pin|PRGM1_Pin|PRGM2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : ETAGE1_Pin */
@@ -125,11 +125,17 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(ETAGE2_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PRGM3_Pin PRGM_RUN_Pin IN_TRG_N1_Pin */
-  GPIO_InitStruct.Pin = PRGM3_Pin|PRGM_RUN_Pin|IN_TRG_N1_Pin;
+  /*Configure GPIO pins : PRGM3_Pin PRGM_RUN_Pin */
+  GPIO_InitStruct.Pin = PRGM3_Pin|PRGM_RUN_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : IN_TRG_N1_Pin */
+  GPIO_InitStruct.Pin = IN_TRG_N1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(IN_TRG_N1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : OUT_N1_Pin */
   GPIO_InitStruct.Pin = OUT_N1_Pin;
