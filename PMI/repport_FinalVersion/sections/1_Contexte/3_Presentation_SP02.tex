@@ -33,16 +33,41 @@ d’étages assistée par aérofreinage.
     \caption{Décollage d'une fusée expérimentale au C'Space 2024. \copyright CNES/C'Space/Thomas Labois}
 \end{figure}
 
+\subsubsection{Objectif du lanceur SP-02}
+
+La fusée SP-02 a été conçue comme un vecteur expérimental dédié, dont l’objectif principal est de générer des conditions de vol
+représentatives d’un lanceur expérimental multi-étages, tout en permettant l’intégration, l’activation et l’observation de
+plusieurs expériences embarquées directement liées à la séparation d’étages. À ce jour, l’association AéroIPSA dispose d’une
+expérience limitée dans le domaine des lanceurs multi-étages. Le développement de SP-02 constitue ainsi un premier jalon visant
+à acquérir des connaissances techniques et méthodologiques dans ce domaine, au bénéfice des membres de l’association.\\
+
+Les expériences embarquées ont pour objectif principal de caractériser la séparation et d’en évaluer l’efficacité. Elles incluent
+notamment la mise en place d’une capacité de mesure de la dynamique de séparation au moyen d’accéléromètres embarqués sur chaque
+étage, complétée par une caméra embarquée permettant une observation visuelle de l’événement. Ces dispositifs s’inscrivent dans
+une chaîne de mesure plus globale, intégrant un ensemble de capteurs distribués et reposant sur des fréquences d’acquisition
+élevées et maîtrisées, afin de garantir la cohérence temporelle des données enregistrées et leur exploitation en temps réel.\\
+
+Par ailleurs, SP-02 intègre une chaîne de télécommunication inter-étages et sol, destinée à assurer le suivi de l’état de chaque
+étage durant le vol. Cette chaîne repose sur deux technologies complémentaires : une liaison à haut débit utilisant une
+modulation \acrshort{GFSK}, destinée au transfert d’un volume important de données, et une liaison à plus bas débit basée sur la
+technologie \acrshort{LORA}, principalement dédiée à la transmission de la dernière position \acrshort{GPS} de chaque étage. Les
+deux systèmes de communication s’appuient sur le \acrfull{TDMP}, permettant l’utilisation d’une même fréquence par technologie
+pour les deux étages, tout en garantissant une synchronisation temporelle et une absence de collision.\\
+
+Dans le cadre du présent PMI, SP-02 constitue ainsi un support expérimental réaliste et instrumenté, permettant d’évaluer non
+seulement la faisabilité d’un système de séparation par aérofreinage, mais également la capacité à mesurer, synchroniser et
+transmettre des données exploitables lors d’un événement critique du vol, sans faire de la fusée elle-même l’objet central de
+l’étude.
+
 \subsubsection{Architecture générale du lanceur SP-02}
 
 L’architecture repose sur une organisation claire en deux étages. Le premier étage assure la phase propulsive initiale et
 constitue le support principal de l’expérience de séparation, en embarquant les dispositifs aérodynamiques étudiés. Le second
 étage est un étage propulsif à part entière, permettant à la fois l’étude du comportement relatif lors de la séparation et la
 poursuite du vol après celle-ci. Son intégration implique des fonctions spécifiques de commande et de sécurité liées à l’allumage
-moteur, qui seront détaillées ultérieurement. Les architectures mécanique et électronique du lanceur SP-02 sont présentées dans les sections suivantes, dans la mesure
-strictement nécessaire à la compréhension du principe étudié et des analyses menées par la suite.
-
-\newpage
+moteur, qui seront détaillées ultérieurement. Les architectures mécanique et électronique du lanceur SP-02 sont présentées dans
+les sections suivantes, dans la mesure strictement nécessaire à la compréhension du principe étudié et des analyses menées par
+la suite.
 
 \subsubsubsection{Architecture mécanique}
 
@@ -84,6 +109,8 @@ d’acquisition. Enfin, la partie haute du premier étage se caractérise par le
     \label{fig:sp02_s1_ork}
 \end{figure}
 
+\newpage
+
 Le second étage, d’une longueur totale de 992 mm et d’un diamètre de 84 mm, est propulsé par un moteur 144G150 - Pro24-6G de la
 même gamme que le moteur du premier étage. Il développe une poussée moyenne de 147~N pour un temps de combustion de 0.969~s, soit
 une poussée totale de 144~Ns, c'est un moteur de classe G. Le second étage intègre une coiffe conique en tête faite en fibre de
@@ -123,13 +150,66 @@ partie basse du second étage est quant à elle dédiée à l’interface de sé
 L'ensemble du lanceur SP-02 présente une longueur totale de 2062 mm et une masse théorique au décollage d'environs 9.3 kg, dont
 6.9 kg pour le premier étage et 2.4 kg pour le second étage. 
 
+\begin{figure}[h!]
+    \centering
+    \rotatebox{-45}{\includegraphics[width=\textwidth]{figures/catia_alpha_beta.png}}
+    \caption{Vue d'ensemble du lanceur SP-02 sur \acrshort{CATIA}}
+    \label{fig:sp02_ork}
+\end{figure}
+
 \newpage
 
 \subsubsubsection{Architecture électronique et instrumentation}
 
-[ A FAIRE ]
+Le système électronique embarqué du lanceur SP-02 est conçu pour assurer la gestion des fonctions critiques de vol, la collecte
+et la transmission des données expérimentales, ainsi que la synchronisation temporelle entre les différents capteurs et modules
+de communication. L’architecture électronique repose sur la répartition des différentes fonctions en trois modules principaux
+par étage :
+
+\begin{itemize}
+    \item \textbf{Séquenceur de vol :} Responsable de la gestion des phases de vol, du déclenchement des événements critiques
+    (séparation, ouverture des aérofreins, allumage moteur du second étage, déploiement des parachutes) et de la supervision
+    globale du système.
+    \item \textbf{APEX / APEX-EX :} Cartes d’acquisition de données embarquées, assurant la collecte des mesures issues des
+    capteurs (inertiels, pression, température, GPS, etc.) ainsi que la télécommunication avec le sol et entre les étages.
+    \item \textbf{Module caméra :} Système permettant la gestion des différentes caméras embarquées, incluant la caméra
+    permettant l’observation visuelle de la séparation d’étages.
+\end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/Schema_simple.drawio.png}
+    \caption{Schéma fonctionnel simplifié du système électroniques de la fusée SP-02}
+    \label{fig:SP02_electroniques_simple}
+\end{figure}
+
+Attardons-nous plus en détail sur le module APEX / APEX-EX, qui constitue le cœur du système de validation expérimentale de la
+séparation d’étages.\\
+
+Le projet APEX\cite{APEX} correspond à une plateforme électronique développée au sein de l’association AéroIPSA afin de fournir
+une solution générique et réutilisable pour l’acquisition de données, la gestion temporelle des mesures et la télécommunication
+dans le cadre de projets de fusées expérimentales. Son développement a débuté l’année précédente, avec pour objectif de disposer
+d’une architecture modulaire, robuste et adaptée aux contraintes d'un vol de fusée expérimentale.\\
+
+APEX s’inscrit dans la continuité d’un projet plus ancien, nommé \emph{Unknown}\footnote{Le rapport du projet Unknown est
+dispon en annexe du rapport dU projet de fusée expérimental SP-01\cite{SP01}}, qui constituait une première tentative de
+centralisation des fonctions d’acquisition et de communication embarquées. Les retours d’expérience issus de ce projet ont
+permis d’orienter la conception d’APEX vers une architecture plus structurée, mieux instrumentée et pensée dès l’origine pour la
+synchronisation temporelle des données et l’intégration de multiples capteurs dans le but d'un vecteur d'expérience
+multi-étages.\\
 
 \newpage
+
+Dans le cadre du projet SP-02, la carte APEX est complétée par une extension spécifique, nommée APEX-EX. Cette extension a
+été développée afin de répondre aux besoins expérimentaux propres à la séparation d’étages. Elle permet notamment
+l’intégration d’un module de communication à plus haute puissance dédié à la liaison \acrshort{GFSK}, ainsi que l’ajout de ports
+de connexion supplémentaires pour des capteurs spécifiques ou des modules annexes. L’ensemble APEX / APEX-EX forme ainsi une
+chaîne cohérente d’acquisition, de synchronisation et de transmission des données, spécifiquement adaptée aux objectifs
+expérimentaux du lanceur SP-02.\\
+
+Dans le cadre du présent \acrshort{PMI}, l’accent sera mis sur l'architecture logiciel, les différents cartes électroniques
+étant vu, analogue à ce que la fusée représente pour les différens livrables mécaniques, comme un support d'expérimentation pour
+les logiciels développés.
 
 \subsubsection{Phase de vol}
 
@@ -153,3 +233,5 @@ On distingue ainsi les phases suivantes :
     \item \textbf{Phase 4 :} Ouverture des parachutes et descente des étages.
     \item \textbf{Phase 5 :} Atterrissage et récupération des étages.
 \end{itemize}
+
+\newpage

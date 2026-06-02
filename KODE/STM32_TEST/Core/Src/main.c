@@ -136,14 +136,14 @@ int main(void)
 
   // WT901B_status_t wt_res = WT901B_Init(&wt901b, &huart1);
 
-  res = STS_UART_Port_Init(&huart_sts_port1, &huart3);
+  res = STS_UART_Port_Init(&huart_sts_port1, &huart1);
   if (res != HAL_OK) {
       // Initialization failed
       Error_Handler();
   }
 
   STS_Servo_t servo1;
-  res = STS_Servo_Init(&servo1, &huart_sts_port1, 1);
+  res = STS_Servo_Init(&servo1, &huart_sts_port1, 3);
   if (res != HAL_OK) {
       // Initialization failed
       Error_Handler();

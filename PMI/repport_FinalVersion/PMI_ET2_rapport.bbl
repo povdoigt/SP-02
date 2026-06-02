@@ -37,6 +37,20 @@ Wikipedia, ``Multistage rocket.''
 N.~Whitman and D.~Montano-Lobe, ``Hot staging module for multistage rockets.''
   \url{https://ideaexchange.uakron.edu/honors_research_projects/2031/}, 2025.
 
+\bibitem{APEX}
+{\relax Malo Amaranti and Alexis Paillard}, ``{\relax Rapport de projet
+  d'APEX}.'' \url{https://www.aeroipsa.com/apex}, 2025.
+
+\bibitem{SP01}
+{\relax Malo Amaranti and Mathieu Coquelle-Grandsimon}, ``Rapport de projet
+  sp-01.'' \url{https://www.aeroipsa.com/sp01}, 2024.
+
+\bibitem{CDC_BiEtage}
+{\relax \gls{Planète Sciences} et le \acrshort{CNES}}, ``Cahier des charges
+  des fusées expérimentales bi-étages.''
+  \url{https://www.planete-sciences.org/espace/scae/doc/cdc_fusex_bietage},
+  2017.
+
 \bibitem{NavierStokes}
 Wikipedia, ``Equations de navier-stokes.''
   \url{https://fr.wikipedia.org/wiki/Équations_de_Navier-Stokes}, 2025.

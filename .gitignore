@@ -9,3 +9,5 @@ CATIA/old_version
 **/*.out
 **/*.gz
 **/*.toc
+**/*.DS_Store
+

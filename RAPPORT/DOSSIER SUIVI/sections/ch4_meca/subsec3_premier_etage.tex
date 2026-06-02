@@ -104,18 +104,32 @@ proprement les points d’injection tout en assurant une finition aérodynamique
 \newpage
 
 \subsubsection{Maintien du Pro54}
-Nous avons opté pour deux méthodes de fixation pour le Pro54 -- après discussion en \acrshort{RCE}-1 -- pour laisser le choix
+À la suite de discussions en \acrshort{RCE}-1 et \acrshort{RCE}-2, nous avions conçu deux méthodes de fixation pour le Pro54 pour laisser le choix
 aux pyrotechniciens selon leur préférence (dépendamment de la rampe utilisée pour le lancement):
 \begin{itemize}
     \item Une bague se vissant autour du propulseur (pas de vis 62mm) avec un serrage à la main (et clé si nécessaire) -- et
     visible en bleu sur l'image,
-    \item Deux loquets à tourner à la main pour le maintien du propulseur -- visibles en rouge sur l'image.
+    \item Deux loquets à tourner à la main pour le maintien du propulseur -- visibles en rouge sur l'image.\\
 \end{itemize}
 
+Pour des raisons de faisabilité et de robustesse, nous avons opté pour la seconde méthode -- les deux loquets -- facilitant 
+l'opérabilité du système. En effet, cette dernière ne nécessite pas de devoir tenir une pièce devant la tuyère du propulseur, mais 
+également toutes les pièces du système sont déjà en position sur la structure de l'étage, et sont plus simples à usiner.
 Les deux loquets devront être vissés si utilisés, mais ne requièrent pas de changement de pièce dans l'assemblage.
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/maintien2_pro54.png}
+    \begin{subfigure}{0.38\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/maintien3_pro54.png}
+        \caption{Vue de dessous} % Ajoute une légende si nécessaire
+        \label{fig:maintien3}
+    \end{subfigure}
+    \begin{subfigure}{0.38\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/maintien4_pro54.png}
+        \caption{Vue trimétrique} % Ajoute une légende si nécessaire
+        \label{fig:maintien4}
+    \end{subfigure}
     \caption{Méthodes de fixation du Pro54}
     \label{fig:fixation_pro54}
 \end{figure}
@@ -291,11 +305,30 @@ crochet assurant le verrouillage de la trappe. En plaçant le servomoteur à la 
 l’axe de roulis de la fusée, on améliore son efficacité au décollage : il est moins sollicité en cas d’infiltration d’air dans
 la trappe et lors de l’ouverture.
 
-\begin{figure}[h!]
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/para_etage1.png}
+    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/para_etage1-1.png}
+        \caption{Position verrouillée}
+        \label{fig:para_etage1-1}
+    \end{subfigure}
+    \begin{subfigure}{0.26\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/para_etage1-2.png}
+        \caption{Servomoteur à mi-course}
+        \label{fig:para_etage1-2}
+    \end{subfigure}
+    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/para_etage1-3.png}
+        \caption{Position ouverte}
+        \label{fig:para_etage1-3}
+    \end{subfigure}
     \caption{Bloc parachute du premier étage sur \acrshort{CATIA}}
-    \label{fig:para1_SP02}
-\end{figure} 
+    \label{fig:para_etage1_SP02}
+\end{figure}
+ 
 
 \newpage
