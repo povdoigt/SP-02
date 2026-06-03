@@ -1,0 +1,204 @@
+\subsection{Système de séparation}
+\label{subsec:sys_sepa}
+
+\subsubsection{Définition du système de séparation inter-étages}
+
+\subsubsubsection*{Objectifs mécaniques et intégration structurelle}
+
+L'interface de séparation entre le premier et le second étage a un double rôle :
+\begin{itemize}
+    \item assurer un verrouillage mécanique fiable des deux étages pendant la propulsion du premier, sans jeu perceptible ;
+    \item limiter la flèche globale du lanceur en se comportant au plus proche d'un tronçon de tube continu, malgré
+    l'intégration du mécanisme de séparation.\\
+\end{itemize}
+
+Pour répondre à ces objectifs, le mécanisme de séparation est entièrement encapsulé dans un ensemble d'enveloppes structurelles
+coniques. Les deux enveloppes, solidaires respectivement du premier et du second étage, reprennent les efforts de compression et
+de flexion tandis que le mécanisme interne ne reprend que les efforts de verrouillage en traction. La continuité de section et
+l'utilisation d'un alliage d'aluminium 7075 garantissent une bonne rigidité en flexion, ce qui limite la flèche globale du
+lanceur et les charges parasites sur les autres sous-systèmes. De plus, la surface de contact entre les deux étages étant elle
+aussi conique, il suffit d'une faible force axiale pour initier la séparation une fois le mécanisme déverrouillé en vol.
+
+\subsubsubsection*{Architecture mécanique générale}
+
+Le mécanisme est actionné par un servomoteur Feetech, identique à celui utilisé pour les trappes parachute, afin de mutualiser les
+références et simplifier la maintenance. Le servo est accouplé à une vis sans fin qui entraîne un ensemble bielle-loquet, puis,
+en fin de course, un système de libération de ressorts de séparation servant de secours et de moyen de tests au sol.\\
+
+L'interface inter-étages est constituée de :
+\begin{itemize}
+    \item une pièce structurelle supérieure, solidaire du second étage, usinée en aluminium 7075 et intégrant les logements des
+    quatre tenons d'accrochage ;
+    \item une pièce structurelle inférieure, solidaire du premier étage, qui reçoit le mécanisme interne (vis sans fin, bielles
+    et loquets), les ressorts de séparation (backup), la caméra Arducam ainsi que les ouvertures d'évent pour l'évacuation des
+    gaz.\\
+\end{itemize}
+
+Le cœur du mécanisme est une vis sans fin en acier qui entraine un écrou en laiton. Ce couple vis sans fin / écrou offre un
+effet autobloquant qui empêche tout retour de mouvement imposé par les vibrations, par les ressorts ou par les efforts
+aérodynamiques. Cet écrou entraîne un chariot guidé linéairement, sur lequel sont articulées quatre paires de bielles réparties
+à 90 degrés. Chaque paire de bielles pilote un loquet radial qui vient s'engager dans un des logements de la pièce du second
+étage.\\
+
+A l'état verrouillé, les quatre loquets travaillent en cisaillement et assurent la reprise des efforts axiaux entre les étages,
+tandis que les pièces cylindriques reprennent principalement les efforts de flexion.
+
+\subsubsubsection*{Cinématique de déverrouillage en vol}
+
+La séquence nominale de déverrouillage est la suivante :
+\begin{enumerate}
+    \item le séquenceur du premier étage commande le servomoteur Feetech après la fin de propulsion du premier étage, lorsque
+    les aérofreins sont prêts à être déployés ;
+    \item le servomoteur fait tourner la vis sans fin, ce qui déplace l'écrou et le chariot dans une translation axiale contrôlée ;
+    \item le mouvement du chariot tire les quatre paires de bielles, qui font pivoter les loquets vers l'intérieur ;
+    \item lorsque le servomoteur atteint la consigne d'angle de déverrouillage (position connue par comptage de tours), les
+    loquets sont complètement désengagés.\\
+\end{enumerate}
+
+A partir de cet instant, les deux étages ne sont plus liés que par le contact géométrique des surfaces de centrage. La
+différence de traînée induite par le déploiement des aérofreins du premier étage génère alors spontanément la séparation, sans
+choc ni poussée supplémentaire. La nature autobloquante de la vis sans fin interdit tout reverrouillage involontaire et garantit
+une position mécanique bien définie, même en cas de coupure d'alimentation du servomoteur.
+
+\subsubsubsection*{Séparation mécanique de secours par ressorts}
+
+Pour satisfaire l'exigence de séparation au sol et garantir une dissociation des étages même en cas de défaillance du système
+d'aérofreinage, le mécanisme intègre une seconde fonction de séparation active par ressorts.\\
+
+Au-delà de la butée de déverrouillage, la poursuite de la rotation de la vis sans fin entraîne le chariot sur une deuxième
+portion de course. Celui-ci vient alors appuyer sur deux pièces intermédiaires précontraintes par de petits ressorts de
+retenue. Lorsque l'effort transmis par le chariot dépasse la précontrainte, ces pièces se dégagent et libèrent les deux ressorts
+principaux de séparation, disposés dans l'axe longitudinal du premier étage.\\
+
+Dans leur état armé, ces ressorts sont comprimés et assurent un effort nul sur les étages grâce au verrouillage mécanique des
+pièces intermédiaires. Une fois libérés, ils exercent une force axiale qui repousse les deux étages l'un de l'autre, produisant :
+\begin{itemize}
+    \item une séparation franche et reproductible lors des essais de séparation au sol ;
+    \item une séparation de secours en vol si l'aérofreinage ne génère pas un différentiel de vitesse suffisant.\\
+\end{itemize}
+
+Le séquenceur active dans tous les cas ce dispositif de séparation par ressorts après un certain temps d'attente, afin de
+garantir la dissociation des étages indépendamment des \acrlong{MDF} possibles.
+
+\subsubsubsection*{Gestion d'un allumage intempestif du moteur du second étage}
+
+Conformément à la règle CP7 du \acrshort{CDC} \gls{Fusex} bi-étage \cite[p.~59]{CDC_BiEtage}, l'interface inter-étages ne doit
+pas rester complètement hermétique en cas d'allumage intempestif du moteur du second étage, de manière à éviter la mise sous
+pression du volume inter-étage et à ne pas créer de poussée dissymétrique au sol ou en vol.\\
+
+Pour satisfaire cette exigence, deux ouvertures rectangulaires sont usinées dans la jupe inférieure, de part et d'autre de
+l'axe. Elles sont disposées à 180 degrés, de façon à orienter les jets de gaz symétriquement et à annuler la poussée résultante.
+La surface libre totale des évents est choisie supérieure à la section de sortie du moteur du second étage, ce qui limite la
+surpression maximale dans l'inter-étage à une valeur compatible avec la tenue mécanique des pièces structurelles.\\
+
+Les bords des ouvertures sont rayonnés afin de réduire les concentrations de contraintes mécaniques et thermiques et d'éviter
+toute arête tranchante susceptible d'endommager le câblage de la ligne de mise à feu. La géométrie interne de l'interface est
+par ailleurs conçue sans volume fermé ni cloisonnement susceptible de piéger les gaz.
+
+\subsubsubsection*{Matériaux et procédés de fabrication}
+
+Les pièces structurelles principales (pièce supérieure, pièce inférieure, chariot de vis sans fin) sont usinées dans un alliage
+d'aluminium 7075 de grade aéronautique, choisi pour son rapport résistance mécanique / masse et sa bonne tenue en fatigue
+\ref{tab:choix_materiaux}. Ces pièces sont confiées à un sous-traitant d'usinage \acrshort{CNC} 5 axes (JLCCNC), après
+comparaison de plusieurs fournisseurs sur les critères suivants :
+\begin{itemize}
+    \item précision d'usinage compatible avec les jeux fonctionnels du mécanisme ;
+    \item coût de production ;
+    \item délais de fabrication compatibles avec le planning des \acrshort{RCE}.\\
+\end{itemize}
+
+Les composants de type bielles, loquets et certaines brides sont réalisés en tôlerie d'aluminium, découpés et usinés sur la
+\acrshort{CNC} du \gls{Skylab}. Cette approche permet de :
+\begin{itemize}
+    \item valider rapidement plusieurs itérations de géométrie ;
+    \item maîtriser les coûts en réalisant en interne les pièces les plus simples ;
+    \item ajuster facilement les épaisseurs et rayons pour optimiser la masse.\\
+\end{itemize}
+
+Enfin, certains éléments non structuraux (guides de câbles, caches, supports de connecteurs) sont imprimés en \acrshort{PLA}
+renforcé fibre de carbone. Ces pièces assurent uniquement des fonctions de maintien ou de guidage et ne participent pas à la
+reprise d'efforts principaux.
+
+\subsubsubsection*{Instrumentation vidéo de la séparation}
+
+Le bloc de séparation intègre également une instrumentation vidéo dédiée à l'observation de la séparation en vol. Une caméra
+Arducam 12 mégapixels est montée au centre du noyau structurel, dans la partie solidaire du premier étage. Son champ de vision
+est orienté vers le haut, exactement dans l'axe du propulseur du second étage.\\
+
+Ce positionnement permet :
+\begin{itemize}
+    \item d'observer la divergence des deux étages ;
+    \item de visualiser l'allumage du second étage et la mise en poussée ;
+    \item de disposer d'un retour vidéo précieux pour l'analyse post-vol et la validation de la modélisation de la séparation.\\
+\end{itemize}
+
+Les données de la caméra sont enregistrées localement pendant le vol sur une carte MicroSD.
+
+\subsubsubsection*{Illustrations du mécanisme de séparation}
+
+La figure \ref{fig:separation_coupe_ouverte} présente une vue en coupe longitudinale du mécanisme en position de
+déverrouillage, tandis que la figure \ref{fig:separation_coupe_fermee} montre la configuration verrouillée avec les loquets
+engagés et les ressorts armés.
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/separation_coupe_ouverte.png}
+        \caption{position de déverrouillage, loquets dégagés.}
+        \label{fig:separation_coupe_ouverte}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/separation_coupe_verrouillee.png}
+        \caption{position verrouillée, loquets engagés et ressorts armés.}
+        \label{fig:separation_coupe_fermee}
+    \end{subfigure}
+    \caption{Vue en coupe du mécanisme de séparation inter-étages}
+\end{figure}
+
+\newpage
+
+La figure \ref{fig:separation_ensemble} illustre l'intégration de l'ensemble de séparation dans les jupes des étages, avec les
+enveloppes structurelles en aluminium 7075, la position de la caméra Arducam et les ouvertures d'évent. Enfin, la figure
+\ref{fig:separation_mecanisme_nu} montre le mécanisme nu (bielles, loquets, vis sans fin) pour une meilleure lisibilité de la
+cinématique.
+
+\begin{figure}[h!]
+    \centering
+    \hfill
+    \begin{subfigure}[b]{0.28\linewidth}
+        \includegraphics[width=0.8\linewidth]{figures/separation_ensemble.png}
+        \caption{Vue d'ensemble éclatée du bloc de séparation et des jupes d'étage, montrant l'intégration structurelle et les évents
+        d'évacuation des gaz.}
+        \label{fig:separation_ensemble}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.60\linewidth}
+         \centering
+        \includegraphics[width=0.8\linewidth]{figures/separation_mecanisme_nu.png}
+        \caption{Mécanisme de séparation nu avec les quatre bielles, les loquets et la vis sans fin actionnée par le servomoteur Feetech.}
+        \label{fig:separation_mecanisme_nu}
+    \end{subfigure}
+    \hfill
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{figures/separation_ressorts_armes.png}
+        \caption{Ressorts de séparation armés, interface inter-étages verrouillée.}
+        \label{fig:separation_ressorts_armes}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{figures/separation_ressorts_libres.png}
+        \caption{Ressorts de séparation libérés après la course complète du chariot.}
+        \label{fig:separation_ressorts_libres}
+    \end{subfigure}
+    \caption{Évolution de la configuration des ressorts de séparation entre l'état armé et l'état libéré.}
+    \label{fig:separation_ressorts}
+\end{figure}
+
+\newpage

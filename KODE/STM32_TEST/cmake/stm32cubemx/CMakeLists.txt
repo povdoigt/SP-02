@@ -22,12 +22,9 @@ set(MX_Application_Src
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/main.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/gpio.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/usart.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/wit_c_sdk.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/SCS/HLS.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/SCS/SCS.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/SCS/SCSCL.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/SCS/SCSerail.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/SCS/SMS_STS.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/STS.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/WT901B.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/tools.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/stm32l4xx_it.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/stm32l4xx_hal_msp.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../Core/Src/sysmem.c

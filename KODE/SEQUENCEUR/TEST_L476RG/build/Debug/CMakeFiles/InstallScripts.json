@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/alexi/Documents/scolaire/IPSA/AeroIpsa/SP-02/KODE/SEQUENCEUR/TEST_L476RG/build/Debug/cmake_install.cmake",
+		"C:/Users/alexi/Documents/scolaire/IPSA/AeroIpsa/SP-02/KODE/SEQUENCEUR/TEST_L476RG/build/Debug/cmake/stm32cubemx/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
