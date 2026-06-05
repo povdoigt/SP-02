@@ -1,4 +1,5 @@
 #include "waveform_built_in.h"
+#include "float3.h"
 
 #include <math.h>
 #include <stdbool.h>
@@ -36,40 +37,40 @@ static float phase_local(float t, float start, float end) {
 }
 
 float waveform_gate(float t, const void *ctx) {
-    if (ctx == NULL) {
+    const waveform_gate_t *contx = (const waveform_gate_t *)ctx;
+    if (contx == NULL) {
         return 0.0f;
     }
 
-    const waveform_gate_t *gate = (const waveform_gate_t *)ctx;
-    return phase_in_interval(t, gate->start, gate->end) ? 1.0f : 0.0f;
+    return phase_in_interval(t, contx->start, contx->end) ? 1.0f : 0.0f;
 }
 
 float waveform_ramp(float t, const void *ctx) {
-    if (ctx == NULL) {
+    const waveform_ramp_t *contx = (const waveform_ramp_t *)ctx;
+    if (contx == NULL) {
         return 0.0f;
     }
 
-    const waveform_ramp_t *ramp = (const waveform_ramp_t *)ctx;
 
-    if (!phase_in_interval(t, ramp->start, ramp->end)) {
+    if (!phase_in_interval(t, contx->start, contx->end)) {
         return 0.0f;
     }
 
-    return phase_local(t, ramp->start, ramp->end);
+    return phase_local(t, contx->start, contx->end);
 }
 
 float waveform_triangle(float t, const void *ctx) {
-    if (ctx == NULL) {
+    const waveform_triangle_t *contx = (const waveform_triangle_t *)ctx;
+    if (contx == NULL) {
         return 0.0f;
     }
 
-    const waveform_triangle_t *triangle = (const waveform_triangle_t *)ctx;
 
-    if (!phase_in_interval(t, triangle->start, triangle->end)) {
+    if (!phase_in_interval(t, contx->start, contx->end)) {
         return 0.0f;
     }
 
-    float u = phase_local(t, triangle->start, triangle->end);
+    float u = phase_local(t, contx->start, contx->end);
 
     if (u < 0.5f) {
         return 2.0f * u;
@@ -79,33 +80,31 @@ float waveform_triangle(float t, const void *ctx) {
 }
 
 float waveform_sine(float t, const void *ctx) {
-    if (ctx == NULL) {
+    const waveform_sine_t *contx = (const waveform_sine_t *)ctx;
+    if (contx == NULL) {
         return 0.0f;
     }
 
-    const waveform_sine_t *sine = (const waveform_sine_t *)ctx;
-
-    if (!phase_in_interval(t, sine->start, sine->end)) {
+    if (!phase_in_interval(t, contx->start, contx->end)) {
         return 0.0f;
     }
 
-    float u = phase_local(t, sine->start, sine->end);
+    float u = phase_local(t, contx->start, contx->end);
     return 0.5f - 0.5f * cosf(2.0f * M_PI * u);
 }
 
 float waveform_impulse(float t, const void *ctx) {
-    if (ctx == NULL) {
+    const waveform_impulse_t *contx = (const waveform_impulse_t *)ctx;
+    if (contx == NULL) {
         return 0.0f;
     }
 
-    const waveform_impulse_t *impulse = (const waveform_impulse_t *)ctx;
-
-    if (!phase_in_interval(t, impulse->start, impulse->end)) {
+    if (!phase_in_interval(t, contx->start, contx->end)) {
         return 0.0f;
     }
 
-    float u = phase_local(t, impulse->start, impulse->end);
-    float k = (impulse->k > 0.0f) ? impulse->k : 1.0f;
+    float u = phase_local(t, contx->start, contx->end);
+    float k = (contx->k > 0.0f) ? contx->k : 1.0f;
 
     return expf(-k * u);
 }

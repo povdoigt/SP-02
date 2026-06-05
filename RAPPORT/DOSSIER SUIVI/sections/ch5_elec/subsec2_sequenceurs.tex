@@ -49,13 +49,13 @@ commune facilite la fabrication, les essais et la maintenance, tout en permettan
         \centering
         \includegraphics[width=\textwidth]{figures/synopsis_sequ.jpg}
         \caption{Zoom sur le séquenceur et interface}
-        \label{fig:schema_synopsis}
+        \label{fig:synopsis_sequ}
     \end{figure}
 \end{minipage}
 
 \vspace{0.5cm}
 
-[TEXT EXPLICATIF DU SYNOPTIQUE]
+Le synopsis figure \ref{fig:synopsis_sequ} présente le séquenceur ainsi que la carte interface.
 
 \newpage
 
@@ -66,16 +66,21 @@ robustesse, sa faible consommation et la variété de ses interfaces (UART, time
 
 La carte intègre :
 \begin{itemize}
-    \item un régulateur abaisseur 3,3~V (TPS62172) alimentant l’ensemble de la logique~;
-    \item une liaison UART dédiée à la centrale inertielle WT901B ;
-    \item une ligne half-duplex pour le pilotage des servomoteurs Feetech\footnote{La communication est réalisée sur une ligne
+    \item un régulateur abaisseur 3,3~V \verb|TPS62172| alimentant l’ensemble de la logique ;
+    \item 4 entrées conditionnées par portes à hystérésis de type \textit{Schmitt trigger} préédé par des résistances
+    pull-up. Elles sont utilisées pour la détection d’événements discrets tels que décollage et la séparation.  
+    \item 3 sorties directement connectées à 3 GPIO du microcontrôleur utilisées par exemple pour transmettre le signal
+    d'allumage du 2e étage.
+    \item 2 liaisons UART dont une dédiée à la centrale inertielle WT901B et un autre pour la liaison avec l'expérience et
+    préalablement découplé via un module \verb|ADUM1281ARZ-RL7|;
+    \item ...
+    \item deux ligne half-duplex pour le pilotage des servomoteurs Feetech\footnote{La communication est réalisée sur une ligne
     \textit{DATA} unique, protégée par buffers SN74LVC1G125/126 pour la commutation TX/RX. Trois sorties PWM restent
     disponibles en cas d’utilisation de servomoteurs classiques.} ;
+    \item 
     \item plusieurs sorties logiques optocouplées destinées aux déclenchements sécurisés (caméras, cartes expériences) ;
     \item une entrée isolée assurant la détection du décollage via la boucle \textit{jack} ;
     \item un connecteur dédié à la carte IHM (commande d’alimentation, armement, indicateurs RGB) ;
-    \item six entrées conditionnées par portes à hystérésis de type \textit{Schmitt trigger}, utilisées pour la détection
-    d’événements discrets tels que décollage, séparation et signaux de capteurs mécaniques.
 \end{itemize}
 
 \subsubsubsection*{Choix du microcontrôleur}
