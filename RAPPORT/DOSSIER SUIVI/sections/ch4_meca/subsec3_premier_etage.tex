@@ -15,7 +15,7 @@ l’étage inférieur.
 \begin{figure}[h!]
     \centering
     \begin{tikzpicture}
-        \node at (0,0) {\includegraphics[width=\textwidth]{figures/SP_ork_malo.png}};
+        \node at (0,0) {\includegraphics[width=\textwidth-0.75cm]{figures/SP_ork_narval-24.png}};
 
         \node (y_lbl)  at (-6.95, +0.500) {\textbf{y}};
         \node (x_lbl)  at (-6.70, -0.205) {\textbf{x}};
@@ -29,22 +29,22 @@ l’étage inférieur.
         \draw[red, ->, line width=1] (-1.080, +1.0) -- (-1.080, +0.3);
         \draw[red, ->] (-6.7, 0) arc (0:90:.5cm);
         \draw [<->, > = stealth, black] (-7.2, -0.75) -- (-1.080, -0.75) node [midway, fill = white] {0,880m} ;
-        \draw [<->, > = stealth, black] (-7.2, -1.25) -- (+5.800, -1.25) node [midway, fill = white] {1,800m} ;
+        \draw [<->, > = stealth, black] (-7.2, -1.25) -- (+5.800, -1.25) node [midway, fill = white] {1,960m} ;
     \end{tikzpicture}
     \caption{Schéma de calcul du couple exercé au niveau de la base du premier étage}
     \label{fig:placeholder}
 \end{figure}
 
 \begin{align*}
-    P &= 9,81 \times 7,327 = 71,878\ N \\
+    P &= 9,81 \times 7,327 = 73,310\ N \\
     F &= 9,81 \times 0,8 = 7,848\ N\\
     \\
-    C_Z &= 0,880 \times  (- P) + 1,800 \times (- F) \\
-    &= 0,880 \times (- 71,878) + 1,800 \times (-7,848) \\
-    &= -77,379\ N\cdotp m
+    C_Z &= 0,880 \times  (- P) + 1,960 \times (- F) \\
+    &= 0,880 \times (- 73,310) + 1,960 \times (-7,848) \\
+    &= -79,895\ N\cdotp m
 \end{align*}
-On a donc un couple de $-77,379\ N\cdotp m$, ce qui équivaut a :
-$$\frac{|-77,379|}{9,81} = m_{test} \approx 7,888\ kg$$
+On a donc un couple de $-79,895\ N\cdotp m$, ce qui équivaut a :
+$$\frac{|-79,895|}{9,81} = m_{test} \approx 8,144\ kg$$
 $m_{test}$ étant la valeur de la masse à appliqués à un mètre du point d'encastrement pour reproduire le même couple.
 Notre estimation de masse étant approximative, nous avons décidé d’arrondir la charge $m_{test}$ à $10\ kg$.
 
@@ -91,7 +91,7 @@ précédemment et à assurer une continuité dans l’intégration structurelle 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/schema3_SP-01.PNG}
+    \includegraphics[width=0.55\textwidth]{figures/schema3_SP-01.PNG}
     \caption{Procédé de collage ailerons/structure avec congés en résine}
     \label{fig:collage2_aileronsSP01}
 \end{figure}
@@ -101,14 +101,78 @@ des ailerons afin de garantir une diffusion homogène de la résine dans la zone
 appliqués sur les jonctions extérieures pour assurer une transition aérodynamique lisse. Cette étape permet également de fermer
 proprement les points d’injection tout en assurant une finition aérodynamique cohérente avec le modèle précédent.\\
 
+% Ajouter photo usinage ailerons CNC
+
+
+\textbf{\underline{Fabrication du rétrain}}\\
+Le rétrain (communément "rérain") a été réalisé à partir d'un moule positif et par-dessus lequel on a possitionné 11 couches découpées en tiers afin 
+d'épouser au mieux la forme du moule pour une épaisseur désirée de 1,969mm. L'agent démoulant utilsé est deux préservatifs. 
+Le positionnement de deux bagues en fibre de verre au-dessus et au bout du tube propu guident et contraignent l'assemblage entier 
+avec le rérain. L'ensemble des pièces composite a été collé à l'AT30 slow pour obtenir les meilleures propriétés "résine" possible.
+Une fois assemblé, la finition entre le tube externe de l'étage et le rérain a été fait avec du mastic fibré, alliant performance mécanique et 
+finition optimale de rugosité de surface pour l'aérodynamisme après ponçage.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/rerian_brut.jpg}
+        \caption{Rérain brut après démoulage} % Ajoute une légende si nécessaire
+        \label{fig:maintien3}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/rerain.jpg}
+        \caption{Rérain terminé avant collage} % Ajoute une légende si nécessaire
+        \label{fig:maintien4}
+    \end{subfigure}
+    \caption{Réalisation du rérain}
+    \label{fig:rerain}
+\end{figure}
+
+
+\textbf{\underline{Fabrication du tube propu}}\\
+Le tube propu sert de guide propu comme évoqué précédemment et reprend l'effort de poussée du Pro-54 6G.
+Le dimensionnement a été fait empiriquement en surestimant les forces appliquées sur la section de contact. C'est pourquoi nous avons 
+dimensionné la pièce finale à 1,432mm d'épaisseur sans mousse pour alléger la structure ; et ainsi contenir tout Pro54 6G ou plus puissant.
+Le diamètre nominal du mandrin a été agrandi pour obtenir le jeu suffisant à l'insertion du Pro54 avec étiquette et jeu sans compromettre son maintien.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/tube_propu.jpg}
+    \caption{Tube propulseur}
+    \label{fig:collage2_aileronsSP01}
+\end{figure}
+
+
+\textbf{\underline{Bloc propulseur}}\\
+Ci-dessous, la visualisation de l'assemblage du bloc complet avec l'ensemble des composants.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.27\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/bloc_propu_vue_coupe.png}
+        \caption{Vue de coupe} % Ajoute une légende si nécessaire
+        \label{fig:maintien3}
+    \end{subfigure}
+    \begin{subfigure}{0.27\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/bloc_propu_vue_face.png}
+        \caption{Vue de face} % Ajoute une légende si nécessaire
+        \label{fig:maintien4}
+    \end{subfigure}
+    \caption{CAO du bloc propu du preier étage(Pro-54 6G)}
+    \label{fig:bloc_pro54}
+\end{figure}
+
+
 \newpage
 
 \subsubsection{Maintien du Pro54}
 À la suite de discussions en \acrshort{RCE}-1 et \acrshort{RCE}-2, nous avions conçu deux méthodes de fixation pour le Pro54 pour laisser le choix
 aux pyrotechniciens selon leur préférence (dépendamment de la rampe utilisée pour le lancement):
 \begin{itemize}
-    \item Une bague se vissant autour du propulseur (pas de vis 62mm) avec un serrage à la main (et clé si nécessaire) -- et
-    visible en bleu sur l'image,
+    \item Une bague se vissant autour du propulseur (pas de vis 62mm) avec un serrage à la main (et clé si nécessaire) 
     \item Deux loquets à tourner à la main pour le maintien du propulseur -- visibles en rouge sur l'image.\\
 \end{itemize}
 
@@ -286,7 +350,7 @@ La forme des parachutes utilisés sera de type croix, avec a et b les valeurs d'
 parachute devra résister à l'ouverture.
 \begin{equation}
 \begin{aligned}
-    F &= 2 \times Acc{max} \times K{safety} \times M_{sup} \\
+    F &= 2 \times Acc_{max} \times K_{safety} \times M_{sup} \\
     F &= 2 \times 9,7 \times 1,5 \times 3,055 \\
     F &= 88,90 N \\
 \end{aligned}
@@ -330,5 +394,16 @@ la trappe et lors de l’ouverture.
     \label{fig:para_etage1_SP02}
 \end{figure}
  
+De plus, le crochet (visible en bleu foncé sur l'image précédente) est contraint dans toutes les translations 
+grâce à un trou concentrique dans la bague en aluminium (ici en bleu clair). L'unique mouvement possible est alors 
+la rotation souhaitée dans l'axe x du lanceur.\\
+
+La spécificité du bloc de cet étage est la forme de la cage en cuillère visible en rouge (sans bague en dessous) afin de limiter 
+au mieux la masse et une sortie du parachute plus efficiente, tout en facilitant son intégration dans le lanceur 
+avec notamment le bloc aérofreins juste en-dessous. La conception a été réalisée pour une otique de fabrication 
+en composite et compatible en matériau polymère tel PETG. La configuration matériau retenue pour le moment 
+est en PETG car nous devons encore qualifier la méthode de fabrication en composite (surtoût dans le rayon minimal entre les 
+différentes couches). L'épaisseur de cette dernière est de 2,5mm en PETG ; et réduite à 1,2mm en fibre de verre si le protocole 
+est validé pré-C'Space.
 
 \newpage
