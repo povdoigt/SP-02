@@ -5,7 +5,7 @@
 #include "stm32f0xx_hal.h"
 #include "usart.h"
 
-#include "usbd_cdc_if.h"
+// #include "usbd_cdc_if.h"
 
 #include "WT901B.h"
 
@@ -50,7 +50,7 @@ void loop() {
 		last_acc.x, last_acc.y, last_acc.z, last_gyro.x, last_gyro.y, last_gyro.z, last_baro
 	);
 
-	CDC_Transmit_FS(buffer, strlen((char *)buffer) + 1);
+	// CDC_Transmit_FS(buffer, strlen((char *)buffer) + 1);
 
 	HAL_Delay(1);
 
