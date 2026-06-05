@@ -50,7 +50,7 @@ de fibre de verre.
         \caption{Collage surfacique des ailerons}
         \label{fig:collage_ailerons_beta}
     \end{subfigure}
-    \begin{subfigure}{0.12\textwidth} % Réduire légèrement pour éviter le débordement
+    \begin{subfigure}{0.13\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
         \includegraphics[width=\linewidth]{figures/ailerons_renfort_beta.jpg}
         \caption{Renfort}
@@ -125,41 +125,93 @@ La construction du bloc est réalisée de la manière suivante :
 
 \subsubsection{Définition du la coiffe et du pitot}
 \label{subsec:def_coiffe}
+La coiffe du second étage a été conçue et réalisée en fibre de verre et en aluminium pour le système pointe-baromètre.
+Les contraintes de dimensionnement étaient une masse réduite, une résistance accrue pour le bon maintient du baromètre et la volonté de perfectionner de nouvelles techniques de démoulage de coiffe en fibre de verre.\\
 
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.3\textwidth]{figures/coiffe_beta.jpg} % Remplacez par le nom de votre fichier image
-    \caption{Coiffe du second étage avec pointe et baromètre intégrés}
-    \label{fig:coiffe}
-\end{figure}
-
-
-\subsubsection{Définition du bloc électronique}
-\label{subsec:def_coiffe}
+La CAO regroupe le moule, la coiffe aux dimensions souhaitées et les guides de découpe de l'éxédant de fibre. À noter que l'équivant en coiffe PLA n'offrait pas la résistance souhaitée pour l'intégration de la PCB pitot et de capteurs plus imposants.
+Nous avons mesuré une différence de 19g supplémentaires pour la version fibre-aluminium en tenant compte de ce module complet en alu 7075-T6.
+La coiffe seule en PLA est plus lourde que celle en fibre et ne sera pas adaptée pour les conditions de stockage en extérieur (soleil).
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
-        \includegraphics[width=\linewidth]{figures/para_etage2-1.png}
-        \caption{Position verrouillée}
-        \label{fig:para_etage1-1}
+        \includegraphics[width=\linewidth]{figures/CAO_coiffe.png}
+        \caption{Vue 3D (moule + coiffe)}
+        \label{fig:elec_etage2-1}
+    \end{subfigure}
+    \begin{subfigure}{0.2\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/coiffe_beta.jpg}
+        \caption{Coiffe du second étage avec pointe et baromètre intégrés}
+        \label{fig:coiffe_etage2-2}
+    \end{subfigure}
+    \caption{Bloc électronique du second étage sur \acrshort{CATIA}}
+    \label{fig:coiffe_SP02}
+\end{figure}
+
+Pour mieux visualiser l'ensemble, voici la vue de coupe du système avec le coupleur coiffe vers le tube principal et la pointe comportant le conduit pour notre capteur barométrique.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/coiffe.png}
+        \caption{Vue isométrique}
+        \label{fig:elec_etage2-1}
     \end{subfigure}
     \begin{subfigure}{0.26\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/para_etage2-2.png}
-        \caption{Servomoteur à mi-course}
-        \label{fig:para_etage1-2}
+        \includegraphics[width=\linewidth]{figures/vue_coupe_coiffe.png}
+        \caption{Vue de profil}
+        \label{fig:elec_etage2-2}
     \end{subfigure}
-    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/para_etage2-3.png}
-        \caption{Position ouverte}
-        \label{fig:para_etage1-3}
-    \end{subfigure}
-    \caption{Bloc parachute du second étage sur \acrshort{CATIA}}
-    \label{fig:para_etage1_SP02}
+    \caption{Bloc électronique du second étage sur \acrshort{CATIA}}
+    \label{fig:elec_etage2_SP02}
 \end{figure}
 
+
+
+
+\subsubsection{Définition du bloc électronique}
+\label{subsec:def_elec2}
+Tout comme le premier étage, nous intégrons les cartes identiques mais dans un volume moindre : 80mm de diamètre. Cette contrainte a nécessité la séparation des piles du bloc principal en dessous et y conserver la caméra et autres composants.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/bloc_elec2-1.png}
+        \caption{Vue isométrique}
+        \label{fig:elec_etage2-1}
+    \end{subfigure}
+    \begin{subfigure}{0.26\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/bloc_elec2-2.png}
+        \caption{Vue de profil}
+        \label{fig:elec_etage2-2}
+    \end{subfigure}
+    \caption{Bloc électronique du second étage sur \acrshort{CATIA}}
+    \label{fig:elec_etage2_SP02}
+\end{figure}
+
+\subsubsection{Intégration du système allumage}
+\label{subsec:def_allumage}
+L'intégration des cartes pour l'allumage du second moteur est positionnée les plus proche de la tuyère saus dépasser la limite des renforts des ailerons en fibre de carbone. La hauteur et la position des condensateurs nous permettra d'ajuster le centre de masse et éviter tout rajout de masse inerte inutile.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/integration_condos.png}
+        \caption{Vue isométrique}
+        \label{fig:condo_etage2-1}
+    \end{subfigure}
+    \begin{subfigure}{0.26\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/integration_condos_propu.png}
+        \caption{Vue isométrique avec Pro24}
+        \label{fig:condo_etage2-2}
+    \end{subfigure}
+    \caption{Bloc électronique du second étage sur \acrshort{CATIA}}
+    \label{fig:elec_etage2_SP02}
+\end{figure}
 
 \newpage

@@ -1,57 +1,59 @@
 \babel@toc {french}{}\relax 
-\contentsline {section}{\numberline {}Introduction}{5}{figure.caption.1}%
-\contentsline {section}{\numberline {1}Généralités}{6}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Présentation du club}{6}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Présentation de l'équipe}{7}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}Définition du projet}{7}{subsection.1.3}%
-\contentsline {subsubsection}{\numberline {1.3.1}Premier étage}{8}{subsubsection.1.3.1}%
-\contentsline {subsubsection}{\numberline {1.3.2}Deuxième étage}{8}{subsubsection.1.3.2}%
-\contentsline {subsubsection}{\numberline {1.3.3}Ensemble de la fusée}{9}{subsubsection.1.3.3}%
-\contentsline {subsubsection}{\numberline {1.3.4}Choix des propulseurs}{9}{subsubsection.1.3.4}%
-\contentsline {subsection}{\numberline {1.4}Retours d'expérience de précédents projets}{10}{subsection.1.4}%
-\contentsline {subsection}{\numberline {1.5}Financement et partenaires}{13}{subsection.1.5}%
-\contentsline {subsection}{\numberline {1.6}Planification, répartition des tâches}{13}{subsection.1.6}%
-\contentsline {section}{\numberline {2}Analyse de sûreté de fonctionnement}{14}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Présentation des phases de vol}{15}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}\acrlong {APR}}{18}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}\acrlong {ERPs}}{18}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Analyse des risques par phase de vol}{19}{subsubsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.3}\acrlong {MDF}}{20}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1}Présentation des sous-systèmes}{20}{subsubsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.4}Méthode \acrshort {AMDEC}}{22}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Bilan sur les actions correctives}{25}{subsection.2.5}%
-\contentsline {section}{\numberline {3}Stabilité et gabarits}{27}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Stabilité}{27}{subsection.3.1}%
-\contentsline {subsubsection}{\numberline {3.1.1}Méthodologie}{27}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}Résultats}{28}{subsubsection.3.1.2}%
-\contentsline {subsubsubsection}{\numberline {3.1.2.1}Configuration adoptée}{28}{subsubsubsection.3.1.2.1}%
-\contentsline {subsubsubsection}{\numberline {3.1.2.2}Résultats des analyses}{28}{subsubsubsection.3.1.2.2}%
-\contentsline {subsection}{\numberline {3.2}Gabarits}{29}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Structure mécanique}{30}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Généralités}{30}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Choix des matériaux}{31}{subsection.4.2}%
-\contentsline {subsubsection}{\numberline {4.2.1}Précision du protocole de fabrication des fuselages porteurs}{31}{subsubsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.3}Structure du premier étage}{32}{subsection.4.3}%
-\contentsline {subsubsection}{\numberline {4.3.1}Flèche}{32}{subsubsection.4.3.1}%
-\contentsline {subsubsection}{\numberline {4.3.2}Fabrication et collage du bloc propulsion avec ailerons}{33}{subsubsection.4.3.2}%
-\contentsline {subsubsection}{\numberline {4.3.3}Maintien du Pro54}{35}{subsubsection.4.3.3}%
-\contentsline {subsubsection}{\numberline {4.3.4}Aérofreins}{35}{subsubsection.4.3.4}%
-\contentsline {subsubsection}{\numberline {4.3.5}Définition du système d'ouverture/parachute}{37}{subsubsection.4.3.5}%
-\contentsline {subsection}{\numberline {4.4}Système de séparation}{39}{subsection.4.4}%
-\contentsline {subsubsection}{\numberline {4.4.1}Objectifs mécaniques et intégration structurelle}{39}{subsubsection.4.4.1}%
-\contentsline {subsubsection}{\numberline {4.4.2}Architecture mécanique générale}{39}{subsubsection.4.4.2}%
-\contentsline {subsubsection}{\numberline {4.4.3}Cinématique de déverrouillage en vol}{39}{subsubsection.4.4.3}%
-\contentsline {subsubsection}{\numberline {4.4.4}Séparation mécanique de secours par ressorts}{40}{subsubsection.4.4.4}%
-\contentsline {subsubsection}{\numberline {4.4.5}Gestion d'un allumage intempestif du moteur du second étage}{40}{subsubsection.4.4.5}%
-\contentsline {subsubsection}{\numberline {4.4.6}Matériaux et procédés de fabrication}{40}{subsubsection.4.4.6}%
-\contentsline {subsubsection}{\numberline {4.4.7}Instrumentation vidéo de la séparation}{41}{subsubsection.4.4.7}%
-\contentsline {subsubsection}{\numberline {4.4.8}Illustrations du mécanisme de séparation}{41}{subsubsection.4.4.8}%
-\contentsline {subsection}{\numberline {4.5}Structure du second étage}{43}{subsection.4.5}%
-\contentsline {subsubsection}{\numberline {4.5.1}Flèche}{43}{subsubsection.4.5.1}%
-\contentsline {subsubsection}{\numberline {4.5.2}Fabrication et collage des ailerons}{43}{subsubsection.4.5.2}%
-\contentsline {subsubsection}{\numberline {4.5.3}Définition du système d'ouverture/parachute}{44}{subsubsection.4.5.3}%
-\contentsline {subsubsection}{\numberline {4.5.4}Définition du la coiffe et du pitot}{45}{subsubsection.4.5.4}%
+\contentsline {section}{\numberline {}Introduction}{4}{figure.caption.1}%
+\contentsline {section}{\numberline {1}Généralités}{5}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Présentation du club}{5}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Présentation de l'équipe}{6}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Définition du projet}{6}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Premier étage}{7}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}Deuxième étage}{7}{subsubsection.1.3.2}%
+\contentsline {subsubsection}{\numberline {1.3.3}Ensemble de la fusée}{8}{subsubsection.1.3.3}%
+\contentsline {subsubsection}{\numberline {1.3.4}Choix des propulseurs}{8}{subsubsection.1.3.4}%
+\contentsline {subsection}{\numberline {1.4}Retours d'expérience de précédents projets}{9}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Financement et partenaires}{11}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Planification, répartition des tâches}{11}{subsection.1.6}%
+\contentsline {section}{\numberline {2}Analyse de sûreté de fonctionnement}{12}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Présentation des phases de vol}{13}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}\acrlong {APR}}{16}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}\acrlong {ERPs}}{16}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Analyse des risques par phase de vol}{17}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}\acrlong {MDF}}{18}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Présentation des sous-systèmes}{18}{subsubsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.4}Méthode \acrshort {AMDEC}}{20}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Bilan sur les actions correctives}{23}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Stabilité et gabarits}{25}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Stabilité}{25}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Méthodologie}{25}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Résultats}{26}{subsubsection.3.1.2}%
+\contentsline {subsubsubsection}{\numberline {3.1.2.1}Configuration adoptée}{26}{subsubsubsection.3.1.2.1}%
+\contentsline {subsubsubsection}{\numberline {3.1.2.2}Résultats des analyses}{26}{subsubsubsection.3.1.2.2}%
+\contentsline {subsection}{\numberline {3.2}Gabarits}{27}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Structure mécanique}{28}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Généralités}{28}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Choix des matériaux}{29}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Précision du protocole de fabrication des fuselages porteurs}{29}{subsubsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.3}Structure du premier étage}{30}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Flèche}{30}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Fabrication et collage du bloc propulsion avec ailerons}{31}{subsubsection.4.3.2}%
+\contentsline {subsubsection}{\numberline {4.3.3}Maintien du Pro54}{33}{subsubsection.4.3.3}%
+\contentsline {subsubsection}{\numberline {4.3.4}Aérofreins}{33}{subsubsection.4.3.4}%
+\contentsline {subsubsection}{\numberline {4.3.5}Définition du système d'ouverture/parachute}{35}{subsubsection.4.3.5}%
+\contentsline {subsubsection}{\numberline {4.3.6}Définition du bloc électronique}{37}{subsubsection.4.3.6}%
+\contentsline {subsection}{\numberline {4.4}Système de séparation}{38}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Objectifs mécaniques et intégration structurelle}{38}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Architecture mécanique générale}{38}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}Cinématique de déverrouillage en vol}{38}{subsubsection.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.4}Séparation mécanique de secours par ressorts}{39}{subsubsection.4.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.5}Gestion d'un allumage intempestif du moteur du second étage}{39}{subsubsection.4.4.5}%
+\contentsline {subsubsection}{\numberline {4.4.6}Matériaux et procédés de fabrication}{39}{subsubsection.4.4.6}%
+\contentsline {subsubsection}{\numberline {4.4.7}Instrumentation vidéo de la séparation}{40}{subsubsection.4.4.7}%
+\contentsline {subsubsection}{\numberline {4.4.8}Illustrations du mécanisme de séparation}{40}{subsubsection.4.4.8}%
+\contentsline {subsection}{\numberline {4.5}Structure du second étage}{42}{subsection.4.5}%
+\contentsline {subsubsection}{\numberline {4.5.1}Flèche}{42}{subsubsection.4.5.1}%
+\contentsline {subsubsection}{\numberline {4.5.2}Fabrication et collage des ailerons}{42}{subsubsection.4.5.2}%
+\contentsline {subsubsection}{\numberline {4.5.3}Définition du système d'ouverture/parachute}{43}{subsubsection.4.5.3}%
+\contentsline {subsubsection}{\numberline {4.5.4}Définition du la coiffe et du pitot}{44}{subsubsection.4.5.4}%
 \contentsline {subsubsection}{\numberline {4.5.5}Définition du bloc électronique}{45}{subsubsection.4.5.5}%
+\contentsline {subsubsection}{\numberline {4.5.6}Intégration du système allumage}{45}{subsubsection.4.5.6}%
 \contentsline {subsection}{\numberline {4.6}Mise en rampe}{46}{subsection.4.6}%
 \contentsline {section}{\numberline {5}Electronique}{47}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Présentation du système électronique général}{47}{subsection.5.1}%
@@ -70,7 +72,7 @@
 \contentsline {subsection}{\numberline {5.5}Expérience}{59}{subsection.5.5}%
 \contentsline {subsection}{\numberline {5.6}Caméra embarquée}{60}{subsection.5.6}%
 \contentsline {subsection}{\numberline {5.7}Allimentations et masses électriques}{61}{subsection.5.7}%
-\contentsline {section}{\numberline {}Liste des figures}{62}{figure.caption.58}%
-\contentsline {section}{\numberline {}Liste des tableaux}{62}{figure.caption.58}%
-\contentsline {section}{\numberline {}Références}{64}{figure.caption.58}%
-\contentsline {section}{\numberline {}Glossaires et acronymes}{65}{figure.caption.58}%
+\contentsline {section}{\numberline {}Liste des figures}{62}{figure.caption.61}%
+\contentsline {section}{\numberline {}Liste des tableaux}{62}{figure.caption.61}%
+\contentsline {section}{\numberline {}Références}{64}{figure.caption.61}%
+\contentsline {section}{\numberline {}Glossaires et acronymes}{65}{figure.caption.61}%

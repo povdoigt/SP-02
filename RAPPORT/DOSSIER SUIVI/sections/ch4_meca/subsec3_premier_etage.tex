@@ -407,3 +407,31 @@ différentes couches). L'épaisseur de cette dernière est de 2,5mm en PETG ; et
 est validé pré-C'Space.
 
 \newpage
+
+
+
+\subsubsection{Définition du bloc électronique}
+\label{subsec:bloc_elec1}
+
+L'intégration de l'électronique est regroupée dans le bloc suivant et se compose des éléments vitaux de la fusée. Nous avons opté pour cette configuration car elle permet d'opérer sur l'entièreté des cartes de l'étages sur une seule section tout en facilitant la sortie des batteries de la fusée. Seuls les 2 vis de ce bloc contraingent tout mouvement des batteries dans le bloc et sont dévissables depuis l'intérieur de la fusée sans avoir besoin de retirer le bloc.
+De plus, nous intégrons les connections des deux caméras de l'étage, les cartes de télémesure et le séquenceur capable de lancer et communiquer avec l'étage supérieur pour actionner le système de séparation.
+L'entièreté des 6 cartes (séquenceur, interface IHF, APEX, APEX-EX, PCB Caméra, Carte Routeur), 4 Batteries, 1 caméra et un servomoteur sont regroupés dans un bloc de 100mm de diamètre sur 15cm.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.35\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/bloc_elec1-1.png}
+        \caption{Vue isométrique}
+        \label{fig:elec_etage1-1}
+    \end{subfigure}
+    \begin{subfigure}{0.35\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/bloc_elec1-2.png}
+        \caption{Vue opposée de la vue isométrique}
+        \label{fig:elec_etage1-2}
+    \end{subfigure}
+    \caption{Bloc électronique du premier étage sur \acrshort{CATIA}}
+    \label{fig:para_etage1_SP02}
+\end{figure}
+
+\newpage
