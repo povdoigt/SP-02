@@ -2,10 +2,9 @@
 
 #include "float3.h"
 #include "main.h"
-#include "stm32f0xx_hal.h"
 #include "usart.h"
 
-// #include "usbd_cdc_if.h"
+#include "usbd_cdc_if.h"
 
 #include "WT901B.h"
 
@@ -27,7 +26,6 @@ static uint8_t buffer[256];
 void on_new_accel_frame(data_sub_t *sub);
 void on_new_gyro_frame(data_sub_t *sub);
 void on_new_pressure_frame(data_sub_t *sub);
-
 
 
 void setup() {

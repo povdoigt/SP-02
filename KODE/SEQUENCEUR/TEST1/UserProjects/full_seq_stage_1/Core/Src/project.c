@@ -1,14 +1,16 @@
 #include "project.h"
 
+#include "float3.h"
 #include "main.h"
 
 #include "stm32f0xx_hal.h"
+#include "stm32f0xx_hal_gpio.h"
 #include "usart.h"
 
 #include "STS.h"
-// #include "WT901B.h"
+#include "led.h"
 
-// #include "data_topic.h"
+#include "waveform.h"
 #include "event_uart.h"
 #include "window_time.h"
 #include <stdbool.h>
@@ -48,6 +50,7 @@ static STS_Servo_t servo3 = { 0 };
 static rocket_stage_t current_stage;
 
 static first_stage_initialisation_phase_t first_stage_init_phase;
+static first_stage_initialisation_phase_t first_stage_init_next_phase;
 static first_stage_flight_phase_t first_stage_flight_phase;
 
 static bool is_launch_confirmed;
@@ -61,24 +64,31 @@ static float current_pressure_variation_pa_s; // Latest pressure variation in Pa
 
 static stage_phase_transition_t current_stage_phase_transition;
 
+static led_rgb_t led_rgb2;
 
 void setup() {
+
+	LED_Init(&led_rgb2.red  , &htim3, TIM_CHANNEL_1);
+	LED_Init(&led_rgb2.green, &htim3, TIM_CHANNEL_2);
+	LED_Init(&led_rgb2.blue , &htim3, TIM_CHANNEL_3);
 
 	// Looking for which stage we are
 	if (HAL_GPIO_ReadPin(ETAGE1_GPIO_Port, ETAGE1_Pin) == GPIO_PIN_RESET) {
 		current_stage = ROCKET_FIRST_STAGE;
-		HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 0.0f, .y = 0.0f, .z = 1.0f });
 		HAL_Delay(500);
-		HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 0.0f, .y = 0.0f, .z = 0.0f });
 
 		HAL_Delay(1000);
 
 		setup_servomotors_stage_1();
 		// setup_data_acquisition_stage_1();
 
-		first_stage_init_phase = FIRST_STAGE_INIT_AF_ZERO;
+		first_stage_init_next_phase = FIRST_STAGE_INIT_AF_ZERO;
+		first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
 		first_stage_flight_phase = FIRST_STAGE_FLIGHT_INITIALISATION;
 	} else {
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
 		Error_Handler();
 	}
 
@@ -107,16 +117,31 @@ void setup_servomotors_stage_1(void) {
 	HAL_StatusTypeDef res;
 
 	res = STS_UART_Port_Init(&huart_sts_port1, &huart2);
-	if (res != HAL_OK) { Error_Handler(); }
+	if (res != HAL_OK) {
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
+		Error_Handler();
+	}
 	res = STS_UART_Port_Init(&huart_sts_port2, &huart3);
-	if (res != HAL_OK) { Error_Handler(); }
+	if (res != HAL_OK) {
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
+		Error_Handler();
+	}
 
 	res = STS_Servo_Init(&servo1, &huart_sts_port1, 1);
-	if (res != HAL_OK) { Error_Handler(); }
+	if (res != HAL_OK) {
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
+		Error_Handler();
+	}
 	res = STS_Servo_Init(&servo2, &huart_sts_port1, 2);
-	if (res != HAL_OK) { Error_Handler(); }
+	if (res != HAL_OK) {
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
+		Error_Handler();
+	}
 	res = STS_Servo_Init(&servo3, &huart_sts_port2, 3);
-	if (res != HAL_OK) { Error_Handler(); }
+	if (res != HAL_OK) {
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
+		Error_Handler();
+	}
 }
 
 // void setup_data_acquisition_stage_1(void) {
@@ -178,10 +203,12 @@ void first_stage_init_state_machine(void) {
 			STS_Servo_InOverload(&servo1, &in_overload);
 			if (in_overload) {
 				STS_Servo_SetGoalSpeed(&servo1, 0);
+				HAL_Delay(100);
 				STS_Servo_PositionCalibration(&servo1, STS_GetPositionInUnits(0));
 				STS_Servo_SetOperatingMode(&servo1, STS_OP_MODE_POSITION_CONTROL);
 				STS_Servo_SetGoalPosition(&servo1, STS_GetPositionInUnits(30));
-				first_stage_init_phase = FIRST_STAGE_INIT_PARA_ZERO;
+				first_stage_init_next_phase = FIRST_STAGE_INIT_PARA_ZERO;
+				first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
 			}
 			break;
 		}
@@ -199,13 +226,14 @@ void first_stage_init_state_machine(void) {
 				STS_Servo_PositionCalibration(&servo2, STS_GetPositionInUnits(0));
 				STS_Servo_SetOperatingMode(&servo2, STS_OP_MODE_POSITION_CONTROL);
 				STS_Servo_SetGoalPosition(&servo2, STS_GetPositionInUnits(30));
-				first_stage_init_phase = FIRST_STAGE_INIT_SEPA_ZERO;
+				first_stage_init_next_phase = FIRST_STAGE_INIT_SEPA_ZERO;
+				first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
 			}
 			break;
 		}
 		case FIRST_STAGE_INIT_SEPA_ZERO: {
 			STS_Servo_SetOperatingMode(&servo3, STS_OP_MODE_SPEED_CONTROL);
-			STS_Servo_SetGoalSpeed(&servo3, STS_GetSpeedInUnits(-10));
+			STS_Servo_SetGoalSpeed(&servo3, STS_GetSpeedInUnits(10));
 			first_stage_init_phase = FIRST_STAGE_INIT_WAIT_SEPA_ZERO;
 			break;
 		}
@@ -216,8 +244,9 @@ void first_stage_init_state_machine(void) {
 				STS_Servo_SetGoalSpeed(&servo3, 0);
 				STS_Servo_PositionCalibration(&servo3, STS_GetPositionInUnits(0));
 				STS_Servo_SetOperatingMode(&servo3, STS_OP_MODE_POSITION_CONTROL);
-				STS_Servo_SetGoalPosition(&servo3, STS_GetPositionInUnits(30));
-				first_stage_init_phase = FIRST_STAGE_INIT_WAIT_JACK;
+				STS_Servo_SetGoalPosition(&servo3, STS_GetPositionInUnits(-180));
+				first_stage_init_next_phase = FIRST_STAGE_INIT_WAIT_JACK;
+				first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
 			}
 			break;
 		}
@@ -238,7 +267,8 @@ void first_stage_init_state_machine(void) {
 				HAL_Delay(3000);
 				if (HAL_GPIO_ReadPin(IN_TRG_N2_GPIO_Port, IN_TRG_N2_Pin) == GPIO_PIN_SET) {
 					HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, GPIO_PIN_SET);
-					first_stage_init_phase = FIRST_STAGE_INIT_LOCK_STAGE;
+					first_stage_init_next_phase = FIRST_STAGE_INIT_LOCK_STAGE;
+					first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
 				}
 			} else {
 				HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
@@ -257,11 +287,26 @@ void first_stage_init_state_machine(void) {
 			break;
 		}
 		case FIRST_STAGE_INIT_WAIT_LOCK_STAGE: {
-			HAL_Delay(1000);
-			HAL_GPIO_TogglePin(LED1R_GPIO_Port, LED1R_Pin);
-			HAL_Delay(500);
-			HAL_GPIO_TogglePin(LED1R_GPIO_Port, LED1R_Pin);
-			first_stage_flight_phase = FIRST_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION;
+			
+			if (HAL_GPIO_ReadPin(PRGM_RUN_GPIO_Port, PRGM_RUN_Pin) == GPIO_PIN_SET) {
+				first_stage_flight_phase = FIRST_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION;
+			} else {
+				LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0, .y = 0.0, .z = 1.0});
+				HAL_Delay(500);
+				LED_RGB_SetColor(&led_rgb2, FLOAT3_ZERO);
+				HAL_Delay(500);
+			}
+			break;
+		}
+		case FIRST_STAGE_INIT_WAIT_BUTTON: {
+			if (HAL_GPIO_ReadPin(PRGM_RUN_GPIO_Port, PRGM_RUN_Pin) == GPIO_PIN_SET) {
+				first_stage_init_phase = first_stage_init_next_phase;
+			} else {
+				LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0, .y = 1.0, .z = 0.0});
+				HAL_Delay(500);
+				LED_RGB_SetColor(&led_rgb2, FLOAT3_ZERO);
+				HAL_Delay(500);
+			}
 			break;
 		}
 	}

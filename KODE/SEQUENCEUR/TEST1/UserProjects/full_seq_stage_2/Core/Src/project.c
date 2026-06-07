@@ -100,7 +100,7 @@ void setup() {
 		setup_attitude();
 		
 		second_stage_flight_phase = SECOND_STAGE_FLIGHT_INITIALISATION;
-		second_stage_init_phase = SECOND_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION;
+		second_stage_init_phase = SECOND_STAGE_INIT_PARA_ZERO;
 	} else {
 		Error_Handler();
 	}

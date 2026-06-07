@@ -89,6 +89,7 @@ typedef enum first_stage_initialisation_phase_t {
 	FIRST_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION,
 	FIRST_STAGE_INIT_LOCK_STAGE,
 	FIRST_STAGE_INIT_WAIT_LOCK_STAGE,
+	FIRST_STAGE_INIT_WAIT_BUTTON,
 } first_stage_initialisation_phase_t;
 
 typedef enum first_stage_flight_phase_t {

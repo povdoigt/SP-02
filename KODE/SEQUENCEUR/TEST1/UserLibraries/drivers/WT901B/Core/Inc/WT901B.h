@@ -34,9 +34,16 @@ extern "C" {
 /* -------------------------------------------------------------------------- */
 
 /* Trame standard WIT : 0x55, TYPE, 8 data bytes, checksum                    */
-#define WT901B_FRAME_HEADER      0x55U
-#define WT901B_FRAME_LENGTH      11U
-#define WT901B_FRAME_TYPE_NBR    12U    /**< Number of different frame types */
+#define WT901B_FRAME_WRITE_HEADER_1 0xFFU
+#define WT901B_FRAME_WRITE_HEADER_2 0xAAU
+#define WT901B_FRAME_WRITE_LENGTH   6U
+
+#define WT901B_UNLOCK_KEY           0xB588
+
+#define WT901B_FRAME_READ_HEADER    0x55U
+#define WT901B_FRAME_READ_LENGTH    11U
+
+#define WT901B_FRAME_TYPE_NBR       12U    /**< Number of different frame types */
 
 #define WT901B_FRAME_TIME        0x50U  /**< Time output frame */
 #define WT901B_FRAME_ACCEL       0x51U  /**< Acceleration and temperature */
@@ -399,8 +406,8 @@ typedef struct WT901B_t {
     UART_HandleTypeDef *huart;      /**< UART handle used for communication */
 
     /* Internal parser state */
-    uint8_t uart_buffer[WT901B_FRAME_LENGTH * WT901B_FRAME_TYPE_NBR];  /**< Buffer for incoming UART data */
-    uint8_t parse_buffer[WT901B_FRAME_LENGTH * WT901B_FRAME_TYPE_NBR];  /**< Buffer for assembling incoming frames */
+    uint8_t uart_buffer[WT901B_FRAME_READ_LENGTH * WT901B_FRAME_TYPE_NBR];  /**< Buffer for incoming UART data */
+    uint8_t parse_buffer[WT901B_FRAME_READ_LENGTH * WT901B_FRAME_TYPE_NBR];  /**< Buffer for assembling incoming frames */
     bool new_data_available;      /**< Flag indicating new data is available to parse */
     bool data_in_progress;      /**< Flag indicating a frame is currently being assembled */
     size_t last_received_size;   /**< Size of the last received data chunk */
@@ -437,7 +444,7 @@ void WT901B_UART_Callback_RX_IRQHandler(WT901B_t *wt, uint16_t Size);
 
 void WT901B_Parse_Frames(WT901B_t *wt);
 
-
+void WT901B_Write(WT901B_t *wt, uint8_t reg_addr, uint16_t value);
 
 
 
