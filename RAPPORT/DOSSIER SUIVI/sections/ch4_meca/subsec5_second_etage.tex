@@ -41,7 +41,32 @@ de fibre de verre.
     \label{fig:collage_ailerons_arcturus}
 \end{figure}
 
-\newpage
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.35\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/collage_ailerons_beta.jpg}
+        \caption{Collage surfacique des ailerons}
+        \label{fig:collage_ailerons_beta}
+    \end{subfigure}
+    \begin{subfigure}{0.12\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/ailerons_renfort_beta.jpg}
+        \caption{Renfort}
+        \label{fig:renfort_ailerons_beta}
+    \end{subfigure}
+    \caption{Fixation des ailerons du second étage sur \acrshort{CATIA}}
+    \label{fig:ailerons_etage2_SP02}
+\end{figure}
+
+La réalisation des couches de renfort a été opérée sous vide et les dimensions des renforts fut variable pour permettre d'obtenir une meilleure transition entre le bord d'attaque et l'épaisseur nominale.
+L'utilisation de tissur d'arrachage (peel ply) et des consommables tels tissu perforé P3, feutre et film de mise sous vide ont permis l'extraction de la résine excédente présente lors de son application et limiter la masse tout en ayant une répartition homogène de la résine.\\
+
+Un conseil pour faciliter le démoulage est de positionner le joint de mise sous vide juste à la fin de la section du tube pour éviter d'éventuelles coulures lors de la mise sous vide. À noter que la glace carbonique est efficace.
+
+
+
 
 \subsubsection{Définition du système d'ouverture/parachute}
 \label{subsec:def_para2}
@@ -53,7 +78,7 @@ que celui du premier. Toutefois, seulement la taille et la fixation du parachute
 \begin{tabular}{|c|c|c|c|}
 \hline
 Cas d'étude &  Étage 2 passif & Étage 2 actif \\ \hline
-Masse de l'ensemble & 2,895kg & 3,055kg \\ \hline
+Masse de l'ensemble & 3,132kg & 3,228kg \\ \hline
 Dimensions du parachute utilisé & a=b=310mm &a=b=310mm \\ \hline
 Vitesse sous parachute & 9,7 m/s & 10,0 m/s\\ \hline
 \end{tabular}
@@ -61,12 +86,80 @@ Vitesse sous parachute & 9,7 m/s & 10,0 m/s\\ \hline
 
 Le parachute sera accroché sur la bague inférieure du bloc parachute afin que la fusée retombe sur la coiffe et non directement 
 sur les ailerons et le système de séparation afin de limiter certains dégâts lors de la redescente.
-\begin{figure}[h!]
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/para_etage2.png}
+    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/para_etage2-1.png}
+        \caption{Position verrouillée}
+        \label{fig:para_etage1-1}
+    \end{subfigure}
+    \begin{subfigure}{0.26\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/para_etage2-2.png}
+        \caption{Servomoteur à mi-course}
+        \label{fig:para_etage1-2}
+    \end{subfigure}
+    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/para_etage2-3.png}
+        \caption{Position ouverte}
+        \label{fig:para_etage1-3}
+    \end{subfigure}
     \caption{Bloc parachute du second étage sur \acrshort{CATIA}}
-    \label{fig:para_etage2}
+    \label{fig:para_etage1_SP02}
 \end{figure}
 
+
+
+La construction du bloc est réalisée de la manière suivante :
+\begin{itemize}
+    \item Une bague inférieure en aluminium 7075 faisant office de retunue du parachute avec l'ouverture garantissant la bonne sortie de la languette de la trappe lors de la séquence d'ouverture,
+    \item Une bague supérieure en PETG où se trouve le servomoteur et le maintenant en place via un trou pour le crochet. Cette méthode est la même que précédemment où nous autorisons uniquement une rotation autour de l'axe x du lanceur,
+    \item Une cage en fibre de verre maintenue sur les deux bagues à l'aide de 16 vis M3
+\end{itemize}
 \newpage
 
+
+
+\subsubsection{Définition du la coiffe et du pitot}
+\label{subsec:def_coiffe}
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.3\textwidth]{figures/coiffe_beta.jpg} % Remplacez par le nom de votre fichier image
+    \caption{Coiffe du second étage avec pointe et baromètre intégrés}
+    \label{fig:coiffe}
+\end{figure}
+
+
+\subsubsection{Définition du bloc électronique}
+\label{subsec:def_coiffe}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/para_etage2-1.png}
+        \caption{Position verrouillée}
+        \label{fig:para_etage1-1}
+    \end{subfigure}
+    \begin{subfigure}{0.26\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/para_etage2-2.png}
+        \caption{Servomoteur à mi-course}
+        \label{fig:para_etage1-2}
+    \end{subfigure}
+    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/para_etage2-3.png}
+        \caption{Position ouverte}
+        \label{fig:para_etage1-3}
+    \end{subfigure}
+    \caption{Bloc parachute du second étage sur \acrshort{CATIA}}
+    \label{fig:para_etage1_SP02}
+\end{figure}
+
+
+\newpage
