@@ -58,30 +58,55 @@ static bool is_launch_confirmed = false;
 
 static led_rgb_t led_rgb2;
 
-static float3_t v_up_body_earth;
+// static float3_t v_up_body_earth;
 
 void on_new_accel_frame(data_sub_t *sub);
 void on_new_gyro_frame(data_sub_t *sub);
 void on_new_pressure_frame(data_sub_t *sub);
 
 void setup_attitude(void) {
-	attitude.v_up_body = FLOAT3_UNIT_Y; /* axe “up” de la fusée aligné avec l’axe Y du body */
-	// attitude.v_left_body = FLOAT3_UNIT_X; /* axe “left” de la fusée aligné avec l’axe X du body */
-	// attitude.initial_elevation_deg = INIT_ELEVATION_DEG * DEG2RAD; /* angle d’élévation initiale */
-	// attitude.q = quatf_from_axis_angle(FLOAT3_UNIT_Z, - M_PI / 2.0f); // rotation initiale pour aligner l’axe forward du repère Terre avec l’axe Y du body
-	// attitude.q = quatf_mul(attitude.q, quatf_from_axis_angle(FLOAT3_UNIT_X, attitude.initial_elevation_deg)); // rotation initiale d’élévation
-	attitude.elevation_deg = 0.0f;
-	attitude.azimuth_deg = 0.0f;
+	// attitude.x_body = FLOAT3_UNIT_X;
+	// attitude.y_body = FLOAT3_UNIT_Y;
+	// attitude.z_body = FLOAT3_UNIT_Z;
+
+	// attitude.v_up_body = FLOAT3_UNIT_Y; /* axe “up” de la fusée aligné avec l’axe Y du body */
+	// // attitude.v_left_body = FLOAT3_UNIT_X; /* axe “left” de la fusée aligné avec l’axe X du body */
+	// // attitude.initial_elevation_deg = INIT_ELEVATION_DEG * DEG2RAD; /* angle d’élévation initiale */
+	// // attitude.q = quatf_from_axis_angle(FLOAT3_UNIT_Z, - M_PI / 2.0f); // rotation initiale pour aligner l’axe forward du repère Terre avec l’axe Y du body
+	// // attitude.q = quatf_mul(attitude.q, quatf_from_axis_angle(FLOAT3_UNIT_X, attitude.initial_elevation_deg)); // rotation initiale d’élévation
+	// attitude.elevation_deg = 0.0f;
+	// attitude.azimuth_deg = 0.0f;
 }
 
 void compute_elevation_azimut(void) {
-	v_up_body_earth = float3_normalized(quatf_rotate_vector(attitude.q, attitude.v_up_body));
-	// v_left_body_earth = quatf_rotate_vector(attitude.q, attitude.v_left_body);
+
+	if (!is_launch_confirmed) {
+		attitude.q_init = attitude.q;
+	}
+
+	float3_t v_up_body_earth_init = float3_normalized(quatf_rotate_vector(attitude.q_init, FLOAT3_UNIT_Y));
+	float3_t v_up_body_earth = float3_normalized(quatf_rotate_vector(attitude.q, FLOAT3_UNIT_Y));
 	attitude.elevation_deg = iir_process(&elev_iir_filter, 90 - acosf(v_up_body_earth.z) * RAD2DEG);
-	// float3_t v_up_body_earth_proj = float3_normalized(float3_sub(v_up_body_earth, float3_scale(FLOAT3_UNIT_Z, v_up_body_earth.z)));
-	// attitude.azimuth_deg = 90 - atan2f(v_up_body_earth_proj.y, v_up_body_earth_proj.x) * RAD2DEG;
-	// float3_t init_g_proj = float3_normalized(float3_sub(attitude.init_g, float3_scale(FLOAT3_UNIT_Z, attitude.init_g.z)));
-	// attitude.azimuth_deg = 90 - acosf(float3_dot(v_up_body_earth, init_g_proj)) * RAD2DEG;
+
+	float3_t v_up_body_earth_init_proj = float3_normalized(float3_sub(v_up_body_earth_init, float3_scale(FLOAT3_UNIT_Z, v_up_body_earth_init.z)));
+	float3_t v_up_body_earth_proj = float3_normalized(float3_sub(v_up_body_earth, float3_scale(FLOAT3_UNIT_Z, v_up_body_earth.z)));
+	attitude.azimuth_deg = acosf(float3_dot(v_up_body_earth_init_proj, v_up_body_earth_proj)) * RAD2DEG;
+}
+
+void check_elevation_azimuth(void) {
+	float delta_elev = fabsf(attitude.elevation_deg - 72.0f);
+	float delta_azim = fabsf(attitude.azimuth_deg - 0.0f);
+
+	bool is_elev_ok = delta_elev <= 45.0f;
+	bool is_azim_ok = delta_azim <= 10.0f;
+
+	if (is_elev_ok && is_azim_ok) {
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 0.0f, .y = 1.0f, .z = 0.0f });
+	} else if (is_elev_ok || is_azim_ok) {
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 0.0f, .y = 0.0f, .z = 1.0f });
+	} else {
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
+	}
 }
 
 
@@ -126,19 +151,25 @@ void loop() {
 	on_new_pressure_frame(&pressure_sub);
 
 	compute_elevation_azimut();
+	check_elevation_azimuth();
 
 	// snprintf((char *)buffer, sizeof(buffer), "Acc : %3.2f, %3.2f, %3.2f ; Gyr : %3.2f, %3.2f, %3.2f ; Baro : %6.2f\r\n",
 	// 	last_acc.x, last_acc.y, last_acc.z, last_gyro.x, last_gyro.y, last_gyro.z, last_baro
 	// );
-	// snprintf((char *)buffer, sizeof(buffer), "Elev : %3.2f ; Azim : %3.2f\r\n", attitude.elevation_deg, attitude.azimuth_deg);
+	snprintf((char *)buffer, sizeof(buffer), "Elev : %3.2f ; Azim : %3.2f\r\n", attitude.elevation_deg, attitude.azimuth_deg);
 	// snprintf((char*)buffer, sizeof(buffer), "Q: %3.2f, %3.2f, %3.2f, %3.2f\r\n", attitude.q.w, attitude.q.x, attitude.q.y, attitude.q.z);
-	snprintf((char*)buffer, sizeof(buffer), "%03.2f,%03.2f,%03.2f\n", v_up_body_earth.x, v_up_body_earth.y, v_up_body_earth.z);
+	// snprintf((char*)buffer, sizeof(buffer), "%03.2f,%03.2f,%03.2f\n", v_up_body_earth.x, v_up_body_earth.y, v_up_body_earth.z);
+	// snprintf((char*)buffer, sizeof(buffer), "%03.2f,%03.2f,%03.2f %03.2f,%03.2f,%03.2f %03.2f,%03.2f,%03.2f\r\n",
+	// 	attitude.z_body.x, attitude.z_body.y, attitude.z_body.z,
+	// 	attitude.x_body.x, attitude.x_body.y, attitude.x_body.z,
+	// 	attitude.y_body.x, attitude.y_body.y, attitude.y_body.z
+	// );
+
 
 	CDC_Transmit_FS(buffer, strlen((char *)buffer) + 1);
 
 	if (!is_launch_confirmed && HAL_GPIO_ReadPin(PRGM_RUN_GPIO_Port, PRGM_RUN_Pin) == GPIO_PIN_RESET) {
 		attitude.q = quatf_from_2_vec3(last_acc, FLOAT3_UNIT_Z);
-		attitude.init_g = last_acc;
 		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 1.0f, .z = 0.0f });
 	} else {
 		is_launch_confirmed = true;

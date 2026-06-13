@@ -1,192 +1,129 @@
 """
 =============================================================================
-COM Port Simulator
+COM Simulator (orientation)
 =============================================================================
-Simulates a COM port with rotating vector data for testing the visualizer.
-
-This script creates a virtual COM port loopback (Windows: VCOM, Linux: socat).
+Sends synthetic orientation data to a COM port to test the visualizer
+without hardware. Pair a virtual COM port (com0com on Windows, socat on
+Linux/macOS), run this on one end and the visualizer on the other.
 
 Usage:
-    python com_simulator.py --port COM3 --baudrate 115200
-    
-    Then in another terminal:
-    python vector_visualizer.py --port COM3
+    python com_simulator.py --port COM4 --mode euler   --motion tumble
+    python com_simulator.py --port COM4 --mode quat    --motion spin
+    python com_simulator.py --port COM4 --mode vector  --motion rotate
 
 Requirements:
     pip install pyserial numpy
 =============================================================================
 """
 
-import sys
 import argparse
 import time
+import math
 import numpy as np
 import serial
 from serial.tools import list_ports
 
 
-class VectorSimulator:
-    """Generates rotating vector data"""
-    
-    def __init__(self):
-        self.t = 0.0
-    
-    def get_next_vector(self, dt=0.1, mode='rotating'):
-        """
-        Generate next vector based on mode.
-        
-        Modes:
-        - rotating: Vector rotating in XY plane
-        - spiral: Spiral motion
-        - random: Random walk
-        - pendulum: Pendulum motion
-        """
-        self.t += dt
-        
-        if mode == 'rotating':
-            x = 50 * np.cos(self.t)
-            y = 50 * np.sin(self.t)
-            z = 25 * np.sin(self.t * 0.5)
-        
-        elif mode == 'spiral':
-            r = 50 + 25 * np.sin(self.t * 0.5)
-            x = r * np.cos(self.t)
-            y = r * np.sin(self.t)
-            z = 30 * self.t % 60 - 30
-        
-        elif mode == 'random':
-            x = 50 * np.sin(np.random.random() * 2 * np.pi)
-            y = 50 * np.cos(np.random.random() * 2 * np.pi)
-            z = 50 * (np.random.random() - 0.5) * 2
-        
-        elif mode == 'pendulum':
-            x = 50 * np.sin(self.t)
-            y = 0
-            z = 50 * (1 - np.cos(self.t * 2))
-        
-        else:
-            raise ValueError(f"Unknown mode: {mode}")
-        
-        return [x, y, z]
+def euler_sample(t, motion):
+    if motion == "spin":
+        return (0.0, 0.0, (t * 90.0) % 360.0)
+    if motion == "tumble":
+        return (t * 60.0 % 360.0, 25.0 * math.sin(t), t * 35.0 % 360.0)
+    if motion == "wobble":
+        return (15.0 * math.sin(t), 15.0 * math.cos(t * 0.7), 0.0)
+    return (0.0, t * 45.0 % 360.0, 0.0)
 
 
-class COMSimulator(object):
+def quat_sample(t, motion):
+    if motion == "spin":
+        axis = np.array([0.0, 0.0, 1.0]); ang = t * math.radians(90.0)
+    elif motion == "tumble":
+        axis = np.array([math.sin(t * 0.3), math.cos(t * 0.5), 0.5]); ang = t * math.radians(80.0)
+    else:
+        axis = np.array([1.0, 0.0, 0.0]); ang = t * math.radians(60.0)
+    axis = axis / np.linalg.norm(axis)
+    w = math.cos(ang / 2); s = math.sin(ang / 2)
+    return (w, axis[0] * s, axis[1] * s, axis[2] * s)
+
+
+def vector_sample(t, motion):
+    if motion == "rotate":
+        return (math.cos(t), math.sin(t), 0.3 * math.sin(t * 0.5))
+    if motion == "tumble":
+        return (math.sin(t), math.sin(t * 1.3), math.cos(t * 0.7))
+    return (0.0, 1.0, 0.0)
+
+
+def _quat_to_R(w, x, y, z):
+    n = math.sqrt(w * w + x * x + y * y + z * z) or 1.0
+    w, x, y, z = w / n, x / n, y / n, z / n
+    return np.array([
+        [1 - 2 * (y * y + z * z), 2 * (x * y - z * w),     2 * (x * z + y * w)],
+        [2 * (x * y + z * w),     1 - 2 * (x * x + z * z), 2 * (y * z - x * w)],
+        [2 * (x * z - y * w),     2 * (y * z + x * w),     1 - 2 * (x * x + y * y)],
+    ])
+
+
+def basis_sample(t, motion):
+    """Reference path the firmware should reproduce: quaternion -> R -> 3 columns.
+
+    Emits 9 floats = body X, Y, Z axes (the columns of R) in world frame,
+    in order bx_x,bx_y,bx_z, by_x,by_y,by_z, bz_x,bz_y,bz_z.
     """
-    Virtual COM port simulator using socat (Linux) or VCOM (Windows).
-    Falls back to regular serial if virtual ports not available.
-    """
-    
-    def __init__(self, port, baudrate, mode='rotating'):
-        self.port = port
-        self.baudrate = baudrate
-        self.mode = mode
-        self.simulator = VectorSimulator()
-        self.running = True
-    
-    def run(self):
-        """Main simulation loop"""
-        try:
-            ser = serial.Serial(self.port, self.baudrate, timeout=1)
-            print(f"✓ Connected to {self.port} @ {self.baudrate} baud")
-            print(f"✓ Sending vectors in mode: {self.mode}")
-            print("\nVector data:")
-            print("-" * 60)
-            
-            count = 0
-            while self.running:
-                try:
-                    # Get next vector
-                    vector = self.simulator.get_next_vector(mode=self.mode)
-                    
-                    # Format as CSV
-                    data = f"{vector[0]:.4f},{vector[1]:.4f},{vector[2]:.4f}\n"
-                    
-                    # Send to COM port
-                    ser.write(data.encode())
-                    
-                    # Print to console
-                    count += 1
-                    if count % 10 == 0:
-                        mag = np.linalg.norm(vector)
-                        print(f"[{count:05d}] X={vector[0]:>8.2f} Y={vector[1]:>8.2f} Z={vector[2]:>8.2f} Mag={mag:>8.2f}")
-                    
-                    time.sleep(0.05)  # 20 Hz
-                
-                except KeyboardInterrupt:
-                    break
-                except Exception as e:
-                    print(f"⚠ Error: {e}")
-        
-        except serial.SerialException as e:
-            print(f"✗ Serial error: {e}")
-            print("\nTroubleshooting:")
-            print("1. Install virtual COM port software:")
-            print("   - Windows: com0com (https://sourceforge.net/projects/com0com/)")
-            print("   - Linux:   sudo apt install socat")
-            print("\n2. Create virtual pair:")
-            print("   - Windows: COM0COM GUI → Create pair")
-            print("   - Linux:   socat -d -d pty,raw,echo=0 pty,raw,echo=0")
-            print(f"\n3. Run this simulator on one side of the pair")
-            print(f"4. Run visualizer on the other side")
-            print(f"\nAvailable ports: {[p.device for p in list_ports.comports()]}")
-        
-        finally:
-            if 'ser' in locals() and ser.is_open:
-                ser.close()
-            print("\n✗ Simulator stopped")
-    
-    def stop(self):
-        """Stop the simulator"""
-        self.running = False
+    w, x, y, z = quat_sample(t, motion)
+    R = _quat_to_R(w, x, y, z)
+    bx, by, bz = R[:, 0], R[:, 1], R[:, 2]
+    return (bx[0], bx[1], bx[2], by[0], by[1], by[2], bz[0], bz[1], bz[2])
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description='Simulate vector data on a COM port',
-        epilog="""
-Examples:
-  # Simple simulator (requires virtual COM pair)
-  python com_simulator.py --port COM3 --mode rotating
-  
-  # Different modes
-  python com_simulator.py --port COM3 --mode spiral
-  python com_simulator.py --port COM3 --mode pendulum
-  
-  # Check available ports
-  python com_simulator.py --list-ports
-        """
-    )
-    
-    parser.add_argument('--port', '-p', default='COM3',
-                       help='COM port to send data to (default: COM3)')
-    parser.add_argument('--baudrate', '-b', type=int, default=115200,
-                       help='Baud rate (default: 115200)')
-    parser.add_argument('--mode', '-m', default='rotating',
-                       choices=['rotating', 'spiral', 'random', 'pendulum'],
-                       help='Vector motion mode (default: rotating)')
-    parser.add_argument('--list-ports', action='store_true',
-                       help='List available COM ports and exit')
-    
-    args = parser.parse_args()
-    
+    ap = argparse.ArgumentParser(description="Synthetic orientation source")
+    ap.add_argument("--port", "-p", default="COM4")
+    ap.add_argument("--baudrate", "-b", type=int, default=115200)
+    ap.add_argument("--mode", "-m", default="euler", choices=["euler", "quat", "vector", "basis"])
+    ap.add_argument("--motion", default="tumble",
+                    help="spin | tumble | wobble | rotate (depends on mode)")
+    ap.add_argument("--rate", type=float, default=50.0, help="Hz")
+    ap.add_argument("--list-ports", action="store_true")
+    args = ap.parse_args()
+
     if args.list_ports:
-        ports = list_ports.comports()
-        if ports:
-            print("\nAvailable COM ports:")
-            for port in ports:
-                print(f"  • {port.device}: {port.description}")
-        else:
-            print("No COM ports found!")
+        for p in list_ports.comports():
+            print(f"  {p.device}: {p.description}")
         return
-    
-    # Run simulator
-    simulator = COMSimulator(args.port, args.baudrate, args.mode)
+
     try:
-        simulator.run()
+        ser = serial.Serial(args.port, args.baudrate, timeout=1)
+    except serial.SerialException as e:
+        print(f"Serial error: {e}")
+        print("Tip: create a virtual COM pair first.")
+        print("  Windows: com0com   |   Linux/macOS: socat -d -d pty,raw,echo=0 pty,raw,echo=0")
+        print(f"Available ports: {[p.device for p in list_ports.comports()]}")
+        return
+
+    print(f"Sending {args.mode}/{args.motion} to {args.port} @ {args.rate} Hz. Ctrl+C to stop.")
+    dt = 1.0 / args.rate
+    t = 0.0
+    try:
+        while True:
+            if args.mode == "quat":
+                vals = quat_sample(t, args.motion)
+            elif args.mode == "vector":
+                vals = vector_sample(t, args.motion)
+            elif args.mode == "basis":
+                vals = basis_sample(t, args.motion)
+            else:
+                vals = euler_sample(t, args.motion)
+            line = ",".join(f"{v:+.4f}" for v in vals) + "\n"
+            ser.write(line.encode())
+            t += dt
+            time.sleep(dt)
     except KeyboardInterrupt:
-        print("\nShutdown...")
-        simulator.stop()
+        print("\nStopped.")
+    finally:
+        if ser.is_open:
+            ser.close()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
