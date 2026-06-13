@@ -12,7 +12,7 @@ set(MX_Defines_Syms
 set(CMAKE_USER_PROJECT_PATH
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test1
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq_stage_1
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq_stage_1
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq_stage_2
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_uart
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_infla
@@ -20,7 +20,7 @@ set(CMAKE_USER_PROJECT_PATH
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_ihf
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_servo
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_servo_id
-    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_wt901b
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_wt901b
 )
 
 # STM32CubeMX generated include paths
@@ -44,6 +44,7 @@ set(MX_Include_Dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/data_topic/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/event_uart/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/float3/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/iir_filter/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/quaternion/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/waveform/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/window_time/Core/Inc
@@ -68,6 +69,7 @@ set(MX_Application_Src
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/data_topic/Core/Src/data_topic.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/event_uart/Core/Src/event_uart.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/float3/Core/Src/float3.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/iir_filter/Core/Src/iir_filter.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/quaternion/Core/Src/quaternion_dynamics.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/quaternion/Core/Src/quaternion.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/waveform/Core/Src/waveform_built_in.c

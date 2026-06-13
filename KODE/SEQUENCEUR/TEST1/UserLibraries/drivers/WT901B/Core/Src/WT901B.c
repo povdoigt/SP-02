@@ -10,9 +10,12 @@
  */
 
 #include "WT901B.h"
+#include "stm32f0xx_hal.h"
 #include "stm32f0xx_hal_uart.h"
 #include "usart.h"
+#include "usbd_cdc_if.h"
 
+#include <stdio.h>
 #include <string.h>
 
     
@@ -284,10 +287,7 @@ void __WT901B_Write(WT901B_t *wt, uint8_t reg_addr, uint16_t value) {
         reg_addr,
         (uint8_t)((value >> 0) & 0xFF), // Low byte
         (uint8_t)((value >> 8) & 0xFF), // High byte
-        0
     };
-    frame[6] = wt901b_write_compute_checksum(frame);
-
     HAL_UART_Transmit(wt->huart, frame, sizeof(frame), HAL_MAX_DELAY);
 }
 

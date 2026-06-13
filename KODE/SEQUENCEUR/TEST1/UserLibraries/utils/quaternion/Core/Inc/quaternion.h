@@ -84,6 +84,11 @@ bool      quatf_normalized_ip(quatf_t *q);
 /* v_rot = q x (0,v) x conj(q)  (no assumption about q normalization here) */
 float3_t  quatf_rotate_vector(quatf_t q, float3_t v);
 
+/* ------------------------ From two vectors -------------------------------- */
+
+/* q = rotation from a to b */
+quatf_t   quatf_from_2_vec3(float3_t a, float3_t b);
+
 /* ----------------------- Validity / compare ------------------------------ */
 
 bool      quatf_isfinite(quatf_t q);

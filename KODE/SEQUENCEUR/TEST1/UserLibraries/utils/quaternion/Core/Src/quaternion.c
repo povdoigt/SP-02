@@ -3,6 +3,7 @@
  */
 
 #include "quaternion.h"
+#include "float3.h"
 #include <math.h>   /* sqrtf, isfinite, fabsf */
 
 #define QUATF_EPS_NORM (1e-20f)
@@ -127,7 +128,7 @@ bool quatf_inv_ip(quatf_t *q) {
 quatf_t quatf_normalized(quatf_t q) {
     float n2 = quatf_norm2(q);
     if (!isfinite(n2) || n2 < QUATF_EPS_NORM) {
-        return QUATF_IDENTITY; /* choix “safe” pour une version pure */
+        return QUATF_IDENTITY;
     }
     float inv_n = 1.0f / sqrtf(n2);
     return quatf_scale(q, inv_n);
@@ -154,6 +155,17 @@ float3_t quatf_rotate_vector(quatf_t q, float3_t v) {
     quatf_t res = quatf_mul(tmp, qc);
 
     return quatf_to_vec3(res);
+}
+
+/* ------------------------ From two vectors -------------------------------- */
+
+quatf_t quatf_from_2_vec3(float3_t a, float3_t b) {
+    float3_t a_norm = float3_normalized(a);
+    float3_t b_norm = float3_normalized(b);
+
+    quatf_t q = quatf_from_vec3(float3_cross(a, b));
+    q.w = 1.0f + float3_dot(a_norm, b_norm);
+    return quatf_normalized(q);
 }
 
 /* ----------------------- Validity / compare ------------------------------ */

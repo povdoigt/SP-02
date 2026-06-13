@@ -14,11 +14,6 @@ void setup() {
     HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(OUT_N2_GPIO_Port, OUT_N2_Pin, GPIO_PIN_SET);
 
-    HAL_Delay(100);
-
-    HAL_GPIO_WritePin(OUT_N2_GPIO_Port, OUT_N2_Pin, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, GPIO_PIN_SET);
-
 }
 
 void loop() {

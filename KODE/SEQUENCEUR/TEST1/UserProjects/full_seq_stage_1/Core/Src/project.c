@@ -84,7 +84,7 @@ void setup() {
 		setup_servomotors_stage_1();
 		// setup_data_acquisition_stage_1();
 
-		first_stage_init_next_phase = FIRST_STAGE_INIT_AF_ZERO;
+		first_stage_init_next_phase = FIRST_STAGE_INIT_SEPA_ZERO;
 		first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
 		first_stage_flight_phase = FIRST_STAGE_FLIGHT_INITIALISATION;
 	} else {
@@ -127,21 +127,24 @@ void setup_servomotors_stage_1(void) {
 		Error_Handler();
 	}
 
-	res = STS_Servo_Init(&servo1, &huart_sts_port1, 1);
-	if (res != HAL_OK) {
-		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
-		Error_Handler();
-	}
-	res = STS_Servo_Init(&servo2, &huart_sts_port1, 2);
-	if (res != HAL_OK) {
-		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
-		Error_Handler();
-	}
+	// res = STS_Servo_Init(&servo1, &huart_sts_port1, 1);
+	// if (res != HAL_OK) {
+	// 	LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
+	// 	Error_Handler();
+	// }
+	// res = STS_Servo_Init(&servo2, &huart_sts_port1, 2);
+	// if (res != HAL_OK) {
+	// 	LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
+	// 	Error_Handler();
+	// }
 	res = STS_Servo_Init(&servo3, &huart_sts_port2, 3);
 	if (res != HAL_OK) {
 		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
 		Error_Handler();
 	}
+	HAL_Delay(100);
+
+	STS_Serco
 }
 
 // void setup_data_acquisition_stage_1(void) {
@@ -240,10 +243,12 @@ void first_stage_init_state_machine(void) {
 		case FIRST_STAGE_INIT_WAIT_SEPA_ZERO: {
 			bool in_overload = false;
 			STS_Servo_InOverload(&servo3, &in_overload);
-			if (true) {
+			if (in_overload) {
 				STS_Servo_SetGoalSpeed(&servo3, 0);
+				HAL_Delay(100);
 				STS_Servo_PositionCalibration(&servo3, STS_GetPositionInUnits(0));
 				STS_Servo_SetOperatingMode(&servo3, STS_OP_MODE_POSITION_CONTROL);
+				HAL_Delay(100);
 				STS_Servo_SetGoalPosition(&servo3, STS_GetPositionInUnits(-180));
 				first_stage_init_next_phase = FIRST_STAGE_INIT_WAIT_JACK;
 				first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;

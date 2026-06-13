@@ -36,7 +36,7 @@ extern "C" {
 /* Trame standard WIT : 0x55, TYPE, 8 data bytes, checksum                    */
 #define WT901B_FRAME_WRITE_HEADER_1 0xFFU
 #define WT901B_FRAME_WRITE_HEADER_2 0xAAU
-#define WT901B_FRAME_WRITE_LENGTH   6U
+#define WT901B_FRAME_WRITE_LENGTH   5U
 
 #define WT901B_UNLOCK_KEY           0xB588
 
