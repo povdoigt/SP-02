@@ -19,8 +19,8 @@ set(CMAKE_USER_PROJECT_PATH
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_conn_jack_sepa
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_ihf
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_servo
-    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_servo_id
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_wt901b
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_servo_id
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_wt901b
 )
 
 # STM32CubeMX generated include paths

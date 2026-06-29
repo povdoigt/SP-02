@@ -23,6 +23,8 @@ void setup() {
 
     HAL_Delay(10000);
 
+	UART_buffer_init(&huart1, uart1_buffer, sizeof(uart1_buffer));
+
     STS_UART_Port_Init(&huart_sts_port1, &huart2); // Pour etre raccord par rapport à la serigraphie du PCB
     STS_UART_Port_Init(&huart_sts_port2, &huart3); // Pour etre raccord par rapport à la serigraphie du PCB
     t0 = HAL_GetTick();

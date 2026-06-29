@@ -22,10 +22,10 @@
 
 /* USER CODE BEGIN 0 */
 
-#include "STS.h"
 #include "project.h"
+#include "STS.h"
 #include "WT901B.h"
-// #include "event_uart.h"
+#include "event_uart.h"
 
 /* USER CODE END 0 */
 
@@ -387,34 +387,44 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
   UART_buffer_t uart_buffer_5 = { 0 };
 #endif
 
-void UART_get_buffer(UART_HandleTypeDef *huart, UART_buffer_t **buffer_obj_ptr) {
+UART_buffer_t *UART_buffer_init(UART_HandleTypeDef *huart, uint8_t *buffer, size_t length) {
+  UART_buffer_t *uart_buffer = UART_buffer_get(huart);
+  if (uart_buffer == NULL) {
+    return NULL; // Unknown UART instance
+  }
+  uart_buffer->rx_buffer = buffer;
+  uart_buffer->rx_length = length;
+  return uart_buffer;
+}
+
+UART_buffer_t *UART_buffer_get(UART_HandleTypeDef *huart) {
 #ifdef USART1
   if (huart->Instance == USART1) {
-    *buffer_obj_ptr = &uart_buffer_1;
+    return &uart_buffer_1;
   } else
 #endif
 #ifdef USART2
   if (huart->Instance == USART2) {
-    *buffer_obj_ptr = &uart_buffer_2;
+    return &uart_buffer_2;
   } else
 #endif
 #ifdef USART3
   if (huart->Instance == USART3) {
-    *buffer_obj_ptr = &uart_buffer_3;
+    return &uart_buffer_3;
   } else
 #endif
 #ifdef USART4
   if (huart->Instance == USART4) {
-    *buffer_obj_ptr = &uart_buffer_4;
+    return &uart_buffer_4;
   } else
 #endif
 #ifdef USART5
   if (huart->Instance == USART5) {
-    *buffer_obj_ptr = &uart_buffer_5;
+    return &uart_buffer_5;
   } else
 #endif
   {
-    *buffer_obj_ptr = NULL; // Unknown USART instance
+    return NULL; // Unknown USART instance
   }
 }
 
@@ -435,24 +445,17 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
     WT901B_UART_Callback_RX_IRQHandler(&wt901b, Size);
   }
 
-  // if (event_uart_producer.huart == huart) {
-  //   // HAL_UART_AbortReceive_IT(huart);
-  //   event_uart_callback();
-  // }
+  if (event_uart_producer.huart == huart) {
+    // HAL_UART_AbortReceive_IT(huart);
+    event_uart_producer_callback(Size);
+  }
 
-  UART_buffer_t *buffer_obj;
-  UART_get_buffer(huart, &buffer_obj);
+  UART_buffer_t *buffer_obj = UART_buffer_get(huart);
   if (buffer_obj != NULL) {
     // HAL_UART_Transmit(&huart2, buffer_obj->rx_buffer, Size, HAL_MAX_DELAY); // Echo received data for debugging
     HAL_UARTEx_ReceiveToIdle_IT(huart, buffer_obj->rx_buffer, buffer_obj->rx_length);
   }
 }
-
-// void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-//   if (huart->Instance == USART4) {
-//     uart_apex_callback(); // Call the user-defined callback function for USART4 data reception
-//   }
-// }
 
 /* USER CODE END 1 */
 
