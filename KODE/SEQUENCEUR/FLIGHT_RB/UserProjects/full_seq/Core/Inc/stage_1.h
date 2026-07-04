@@ -52,6 +52,14 @@ void setup_servomotors_stage_1(rocket_state_t *rocket_state);
    FIRST STAGE STATE MACHINE
    =================================================== */
 
+typedef enum sepa_assembly_phase_t {
+	SEPA_ASSEMBLY_UNLOCK_STAGE,
+	SEPA_ASSEMBLY_WAIT_STAGE_CONNECTION,
+	SEPA_ASSEMBLY_WAIT_STAGE_CONNECTION_STABLE,
+	SEPA_ASSEMBLY_WAIT_LOCK_STAGE,
+	SEPA_ASSEMBLY_WAIT_LOCK_STAGE_STABLE,
+} sepa_assembly_phase_t;
+
 typedef enum first_stage_initialisation_phase_t {
 	FIRST_STAGE_INIT_WAIT_JACK_READY,
 
@@ -61,11 +69,6 @@ typedef enum first_stage_initialisation_phase_t {
 
 	FIRST_STAGE_INIT_WAIT_ALL_GOOD,
 	FIRST_STAGE_INIT_WAIT_ALL_GOOD_STABLE,
-	
-	FIRST_STAGE_INIT_UNLOCK_STAGE,
-	FIRST_STAGE_INIT_WAIT_STAGE_CONNECTION,
-	FIRST_STAGE_INIT_WAIT_STAGE_CONNECTION_STABLE,
-	FIRST_STAGE_INIT_WAIT_LOCK_STAGE,
 
 	FIRST_STAGE_INIT_WAIT_BUTTON,
 } first_stage_initialisation_phase_t;

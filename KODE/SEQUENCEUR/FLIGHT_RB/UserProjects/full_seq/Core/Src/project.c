@@ -33,6 +33,10 @@ static uint8_t current_board_func_id = BOARD_FUNC_NONE;
 
 void setup() {
 
+	HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LED1G_GPIO_Port, LED1G_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, GPIO_PIN_SET);
+
 	LED_Init(&led_rgb2.red  , &htim3, TIM_CHANNEL_1);
 	LED_Init(&led_rgb2.green, &htim3, TIM_CHANNEL_2);
 	LED_Init(&led_rgb2.blue , &htim3, TIM_CHANNEL_3);
@@ -128,7 +132,7 @@ void loop() {
 					if (prgm == 0x00) {
 						current_stage_phase_type = STAGE_PHASE_STAGE_INIT;
 						LedSched_Clear();
-						LedSched_Add(&waveform_prgm0_start, 0, false, 1000, LED_SCHED_NO_FORCE);
+						LedSched_Add(&waveform_prgm0_start, 1, false, 1000, LED_SCHED_NO_FORCE);
 					} else if (prgm <= BOARD_FUNC_MAX_ID) {
 						current_board_func_id = prgm;
 					}

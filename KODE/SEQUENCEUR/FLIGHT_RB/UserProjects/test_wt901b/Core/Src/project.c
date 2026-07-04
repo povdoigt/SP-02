@@ -58,6 +58,8 @@ static bool is_launch_confirmed = false;
 
 static led_rgb_t led_rgb2;
 
+static bool button_pressed = false;
+
 static uint8_t uart1_buffer[WT901B_RX_BUFFER_SIZE];
 
 // static float3_t v_up_body_earth;
@@ -88,7 +90,8 @@ void compute_elevation_azimut(void) {
 
 	float3_t v_up_body_earth_init = float3_normalized(quatf_rotate_vector(attitude.q_init, FLOAT3_UNIT_Y));
 	float3_t v_up_body_earth = float3_normalized(quatf_rotate_vector(attitude.q, FLOAT3_UNIT_Y));
-	attitude.elevation_deg = iir_process(&elev_iir_filter, 90 - acosf(v_up_body_earth.z) * RAD2DEG);
+	// attitude.elevation_deg = iir_process(&elev_iir_filter, 90 - acosf(v_up_body_earth.z) * RAD2DEG);
+	attitude.elevation_deg = 90 - acosf(v_up_body_earth.z) * RAD2DEG;
 
 	float3_t v_up_body_earth_init_proj = float3_normalized(float3_sub(v_up_body_earth_init, float3_scale(FLOAT3_UNIT_Z, v_up_body_earth_init.z)));
 	float3_t v_up_body_earth_proj = float3_normalized(float3_sub(v_up_body_earth, float3_scale(FLOAT3_UNIT_Z, v_up_body_earth.z)));
@@ -99,15 +102,17 @@ void check_elevation_azimuth(void) {
 	float delta_elev = fabsf(attitude.elevation_deg - 72.0f);
 	float delta_azim = fabsf(attitude.azimuth_deg - 0.0f);
 
-	bool is_elev_ok = delta_elev <= 45.0f;
-	bool is_azim_ok = delta_azim <= 10.0f;
+	bool is_elev_ok = delta_elev <= 10.0f;
+	bool is_azim_ok = delta_azim <= 45.0f;
 
-	if (is_elev_ok && is_azim_ok) {
-		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 0.0f, .y = 1.0f, .z = 0.0f });
-	} else if (is_elev_ok || is_azim_ok) {
-		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 0.0f, .y = 0.0f, .z = 1.0f });
-	} else {
-		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
+	if (is_launch_confirmed) {
+		if (is_elev_ok && is_azim_ok) {
+			LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 0.0f, .y = 1.0f, .z = 0.0f });
+		} else if (is_elev_ok || is_azim_ok) {
+			LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 0.0f, .y = 0.0f, .z = 1.0f });
+		} else {
+			LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
+		}
 	}
 }
 
@@ -124,7 +129,11 @@ void setup() {
 	LED_Init(&led_rgb2.red  , &htim3, TIM_CHANNEL_1);
 	LED_Init(&led_rgb2.green, &htim3, TIM_CHANNEL_2);
 	LED_Init(&led_rgb2.blue , &htim3, TIM_CHANNEL_3);
+	LED_RGB_SetColor(&led_rgb2, FLOAT3_ZERO);
 
+	HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LED1G_GPIO_Port, LED1G_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, GPIO_PIN_SET);
 
 	size_t b_order = sizeof(b_coef) / sizeof(float) - 1;
 	// size_t a_order = sizeof(a_coef) / sizeof(float) - 1;
@@ -136,7 +145,7 @@ void setup() {
 	iir_init(&wx_iir_filter, 0, b_order, NULL, b_coef, wx_inp_storage, NULL);
 	iir_init(&wy_iir_filter, 0, b_order, NULL, b_coef, wy_inp_storage, NULL);
 	iir_init(&wz_iir_filter, 0, b_order, NULL, b_coef, wz_inp_storage, NULL);
-	iir_init(&elev_iir_filter, 0, b_order, NULL, b_coef, elev_inp_storage, NULL);
+	// iir_init(&elev_iir_filter, 0, b_order, NULL, b_coef, elev_inp_storage, NULL);
 	// iir_init(&wx_iir_filter, a_order, b_order, a_coef, b_coef, wx_inp_storage, wx_out_storage);
 	// iir_init(&wy_iir_filter, a_order, b_order, a_coef, b_coef, wy_inp_storage, wy_out_storage);
 	// iir_init(&wz_iir_filter, a_order, b_order, a_coef, b_coef, wz_inp_storage, wz_out_storage);
@@ -158,6 +167,20 @@ void loop() {
 	compute_elevation_azimut();
 	check_elevation_azimuth();
 
+	
+	if (!button_pressed && HAL_GPIO_ReadPin(PRGM_RUN_GPIO_Port, PRGM_RUN_Pin) == GPIO_PIN_SET) {
+		button_pressed = true;
+	}
+	if (button_pressed && HAL_GPIO_ReadPin(PRGM_RUN_GPIO_Port, PRGM_RUN_Pin) == GPIO_PIN_RESET) {
+		button_pressed = false;
+		is_launch_confirmed = !is_launch_confirmed;
+	}
+
+	if (!is_launch_confirmed) {
+		attitude.q = quatf_from_2_vec3(last_acc, FLOAT3_UNIT_Z);
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 1.0f, .z = 0.0f });
+	}
+
 	// snprintf((char *)buffer, sizeof(buffer), "Acc : %3.2f, %3.2f, %3.2f ; Gyr : %3.2f, %3.2f, %3.2f ; Baro : %6.2f\r\n",
 	// 	last_acc.x, last_acc.y, last_acc.z, last_gyro.x, last_gyro.y, last_gyro.z, last_baro
 	// );
@@ -177,14 +200,6 @@ void loop() {
 
 
 	CDC_Transmit_FS(buffer, strlen((char *)buffer) + 1);
-
-	if (!is_launch_confirmed && HAL_GPIO_ReadPin(PRGM_RUN_GPIO_Port, PRGM_RUN_Pin) == GPIO_PIN_RESET) {
-		attitude.q = quatf_from_2_vec3(last_acc, FLOAT3_UNIT_Z);
-		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 1.0f, .z = 0.0f });
-	} else {
-		is_launch_confirmed = true;
-		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 0.0f, .y = 0.0f, .z = 0.0f });
-	}
 
 	HAL_Delay(1);
 

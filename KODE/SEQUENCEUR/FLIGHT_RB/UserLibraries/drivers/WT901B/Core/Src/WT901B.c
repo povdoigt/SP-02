@@ -10,6 +10,7 @@
  */
 
 #include "WT901B.h"
+#include "stm32f0xx_hal.h"
 #include "usart.h"
 #include "usbd_cdc_if.h"
 
@@ -273,6 +274,9 @@ void __WT901B_Write(WT901B_t *wt, uint8_t reg_addr, uint16_t value) {
 
 void WT901B_Write(WT901B_t *wt, uint8_t reg_addr, uint16_t value) {
     __WT901B_Write(wt, WT901B_REG_KEY, WT901B_UNLOCK_KEY);
+    HAL_Delay(1);
     __WT901B_Write(wt, reg_addr, value);
+    HAL_Delay(1);
     __WT901B_Write(wt, WT901B_REG_SAVECONF, 0x0000);
+    HAL_Delay(1);
 }

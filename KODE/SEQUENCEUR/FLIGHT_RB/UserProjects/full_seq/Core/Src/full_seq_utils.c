@@ -339,7 +339,7 @@ void led_states_init(void) {
 	Waveform_Init_Space(&waveform_wait_launch, waveform_space_mult_const, &waveform_wait_launch_ctx, 1000, true);
 	Waveform_Init_Space(&waveform_in_flight, waveform_space_mult_const, &waveform_in_flight_ctx, 1000, true);
 	Waveform_Init_Space(&waveform_2nd_burn, waveform_space_mult_const, &waveform_2nd_burn_ctx, 1000, false);
-	Waveform_Init_Space(&waveform_apogee, waveform_space_mult_const, &waveform_apogee_ctx, 1000, false);
+	Waveform_Init_Space(&waveform_apogee, waveform_space_mult_const, &waveform_apogee_ctx, 1000, true);
 
 	Waveform_Init_Space(&waveform_flash_green, waveform_space_mult_const, &waveform_flash_green_ctx, LED_FLASH_DURATION_MS, false);
 	Waveform_Init_Space(&waveform_flash_blue, waveform_space_mult_const, &waveform_flash_blue_ctx, LED_FLASH_DURATION_MS, false);
@@ -386,7 +386,7 @@ bool waiting_button_play(waiting_button_t *waiting_button) {
 		case WAITING_BUTTON_STATE_WAITING_START: {
 			// Launch the waveform for the LED to indicate that we are waiting for the button press
 			// set_led_state(waiting_button->rocket_led_evt, &waveform_wait_button, 1);
-			waiting_button->led_evt = LedSched_Add(&waveform_wait_button, 1, false, HAL_MAX_DELAY, LED_SCHED_NO_FORCE);
+			waiting_button->led_evt = LedSched_Add(&waveform_wait_button, 0, false, HAL_MAX_DELAY, LED_SCHED_NO_FORCE);
 			waiting_button->state = WAITING_BUTTON_STATE_WAITING_PRESS;
 			// no break, intentionally fall through to the next case
 		}

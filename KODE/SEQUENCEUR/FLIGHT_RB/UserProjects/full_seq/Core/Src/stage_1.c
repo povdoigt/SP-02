@@ -378,9 +378,6 @@ error:
 
 
 void first_stage_init_state_machine(rocket_state_t *rocket_state) {
-	// partagé entre FIRST_STAGE_INIT_WAIT_STAGE_CONNECTION_STABLE et FIRST_STAGE_INIT_WAIT_LOCK_STAGE
-	static led_evt_handle_t sepa_led_evt_handle = LED_SCHED_HANDLE_INVALID;
-
 	switch (first_stage_init_phase) {
 		case FIRST_STAGE_INIT_WAIT_JACK_READY: {
 			static led_evt_handle_t led_evt_handle = LED_SCHED_HANDLE_INVALID;
@@ -412,7 +409,7 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 					Actuator_GoToPosition(&actuator_aerobrake, AF_POS_CLOSED);
 					LedSched_Remove(led_evt_handle);
 
-					first_stage_init_next_phase = FIRST_STAGE_INIT_PARA_ZERO;
+					first_stage_init_next_phase = FIRST_STAGE_INIT_WAIT_ALL_GOOD;
 					first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
 					break;
 				}
@@ -459,14 +456,83 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 		case FIRST_STAGE_INIT_WAIT_ALL_GOOD: {
 
 			static led_evt_handle_t jack_launch_led_evt_handle = LED_SCHED_HANDLE_INVALID;
-			static led_evt_handle_t sepa_led_evt_handle = LED_SCHED_HANDLE_INVALID;
+			static led_evt_handle_t wait_sepa_led_evt_handle = LED_SCHED_HANDLE_INVALID;
 			static led_evt_handle_t jack_ready_led_evt_handle = LED_SCHED_HANDLE_INVALID;
 			
+			static sepa_assembly_phase_t sepa_assembly_phase = SEPA_ASSEMBLY_UNLOCK_STAGE;
+			static led_evt_handle_t perform_sepa_evt_handle = LED_SCHED_HANDLE_INVALID;
+
 			bool is_waiting_jack_launch = (rocket_state->input_gpio_states[JACK_LAUNCH] == GPIO_PIN_RESET);
-			bool is_waiting_sepa = (rocket_state->input_gpio_states[SEPARATION] == GPIO_PIN_RESET || actuator_separation.current_position != SEPA_POS_LOCKED);
+			bool is_waiting_sepa = (
+				rocket_state->input_gpio_states[SEPARATION] == GPIO_PIN_RESET
+				|| actuator_separation.current_position != SEPA_POS_LOCKED
+				|| sepa_assembly_phase != SEPA_ASSEMBLY_WAIT_LOCK_STAGE_STABLE
+			);
 	
+			if (is_waiting_jack_launch) {
+				if (!LedSched_IsHandleValid(jack_launch_led_evt_handle)) {
+					jack_launch_led_evt_handle = LedSched_Add(&waveform_wait_jack_launch, 0, true, 0, LED_SCHED_NO_FORCE);
+					Waveform_Restart((waveform_generic_t*)&waveform_wait_sepa); // resync the waveforms
+				}
+			} else {
+				LedSched_Remove(jack_launch_led_evt_handle);
+			}
+
+			if (is_waiting_sepa) {
+				if (!LedSched_IsHandleValid(wait_sepa_led_evt_handle)) {
+					wait_sepa_led_evt_handle = LedSched_Add(&waveform_wait_sepa, 0, true, 0, LED_SCHED_NO_FORCE);
+					Waveform_Restart((waveform_generic_t*)&waveform_wait_jack_launch); // resync the waveforms
+				}
+			} else {
+				LedSched_Remove(wait_sepa_led_evt_handle);
+			}
+
+			switch (sepa_assembly_phase) {
+				case SEPA_ASSEMBLY_UNLOCK_STAGE: {
+					Actuator_GoToPosition(&actuator_separation, SEPA_POS_UNLOCKED);
+					sepa_assembly_phase = SEPA_ASSEMBLY_WAIT_STAGE_CONNECTION;
+					break;
+				}
+				case SEPA_ASSEMBLY_WAIT_STAGE_CONNECTION: {
+					if (rocket_state->input_gpio_states[SEPARATION] == GPIO_PIN_SET) {
+						t0_init = HAL_GetTick();
+						sepa_assembly_phase = SEPA_ASSEMBLY_WAIT_STAGE_CONNECTION_STABLE;
+						perform_sepa_evt_handle = LedSched_Add(&waveform_perform_sepa, 1, false, 0, LED_SCHED_NO_FORCE);
+					}
+					break;
+				}
+				case SEPA_ASSEMBLY_WAIT_STAGE_CONNECTION_STABLE: {
+					if (rocket_state->input_gpio_states[SEPARATION] == GPIO_PIN_RESET) {
+						LedSched_Remove(perform_sepa_evt_handle);
+						sepa_assembly_phase = SEPA_ASSEMBLY_WAIT_STAGE_CONNECTION;
+					} else if (HAL_GetTick() - t0_init > 1000) { // Wait 1s to ensure that the stage is properly connected
+						Actuator_GoToPosition(&actuator_separation, SEPA_POS_LOCKED);
+						t0_init = HAL_GetTick();
+						sepa_assembly_phase = SEPA_ASSEMBLY_WAIT_LOCK_STAGE;
+					}
+					break;
+				}
+				case SEPA_ASSEMBLY_WAIT_LOCK_STAGE: {
+					if (rocket_state->input_gpio_states[SEPARATION] == GPIO_PIN_RESET) {
+						LedSched_Remove(perform_sepa_evt_handle);
+						sepa_assembly_phase = SEPA_ASSEMBLY_UNLOCK_STAGE;
+					} else {
+						if (HAL_GetTick() - t0_init > 2000) { // Wait 2s to ensure that the stage is properly locked
+							LedSched_Remove(perform_sepa_evt_handle);
+							sepa_assembly_phase = SEPA_ASSEMBLY_WAIT_LOCK_STAGE_STABLE;
+						}
+					}
+					break;
+				}
+				case SEPA_ASSEMBLY_WAIT_LOCK_STAGE_STABLE: {
+					if (rocket_state->input_gpio_states[SEPARATION] == GPIO_PIN_RESET) {
+						sepa_assembly_phase = SEPA_ASSEMBLY_UNLOCK_STAGE;
+					}
+				}
+			}
+
 			if (!(is_waiting_jack_launch || is_waiting_sepa)) {
-				if (rocket_state->input_gpio_states[JACK_READY] == GPIO_PIN_SET) {
+				if (rocket_state->input_gpio_states[JACK_READY] == GPIO_PIN_RESET) {
 					t0_init = HAL_GetTick();
 					LedSched_Remove(jack_ready_led_evt_handle);
 					change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_ALL_GOOD_STABLE);
@@ -476,69 +542,20 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 					}
 				}
 			} else {
-				if (is_waiting_jack_launch) {
-					if (!LedSched_IsHandleValid(jack_launch_led_evt_handle)) {
-						jack_launch_led_evt_handle = LedSched_Add(&waveform_wait_jack_launch, 0, false, 0, LED_SCHED_NO_FORCE);
-					}
-				} else {
-					LedSched_Remove(jack_launch_led_evt_handle);
-				}
-				if (is_waiting_sepa) {
-					if (!LedSched_IsHandleValid(sepa_led_evt_handle)) {
-						sepa_led_evt_handle = LedSched_Add(&waveform_wait_sepa, 0, false, 0, LED_SCHED_NO_FORCE);
-					}
-				} else {
-					LedSched_Remove(sepa_led_evt_handle);
-				}
-
-				if (is_waiting_sepa) {
-					change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_UNLOCK_STAGE);
-				}
+				LedSched_Remove(jack_ready_led_evt_handle);
 			}
+
 			break;
 		}
 		case FIRST_STAGE_INIT_WAIT_ALL_GOOD_STABLE: {
 			if (rocket_state->input_gpio_states[JACK_LAUNCH] != GPIO_PIN_SET ||
 				rocket_state->input_gpio_states[SEPARATION] != GPIO_PIN_SET) {
 				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_ALL_GOOD);
-			} else if (HAL_GetTick() - t0_init > 1000) {
-				LedSched_Clear();
+			} else if (HAL_GetTick() - t0_init > 5000) {
 				phase_transition_init(&rocket_state->stage_phase_transition, STAGE_PHASE_STAGE_FLIGHT, (uint8_t *)&first_stage_flight_phase);
 				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION);
 			}
-		}
-
-		case FIRST_STAGE_INIT_UNLOCK_STAGE: {
-			Actuator_GoToPosition(&actuator_separation, SEPA_POS_UNLOCKED);
-			change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_STAGE_CONNECTION);
-			break;
-		}
-		case FIRST_STAGE_INIT_WAIT_STAGE_CONNECTION: {
-			if (rocket_state->input_gpio_states[SEPARATION] == GPIO_PIN_SET) {
-				t0_init = HAL_GetTick();
-				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_STAGE_CONNECTION_STABLE);
-			}
-			break;
-		}
-		case FIRST_STAGE_INIT_WAIT_STAGE_CONNECTION_STABLE: {
-			if (rocket_state->input_gpio_states[SEPARATION] == GPIO_PIN_RESET) {
-				LedSched_Remove(sepa_led_evt_handle);
-				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_STAGE_CONNECTION);
-			} else if (HAL_GetTick() - t0_init > 1000) {
-				sepa_led_evt_handle = LedSched_Add(&waveform_perform_sepa, 1, false, 0, LED_SCHED_NO_FORCE);
-				t0_init = HAL_GetTick();
-				Actuator_GoToPosition(&actuator_separation, SEPA_POS_LOCKED);
-				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_LOCK_STAGE);
-			}
-			break;
-		}
-		case FIRST_STAGE_INIT_WAIT_LOCK_STAGE: {
-			if (rocket_state->input_gpio_states[SEPARATION] == GPIO_PIN_RESET) {
-				LedSched_Remove(sepa_led_evt_handle);
-				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_UNLOCK_STAGE);
-			} else if (HAL_GetTick() - t0_init > 2000) {
-				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_ALL_GOOD);
-			}
+			LedSched_Clear();
 			break;
 		}
 
@@ -569,7 +586,7 @@ void first_stage_flight_state_machine(rocket_state_t *rocket_state) {
 				rocket_state->is_launch_confirmed = true;
 				LedSched_Remove(led_evt_handle);
 				LedSched_Add(&waveform_in_flight, 0, false, 0, LED_SCHED_NO_FORCE);
-				LedSched_Add(&waveform_flash_red, 0, false, 0, LED_SCHED_HARD_FORCE);
+				LedSched_Add(&waveform_flash_green, 1, false, 0, LED_SCHED_HARD_FORCE);
 				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_WAIT_BURN_END);
 			}
 			break;
@@ -584,7 +601,7 @@ void first_stage_flight_state_machine(rocket_state_t *rocket_state) {
 		}
 		case FIRST_STAGE_FLIGHT_SEPARATION: {
 			if (HAL_GetTick() - rocket_state->t_launch > T_ALPHA_BETA_1) {
-				LedSched_Add(&waveform_flash_red, 0, false, 0, LED_SCHED_HARD_FORCE);
+				LedSched_Add(&waveform_flash_green, 1, false, 0, LED_SCHED_HARD_FORCE);
 				Actuator_GoToPosition(&actuator_aerobrake, AF_POS_OPEN);
 				Actuator_GoToPosition(&actuator_separation, SEPA_POS_RELEASED);
 				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION);
@@ -600,7 +617,7 @@ void first_stage_flight_state_machine(rocket_state_t *rocket_state) {
 				case WINDOW_TIME_STATE_ACTIVE: {
 					if (HAL_GPIO_ReadPin(IN_TRG_N2_GPIO_Port, IN_TRG_N2_Pin) == GPIO_PIN_RESET) {
 
-						LedSched_Add(&waveform_flash_blue, 0, false, 0, LED_SCHED_HARD_FORCE);
+						LedSched_Add(&waveform_flash_blue, 1, false, 0, LED_SCHED_HARD_FORCE);
 
 						rocket_state->is_separation_confirmed = true;
 						window_time_alpha_apogee = window_time_alpha_apogee_sepa;
@@ -663,8 +680,8 @@ void first_stage_flight_state_machine(rocket_state_t *rocket_state) {
 			break;
 		}
 		case FIRST_STAGE_FLIGHT_APOGEE: {
-			STS_Servo_SetGoalPosition(&servo2, STS_GetPositionInUnits(120));
-			LedSched_Add(&waveform_flash_red, 0, false, 0, LED_SCHED_NO_FORCE);
+			Actuator_GoToPosition(&actuator_hatch1, HATCH1_POS_OPEN);
+			LedSched_Add(&waveform_apogee, 1, false, 0, LED_SCHED_NO_FORCE);
 			change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_IDLE);
 			break;
 		}

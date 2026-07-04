@@ -113,27 +113,6 @@ static void evt_background(led_evt_t *evt, uint32_t now_ms) {
 }
 
 /**
- * Tête FIFO d'un niveau de priorité : event in_use de ce niveau
- * avec le plus petit seq (le plus ancien).
- */
-static led_evt_t *fifo_head_of_priority(uint8_t priority) {
-	led_evt_t *head = NULL;
-	for (int8_t i = 0; i < LED_SCHED_MAX_EVENTS; i++) {
-		led_evt_t *evt = &pool[i];
-		if (!evt->in_use || evt->priority != priority) {
-			continue;
-		}
-		if (head == NULL || evt->seq < head->seq) {
-			head = evt;
-		}
-	}
-	return head;
-}
-
-
-
-
-/**
  * Slot in_use de plus basse priorité (tie-break : le plus ancien, seq le
  * plus petit). Retourne -1 si le pool est vide.
  */
@@ -256,57 +235,45 @@ bool LedSched_IsHandleValid(led_evt_handle_t evt) {
 }
 
 float3_t LedSched_Process(uint32_t now_ms) {
-	float3_t	acc = FLOAT3_ZERO;
-	bool		visible = true;		// la descente compose tant que true
-	bool		have_prev_prio = false;
-	uint8_t		prev_prio = 0;
+	float3_t acc = FLOAT3_ZERO;
 
-	// Descente des niveaux de priorité, du plus haut au plus bas
-	for (;;) {
-		bool	found = false;
-		uint8_t	prio = 0;
-		for (int8_t i = 0; i < LED_SCHED_MAX_EVENTS; i++) {
-			led_evt_t *evt = &pool[i];
-			if (!evt->in_use) {
-				continue;
-			}
-			if (have_prev_prio && evt->priority >= prev_prio) {
-				continue;
-			}
-			if (!found || evt->priority > prio) {
-				prio = evt->priority;
-				found = true;
-			}
+	/* Passe 1 : élire l'opaque visible, s'il existe.
+	 * C'est l'opaque de plus haute priorité ; à priorité égale, le plus
+	 * récent (LIFO, seq le plus grand). Sa priorité définit le seuil de
+	 * visibilité de toute la pile. */
+	led_evt_t *visible_opaque = NULL;
+	for (int8_t i = 0; i < LED_SCHED_MAX_EVENTS; i++) {
+		led_evt_t *evt = &pool[i];
+		if (!evt->in_use || evt->transparent) {
+			continue;
 		}
-		if (!found) {
-			break;
+		if (visible_opaque == NULL
+		    || evt->priority > visible_opaque->priority
+		    || (evt->priority == visible_opaque->priority
+		        && evt->seq > visible_opaque->seq)) {
+			visible_opaque = evt;
 		}
-		prev_prio = prio;
-		have_prev_prio = true;
+	}
 
-		led_evt_t *head = fifo_head_of_priority(prio);
-
-		// Tous les events du niveau sauf la tête : en attente FIFO, masqués
-		for (int8_t i = 0; i < LED_SCHED_MAX_EVENTS; i++) {
-			led_evt_t *evt = &pool[i];
-			if (!evt->in_use || evt->priority != prio || evt == head) {
-				continue;
-			}
-			evt_background(evt, now_ms);
+	/* Passe 2 : sort de chaque event, décidé indépendamment.
+	 * Joués : l'opaque élu, et tous les transparents de priorité >= à la
+	 * sienne (tous les transparents s'il n'y a aucun opaque). Le reste est
+	 * masqué : pause / exécution silencieuse selon leur timeout. */
+	for (int8_t i = 0; i < LED_SCHED_MAX_EVENTS; i++) {
+		led_evt_t *evt = &pool[i];
+		if (!evt->in_use) {
+			continue;
 		}
 
-		if (head == NULL) {
-			continue;	// niveau vidé par evt_background (done en silence)
-		}
+		bool played = (evt == visible_opaque)
+		           || (evt->transparent
+		               && (visible_opaque == NULL
+		                   || evt->priority >= visible_opaque->priority));
 
-		if (visible) {
-			bool was_transparent = head->transparent;
-			acc = clamp_add(acc, evt_reveal(head, now_ms));
-			if (!head->in_use || !was_transparent) {
-				visible = false;
-			}
+		if (played) {
+			acc = clamp_add(acc, evt_reveal(evt, now_ms));
 		} else {
-			evt_background(head, now_ms);
+			evt_background(evt, now_ms);
 		}
 	}
 

@@ -59,12 +59,17 @@ void LedSched_Init(void);
  *                    waveform_space_t ne doit pas être partagée entre deux
  *                    events actifs (t0/active sont internes à l'instance).
  * priority         : plus haut = plus prioritaire. À priorité égale, les
- *                    events sont résolus en FIFO (exclusion mutuelle : un
- *                    seul event joué à la fois par niveau de priorité).
- * transparent      : si true, la couleur de l'event s'additionne (bornée à
- *                    [0,1]) avec celle du niveau de priorité inférieur.
- *                    Si false, l'event stoppe la descente (sa couleur est
- *                    tout de même additionnée).
+ *                    events opaques sont résolus en LIFO (exclusion mutuelle :
+ *                    le plus récemment ajouté joue, les autres sont mis en
+ *                    pause/background). Les events transparents d'un même
+ *                    niveau coexistent tous simultanément.
+ * transparent      : si true, l'event coexiste avec tous les autres
+ *                    transparents de son niveau et leur couleur s'additionne
+ *                    (bornée à [0,1]). La descente vers les niveaux inférieurs
+ *                    continue sauf si un event opaque est présent au même
+ *                    niveau. Si false, l'event est opaque : seul le plus
+ *                    récent opaque du niveau joue (LIFO), et sa présence
+ *                    stoppe la descente.
  * pause_timeout_ms : durée maximale de pause quand l'event est masqué.
  *                    Passé ce délai, la waveform est jouée en silence
  *                    (le temps avance, la couleur est ignorée).
