@@ -1,5 +1,6 @@
 #include "project.h"
 #include "float3.h"
+#include "led_scheduler.h"
 #include "main.h"
 
 #include "stm32f0xx_hal_gpio.h"
@@ -11,19 +12,16 @@
 #include "stage_2.h"
 
 #include "led.h"
-#include "waveform.h"
 
+#include "waveform.h"
 #include "event_uart.h"
 #include "waveform_def.h"
+
 #include <stdint.h>
 
 
 
 static board_func_t board_funcs[16];
-
-
-
-// waveform_space_t wait_button_waveform
 
 static rocket_state_t rocket_state;
 
@@ -31,13 +29,9 @@ static led_rgb_t led_rgb2;
 
 static stage_phase_type_t current_stage_phase_type;
 
-static waiting_button_t wait;
+static uint8_t current_board_func_id = BOARD_FUNC_NONE;
 
 void setup() {
-
-	HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(LED1G_GPIO_Port, LED1G_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, GPIO_PIN_SET);
 
 	LED_Init(&led_rgb2.red  , &htim3, TIM_CHANNEL_1);
 	LED_Init(&led_rgb2.green, &htim3, TIM_CHANNEL_2);
@@ -46,6 +40,8 @@ void setup() {
 	LED_RGB_SetColor(&led_rgb2, FLOAT3_ZERO);
 
 	rocket_state_init(&rocket_state, &led_rgb2);
+	LedSched_Init();
+	led_states_init();
 	current_stage_phase_type = STAGE_PHASE_STAGE_BOARD_FUNC;
 
 	event_uart_producer_init(&event_uart_producer, TX_OPTO_N1_GPIO_Port, TX_OPTO_N1_Pin, &huart4);
@@ -91,7 +87,7 @@ void setup() {
 		Error_Handler();
 	}
 
-	waiting_button_init(&wait, PRGM_RUN_GPIO_Port, PRGM_RUN_Pin, &rocket_state.current_waveform_space, false);
+	waiting_button_init(&waiting_button, false);
 
 	switch (rocket_state.stage) {
 		case ROCKET_FIRST_STAGE: {
@@ -121,30 +117,27 @@ void loop() {
 
 	switch (current_stage_phase_type) {
 		case STAGE_PHASE_STAGE_BOARD_FUNC: {
-			uint8_t prgm = 1;
-			if (waiting_button_play(&wait)) {
-				prgm = 0x00 | (
-					(HAL_GPIO_ReadPin(PRGM0_GPIO_Port, PRGM0_Pin) == GPIO_PIN_SET ? 1 : 0) << 0 |
-					(HAL_GPIO_ReadPin(PRGM1_GPIO_Port, PRGM1_Pin) == GPIO_PIN_SET ? 1 : 0) << 1 |
-					(HAL_GPIO_ReadPin(PRGM2_GPIO_Port, PRGM2_Pin) == GPIO_PIN_SET ? 1 : 0) << 2 |
-					(HAL_GPIO_ReadPin(PRGM3_GPIO_Port, PRGM3_Pin) == GPIO_PIN_SET ? 1 : 0) << 3
-				);
-
-				if (prgm != 0x00) {
-					LED_RGB_SetColor(rocket_state.led_rgb, FLOAT3_ZERO);
-					board_funcs[prgm](&rocket_state);
-				} else {
-					current_stage_phase_type = STAGE_PHASE_STAGE_INIT;
-					for (uint8_t i = 1; i < 3; i++) {
-						LED_RGB_SetColor(rocket_state.led_rgb, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
-						HAL_Delay(100);
-						LED_RGB_SetColor(rocket_state.led_rgb, (float3_t){ .x = 0.0f, .y = 1.0f, .z = 0.0f });
-						HAL_Delay(100);
-						LED_RGB_SetColor(rocket_state.led_rgb, (float3_t){ .x = 0.0f, .y = 0.0f, .z = 1.0f });
-						HAL_Delay(100);
+			if (current_board_func_id == BOARD_FUNC_NONE) {
+				if (waiting_button_play(&waiting_button)) {
+					uint8_t prgm = 0x00 | (
+						(HAL_GPIO_ReadPin(PRGM0_GPIO_Port, PRGM0_Pin) == GPIO_PIN_SET ? 1 : 0) << 0 |
+						(HAL_GPIO_ReadPin(PRGM1_GPIO_Port, PRGM1_Pin) == GPIO_PIN_SET ? 1 : 0) << 1 |
+						(HAL_GPIO_ReadPin(PRGM2_GPIO_Port, PRGM2_Pin) == GPIO_PIN_SET ? 1 : 0) << 2 |
+						(HAL_GPIO_ReadPin(PRGM3_GPIO_Port, PRGM3_Pin) == GPIO_PIN_SET ? 1 : 0) << 3
+					);
+					if (prgm == 0x00) {
+						current_stage_phase_type = STAGE_PHASE_STAGE_INIT;
+						LedSched_Clear();
+						LedSched_Add(&waveform_prgm0_start, 0, false, 1000, LED_SCHED_NO_FORCE);
+					} else if (prgm <= BOARD_FUNC_MAX_ID) {
+						current_board_func_id = prgm;
 					}
-					LED_RGB_SetColor(rocket_state.led_rgb, FLOAT3_ZERO);
-					HAL_Delay(500);
+				}
+			} else {
+				board_func_t board_func = board_funcs[current_board_func_id];
+				board_func_state_t board_func_state = board_func(&rocket_state);
+				if (board_func_state == BOARD_FUNC_STATE_DONE) {
+					current_board_func_id = BOARD_FUNC_NONE;
 				}
 			}
 			break;
@@ -172,9 +165,5 @@ void loop() {
 
 	event_uart_producer_run(&event_uart_producer);
 
-	float3_t color = FLOAT3_ZERO;
-	if (rocket_state.current_waveform_space != NULL) {
-		color = Waveform_Play_Space(rocket_state.current_waveform_space, HAL_GetTick());	
-	}
-	LED_RGB_SetColor(rocket_state.led_rgb, color);
+	LED_RGB_SetColor(rocket_state.led_rgb, LedSched_Process(HAL_GetTick()));
 }

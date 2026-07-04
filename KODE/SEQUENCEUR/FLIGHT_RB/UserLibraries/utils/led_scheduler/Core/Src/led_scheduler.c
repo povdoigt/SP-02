@@ -234,6 +234,27 @@ void LedSched_Remove(led_evt_handle_t evt) {
 	pool[index].in_use = false;
 }
 
+void LedSched_Clear(void) {
+	for (int8_t i = 0; i < LED_SCHED_MAX_EVENTS; i++) {
+		pool[i].in_use = false;
+		pool[i].generation++;	// périme tout ancien handle vers ce slot
+	}
+}
+
+bool LedSched_IsHandleValid(led_evt_handle_t evt) {
+	if (evt == LED_SCHED_HANDLE_INVALID) {
+		return false;
+	}
+	uint8_t index = handle_index(evt);
+	if (index >= LED_SCHED_MAX_EVENTS) {
+		return false;
+	}
+	if (!pool[index].in_use || pool[index].generation != handle_generation(evt)) {
+		return false;	// handle périmé (slot déjà réoccupé)
+	}
+	return true;
+}
+
 float3_t LedSched_Process(uint32_t now_ms) {
 	float3_t	acc = FLOAT3_ZERO;
 	bool		visible = true;		// la descente compose tant que true

@@ -92,6 +92,17 @@ led_evt_handle_t LedSched_Add(waveform_space_t *waveform, uint8_t priority,
 void LedSched_Remove(led_evt_handle_t evt);
 
 /**
+ * Efface tous les events du scheduler.
+ */
+void LedSched_Clear(void);
+
+/**
+ * Vérifie si un handle est valide. Un handle périmé (slot réoccupé par un autre event depuis) est
+ * considéré comme invalide.
+ */
+bool LedSched_IsHandleValid(led_evt_handle_t evt);
+
+/**
  * Résout tous les events et retourne la couleur composée à passer à
  * LED_RGB_SetColor(). Non-bloquant, à appeler à chaque loop.
  *

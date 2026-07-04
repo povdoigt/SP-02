@@ -4,6 +4,7 @@
 #include "main.h"
 
 #include "led.h"
+#include "led_scheduler.h"
 
 #include "float3.h"
 #include "quaternion.h"
@@ -13,6 +14,7 @@
 #include "waveform_built_in.h"
 #include "waveform_def.h"
 #include "waveform_scalar_arithmetic.h"
+#include "waveform_space_arithmetic.h"
 #include <stdint.h>
 
 
@@ -132,7 +134,6 @@ typedef struct rocket_state_t {
 	rocket_dynamics_t			dynamics;
 	stage_phase_transition_t	stage_phase_transition;
 	led_rgb_t 					*led_rgb;
-	waveform_space_t 			*current_waveform_space;
 	uint32_t 					t_launch;
 	bool 						is_launch_confirmed;
 	bool 						is_separation_confirmed;
@@ -150,20 +151,43 @@ void rocket_state_setup_gpio(rocket_state_t *rocket_state, GPIO_TypeDef *input_g
    LED STATE
    =================================================== */
 
-extern waveform_space_t waveform_wait_button;
+extern waveform_space_t waveform_wait_actuator;
+extern waveform_space_t waveform_error;
+extern waveform_space_t waveform_prgm0_start;
 extern waveform_space_t waveform_wait_jack_ready;
 extern waveform_space_t waveform_wait_jack_launch;
 extern waveform_space_t waveform_wait_sepa;
-extern waveform_space_t waveform_wait_jack_launch_sepa;
 extern waveform_space_t waveform_perform_sepa;
+extern waveform_space_t waveform_wait_launch;
+extern waveform_space_t waveform_in_flight;
+extern waveform_space_t waveform_2nd_burn;
+extern waveform_space_t waveform_apogee;
 
-extern const waveform_space_mult_const_t 	waveform_wait_button_ctx;
+extern const waveform_space_mult_const_t 	waveform_wait_actuator_ctx;
+extern const waveform_space_mult_const_t 	waveform_error_ctx;
+extern const waveform_space_add_t 			waveform_prgm0_start_ctx;
 extern const waveform_space_mult_const_t 	waveform_wait_jack_ready_ctx;
 extern const waveform_space_mult_const_t 	waveform_wait_jack_launch_ctx;
 extern const waveform_space_mult_const_t 	waveform_wait_sepa_ctx;
-extern const waveform_space_add_t			waveform_wait_jack_launch_sepa_ctx;
 extern const waveform_space_mult_const_t 	waveform_perform_sepa_ctx;
+extern const waveform_space_mult_const_t 	waveform_wait_launch_ctx;
+extern const waveform_space_mult_const_t 	waveform_in_flight_ctx;
+extern const waveform_space_mult_const_t 	waveform_2nd_burn_ctx;
+extern const waveform_space_mult_const_t 	waveform_apogee_ctx;
 
+
+/* One-shot confirmation flashes (fire-and-forget ) */
+extern waveform_space_t waveform_flash_green;
+extern waveform_space_t waveform_flash_blue;
+extern waveform_space_t waveform_flash_red;
+
+extern const waveform_space_mult_const_t 	waveform_flash_green_ctx;
+extern const waveform_space_mult_const_t 	waveform_flash_blue_ctx;
+extern const waveform_space_mult_const_t 	waveform_flash_red_ctx;
+
+/* Initialise toutes les waveforms d'état LED ci-dessus (kind/ctx/durée/périodicité).
+ * À appeler une seule fois, depuis setup(). */
+void led_states_init(void);
 
 
 /* ===================================================
@@ -177,17 +201,17 @@ typedef enum waiting_button_state_t {
 } waiting_button_state_t;
 
 typedef struct waiting_button_t {
-	waveform_space_t wait_waveform_space;
-	GPIO_TypeDef *button_gpio_port;
-	waveform_space_t **rocket_waveform_space;
-	waiting_button_state_t state;
-	uint16_t button_gpio_pin;
+/* SETTINGS */
 	bool inverted_logic;
-	bool led_on;
+
+/* INTERNAL STATE */
+	led_evt_handle_t led_evt;
+	waiting_button_state_t state;
 } waiting_button_t;
 
-void waiting_button_init(waiting_button_t *waiting_button, GPIO_TypeDef *button_gpio_port, uint16_t button_gpio_pin, waveform_space_t **rocket_waveform_space, bool inverted_logic);
-// void waiting_button_set_next_phase(waiting_button_t *waiting_button);
+extern waiting_button_t waiting_button;
+
+void waiting_button_init(waiting_button_t *waiting_button, bool inverted_logic);
 bool waiting_button_play(waiting_button_t *waiting_button);
 
 
@@ -196,7 +220,15 @@ bool waiting_button_play(waiting_button_t *waiting_button);
    BOARD FUNCTIONS
    =================================================== */
 
-typedef void(*board_func_t)(rocket_state_t *rocket_state);
+#define BOARD_FUNC_MAX_ID	15
+#define BOARD_FUNC_NONE		255
+
+typedef enum board_func_state_t {
+	BOARD_FUNC_STATE_RUNNING,
+	BOARD_FUNC_STATE_DONE,
+} board_func_state_t;
+
+typedef board_func_state_t(*board_func_t)(rocket_state_t *rocket_state);
 
 
 #endif // FULL_SEQ_UTILS_H

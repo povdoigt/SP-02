@@ -68,6 +68,8 @@ static data_sub_t pressure_sub = { 0 };
 static second_stage_initialisation_phase_t second_stage_init_phase;
 static second_stage_flight_phase_t second_stage_flight_phase;
 
+static uint32_t t0_init;
+
 
 
 
@@ -75,64 +77,79 @@ static second_stage_flight_phase_t second_stage_flight_phase;
    BOARD FUNCTIONS
    =================================================== */
 
-void board_func_1_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_1_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_2_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_2_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_3_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_3_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_4_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_4_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_5_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_5_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_6_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_6_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_7_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_7_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_8_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_8_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_9_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_9_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_10_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_10_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_11_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_11_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_12_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_12_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_13_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_13_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_14_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_14_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
-void board_func_15_stage_2(rocket_state_t *rocket_state) {
+board_func_state_t board_func_15_stage_2(rocket_state_t *rocket_state) {
 	(void)rocket_state;
+	return BOARD_FUNC_STATE_DONE;
 }
 
 
@@ -292,34 +309,36 @@ void second_stage_init_state_machine(rocket_state_t *rocket_state) {
 		}
 		case SECOND_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION: {
 			if (HAL_GPIO_ReadPin(IN_TRG_N2_GPIO_Port, IN_TRG_N2_Pin) == GPIO_PIN_SET) {
-				HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, GPIO_PIN_RESET);
-				HAL_Delay(3000);
-				if (HAL_GPIO_ReadPin(IN_TRG_N2_GPIO_Port, IN_TRG_N2_Pin) == GPIO_PIN_SET) {
-					HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, GPIO_PIN_SET);
-					second_stage_init_phase = SECOND_STAGE_INIT_WAIT_JACK;
-				}
+				t0_init = HAL_GetTick();
+				second_stage_init_phase = SECOND_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION_STABLE;
 			} else {
-				HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
-				HAL_Delay(500);
-				HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
-				HAL_Delay(500);
+				activate_led_state(rocket_state, &waveform_wait_jack_ready, 1);
+			}
+			break;
+		}
+		case SECOND_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION_STABLE: {
+			if (HAL_GPIO_ReadPin(IN_TRG_N2_GPIO_Port, IN_TRG_N2_Pin) != GPIO_PIN_SET) {
+				second_stage_init_phase = SECOND_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION;
+			} else if (HAL_GetTick() - t0_init > 3000) {
+				second_stage_init_phase = SECOND_STAGE_INIT_WAIT_JACK;
 			}
 			break;
 		}
 		case SECOND_STAGE_INIT_WAIT_JACK: {
 			if (HAL_GPIO_ReadPin(IN_TRG_N1_GPIO_Port, IN_TRG_N1_Pin) == GPIO_PIN_SET) {
-				HAL_Delay(1000);
-				HAL_GPIO_TogglePin(LED1R_GPIO_Port, LED1R_Pin);
-				HAL_Delay(500);
-				HAL_GPIO_TogglePin(LED1R_GPIO_Port, LED1R_Pin);
-				// second_stage_flight_phase = SECOND_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION;
-                phase_transition_init(&rocket_state->stage_phase_transition, STAGE_PHASE_STAGE_FLIGHT, (uint8_t *)&second_stage_flight_phase);
-                change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION);
+				t0_init = HAL_GetTick();
+				second_stage_init_phase = SECOND_STAGE_INIT_WAIT_JACK_STABLE;
             } else {
-				HAL_GPIO_TogglePin(LED1G_GPIO_Port, LED1G_Pin);
-				HAL_Delay(500);
-				HAL_GPIO_TogglePin(LED1G_GPIO_Port, LED1G_Pin);
-				HAL_Delay(500);
+				activate_led_state(rocket_state, &waveform_wait_jack_ready, 1);
+			}
+			break;
+		}
+		case SECOND_STAGE_INIT_WAIT_JACK_STABLE: {
+			if (HAL_GetTick() - t0_init > 1000) {
+				clear_led_state(rocket_state);
+				fire_led_flash(&waveform_flash_red, 5);
+				phase_transition_init(&rocket_state->stage_phase_transition, STAGE_PHASE_STAGE_FLIGHT, (uint8_t *)&second_stage_flight_phase);
+				change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION);
 			}
 			break;
 		}
@@ -338,9 +357,7 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 			if (HAL_GPIO_ReadPin(IN_TRG_N1_GPIO_Port, IN_TRG_N1_Pin) == GPIO_PIN_RESET) {
 				rocket_state->t_launch = HAL_GetTick();
 
-				HAL_GPIO_TogglePin(LED1G_GPIO_Port, LED1G_Pin);
-				HAL_Delay(100);
-				HAL_GPIO_TogglePin(LED1G_GPIO_Port, LED1G_Pin);
+				fire_led_flash(&waveform_flash_green, 5);
 				rocket_state->is_launch_confirmed = true;
 				change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION);
 			}
@@ -355,9 +372,7 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 				case WINDOW_TIME_STATE_ACTIVE: {
 					if (HAL_GPIO_ReadPin(IN_TRG_N2_GPIO_Port, IN_TRG_N2_Pin) == GPIO_PIN_RESET) {
 
-						HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
-						HAL_Delay(100);
-						HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
+						fire_led_flash(&waveform_flash_blue, 5);
 
 						rocket_state->is_separation_confirmed = true;
 						event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(
@@ -425,9 +440,7 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 			// Command ignition (e.g., by sending a signal to the engine)
 			HAL_GPIO_TogglePin(OUT_N2_GPIO_Port, OUT_N2_Pin);
 
-			HAL_GPIO_TogglePin(LED1R_GPIO_Port, LED1R_Pin);
-			HAL_Delay(100);
-			HAL_GPIO_TogglePin(LED1R_GPIO_Port, LED1R_Pin);
+			fire_led_flash(&waveform_flash_red, 5);
 			change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_FLIGHT_WAIT_IGNITION_CONFIRMATION);
 			break;
 		}
@@ -498,9 +511,7 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 		}
 		case SECOND_STAGE_FLIGHT_APOGEE: {
 			STS_Servo_SetGoalPosition(&servo4, STS_GetPositionInUnits(120));
-			HAL_GPIO_TogglePin(LED1R_GPIO_Port, LED1R_Pin);
-			HAL_Delay(500);
-			HAL_GPIO_TogglePin(LED1R_GPIO_Port, LED1R_Pin);
+			fire_led_flash(&waveform_flash_red, 5);
 			change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_FLIGHT_IDLE);
 			break;
 		}
