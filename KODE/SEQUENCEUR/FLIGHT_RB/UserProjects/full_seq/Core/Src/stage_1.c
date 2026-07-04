@@ -9,11 +9,9 @@
 #include "actuator.h"
 #include "event_uart.h"
 #include "led_scheduler.h"
-#include "stm32f0xx_hal.h"
-#include "stm32f0xx_hal_def.h"
-#include "stm32f0xx_hal_gpio.h"
 #include "waveform_def.h"
 #include "window_time.h"
+
 #include <stdint.h>
 
 
@@ -148,20 +146,22 @@ static Actuator_t actuator_separation;  /* servo3 */
 board_func_state_t __board_func_homming(rocket_state_t *rocket_state, Actuator_t *act) {
 	(void)rocket_state;
 	static led_evt_handle_t led_evt_handle = LED_SCHED_HANDLE_INVALID;
+	static bool homing_started = false;
+	if (!homing_started) {
+		Actuator_HomingStart(act);
+		led_evt_handle = LedSched_Add(&waveform_wait_actuator, 0, false, 0, LED_SCHED_NO_FORCE);
+		homing_started = true;
+	}	
 	switch (Actuator_HomingProcess(act)) {
-		case ACTUATOR_HOMING_IDLE: {
-			Actuator_HomingStart(act);
-			led_evt_handle = LedSched_Add(&waveform_wait_actuator, 0, false, 0, LED_SCHED_NO_FORCE);
-			break;
-		}
+		case ACTUATOR_HOMING_IDLE:
 		case ACTUATOR_HOMING_IN_PROGRESS: {
-			LedSched_Remove(led_evt_handle);
 			break;
 		}
 		case ACTUATOR_HOMING_DONE:
 		case ACTUATOR_HOMING_ERROR:
 		default: {
 			LedSched_Remove(led_evt_handle);
+			homing_started = false;
 			return BOARD_FUNC_STATE_DONE;
 		}
 	}
@@ -179,7 +179,7 @@ static board_func_play_actuator_direction_t board_func_play_actuator_direction;
 board_func_state_t __board_func_play_actuator(rocket_state_t *rocket_state, Actuator_t *act) {
 	(void)rocket_state;
 	if (!act->is_homed || act->config.num_positions == 0) {
-		LedSched_Add(&waveform_error, 0, false, 0, LED_SCHED_HARD_FORCE);
+		LedSched_Add(&waveform_error, 1, false, 0, LED_SCHED_NO_FORCE);
 		return BOARD_FUNC_STATE_DONE;
 	}
 	if (act->config.num_positions == 1) {
