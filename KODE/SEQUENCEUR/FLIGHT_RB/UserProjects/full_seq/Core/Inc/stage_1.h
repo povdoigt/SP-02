@@ -42,10 +42,6 @@ void setup_servomotors_stage_1(rocket_state_t *rocket_state);
 
 void loop_stage_1(rocket_state_t *rocket_state);
 
-/* Tick non-bloquant à appeler chaque loop pour faire avancer un homing armé
- * par board_func_1/2/3_stage_1 (Actuator_HomingStart/Process). */
-void board_func_process_stage_1(rocket_state_t *rocket_state);
-
 void setup_uart_buffers_stage_1(rocket_state_t *rocket_state);
 void setup_servomotors_stage_1(rocket_state_t *rocket_state);
 

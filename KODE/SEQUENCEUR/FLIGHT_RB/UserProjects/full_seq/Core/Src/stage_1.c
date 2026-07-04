@@ -211,21 +211,15 @@ board_func_state_t __board_func_play_actuator(rocket_state_t *rocket_state, Actu
 }
 
 board_func_state_t board_func_1_stage_1(rocket_state_t *rocket_state) {
-	(void)rocket_state;
-	Actuator_HomingStart(&actuator_aerobrake);
-	return BOARD_FUNC_STATE_RUNNING;
+	return __board_func_homming(rocket_state, &actuator_aerobrake);
 }
 
 board_func_state_t board_func_2_stage_1(rocket_state_t *rocket_state) {
-	(void)rocket_state;
-	Actuator_HomingStart(&actuator_hatch1);
-	return BOARD_FUNC_STATE_RUNNING;
+	return __board_func_homming(rocket_state, &actuator_hatch1);
 }
 
 board_func_state_t board_func_3_stage_1(rocket_state_t *rocket_state) {
-	(void)rocket_state;
-	Actuator_HomingStart(&actuator_separation);
-	return BOARD_FUNC_STATE_RUNNING;
+	return __board_func_homming(rocket_state, &actuator_separation);
 }
 
 board_func_state_t board_func_4_stage_1(rocket_state_t *rocket_state) {
@@ -566,7 +560,7 @@ void first_stage_flight_state_machine(rocket_state_t *rocket_state) {
 		}
 		case FIRST_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION: {
 			static led_evt_handle_t led_evt_handle = LED_SCHED_HANDLE_INVALID;
-			if (LedSched_IsHandleValid(led_evt_handle)) {
+			if (!LedSched_IsHandleValid(led_evt_handle)) {
 				led_evt_handle = LedSched_Add(&waveform_wait_launch, 0, false, 0, LED_SCHED_NO_FORCE);
 			}
 			// Wait for launch confirmation

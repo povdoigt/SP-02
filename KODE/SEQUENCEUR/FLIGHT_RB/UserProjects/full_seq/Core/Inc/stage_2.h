@@ -50,10 +50,6 @@ void setup_attitude_stage_2(rocket_state_t *rocket_state);
 
 void loop_stage_2(rocket_state_t *rocket_state);
 
-/* Tick non-bloquant à appeler chaque loop (stub : stage_2 n'a aujourd'hui
- * aucune opération de banc de test à faire avancer en arrière-plan). */
-void board_func_process_stage_2(rocket_state_t *rocket_state);
-
 
 
 

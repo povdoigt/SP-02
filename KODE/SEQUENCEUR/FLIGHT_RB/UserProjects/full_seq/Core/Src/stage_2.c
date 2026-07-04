@@ -9,6 +9,7 @@
 #include "quaternion_dynamics.h"
 #include "data_topic.h"
 #include "event_uart.h"
+#include "led_scheduler.h"
 #include "window_time.h"
 
 #include <math.h>
@@ -157,7 +158,6 @@ board_func_state_t board_func_15_stage_2(rocket_state_t *rocket_state) {
 
 
 
-
 void setup_stage_2(rocket_state_t *rocket_state) {
 
 	LED_RGB_SetColor(rocket_state->led_rgb, (float3_t){ .x = 0.0, .y = 0.0, .z = 1.0});
@@ -287,6 +287,8 @@ void on_new_pressure_frame(rocket_state_t *rocket_state, data_sub_t *sub) {
    =================================================== */
 
 void second_stage_init_state_machine(rocket_state_t *rocket_state) {
+	// partagé entre SECOND_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION et SECOND_STAGE_INIT_WAIT_JACK
+	static led_evt_handle_t jack_ready_led_evt_handle = LED_SCHED_HANDLE_INVALID;
 
 	switch (second_stage_init_phase) {
 		case SECOND_STAGE_INIT_PARA_ZERO: {
@@ -310,9 +312,10 @@ void second_stage_init_state_machine(rocket_state_t *rocket_state) {
 		case SECOND_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION: {
 			if (HAL_GPIO_ReadPin(IN_TRG_N2_GPIO_Port, IN_TRG_N2_Pin) == GPIO_PIN_SET) {
 				t0_init = HAL_GetTick();
+				LedSched_Remove(jack_ready_led_evt_handle);
 				second_stage_init_phase = SECOND_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION_STABLE;
-			} else {
-				activate_led_state(rocket_state, &waveform_wait_jack_ready, 1);
+			} else if (!LedSched_IsHandleValid(jack_ready_led_evt_handle)) {
+				jack_ready_led_evt_handle = LedSched_Add(&waveform_wait_jack_ready, 0, false, 0, LED_SCHED_NO_FORCE);
 			}
 			break;
 		}
@@ -327,16 +330,16 @@ void second_stage_init_state_machine(rocket_state_t *rocket_state) {
 		case SECOND_STAGE_INIT_WAIT_JACK: {
 			if (HAL_GPIO_ReadPin(IN_TRG_N1_GPIO_Port, IN_TRG_N1_Pin) == GPIO_PIN_SET) {
 				t0_init = HAL_GetTick();
+				LedSched_Remove(jack_ready_led_evt_handle);
 				second_stage_init_phase = SECOND_STAGE_INIT_WAIT_JACK_STABLE;
-            } else {
-				activate_led_state(rocket_state, &waveform_wait_jack_ready, 1);
+            } else if (!LedSched_IsHandleValid(jack_ready_led_evt_handle)) {
+				jack_ready_led_evt_handle = LedSched_Add(&waveform_wait_jack_ready, 0, false, 0, LED_SCHED_NO_FORCE);
 			}
 			break;
 		}
 		case SECOND_STAGE_INIT_WAIT_JACK_STABLE: {
 			if (HAL_GetTick() - t0_init > 1000) {
-				clear_led_state(rocket_state);
-				fire_led_flash(&waveform_flash_red, 5);
+				LedSched_Clear();
 				phase_transition_init(&rocket_state->stage_phase_transition, STAGE_PHASE_STAGE_FLIGHT, (uint8_t *)&second_stage_flight_phase);
 				change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION);
 			}
@@ -353,12 +356,18 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 			break;
 		}
 		case SECOND_STAGE_FLIGHT_WAIT_LAUNCH_CONFIRMATION: {
+			static led_evt_handle_t led_evt_handle = LED_SCHED_HANDLE_INVALID;
+			if (!LedSched_IsHandleValid(led_evt_handle)) {
+				led_evt_handle = LedSched_Add(&waveform_wait_launch, 0, false, 0, LED_SCHED_NO_FORCE);
+			}
 			// Wait for launch confirmation
 			if (HAL_GPIO_ReadPin(IN_TRG_N1_GPIO_Port, IN_TRG_N1_Pin) == GPIO_PIN_RESET) {
 				rocket_state->t_launch = HAL_GetTick();
 
-				fire_led_flash(&waveform_flash_green, 5);
 				rocket_state->is_launch_confirmed = true;
+				LedSched_Remove(led_evt_handle);
+				LedSched_Add(&waveform_in_flight, 0, false, 0, LED_SCHED_NO_FORCE);
+				LedSched_Add(&waveform_flash_red, 0, false, 0, LED_SCHED_HARD_FORCE);
 				change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION);
 			}
 			break;
@@ -372,7 +381,7 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 				case WINDOW_TIME_STATE_ACTIVE: {
 					if (HAL_GPIO_ReadPin(IN_TRG_N2_GPIO_Port, IN_TRG_N2_Pin) == GPIO_PIN_RESET) {
 
-						fire_led_flash(&waveform_flash_blue, 5);
+						LedSched_Add(&waveform_flash_blue, 0, false, 0, LED_SCHED_HARD_FORCE);
 
 						rocket_state->is_separation_confirmed = true;
 						event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(
@@ -440,7 +449,7 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 			// Command ignition (e.g., by sending a signal to the engine)
 			HAL_GPIO_TogglePin(OUT_N2_GPIO_Port, OUT_N2_Pin);
 
-			fire_led_flash(&waveform_flash_red, 5);
+			LedSched_Add(&waveform_flash_red, 0, false, 0, LED_SCHED_HARD_FORCE);
 			change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_FLIGHT_WAIT_IGNITION_CONFIRMATION);
 			break;
 		}
@@ -454,6 +463,7 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 					if (float3_norm(rocket_state->dynamics.accel_g)	> 1.5f || true) {
 						rocket_state->is_second_burn_confirmed = true;
 						window_time_beta_apogee = window_time_beta_apogee_sepa_ignition;
+						LedSched_Add(&waveform_2nd_burn, 0, false, 0, LED_SCHED_NO_FORCE);
 						event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(
 							HAL_GetTick(), EVENT_UART_TYPE_WINDOW_TIME, (event_uart_payload_u){ .window_time_payload = {
 								.window_id = window_time_beta_ignition_confirm.id,
@@ -511,7 +521,7 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 		}
 		case SECOND_STAGE_FLIGHT_APOGEE: {
 			STS_Servo_SetGoalPosition(&servo4, STS_GetPositionInUnits(120));
-			fire_led_flash(&waveform_flash_red, 5);
+			LedSched_Add(&waveform_apogee, 0, false, 0, LED_SCHED_NO_FORCE);
 			change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_FLIGHT_IDLE);
 			break;
 		}
