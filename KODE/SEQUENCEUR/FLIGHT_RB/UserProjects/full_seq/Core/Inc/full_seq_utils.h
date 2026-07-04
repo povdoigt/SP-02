@@ -88,7 +88,7 @@ void update_gpio_input_states(GPIO_TypeDef *input_gpio_port[], uint16_t input_gp
    =================================================== */
 
 typedef enum stage_phase_type_t {
-	STAGE_PHASE_STAGE_BOARD_FUNC,
+	STAGE_PHASE_STAGE_GROUND_FUNC,
 	STAGE_PHASE_STAGE_INIT,
 	STAGE_PHASE_STAGE_FLIGHT,
 } stage_phase_type_t;
@@ -212,23 +212,28 @@ typedef struct waiting_button_t {
 extern waiting_button_t waiting_button;
 
 void waiting_button_init(waiting_button_t *waiting_button, bool inverted_logic);
-bool waiting_button_play(waiting_button_t *waiting_button);
+bool waiting_button_play(waiting_button_t *waiting_button, bool led);
 
 
 
 /* ===================================================
-   BOARD FUNCTIONS
+   GROUND FUNCTIONS
    =================================================== */
 
-#define BOARD_FUNC_MAX_ID	15
-#define BOARD_FUNC_NONE		255
 
-typedef enum board_func_state_t {
-	BOARD_FUNC_STATE_RUNNING,
-	BOARD_FUNC_STATE_DONE,
-} board_func_state_t;
+#define SEPARATION_GROUND_FUNC_ID		0x06
+#define SEPARATION_GROUND_FUNC_DELAY	5000
 
-typedef board_func_state_t(*board_func_t)(rocket_state_t *rocket_state);
+#define GROUND_FUNC_MAX_ID	15
+#define GROUND_FUNC_NONE		255
 
+typedef enum ground_func_state_t {
+	GROUND_FUNC_STATE_RUNNING,
+	GROUND_FUNC_STATE_DONE,
+} ground_func_state_t;
+
+typedef ground_func_state_t(*ground_func_t)(rocket_state_t *rocket_state);
+
+uint8_t get_prgm(void);
 
 #endif // FULL_SEQ_UTILS_H

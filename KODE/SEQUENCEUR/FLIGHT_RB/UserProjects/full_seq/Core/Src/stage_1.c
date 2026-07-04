@@ -9,6 +9,7 @@
 #include "actuator.h"
 #include "event_uart.h"
 #include "led_scheduler.h"
+#include "stm32f0xx_hal.h"
 #include "waveform_def.h"
 #include "window_time.h"
 
@@ -140,10 +141,10 @@ static Actuator_t actuator_separation;  /* servo3 */
 
 
 /* ===================================================
-   BOARD FUNCTIONS
+   GROUND FUNCTIONS
    =================================================== */
 
-board_func_state_t __board_func_homming(rocket_state_t *rocket_state, Actuator_t *act) {
+ground_func_state_t __ground_func_homming(rocket_state_t *rocket_state, Actuator_t *act) {
 	(void)rocket_state;
 	static led_evt_handle_t led_evt_handle = LED_SCHED_HANDLE_INVALID;
 	static bool homing_started = false;
@@ -162,36 +163,36 @@ board_func_state_t __board_func_homming(rocket_state_t *rocket_state, Actuator_t
 		default: {
 			LedSched_Remove(led_evt_handle);
 			homing_started = false;
-			return BOARD_FUNC_STATE_DONE;
+			return GROUND_FUNC_STATE_DONE;
 		}
 	}
-	return BOARD_FUNC_STATE_RUNNING;
+	return GROUND_FUNC_STATE_RUNNING;
 }
 
-typedef enum board_func_play_actuator_direction_t {
+typedef enum ground_func_play_actuator_direction_t {
 	DIR_NONE = 0,
 	DIR_FORWARD,
 	DIR_BACKWARD
-} board_func_play_actuator_direction_t;
+} ground_func_play_actuator_direction_t;
 
-static board_func_play_actuator_direction_t board_func_play_actuator_direction;
+static ground_func_play_actuator_direction_t ground_func_play_actuator_direction;
 
-board_func_state_t __board_func_play_actuator(rocket_state_t *rocket_state, Actuator_t *act) {
+ground_func_state_t __ground_func_play_actuator(rocket_state_t *rocket_state, Actuator_t *act) {
 	(void)rocket_state;
 	if (!act->is_homed || act->config.num_positions == 0) {
 		LedSched_Add(&waveform_error, 1, false, 0, LED_SCHED_NO_FORCE);
-		return BOARD_FUNC_STATE_DONE;
+		return GROUND_FUNC_STATE_DONE;
 	}
 	if (act->config.num_positions == 1) {
-		board_func_play_actuator_direction = DIR_NONE;
+		ground_func_play_actuator_direction = DIR_NONE;
 	} else if (act->current_position == 0) {
-		board_func_play_actuator_direction = DIR_FORWARD;
+		ground_func_play_actuator_direction = DIR_FORWARD;
 	} else if (act->current_position == act->config.num_positions - 1) {
-		board_func_play_actuator_direction = DIR_BACKWARD;
+		ground_func_play_actuator_direction = DIR_BACKWARD;
 	}
 
 	uint8_t pos_id = act->current_position;
-	switch (board_func_play_actuator_direction) {
+	switch (ground_func_play_actuator_direction) {
 		case DIR_NONE: {
 			// Do nothing
 			break;
@@ -207,76 +208,76 @@ board_func_state_t __board_func_play_actuator(rocket_state_t *rocket_state, Actu
 	}
 
 	Actuator_GoToPosition(act, pos_id);
-	return BOARD_FUNC_STATE_DONE;
+	return GROUND_FUNC_STATE_DONE;
 }
 
-board_func_state_t board_func_1_stage_1(rocket_state_t *rocket_state) {
-	return __board_func_homming(rocket_state, &actuator_aerobrake);
+ground_func_state_t ground_func_1_stage_1(rocket_state_t *rocket_state) {
+	return __ground_func_homming(rocket_state, &actuator_aerobrake);
 }
 
-board_func_state_t board_func_2_stage_1(rocket_state_t *rocket_state) {
-	return __board_func_homming(rocket_state, &actuator_hatch1);
+ground_func_state_t ground_func_2_stage_1(rocket_state_t *rocket_state) {
+	return __ground_func_homming(rocket_state, &actuator_hatch1);
 }
 
-board_func_state_t board_func_3_stage_1(rocket_state_t *rocket_state) {
-	return __board_func_homming(rocket_state, &actuator_separation);
+ground_func_state_t ground_func_3_stage_1(rocket_state_t *rocket_state) {
+	return __ground_func_homming(rocket_state, &actuator_separation);
 }
 
-board_func_state_t board_func_4_stage_1(rocket_state_t *rocket_state) {
-	return __board_func_play_actuator(rocket_state, &actuator_aerobrake);
+ground_func_state_t ground_func_4_stage_1(rocket_state_t *rocket_state) {
+	return __ground_func_play_actuator(rocket_state, &actuator_aerobrake);
 }
 
-board_func_state_t board_func_5_stage_1(rocket_state_t *rocket_state) {
-	return __board_func_play_actuator(rocket_state, &actuator_hatch1);
+ground_func_state_t ground_func_5_stage_1(rocket_state_t *rocket_state) {
+	return __ground_func_play_actuator(rocket_state, &actuator_hatch1);
 }
 
-board_func_state_t board_func_6_stage_1(rocket_state_t *rocket_state) {
-	return __board_func_play_actuator(rocket_state, &actuator_separation);
+ground_func_state_t ground_func_6_stage_1(rocket_state_t *rocket_state) {
+	return __ground_func_play_actuator(rocket_state, &actuator_separation);
 }
 
-board_func_state_t board_func_7_stage_1(rocket_state_t *rocket_state) {
+ground_func_state_t ground_func_7_stage_1(rocket_state_t *rocket_state) {
 	(void)rocket_state;
-	return BOARD_FUNC_STATE_DONE;
+	return GROUND_FUNC_STATE_DONE;
 }
 
-board_func_state_t board_func_8_stage_1(rocket_state_t *rocket_state) {
+ground_func_state_t ground_func_8_stage_1(rocket_state_t *rocket_state) {
 	(void)rocket_state;
-	return BOARD_FUNC_STATE_DONE;
+	return GROUND_FUNC_STATE_DONE;
 }
 
-board_func_state_t board_func_9_stage_1(rocket_state_t *rocket_state) {
+ground_func_state_t ground_func_9_stage_1(rocket_state_t *rocket_state) {
 	(void)rocket_state;
-	return BOARD_FUNC_STATE_DONE;
+	return GROUND_FUNC_STATE_DONE;
 }
 
-board_func_state_t board_func_10_stage_1(rocket_state_t *rocket_state) {
+ground_func_state_t ground_func_10_stage_1(rocket_state_t *rocket_state) {
 	(void)rocket_state;
-	return BOARD_FUNC_STATE_DONE;
+	return GROUND_FUNC_STATE_DONE;
 }
 
-board_func_state_t board_func_11_stage_1(rocket_state_t *rocket_state) {
+ground_func_state_t ground_func_11_stage_1(rocket_state_t *rocket_state) {
 	(void)rocket_state;
-	return BOARD_FUNC_STATE_DONE;
+	return GROUND_FUNC_STATE_DONE;
 }
 
-board_func_state_t board_func_12_stage_1(rocket_state_t *rocket_state) {
+ground_func_state_t ground_func_12_stage_1(rocket_state_t *rocket_state) {
 	(void)rocket_state;
-	return BOARD_FUNC_STATE_DONE;
+	return GROUND_FUNC_STATE_DONE;
 }
 
-board_func_state_t board_func_13_stage_1(rocket_state_t *rocket_state) {
+ground_func_state_t ground_func_13_stage_1(rocket_state_t *rocket_state) {
 	(void)rocket_state;
-	return BOARD_FUNC_STATE_DONE;
+	return GROUND_FUNC_STATE_DONE;
 }
 
-board_func_state_t board_func_14_stage_1(rocket_state_t *rocket_state) {
+ground_func_state_t ground_func_14_stage_1(rocket_state_t *rocket_state) {
 	(void)rocket_state;
-	return BOARD_FUNC_STATE_DONE;
+	return GROUND_FUNC_STATE_DONE;
 }
 
-board_func_state_t board_func_15_stage_1(rocket_state_t *rocket_state) {
+ground_func_state_t ground_func_15_stage_1(rocket_state_t *rocket_state) {
 	(void)rocket_state;
-	return BOARD_FUNC_STATE_DONE;
+	return GROUND_FUNC_STATE_DONE;
 }
 
 
@@ -466,7 +467,7 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 			bool is_waiting_sepa = (
 				rocket_state->input_gpio_states[SEPARATION] == GPIO_PIN_RESET
 				|| actuator_separation.current_position != SEPA_POS_LOCKED
-				|| sepa_assembly_phase != SEPA_ASSEMBLY_WAIT_LOCK_STAGE_STABLE
+				|| sepa_assembly_phase != SEPA_ASSEMBLY_LOCKED_AND_STABLE
 			);
 	
 			if (is_waiting_jack_launch) {
@@ -519,12 +520,12 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 					} else {
 						if (HAL_GetTick() - t0_init > 2000) { // Wait 2s to ensure that the stage is properly locked
 							LedSched_Remove(perform_sepa_evt_handle);
-							sepa_assembly_phase = SEPA_ASSEMBLY_WAIT_LOCK_STAGE_STABLE;
+							sepa_assembly_phase = SEPA_ASSEMBLY_LOCKED_AND_STABLE;
 						}
 					}
 					break;
 				}
-				case SEPA_ASSEMBLY_WAIT_LOCK_STAGE_STABLE: {
+				case SEPA_ASSEMBLY_LOCKED_AND_STABLE: {
 					if (rocket_state->input_gpio_states[SEPARATION] == GPIO_PIN_RESET) {
 						sepa_assembly_phase = SEPA_ASSEMBLY_UNLOCK_STAGE;
 					}
@@ -545,6 +546,12 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 				LedSched_Remove(jack_ready_led_evt_handle);
 			}
 
+			if (waiting_button_play(&waiting_button, false) && get_prgm() == SEPARATION_GROUND_FUNC_ID) {
+				t0_init = HAL_GetTick();
+				Actuator_GoToPosition(&actuator_separation, SEPA_POS_UNLOCKED);
+				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_UNLOCK_STAGE_COMMAND);
+			}
+
 			break;
 		}
 		case FIRST_STAGE_INIT_WAIT_ALL_GOOD_STABLE: {
@@ -559,8 +566,20 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 			break;
 		}
 
+		case FIRST_STAGE_INIT_UNLOCK_STAGE_COMMAND: {
+			static led_evt_handle_t led_evt_handle = LED_SCHED_HANDLE_INVALID;
+			if (!LedSched_IsHandleValid(led_evt_handle)) {
+				led_evt_handle = LedSched_Add(&waveform_wait_actuator, 1, false, 0, LED_SCHED_NO_FORCE);
+			}
+			if (HAL_GetTick() - t0_init > SEPARATION_GROUND_FUNC_DELAY) {
+				LedSched_Remove(led_evt_handle);
+				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_ALL_GOOD);
+			}
+			break;
+		}
+
 		case FIRST_STAGE_INIT_WAIT_BUTTON: {
-			if (waiting_button_play(&waiting_button)) {
+			if (waiting_button_play(&waiting_button, true)) {
 				change_state_and_notify(&rocket_state->stage_phase_transition, first_stage_init_next_phase);
 			}
 			break;
@@ -579,6 +598,14 @@ void first_stage_flight_state_machine(rocket_state_t *rocket_state) {
 			static led_evt_handle_t led_evt_handle = LED_SCHED_HANDLE_INVALID;
 			if (!LedSched_IsHandleValid(led_evt_handle)) {
 				led_evt_handle = LedSched_Add(&waveform_wait_launch, 0, false, 0, LED_SCHED_NO_FORCE);
+			}
+			if (waiting_button_play(&waiting_button, false) && get_prgm() == SEPARATION_GROUND_FUNC_ID) {
+				t0_init = HAL_GetTick();
+				LedSched_Remove(led_evt_handle);
+				Actuator_GoToPosition(&actuator_separation, SEPA_POS_UNLOCKED);
+				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_INITIALISATION);
+				phase_transition_init(&rocket_state->stage_phase_transition, STAGE_PHASE_STAGE_INIT, (uint8_t *)&first_stage_init_phase);
+				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_UNLOCK_STAGE_COMMAND);
 			}
 			// Wait for launch confirmation
 			if (rocket_state->input_gpio_states[JACK_LAUNCH] == GPIO_PIN_RESET) {

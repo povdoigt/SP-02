@@ -5,24 +5,24 @@
 
 
 /* ===================================================
-   BOARD FUNCTIONS
+   GROUND FUNCTIONS
    =================================================== */
 
-board_func_state_t board_func_1_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_2_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_3_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_4_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_5_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_6_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_7_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_8_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_9_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_10_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_11_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_12_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_13_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_14_stage_1(rocket_state_t *rocket_state);
-board_func_state_t board_func_15_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_1_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_2_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_3_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_4_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_5_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_6_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_7_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_8_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_9_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_10_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_11_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_12_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_13_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_14_stage_1(rocket_state_t *rocket_state);
+ground_func_state_t ground_func_15_stage_1(rocket_state_t *rocket_state);
 
 
 /* ===================================================
@@ -57,7 +57,7 @@ typedef enum sepa_assembly_phase_t {
 	SEPA_ASSEMBLY_WAIT_STAGE_CONNECTION,
 	SEPA_ASSEMBLY_WAIT_STAGE_CONNECTION_STABLE,
 	SEPA_ASSEMBLY_WAIT_LOCK_STAGE,
-	SEPA_ASSEMBLY_WAIT_LOCK_STAGE_STABLE,
+	SEPA_ASSEMBLY_LOCKED_AND_STABLE,
 } sepa_assembly_phase_t;
 
 typedef enum first_stage_initialisation_phase_t {
@@ -66,6 +66,8 @@ typedef enum first_stage_initialisation_phase_t {
 	FIRST_STAGE_INIT_AF_ZERO,
 	FIRST_STAGE_INIT_PARA_ZERO,
 	FIRST_STAGE_INIT_SEPA_ZERO,
+
+	FIRST_STAGE_INIT_UNLOCK_STAGE_COMMAND,
 
 	FIRST_STAGE_INIT_WAIT_ALL_GOOD,
 	FIRST_STAGE_INIT_WAIT_ALL_GOOD_STABLE,

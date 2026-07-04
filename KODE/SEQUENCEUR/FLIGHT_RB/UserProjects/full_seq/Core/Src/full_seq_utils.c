@@ -368,7 +368,7 @@ void waiting_button_init(waiting_button_t *waiting_button, bool inverted_logic) 
 	);
 }
 
-bool waiting_button_play(waiting_button_t *waiting_button) {
+bool waiting_button_play(waiting_button_t *waiting_button, bool led) {
 	bool button_pressed = false;
 	
 	switch (HAL_GPIO_ReadPin(PRGM_RUN_GPIO_Port, PRGM_RUN_Pin)) {
@@ -386,7 +386,9 @@ bool waiting_button_play(waiting_button_t *waiting_button) {
 		case WAITING_BUTTON_STATE_WAITING_START: {
 			// Launch the waveform for the LED to indicate that we are waiting for the button press
 			// set_led_state(waiting_button->rocket_led_evt, &waveform_wait_button, 1);
-			waiting_button->led_evt = LedSched_Add(&waveform_wait_button, 0, false, HAL_MAX_DELAY, LED_SCHED_NO_FORCE);
+			if (led) {
+				waiting_button->led_evt = LedSched_Add(&waveform_wait_button, 0, false, HAL_MAX_DELAY, LED_SCHED_NO_FORCE);
+			}
 			waiting_button->state = WAITING_BUTTON_STATE_WAITING_PRESS;
 			// no break, intentionally fall through to the next case
 		}
@@ -406,4 +408,19 @@ bool waiting_button_play(waiting_button_t *waiting_button) {
 		}
 	}
 	return false;
+}
+
+
+
+/* ===================================================
+   GROUND FUNCTIONS
+   =================================================== */
+
+uint8_t get_prgm(void) {
+	return 0x00 | (
+		(HAL_GPIO_ReadPin(PRGM0_GPIO_Port, PRGM0_Pin) == GPIO_PIN_SET ? 1 : 0) << 0 |
+		(HAL_GPIO_ReadPin(PRGM1_GPIO_Port, PRGM1_Pin) == GPIO_PIN_SET ? 1 : 0) << 1 |
+		(HAL_GPIO_ReadPin(PRGM2_GPIO_Port, PRGM2_Pin) == GPIO_PIN_SET ? 1 : 0) << 2 |
+		(HAL_GPIO_ReadPin(PRGM3_GPIO_Port, PRGM3_Pin) == GPIO_PIN_SET ? 1 : 0) << 3
+	);
 }
