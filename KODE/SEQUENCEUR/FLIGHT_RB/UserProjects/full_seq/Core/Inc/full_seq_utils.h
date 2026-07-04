@@ -7,8 +7,46 @@
 
 #include "float3.h"
 #include "quaternion.h"
+#include "stm32f072xb.h"
+#include "stm32f0xx_hal_gpio.h"
 #include "waveform.h"
+#include "waveform_built_in.h"
 #include "waveform_def.h"
+#include "waveform_scalar_arithmetic.h"
+#include <stdint.h>
+
+
+
+
+/* ===================================================
+   GPIO MAPPING
+   =================================================== */
+
+#define MAX_INPUT_NUMBER				6
+
+#define JACK_LAUNCH_GPIO_Port			IN_TRG_N1_GPIO_Port
+#define JACK_LAUNCH_Pin					IN_TRG_N1_Pin
+
+#define SEPARATION_GPIO_Port			IN_TRG_N2_GPIO_Port
+#define SEPARATION_Pin					IN_TRG_N2_Pin
+
+#define JACK_READY_GPIO_Port			IN_TRG_N3_GPIO_Port
+#define JACK_READY_Pin					IN_TRG_N3_Pin
+
+#define STAGE2_IGNITION_GPIO_Port		OUT_N2_GPIO_Port
+#define STAGE2_IGNITION_Pin				OUT_N2_Pin
+
+#define EVENT_UART_GPIO_Port			TX_OPTO_N1_GPIO_Port
+#define EVENT_UART_Pin					TX_OPTO_N1_Pin
+
+#define CAMERA_GPIO_Port				TX_OPTO_N2_GPIO_Port
+#define CAMERA_Pin						TX_OPTO_N2_Pin
+
+
+void update_gpio_input_states(GPIO_TypeDef *input_gpio_port[], uint16_t input_gpio_pin[], GPIO_PinState input_gpio_state[], uint8_t max_input_number);
+
+
+
 
 
 /* ===================================================
@@ -48,6 +86,7 @@
    =================================================== */
 
 typedef enum stage_phase_type_t {
+	STAGE_PHASE_STAGE_BOARD_FUNC,
 	STAGE_PHASE_STAGE_INIT,
 	STAGE_PHASE_STAGE_FLIGHT,
 } stage_phase_type_t;
@@ -86,19 +125,44 @@ typedef enum rocket_stage_t {
 } rocket_stage_t;
 
 typedef struct rocket_state_t {
-	rocket_stage_t stage;
-	rocket_dynamics_t dynamics;
-	stage_phase_transition_t stage_phase_transition;
-	led_rgb_t *led_rgb;
-	waveform_space_t *current_waveform_space;
-	uint32_t t_launch;
-	bool is_launch_confirmed;
-	bool is_separation_confirmed;
-	bool is_second_burn_confirmed;
+	GPIO_TypeDef				*input_gpio_ports[MAX_INPUT_NUMBER];
+	uint16_t		 			input_gpio_pins[MAX_INPUT_NUMBER];
+	GPIO_PinState	 			input_gpio_states[MAX_INPUT_NUMBER];
+	rocket_stage_t	 			stage;
+	rocket_dynamics_t			dynamics;
+	stage_phase_transition_t	stage_phase_transition;
+	led_rgb_t 					*led_rgb;
+	waveform_space_t 			*current_waveform_space;
+	uint32_t 					t_launch;
+	bool 						is_launch_confirmed;
+	bool 						is_separation_confirmed;
+	bool 						is_second_burn_confirmed;	
 } rocket_state_t;
 
-void init_rocket_state(rocket_state_t *rocket_state, led_rgb_t *led_rgb);
+void rocket_state_init(rocket_state_t *rocket_state, led_rgb_t *led_rgb);
+void rocket_state_setup_gpio(rocket_state_t *rocket_state, GPIO_TypeDef *input_gpio_port[], uint16_t input_gpio_pin[]);
 
+
+
+
+
+/* ===================================================
+   LED STATE
+   =================================================== */
+
+extern waveform_space_t waveform_wait_button;
+extern waveform_space_t waveform_wait_jack_ready;
+extern waveform_space_t waveform_wait_jack_launch;
+extern waveform_space_t waveform_wait_sepa;
+extern waveform_space_t waveform_wait_jack_launch_sepa;
+extern waveform_space_t waveform_perform_sepa;
+
+extern const waveform_space_mult_const_t 	waveform_wait_button_ctx;
+extern const waveform_space_mult_const_t 	waveform_wait_jack_ready_ctx;
+extern const waveform_space_mult_const_t 	waveform_wait_jack_launch_ctx;
+extern const waveform_space_mult_const_t 	waveform_wait_sepa_ctx;
+extern const waveform_space_add_t			waveform_wait_jack_launch_sepa_ctx;
+extern const waveform_space_mult_const_t 	waveform_perform_sepa_ctx;
 
 
 
@@ -107,24 +171,32 @@ void init_rocket_state(rocket_state_t *rocket_state, led_rgb_t *led_rgb);
    =================================================== */
 
 typedef enum waiting_button_state_t {
+	WAITING_BUTTON_STATE_WAITING_START,
 	WAITING_BUTTON_STATE_WAITING_PRESS,
 	WAITING_BUTTON_STATE_WAITING_RELEASE,
 } waiting_button_state_t;
 
 typedef struct waiting_button_t {
-	waiting_button_state_t state;
-
-	led_rgb_t *led_rgb;
-	
+	waveform_space_t wait_waveform_space;
 	GPIO_TypeDef *button_gpio_port;
-	uint32_t t_led;
+	waveform_space_t **rocket_waveform_space;
+	waiting_button_state_t state;
 	uint16_t button_gpio_pin;
 	bool inverted_logic;
 	bool led_on;
 } waiting_button_t;
 
-void waiting_button_init(waiting_button_t *waiting_button, GPIO_TypeDef *button_gpio_port, uint16_t button_gpio_pin, led_rgb_t *led_rgb, bool inverted_logic);
-void waiting_button_set_next_phase(waiting_button_t *waiting_button);
+void waiting_button_init(waiting_button_t *waiting_button, GPIO_TypeDef *button_gpio_port, uint16_t button_gpio_pin, waveform_space_t **rocket_waveform_space, bool inverted_logic);
+// void waiting_button_set_next_phase(waiting_button_t *waiting_button);
 bool waiting_button_play(waiting_button_t *waiting_button);
+
+
+
+/* ===================================================
+   BOARD FUNCTIONS
+   =================================================== */
+
+typedef void(*board_func_t)(rocket_state_t *rocket_state);
+
 
 #endif // FULL_SEQ_UTILS_H

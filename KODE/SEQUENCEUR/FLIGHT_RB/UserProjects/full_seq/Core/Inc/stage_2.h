@@ -9,6 +9,29 @@
 
 
 /* ===================================================
+   BOARD FUNCTIONS
+   =================================================== */
+
+void board_func_1_stage_2(rocket_state_t *rocket_state);
+void board_func_2_stage_2(rocket_state_t *rocket_state);
+void board_func_3_stage_2(rocket_state_t *rocket_state);
+void board_func_4_stage_2(rocket_state_t *rocket_state);
+void board_func_5_stage_2(rocket_state_t *rocket_state);
+void board_func_6_stage_2(rocket_state_t *rocket_state);
+void board_func_7_stage_2(rocket_state_t *rocket_state);
+void board_func_8_stage_2(rocket_state_t *rocket_state);
+void board_func_9_stage_2(rocket_state_t *rocket_state);
+void board_func_10_stage_2(rocket_state_t *rocket_state);
+void board_func_11_stage_2(rocket_state_t *rocket_state);
+void board_func_12_stage_2(rocket_state_t *rocket_state);
+void board_func_13_stage_2(rocket_state_t *rocket_state);
+void board_func_14_stage_2(rocket_state_t *rocket_state);
+void board_func_15_stage_2(rocket_state_t *rocket_state);
+
+
+
+
+/* ===================================================
    SETUP FUNCTIONS
    =================================================== */
 

@@ -4,6 +4,25 @@
 #include "full_seq_utils.h"
 
 
+/* ===================================================
+   BOARD FUNCTIONS
+   =================================================== */
+
+void board_func_1_stage_1(rocket_state_t *rocket_state);
+void board_func_2_stage_1(rocket_state_t *rocket_state);
+void board_func_3_stage_1(rocket_state_t *rocket_state);
+void board_func_4_stage_1(rocket_state_t *rocket_state);
+void board_func_5_stage_1(rocket_state_t *rocket_state);
+void board_func_6_stage_1(rocket_state_t *rocket_state);
+void board_func_7_stage_1(rocket_state_t *rocket_state);
+void board_func_8_stage_1(rocket_state_t *rocket_state);
+void board_func_9_stage_1(rocket_state_t *rocket_state);
+void board_func_10_stage_1(rocket_state_t *rocket_state);
+void board_func_11_stage_1(rocket_state_t *rocket_state);
+void board_func_12_stage_1(rocket_state_t *rocket_state);
+void board_func_13_stage_1(rocket_state_t *rocket_state);
+void board_func_14_stage_1(rocket_state_t *rocket_state);
+void board_func_15_stage_1(rocket_state_t *rocket_state);
 
 
 /* ===================================================
@@ -34,16 +53,20 @@ void setup_servomotors_stage_1(rocket_state_t *rocket_state);
    =================================================== */
 
 typedef enum first_stage_initialisation_phase_t {
+	FIRST_STAGE_INIT_WAIT_JACK_READY,
+
 	FIRST_STAGE_INIT_AF_ZERO,
-	FIRST_STAGE_INIT_WAIT_AF_ZERO,
 	FIRST_STAGE_INIT_PARA_ZERO,
-	FIRST_STAGE_INIT_WAIT_PARA_ZERO,
 	FIRST_STAGE_INIT_SEPA_ZERO,
-	FIRST_STAGE_INIT_WAIT_SEPA_ZERO,
-	FIRST_STAGE_INIT_WAIT_JACK,
-	FIRST_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION,
-	FIRST_STAGE_INIT_LOCK_STAGE,
+	
+	FIRST_STAGE_INIT_WAIT_ALL_GOOD,
+	FIRST_STAGE_INIT_WAIT_ALL_GOOD_STABLE,
+	
+	FIRST_STAGE_INIT_UNLOCK_STAGE,
+	FIRST_STAGE_INIT_WAIT_STAGE_CONNECTION,
+	FIRST_STAGE_INIT_WAIT_STAGE_CONNECTION_STABLE,
 	FIRST_STAGE_INIT_WAIT_LOCK_STAGE,
+
 	FIRST_STAGE_INIT_WAIT_BUTTON,
 } first_stage_initialisation_phase_t;
 

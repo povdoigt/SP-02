@@ -27,6 +27,8 @@ typedef struct waveform_common_t {
 	uint32_t			 t0;		// Start time of the waveform
 	bool				 periodic;	// Whether the waveform should repeat periodically
 	bool				 active;	// Whether the waveform is currently active
+	bool				 paused;	// Whether the waveform is currently paused
+	uint32_t			 pause_t0;	// Time at which the current pause episode started
 } waveform_common_t;
 
 typedef struct waveform_generic_t {
@@ -50,6 +52,17 @@ void Waveform_Init_Space(waveform_space_t *waveform, wave_func_space_t wave_func
 						 const void *ctx, uint32_t duration, bool periodic);
 void Waveform_Restart(waveform_generic_t *waveform);
 bool Waveform_IsActive(waveform_generic_t *waveform);
+/**
+ * Met en pause ou reprend la waveform. Sans effet si l'état demandé est déjà
+ * l'état courant (idempotent). current_time doit être le temps auquel le
+ * changement d'état a lieu :
+ * - pause=true  : gèle la progression de la waveform à cet instant.
+ * - pause=false : reprend la waveform, en décalant son horloge interne du
+ *                 temps total écoulé pendant la pause, pour une continuité
+ *                 exacte de phase (pas de saut visuel).
+ */
+void Waveform_Pause(waveform_generic_t *waveform, bool pause, uint32_t current_time);
+bool Waveform_IsPaused(waveform_generic_t *waveform);
 float Waveform_Play_Scalar(waveform_scalar_t *waveform, uint32_t current_time);
 float3_t Waveform_Play_Space(waveform_space_t *waveform, uint32_t current_time);
 

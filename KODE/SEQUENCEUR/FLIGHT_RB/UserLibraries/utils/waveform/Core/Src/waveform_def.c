@@ -28,14 +28,45 @@ void Waveform_Init_Space(waveform_space_t *waveform, wave_func_space_t wave_func
 void Waveform_Restart(waveform_generic_t *waveform) {
     waveform->common.t0 = 0;
     waveform->common.active = true;
+    waveform->common.paused = false;
+    waveform->common.pause_t0 = 0;
 }
 
 bool Waveform_IsActive(waveform_generic_t *waveform) {
     return waveform->common.active;
 }
 
+void Waveform_Pause(waveform_generic_t *waveform, bool pause, uint32_t current_time) {
+    if (pause == waveform->common.paused) {
+        return; // idempotent
+    }
+    if (pause) {
+        waveform->common.paused = true;
+        waveform->common.pause_t0 = current_time;
+    } else {
+        // Décale t0 du temps total passé en pause, pour que la phase
+        // reprenne exactement où elle s'était arrêtée (pas de saut).
+        // Exception : si la waveform n'a jamais été jouée (t0 encore au
+        // sentinel 0, cf. Waveform_Play), il n'y a rien à décaler ; le
+        // lazy-init au prochain Play fera démarrer la phase à zéro,
+        // ce qui est le comportement voulu pour un event jamais visible.
+        if (waveform->common.t0 != 0) {
+            uint32_t paused_duration = current_time - waveform->common.pause_t0;
+            waveform->common.t0 += paused_duration;
+        }
+        waveform->common.paused = false;
+    }
+}
+
+bool Waveform_IsPaused(waveform_generic_t *waveform) {
+    return waveform->common.paused;
+}
+
 static inline float3_t Waveform_Play(waveform_generic_t *waveform, uint32_t current_time) {
     if (!Waveform_IsActive(waveform)) {
+        return FLOAT3_ZERO;
+    }
+    if (waveform->common.paused) {
         return FLOAT3_ZERO;
     }
     if (waveform->common.t0 == 0) {

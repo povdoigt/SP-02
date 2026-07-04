@@ -16,6 +16,7 @@ set(CMAKE_USER_PROJECT_PATH
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq_stage_2
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_uart
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_infla
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_led_event
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_conn_jack_sepa
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_ihf
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_servo
@@ -40,11 +41,13 @@ set(MX_Include_Dirs
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/drivers/STS/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/drivers/WT901B/Core/Inc
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/actuator/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/circular_buffer/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/data_topic/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/event_uart/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/float3/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/iir_filter/Core/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/led_scheduler/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/quaternion/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/waveform/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/window_time/Core/Inc
@@ -64,11 +67,13 @@ set(MX_Application_Src
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/drivers/STS/Core/Src/STS.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/drivers/WT901B/Core/Src/WT901B.c
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/actuator/Core/Src/actuator.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/circular_buffer/Core/Src/circular_buffer.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/data_topic/Core/Src/data_topic.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/event_uart/Core/Src/event_uart.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/float3/Core/Src/float3.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/iir_filter/Core/Src/iir_filter.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/led_scheduler/Core/Src/led_scheduler.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/quaternion/Core/Src/quaternion_dynamics.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/quaternion/Core/Src/quaternion.c
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserLibraries/utils/waveform/Core/Src/waveform_built_in.c

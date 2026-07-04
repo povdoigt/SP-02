@@ -84,13 +84,11 @@ extern "C" {
  *          positions_deg[] entries.
  */
 typedef struct {
-    float   homing_speed_rpm;           /**< Homing speed (negative = CCW).            */
-    float   homing_calibration_deg;     /**< Angle assigned to the hard-stop.           */
+	float   homing_speed_rpm;           /**< Homing speed (negative = CCW).            */
+	uint8_t homing_calibration_idx;     /**< Index assigned to the hard-stop.           */
 
-    float   positions_deg[ACTUATOR_MAX_POSITIONS]; /**< Nominal positions (deg).  */
-    uint8_t num_positions;              /**< Number of valid entries in positions_deg.  */
-
-    float   angle_margin_deg;           /**< Margin added around min/max for EPROM limits. */
+	float   positions_deg[ACTUATOR_MAX_POSITIONS]; /**< Nominal positions (deg).  */
+	uint8_t num_positions;              /**< Number of valid entries in positions_deg.  */
 } Actuator_Config_t;
 
 
@@ -98,10 +96,10 @@ typedef struct {
  * @brief  Status returned by Actuator_HomingProcess() each tick.
  */
 typedef enum {
-    ACTUATOR_HOMING_IDLE        = 0,    /**< HomingStart() not yet called.                 */
-    ACTUATOR_HOMING_IN_PROGRESS = 1,    /**< Sequence running, call again next tick.       */
-    ACTUATOR_HOMING_DONE        = 2,    /**< Hard-stop reached, servo calibrated.          */
-    ACTUATOR_HOMING_ERROR       = 3,    /**< Communication error; sequence aborted.        */
+	ACTUATOR_HOMING_IDLE        = 0,    /**< HomingStart() not yet called.                 */
+	ACTUATOR_HOMING_IN_PROGRESS = 1,    /**< Sequence running, call again next tick.       */
+	ACTUATOR_HOMING_DONE        = 2,    /**< Hard-stop reached, servo calibrated.          */
+	ACTUATOR_HOMING_ERROR       = 3,    /**< Communication error; sequence aborted.        */
 } Actuator_HomingStatus_t;
 
 
@@ -112,13 +110,13 @@ typedef enum {
  * stack- or statically-allocated without a heap allocation.
  */
 typedef enum {
-    _HOMING_STATE_IDLE       = 0,
-    _HOMING_STATE_START      = 1,   /**< Arm: set speed-control mode + goal speed.    */
-    _HOMING_STATE_MOVING     = 2,   /**< Poll overload flag each tick.                */
-    _HOMING_STATE_SETTLING   = 3,   /**< Brief settle delay after stop detected.      */
-    _HOMING_STATE_CALIBRATE  = 4,   /**< Stop motor, calibrate, switch to pos-ctrl.   */
-    _HOMING_STATE_DONE       = 5,
-    _HOMING_STATE_ERROR      = 6,
+	_HOMING_STATE_IDLE       = 0,
+	_HOMING_STATE_START      = 1,   /**< Arm: set speed-control mode + goal speed.    */
+	_HOMING_STATE_MOVING     = 2,   /**< Poll overload flag each tick.                */
+	_HOMING_STATE_SETTLING   = 3,   /**< Brief settle delay after stop detected.      */
+	_HOMING_STATE_CALIBRATE  = 4,   /**< Stop motor, calibrate, switch to pos-ctrl.   */
+	_HOMING_STATE_DONE       = 5,
+	_HOMING_STATE_ERROR      = 6,
 } _Actuator_HomingState_t;
 
 
@@ -127,14 +125,15 @@ typedef enum {
  *
  * Initialise with Actuator_Init(). Never access fields directly.
  */
-typedef struct {
-    STS_Servo_t                 *servo;         /**< Underlying servo (not owned).     */
-    Actuator_Config_t        config;        /**< Copy of the static config.        */
-    bool                         is_homed;      /**< True after a successful homing.   */
+typedef struct Actuator_t {
+	STS_Servo_t			*servo;         /**< Underlying servo (not owned).     */
+	Actuator_Config_t	 config;        /**< Copy of the static config.        */
+	bool				 is_homed;      /**< True after a successful homing.   */
+	uint8_t				 current_position;
 
-    /* Homing sub-state machine (internal) */
-    _Actuator_HomingState_t  _homing_state;
-    uint32_t                     _homing_settle_tick; /**< HAL_GetTick() at stop detect. */
+	/* Homing sub-state machine (internal) */
+	_Actuator_HomingState_t	_homing_state;
+	uint32_t				_homing_settle_tick; /**< HAL_GetTick() at stop detect. */
 } Actuator_t;
 
 
@@ -161,8 +160,8 @@ typedef struct {
  * @retval HAL_OK on success, HAL_ERROR / HAL_TIMEOUT on servo comm failure.
  */
 HAL_StatusTypeDef Actuator_Init(Actuator_t *act,
-                                    STS_Servo_t *servo,
-                                    const Actuator_Config_t *config);
+								STS_Servo_t *servo,
+								const Actuator_Config_t *config);
 
 
 /* ============================================================
@@ -249,7 +248,7 @@ HAL_StatusTypeDef Actuator_GoToPosition(Actuator_t *act, uint8_t pos_id);
  * @retval HAL_OK on success.
  */
 HAL_StatusTypeDef Actuator_GetCurrentStatus(Actuator_t *act,
-                                                STS_Servo_Current_raw_t *status);
+											STS_Servo_Current_raw_t *status);
 
 
 #ifdef __cplusplus
