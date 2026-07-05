@@ -238,7 +238,7 @@ void setup_stage_1(rocket_state_t *rocket_state) {
 
     setup_servomotors_stage_1(rocket_state);
 
-	first_stage_init_next_phase = FIRST_STAGE_INIT_AF_ZERO; // TODO: NEED TO CHANGE THIS
+	first_stage_init_next_phase = FIRST_STAGE_INIT_WAIT_JACK_READY;
 
     phase_transition_init(&rocket_state->stage_phase_transition, STAGE_PHASE_FLIGHT, (uint8_t*)&first_stage_flight_phase);
 	change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_INITIALISATION);
@@ -341,7 +341,7 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 					Actuator_GoToPosition(&actuator_aerobrake, AF_POS_CLOSED);
 					LedSched_Remove(led_evt_handle);
 
-					first_stage_init_next_phase = FIRST_STAGE_INIT_WAIT_ALL_GOOD; // TODO: NEED TO CHANGE THIS
+					first_stage_init_next_phase = FIRST_STAGE_INIT_PARA_ZERO;
 					first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
 					break;
 				}
@@ -373,7 +373,7 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 					Actuator_GoToPosition(&actuator_hatch1, HATCH1_POS_CLOSED);
 					LedSched_Remove(led_evt_handle);
 
-					first_stage_init_next_phase = FIRST_STAGE_INIT_WAIT_ALL_GOOD;
+					first_stage_init_next_phase = FIRST_STAGE_INIT_SEPA_ZERO;
 					first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
 					break;
 				}
