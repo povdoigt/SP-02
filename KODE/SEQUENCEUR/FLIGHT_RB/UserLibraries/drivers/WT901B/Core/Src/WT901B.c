@@ -10,6 +10,7 @@
  */
 
 #include "WT901B.h"
+#include "data_topic.h"
 #include "stm32f0xx_hal.h"
 #include "usart.h"
 #include "usbd_cdc_if.h"
@@ -82,7 +83,11 @@ WT901B_status_t WT901B_Init(WT901B_t *wt, UART_HandleTypeDef *huart) {
     }
     wt->parse_buffer = uart_buffer->rx_buffer;
 
-	data_topic_init(&wt->data_topic, wt->dt_storage, sizeof(WT901B_Frame_t), WT901B_DATA_TOPIC_LENGTH, CB_OVERWRITE_OLDEST);
+	data_status_t dt_status = data_topic_init(&wt->data_topic, wt->dt_storage, sizeof(WT901B_Frame_t), WT901B_DATA_TOPIC_LENGTH, CB_OVERWRITE_OLDEST);
+    if (dt_status != DT_OK) {
+        wt->last_status = WT901B_ERROR;
+        return WT901B_ERROR;
+    }
 
     return WT901B_OK;
 }
@@ -274,9 +279,9 @@ void __WT901B_Write(WT901B_t *wt, uint8_t reg_addr, uint16_t value) {
 
 void WT901B_Write(WT901B_t *wt, uint8_t reg_addr, uint16_t value) {
     __WT901B_Write(wt, WT901B_REG_KEY, WT901B_UNLOCK_KEY);
-    HAL_Delay(1);
+    HAL_Delay(10);
     __WT901B_Write(wt, reg_addr, value);
-    HAL_Delay(1);
+    HAL_Delay(10);
     __WT901B_Write(wt, WT901B_REG_SAVECONF, 0x0000);
-    HAL_Delay(1);
+    HAL_Delay(10);
 }

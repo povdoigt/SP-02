@@ -12,6 +12,21 @@
 
 
 
+uint8_t uart1_buffer[WT901B_RX_BUFFER_SIZE];
+uint8_t uart2_buffer[STS_SERIAL_BUFFER_SIZE];
+uint8_t uart3_buffer[STS_SERIAL_BUFFER_SIZE];
+uint8_t uart4_buffer[sizeof(event_uart_msg_t)];
+
+
+void setup_uart_buffers() {
+	UART_buffer_init(&huart1, uart1_buffer, sizeof(uart1_buffer));
+	UART_buffer_init(&huart2, uart2_buffer, sizeof(uart2_buffer));
+	UART_buffer_init(&huart3, uart3_buffer, sizeof(uart3_buffer));
+	UART_buffer_init(&huart4, uart4_buffer, sizeof(uart4_buffer));
+}
+
+
+
 
 /* ===================================================
    GPIO MAPPING
@@ -24,8 +39,6 @@ void update_gpio_input_states(GPIO_TypeDef *input_gpio_port[], uint16_t input_gp
 		}
 	}
 }
-
-
 
 
 /* ===================================================
@@ -423,4 +436,63 @@ uint8_t get_prgm(void) {
 		(HAL_GPIO_ReadPin(PRGM2_GPIO_Port, PRGM2_Pin) == GPIO_PIN_SET ? 1 : 0) << 2 |
 		(HAL_GPIO_ReadPin(PRGM3_GPIO_Port, PRGM3_Pin) == GPIO_PIN_SET ? 1 : 0) << 3
 	);
+}
+
+ground_func_state_t __ground_func_homming(rocket_state_t *rocket_state, Actuator_t *act) {
+	(void)rocket_state;
+	static led_evt_handle_t led_evt_handle = LED_SCHED_HANDLE_INVALID;
+	static bool homing_started = false;
+	if (!homing_started) {
+		Actuator_HomingStart(act);
+		led_evt_handle = LedSched_Add(&waveform_wait_actuator, 0, false, 0, LED_SCHED_NO_FORCE);
+		homing_started = true;
+	}
+	switch (Actuator_HomingProcess(act)) {
+		case ACTUATOR_HOMING_IDLE:
+		case ACTUATOR_HOMING_IN_PROGRESS: {
+			break;
+		}
+		case ACTUATOR_HOMING_DONE:
+		case ACTUATOR_HOMING_ERROR:
+		default: {
+			LedSched_Remove(led_evt_handle);
+			homing_started = false;
+			return GROUND_FUNC_STATE_DONE;
+		}
+	}
+	return GROUND_FUNC_STATE_RUNNING;
+}
+
+ground_func_state_t __ground_func_play_actuator(rocket_state_t *rocket_state, Actuator_t *act, ground_func_play_actuator_direction_t *direction) {
+	(void)rocket_state;
+	if (!act->is_homed || act->config.num_positions == 0) {
+		LedSched_Add(&waveform_error, 1, false, 0, LED_SCHED_NO_FORCE);
+		return GROUND_FUNC_STATE_DONE;
+	}
+	if (act->config.num_positions == 1) {
+		*direction = DIR_NONE;
+	} else if (act->current_position == 0) {
+		*direction = DIR_FORWARD;
+	} else if (act->current_position == act->config.num_positions - 1) {
+		*direction = DIR_BACKWARD;
+	}
+
+	uint8_t pos_id = act->current_position;
+	switch (*direction) {
+		case DIR_NONE: {
+			// Do nothing
+			break;
+		}
+		case DIR_FORWARD: { 
+			pos_id++;
+			break;
+		}
+		case DIR_BACKWARD: {
+			pos_id--;
+			break;
+		}
+	}
+
+	Actuator_GoToPosition(act, pos_id);
+	return GROUND_FUNC_STATE_DONE;
 }

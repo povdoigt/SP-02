@@ -40,14 +40,13 @@ void setup() {
 	LED_Init(&led_rgb2.red  , &htim3, TIM_CHANNEL_1);
 	LED_Init(&led_rgb2.green, &htim3, TIM_CHANNEL_2);
 	LED_Init(&led_rgb2.blue , &htim3, TIM_CHANNEL_3);
-
 	LED_RGB_SetColor(&led_rgb2, FLOAT3_ZERO);
 
 	rocket_state_init(&rocket_state, &led_rgb2);
+
 	LedSched_Init();
 	led_states_init();
-	current_stage_phase_type = STAGE_PHASE_STAGE_GROUND_FUNC;
-
+	setup_uart_buffers();
 	event_uart_producer_init(&event_uart_producer, TX_OPTO_N1_GPIO_Port, TX_OPTO_N1_Pin, &huart4);
 
 	// Looking for which stage we are
@@ -91,6 +90,8 @@ void setup() {
 		Error_Handler();
 	}
 
+	current_stage_phase_type = STAGE_PHASE_GROUND_FUNC;
+
 	waiting_button_init(&waiting_button, false);
 
 	switch (rocket_state.stage) {
@@ -120,12 +121,12 @@ void loop() {
 
 
 	switch (current_stage_phase_type) {
-		case STAGE_PHASE_STAGE_GROUND_FUNC: {
+		case STAGE_PHASE_GROUND_FUNC: {
 			if (current_ground_func_id == GROUND_FUNC_NONE) {
 				if (waiting_button_play(&waiting_button, true)) {
 					uint8_t prgm = get_prgm();
 					if (prgm == 0x00) {
-						current_stage_phase_type = STAGE_PHASE_STAGE_INIT;
+						current_stage_phase_type = STAGE_PHASE_INIT;
 						LedSched_Clear();
 						LedSched_Add(&waveform_prgm0_start, 1, false, 1000, LED_SCHED_NO_FORCE);
 					} else if (prgm <= GROUND_FUNC_MAX_ID) {
@@ -141,8 +142,8 @@ void loop() {
 			}
 			break;
 		}
-		case STAGE_PHASE_STAGE_INIT:
-		case STAGE_PHASE_STAGE_FLIGHT: {
+		case STAGE_PHASE_INIT:
+		case STAGE_PHASE_FLIGHT: {
 			switch (rocket_state.stage) {
 				case ROCKET_FIRST_STAGE: {
 					loop_stage_1(&rocket_state);

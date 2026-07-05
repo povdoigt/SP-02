@@ -4,8 +4,6 @@
 #include "quaternion.h"
 
 typedef struct rocket_attitude_dynamics_t {
-	float3_t init_g; /* initial gravity vector in body frame */
-	
 	quatf_t q_init; /* quaternion attitude before launch (Body -> Earth) */
 	quatf_t q; /* attitude quaternion (Body -> Earth) */
 	float elevation_deg; /* elevation angle in degrees (0 = horizontal, 90 = vertical) */

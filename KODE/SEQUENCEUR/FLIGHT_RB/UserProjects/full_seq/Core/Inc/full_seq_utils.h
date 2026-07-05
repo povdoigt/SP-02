@@ -4,17 +4,16 @@
 #include "main.h"
 
 #include "led.h"
-#include "led_scheduler.h"
+#include "STS.h"
+#include "WT901B.h"
 
+#include "actuator.h"
+#include "event_uart.h"
+#include "led_scheduler.h"
 #include "float3.h"
 #include "quaternion.h"
-#include "stm32f072xb.h"
-#include "stm32f0xx_hal_gpio.h"
 #include "waveform.h"
-#include "waveform_built_in.h"
-#include "waveform_def.h"
-#include "waveform_scalar_arithmetic.h"
-#include "waveform_space_arithmetic.h"
+
 #include <stdint.h>
 
 
@@ -75,12 +74,25 @@ void update_gpio_input_states(GPIO_TypeDef *input_gpio_port[], uint16_t input_gp
 #define DEG_TO_RAD (M_PI / 180.0f)
 #define RAD_TO_DEG (180.0f / M_PI)
 
-#define WT901B_FREQUENCY_HZ 100 /* Fréquence de lecture des données du WT901B, à ajuster selon la configuration du capteur */
+#define WT901B_FREQUENCY_HZ 20 /* Fréquence de lecture des données du WT901B, à ajuster selon la configuration du capteur */
 #define WT901B_PERIOD_S (1.0f / WT901B_FREQUENCY_HZ)
 
 #define ATTITUDE_ELEVATION_GOAL_DEG 72 /* Objectif d'angle d'élévation pour le second étage, à ajuster selon la trajectoire souhaitée */
 #define ATTITUDE_AZIMUTH_GOAL_DEG 0 /* Objectif d'angle d'azimut pour le second étage, à ajuster selon la trajectoire souhaitée */
 
+
+#define ATIITUDE_ELEVATION_OVER_TIME_COEF0	-0.0002f	// rad / s^3
+#define ATTITUDE_ELEVATION_OVER_TIME_COEF1	+0.0013f	// rad / s^2
+#define ATTITUDE_ELEVATION_OVER_TIME_COEF2	-0.0153f	// rad / s
+#define ATTITUDE_ELEVATION_OVER_TIME_COEF3	+1.3783f	// rad
+
+
+extern uint8_t uart1_buffer[WT901B_RX_BUFFER_SIZE];
+extern uint8_t uart2_buffer[STS_SERIAL_BUFFER_SIZE];
+extern uint8_t uart3_buffer[STS_SERIAL_BUFFER_SIZE];
+extern uint8_t uart4_buffer[sizeof(event_uart_msg_t)];
+
+void setup_uart_buffers();
 
 
 /* ===================================================
@@ -88,9 +100,9 @@ void update_gpio_input_states(GPIO_TypeDef *input_gpio_port[], uint16_t input_gp
    =================================================== */
 
 typedef enum stage_phase_type_t {
-	STAGE_PHASE_STAGE_GROUND_FUNC,
-	STAGE_PHASE_STAGE_INIT,
-	STAGE_PHASE_STAGE_FLIGHT,
+	STAGE_PHASE_GROUND_FUNC,
+	STAGE_PHASE_INIT,
+	STAGE_PHASE_FLIGHT,
 } stage_phase_type_t;
 
 typedef struct stage_phase_transition_t {
@@ -109,14 +121,12 @@ void change_state_and_notify(stage_phase_transition_t *transition, uint8_t new_s
    =================================================== */
 
 typedef struct rocket_dynamics_t {
-	float3_t v_up_body; /* direction of the rocket’s “up” axis in body frame */
-	float initial_elevation_deg; /* initial elevation angle in degrees (0 = horizontal, 90 = vertical) */
-	
+	quatf_t q_init; /* quaternion attitude before launch (Body -> Earth) */
 	quatf_t q; /* attitude quaternion (Body -> Earth) */
+	float3_t accel_g; /* acceleration vector in body frame, in g */
+
 	float elevation_deg; /* elevation angle in degrees (0 = horizontal, 90 = vertical) */
 	float azimuth_deg; /* azimuth angle in degrees (0 = forward, 90 = right) */
-
-	float3_t accel_g; /* acceleration vector in body frame, in g */
 	float pressure_variation_pa_s; /* pressure variation in Pa/s */
 } rocket_dynamics_t;
 
@@ -235,5 +245,14 @@ typedef enum ground_func_state_t {
 typedef ground_func_state_t(*ground_func_t)(rocket_state_t *rocket_state);
 
 uint8_t get_prgm(void);
+
+typedef enum ground_func_play_actuator_direction_t {
+	DIR_NONE = 0,
+	DIR_FORWARD,
+	DIR_BACKWARD
+} ground_func_play_actuator_direction_t;
+
+ground_func_state_t __ground_func_homming(rocket_state_t *rocket_state, Actuator_t *act);
+ground_func_state_t __ground_func_play_actuator(rocket_state_t *rocket_state, Actuator_t *act, ground_func_play_actuator_direction_t *direction);
 
 #endif // FULL_SEQ_UTILS_H

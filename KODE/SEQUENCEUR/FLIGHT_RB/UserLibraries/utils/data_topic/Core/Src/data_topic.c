@@ -1,4 +1,5 @@
 #include "data_topic.h"
+#include "circular_buffer.h"
 
 #include <stdint.h>
 #include <string.h>
@@ -32,17 +33,21 @@ static inline void dt_unlock(data_topic_t *dt) {
  *   Topic : initialisation et publication
  * -------------------------------------------------------------------------- */
 
-void data_topic_init(data_topic_t *topic,
+data_status_t data_topic_init(data_topic_t *topic,
                      void *storage, size_t elem_size, size_t capacity,
                      cb_overflow_policy_t policy) {
-    if (!topic) return;
+    if (!topic) return DT_BAD_ARG;
 
-    cb_init(&(topic->cb), storage, elem_size, capacity, policy);
+    cb_status_t cb_init_status = cb_init(&(topic->cb), storage, elem_size, capacity, policy);
+    if (cb_init_status != CB_OK) return DT_BAD_ARG;
+
     dt_lock(topic);
     topic->pub_seq = 0u;
     topic->sub_count = 0u;
     topic->subs = NULL;
     dt_unlock(topic);
+
+    return DT_OK;
 }
 
 void data_topic_free(data_topic_t *topic) {

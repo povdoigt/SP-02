@@ -84,9 +84,9 @@ typedef struct data_sub_t data_sub_t;
  * @param capacity  Nombre maximal d’éléments.
  * @param policy    Politique de dépassement (voir cb_overflow_policy_t).
  */
-void data_topic_init(data_topic_t *topic,
-                     void *storage, size_t elem_size, size_t capacity,
-                     cb_overflow_policy_t policy);
+data_status_t data_topic_init(data_topic_t *topic,
+                              void *storage, size_t elem_size, size_t capacity,
+                              cb_overflow_policy_t policy);
 
 void data_topic_free(data_topic_t *topic);
 

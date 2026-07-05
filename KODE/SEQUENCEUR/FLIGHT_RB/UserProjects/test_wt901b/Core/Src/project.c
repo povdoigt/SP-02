@@ -83,7 +83,6 @@ void setup_attitude(void) {
 }
 
 void compute_elevation_azimut(void) {
-
 	if (!is_launch_confirmed) {
 		attitude.q_init = attitude.q;
 	}

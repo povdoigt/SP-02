@@ -39,7 +39,7 @@ void setup_stage_2(rocket_state_t *rocket_state);
 
 void setup_servomotors_stage_2(rocket_state_t *rocket_state);
 void setup_data_acquisition_stage_2(rocket_state_t *rocket_state);
-void setup_attitude_stage_2(rocket_state_t *rocket_state);
+void setup_iir_filters_stage_2(void);
 
 
 
@@ -69,12 +69,14 @@ void on_new_pressure_frame(rocket_state_t *rocket_state, data_sub_t *sub);
    =================================================== */
 
 typedef enum second_stage_initialisation_phase_t {
+	SECOND_STAGE_INIT_WAIT_JACK_READY,
+
 	SECOND_STAGE_INIT_PARA_ZERO,
-	SECOND_STAGE_INIT_WAIT_PARA_ZERO,
-	SECOND_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION,
-	SECOND_STAGE_INIT_WAIT_STAGE_ASSEMBLY_CONFIRMATION_STABLE,
-	SECOND_STAGE_INIT_WAIT_JACK,
-	SECOND_STAGE_INIT_WAIT_JACK_STABLE,
+
+	SECOND_STAGE_INIT_WAIT_ALL_GOOD,
+	SECOND_STAGE_INIT_WAIT_ALL_GOOD_STABLE,
+
+	SECOND_STAGE_INIT_WAIT_BUTTON
 } second_stage_initialisation_phase_t;
 
 typedef enum second_stage_flight_phase_t {
