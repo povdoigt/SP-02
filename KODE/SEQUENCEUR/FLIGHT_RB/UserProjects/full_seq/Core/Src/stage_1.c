@@ -239,11 +239,12 @@ void setup_stage_1(rocket_state_t *rocket_state) {
     setup_servomotors_stage_1(rocket_state);
 
 	first_stage_init_next_phase = FIRST_STAGE_INIT_WAIT_JACK_READY;
+	first_stage_init_phase = FIRST_STAGE_INIT_IDLE;
 
     phase_transition_init(&rocket_state->stage_phase_transition, STAGE_PHASE_FLIGHT, (uint8_t*)&first_stage_flight_phase);
 	change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_INITIALISATION);
 	phase_transition_init(&rocket_state->stage_phase_transition, STAGE_PHASE_INIT, (uint8_t*)&first_stage_init_phase);
-	first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
+	change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_BUTTON);
 }
 
 void loop_stage_1(rocket_state_t *rocket_state) {
@@ -302,6 +303,7 @@ error:
 
 void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 	switch (first_stage_init_phase) {
+		case FIRST_STAGE_INIT_IDLE: { break; }
 		case FIRST_STAGE_INIT_WAIT_JACK_READY: {
 			static led_evt_handle_t led_evt_handle = LED_SCHED_HANDLE_INVALID;
 			if (rocket_state->input_gpio_states[JACK_READY] == GPIO_PIN_SET) {
@@ -327,7 +329,6 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 			switch (Actuator_HomingProcess(&actuator_aerobrake)) {
 				case ACTUATOR_HOMING_IDLE: {
 					Actuator_HomingStart(&actuator_aerobrake);
-					led_evt_handle = LedSched_Add(&waveform_wait_actuator, 0, false, 0, LED_SCHED_NO_FORCE);
 				}
 				case ACTUATOR_HOMING_IN_PROGRESS: {
 					break;
@@ -342,7 +343,8 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 					LedSched_Remove(led_evt_handle);
 
 					first_stage_init_next_phase = FIRST_STAGE_INIT_PARA_ZERO;
-					first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
+					change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_BUTTON);
+					homing_started = false;
 					break;
 				}
 			}
@@ -359,7 +361,6 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 			switch (Actuator_HomingProcess(&actuator_hatch1)) {
 				case ACTUATOR_HOMING_IDLE: {
 					Actuator_HomingStart(&actuator_hatch1);
-					led_evt_handle = LedSched_Add(&waveform_wait_actuator, 0, false, 0, LED_SCHED_NO_FORCE);
 				}
 				case ACTUATOR_HOMING_IN_PROGRESS: {
 					break;
@@ -374,7 +375,8 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 					LedSched_Remove(led_evt_handle);
 
 					first_stage_init_next_phase = FIRST_STAGE_INIT_SEPA_ZERO;
-					first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
+					change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_BUTTON);
+					homing_started = false;
 					break;
 				}
 			}
@@ -391,7 +393,6 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 			switch (Actuator_HomingProcess(&actuator_separation)) {
 				case ACTUATOR_HOMING_IDLE: {
 					Actuator_HomingStart(&actuator_separation);
-					led_evt_handle = LedSched_Add(&waveform_wait_actuator, 0, false, 0, LED_SCHED_NO_FORCE);
 				}
 				case ACTUATOR_HOMING_IN_PROGRESS: {
 					break;
@@ -405,6 +406,7 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 					Actuator_GoToPosition(&actuator_separation, SEPA_POS_UNLOCKED);
 					LedSched_Remove(led_evt_handle);
 					change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_ALL_GOOD);
+					homing_started = false;
 					break;
 				}
 			}
@@ -494,6 +496,7 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 					t0_init = HAL_GetTick();
 					LedSched_Remove(jack_ready_led_evt_handle);
 					change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_WAIT_ALL_GOOD_STABLE);
+					sepa_assembly_phase = SEPA_ASSEMBLY_UNLOCK_STAGE; // Reset sepa_assembly_phase if we're go back in later
 				} else {
 					if (!LedSched_IsHandleValid(jack_ready_led_evt_handle)) {
 						jack_ready_led_evt_handle = LedSched_Add(&waveform_wait_jack_ready, 0, false, 0, LED_SCHED_NO_FORCE);
@@ -507,6 +510,7 @@ void first_stage_init_state_machine(rocket_state_t *rocket_state) {
 				t0_init = HAL_GetTick();
 				Actuator_GoToPosition(&actuator_separation, SEPA_POS_UNLOCKED);
 				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_INIT_UNLOCK_STAGE_COMMAND);
+				sepa_assembly_phase = SEPA_ASSEMBLY_UNLOCK_STAGE; // Reset sepa_assembly_phase if we're go back in later
 			}
 
 			break;
@@ -580,7 +584,6 @@ void first_stage_flight_state_machine(rocket_state_t *rocket_state) {
 		case FIRST_STAGE_FLIGHT_WAIT_BURN_END: {
 			// Besoin de le garder ???
 			if (HAL_GetTick() - rocket_state->t_launch > T_ALPHA_BETA_0) {
-				first_stage_flight_phase = FIRST_STAGE_FLIGHT_SEPARATION;
 				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_SEPARATION);
 			}
 			break;
@@ -601,7 +604,7 @@ void first_stage_flight_state_machine(rocket_state_t *rocket_state) {
 					break;
 				}
 				case WINDOW_TIME_STATE_ACTIVE: {
-					if (HAL_GPIO_ReadPin(IN_TRG_N2_GPIO_Port, IN_TRG_N2_Pin) == GPIO_PIN_RESET) {
+					if (rocket_state->input_gpio_states[SEPARATION] == GPIO_PIN_RESET) {
 
 						LedSched_Add(&waveform_flash_blue, 1, false, 0, LED_SCHED_HARD_FORCE);
 
@@ -639,7 +642,7 @@ void first_stage_flight_state_machine(rocket_state_t *rocket_state) {
 					break;
 				}
 				case WINDOW_TIME_STATE_ACTIVE: {
-					if (rocket_state->dynamics.pressure_variation_pa_s < 5.0f) { // If we are near apogee (low pressure variation), confirm apogee
+					if (rocket_state->dynamics.pressure_variation_pa_s > 0.0f) { // If we are near apogee, variation of pressure should be positive (going down)
 						// Apogee confirmed
 						event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(
 							HAL_GetTick(), EVENT_UART_TYPE_WINDOW_TIME, (event_uart_payload_u){ .window_time_payload = {

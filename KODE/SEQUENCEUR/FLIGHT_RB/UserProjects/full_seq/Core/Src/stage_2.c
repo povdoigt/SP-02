@@ -7,17 +7,22 @@
 #include "WT901B.h"
 
 #include "actuator.h"
+#include "main.h"
 #include "quaternion_dynamics.h"
 #include "data_topic.h"
 #include "event_uart.h"
 #include "iir_filter.h"
 #include "led_scheduler.h"
 #include "stm32f0xx_hal.h"
+#include "stm32f0xx_hal_gpio.h"
 #include "usbd_cdc_if.h"
 #include "waveform.h"
+#include "waveform_built_in.h"
+#include "waveform_space_arithmetic.h"
 #include "window_time.h"
 
 #include <math.h>
+#include <stdbool.h>
 #include <stdint.h>
 
 
@@ -110,7 +115,7 @@ static const Actuator_Config_t config_hatch2 = {
         [HATCH2_POS_OPEN]    =  30.0f,
     },
 };
- 
+
 
 /* ============================================================
    Actuator instances
@@ -119,6 +124,11 @@ static const Actuator_Config_t config_hatch2 = {
 static Actuator_t actuator_hatch2;      /* servo2 */
 
 
+
+
+/* ============================================================
+   Filtering and sensor data processing
+   ============================================================ */
 
 static float b_coef[5]; // Moving average filter coefficients
 
@@ -147,8 +157,152 @@ ground_func_state_t ground_func_2_stage_2(rocket_state_t *rocket_state) {
 }
 
 ground_func_state_t ground_func_3_stage_2(rocket_state_t *rocket_state) {
-	(void)rocket_state;
-	return GROUND_FUNC_STATE_DONE;
+	static bool init = false;
+
+	static waveform_space_t waveform_prgm_3_red;
+	static waveform_space_t waveform_prgm_3_green;
+	static waveform_space_t waveform_prgm_3_blue;
+
+	static const waveform_gate_t waveform_prgm_3_gate_ctx = {
+		.start = 0.0f,
+		.end = 1.0f
+	};
+
+	static const waveform_space_mult_const_t waveform_prgm_3_red_ctx = {
+		.wave_function_mult = waveform_gate,
+		.ctx_mult = &waveform_prgm_3_gate_ctx,
+		.factor = FLOAT3_UNIT_X // red
+	};
+
+	static const waveform_space_mult_const_t waveform_prgm_3_green_ctx = {
+		.wave_function_mult = waveform_gate,
+		.ctx_mult = &waveform_prgm_3_gate_ctx,
+		.factor = FLOAT3_UNIT_Y // green
+	};
+
+	static const waveform_space_mult_const_t waveform_prgm_3_blue_ctx = {
+		.wave_function_mult = waveform_gate,
+		.ctx_mult = &waveform_prgm_3_gate_ctx,
+		.factor = FLOAT3_UNIT_Z // blue
+	};
+
+	static led_evt_handle_t led_evt_handle_red;
+	static led_evt_handle_t led_evt_handle_green;
+	static led_evt_handle_t led_evt_handle_blue;
+	static led_evt_handle_t led_evt_handle_accel;
+	static led_evt_handle_t led_evt_handle_exit;
+
+	static uint32_t t0;
+	static bool pressed;
+	static bool long_press_detected;
+
+	static bool on_gyro;
+
+	if (!init) {
+		Waveform_Init_Space(&waveform_prgm_3_red, waveform_space_mult_const, &waveform_prgm_3_red_ctx, 2, true);
+		Waveform_Init_Space(&waveform_prgm_3_green, waveform_space_mult_const, &waveform_prgm_3_green_ctx, 2, true);
+		Waveform_Init_Space(&waveform_prgm_3_blue, waveform_space_mult_const, &waveform_prgm_3_blue_ctx, 2, true);
+
+		led_evt_handle_red = LED_SCHED_HANDLE_INVALID;
+		led_evt_handle_green = LED_SCHED_HANDLE_INVALID;
+		led_evt_handle_blue = LED_SCHED_HANDLE_INVALID;
+		led_evt_handle_accel = LED_SCHED_HANDLE_INVALID;
+		led_evt_handle_exit = LED_SCHED_HANDLE_INVALID;
+
+		pressed = false;
+		long_press_detected = false;
+
+		on_gyro = false;
+
+		init = true;
+	}
+
+	if (HAL_GPIO_ReadPin(PRGM_RUN_GPIO_Port, PRGM_RUN_Pin) == GPIO_PIN_SET) {
+		if (!pressed) {
+			pressed = true;
+			t0 = HAL_GetTick();
+		} else if (HAL_GetTick() - t0 > 3000) {
+			LedSched_Remove(led_evt_handle_red);
+			LedSched_Remove(led_evt_handle_green);
+			LedSched_Remove(led_evt_handle_blue);
+			LedSched_Remove(led_evt_handle_accel);
+			if (!LedSched_IsHandleValid(led_evt_handle_exit)) {
+				led_evt_handle_exit = LedSched_Add(&waveform_2nd_burn, 1, false, 0, LED_SCHED_NO_FORCE);
+			}
+			long_press_detected = true;
+			return GROUND_FUNC_STATE_RUNNING; // loop until button released
+		}
+	} else if (pressed) {
+		if (long_press_detected) {
+			LedSched_Remove(led_evt_handle_exit);
+			init = false;
+			return GROUND_FUNC_STATE_DONE;
+		}
+		pressed = false;
+		on_gyro = !on_gyro;
+	}
+
+    WT901B_Parse_Frames(&wt901b);
+	on_new_accel_frame(rocket_state, &accel_sub);
+	on_new_gyro_frame(rocket_state, &gyro_sub);
+	compute_elevation_azimut(rocket_state);
+
+	uint8_t buffer[256];
+
+	float3_t x_basis = quatf_rotate_vector(rocket_state->dynamics.q, FLOAT3_UNIT_X);
+	float3_t y_basis = quatf_rotate_vector(rocket_state->dynamics.q, FLOAT3_UNIT_Y);
+	float3_t z_basis = quatf_rotate_vector(rocket_state->dynamics.q, FLOAT3_UNIT_Z);	
+
+	snprintf((char*)buffer, sizeof(buffer), "%03.2f,%03.2f,%03.2f %03.2f,%03.2f,%03.2f %03.2f,%03.2f,%03.2f\r\n",
+		z_basis.x, z_basis.y, z_basis.z,
+		x_basis.x, x_basis.y, x_basis.z,
+		y_basis.x, y_basis.y, y_basis.z
+	);
+
+	CDC_Transmit_FS(buffer, strlen((char *)buffer));
+
+	float delta_elev = fabsf(rocket_state->dynamics.elevation_deg - 70.0f);
+	float delta_azim = fabsf(rocket_state->dynamics.azimuth_deg - 0.0f);
+
+	bool is_elev_ok = delta_elev <= 10.0f;
+	bool is_azim_ok = delta_azim <= 45.0f;
+
+	if (on_gyro) {
+		LedSched_Remove(led_evt_handle_accel);
+		if (is_elev_ok && is_azim_ok) {
+			// Green
+			LedSched_Remove(led_evt_handle_red);
+			LedSched_Remove(led_evt_handle_blue);
+			if (!LedSched_IsHandleValid(led_evt_handle_green)) {
+				led_evt_handle_green = LedSched_Add(&waveform_prgm_3_green, 1, false, 0, LED_SCHED_NO_FORCE);
+			}
+		} else if (is_elev_ok || is_azim_ok) {
+			// Blue
+			LedSched_Remove(led_evt_handle_red);
+			LedSched_Remove(led_evt_handle_green);
+			if (!LedSched_IsHandleValid(led_evt_handle_blue)) {
+				led_evt_handle_blue = LedSched_Add(&waveform_prgm_3_blue, 1, false, 0, LED_SCHED_NO_FORCE);
+			}
+		} else {
+			// Red
+			LedSched_Remove(led_evt_handle_green);
+			LedSched_Remove(led_evt_handle_blue);
+			if (!LedSched_IsHandleValid(led_evt_handle_red)) {
+				led_evt_handle_red = LedSched_Add(&waveform_prgm_3_red, 1, false, 0, LED_SCHED_NO_FORCE);
+			}
+		}
+	} else {
+		LedSched_Remove(led_evt_handle_red);
+		LedSched_Remove(led_evt_handle_green);
+		LedSched_Remove(led_evt_handle_blue);
+		if (!LedSched_IsHandleValid(led_evt_handle_accel)) {
+			led_evt_handle_accel = LedSched_Add(&waveform_wait_actuator, 1, false, 0, LED_SCHED_NO_FORCE);
+		}
+	}
+
+	rocket_state->is_launch_confirmed = on_gyro;
+
+	return GROUND_FUNC_STATE_RUNNING;
 }
 
 ground_func_state_t ground_func_4_stage_2(rocket_state_t *rocket_state) {
@@ -239,22 +393,6 @@ static float get_beta_target_deg_over_time(const window_time_t * const window_ti
 }
 
 
-void compute_elevation_azimut(rocket_state_t *rocket_state) {
-	if (!rocket_state->is_launch_confirmed) {
-		rocket_state->dynamics.q = quatf_from_2_vec3(rocket_state->dynamics.accel_g, FLOAT3_UNIT_Z);
-		rocket_state->dynamics.q_init = rocket_state->dynamics.q;
-	}
-
-	float3_t v_up_body_earth_init = float3_normalized(quatf_rotate_vector(rocket_state->dynamics.q_init, FLOAT3_UNIT_Y));
-	float3_t v_up_body_earth = float3_normalized(quatf_rotate_vector(rocket_state->dynamics.q, FLOAT3_UNIT_Y));
-	rocket_state->dynamics.elevation_deg = 90 - acosf(v_up_body_earth.z) * RAD_TO_DEG;
-
-	float3_t v_up_body_earth_init_proj = float3_normalized(float3_sub(v_up_body_earth_init, float3_scale(FLOAT3_UNIT_Z, v_up_body_earth_init.z)));
-	float3_t v_up_body_earth_proj = float3_normalized(float3_sub(v_up_body_earth, float3_scale(FLOAT3_UNIT_Z, v_up_body_earth.z)));
-	rocket_state->dynamics.azimuth_deg = acosf(float3_dot(v_up_body_earth_init_proj, v_up_body_earth_proj)) * RAD_TO_DEG;
-}
-
-
 
 
 
@@ -285,11 +423,12 @@ void setup_stage_2(rocket_state_t *rocket_state) {
 	setup_iir_filters_stage_2();
 
     second_stage_init_next_phase = SECOND_STAGE_INIT_WAIT_JACK_READY;
+	second_stage_init_phase = SECOND_STAGE_INIT_IDLE;
 
-    phase_transition_init(&rocket_state->stage_phase_transition, STAGE_PHASE_FLIGHT, (uint8_t*)&second_stage_init_phase);
+    phase_transition_init(&rocket_state->stage_phase_transition, STAGE_PHASE_FLIGHT, (uint8_t*)&second_stage_flight_phase);
 	change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_FLIGHT_INITIALISATION);
 	phase_transition_init(&rocket_state->stage_phase_transition, STAGE_PHASE_INIT, (uint8_t*)&second_stage_init_phase);
-	second_stage_init_phase = SECOND_STAGE_INIT_WAIT_BUTTON;
+	change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_INIT_WAIT_BUTTON);
 }
 
 void loop_stage_2(rocket_state_t *rocket_state) {
@@ -314,10 +453,10 @@ void loop_stage_2(rocket_state_t *rocket_state) {
 void setup_servomotors_stage_2(rocket_state_t *rocket_state) {
 	HAL_StatusTypeDef res;
 
-	res = STS_UART_Port_Init(&huart_sts_port2, &huart3);
+	res = STS_UART_Port_Init(&huart_sts_port1, &huart2); // TODO: NEED TO BE CHANGED
 	if (res != HAL_OK) { goto error; }
 
-	res = STS_Servo_Init(&servo4, &huart_sts_port2, 4);
+	res = STS_Servo_Init(&servo4, &huart_sts_port1, 2); // TODO: NEED TO BE CHANGED
 	if (res != HAL_OK) { goto error; }
 
     /* Actuator_Init() writes CW/CCW EPROM limits derived from each config */
@@ -407,6 +546,7 @@ void on_new_gyro_frame(rocket_state_t *rocket_state, data_sub_t *sub) {
 }
 
 void on_new_pressure_frame(rocket_state_t *rocket_state, data_sub_t *sub) {
+	// TODO: NEED TO BE TESTED
 	if (data_sub_num_to_read(sub) > 0) {
 		WT901B_Frame_t frame;
 		data_sub_read(sub, &frame);
@@ -423,6 +563,23 @@ void on_new_pressure_frame(rocket_state_t *rocket_state, data_sub_t *sub) {
 }
 
 
+void compute_elevation_azimut(rocket_state_t *rocket_state) {
+	if (!rocket_state->is_launch_confirmed) {
+		rocket_state->dynamics.q = quatf_from_2_vec3(rocket_state->dynamics.accel_g, FLOAT3_UNIT_Z);
+		rocket_state->dynamics.q_init = rocket_state->dynamics.q;
+	}
+
+	float3_t v_up_body_earth_init = float3_normalized(quatf_rotate_vector(rocket_state->dynamics.q_init, FLOAT3_UNIT_Y));
+	float3_t v_up_body_earth = float3_normalized(quatf_rotate_vector(rocket_state->dynamics.q, FLOAT3_UNIT_Y));
+	rocket_state->dynamics.elevation_deg = 90 - acosf(v_up_body_earth.z) * RAD_TO_DEG;
+
+	float3_t v_up_body_earth_init_proj = float3_normalized(float3_sub(v_up_body_earth_init, float3_scale(FLOAT3_UNIT_Z, v_up_body_earth_init.z)));
+	float3_t v_up_body_earth_proj = float3_normalized(float3_sub(v_up_body_earth, float3_scale(FLOAT3_UNIT_Z, v_up_body_earth.z)));
+	float dot_product = float3_dot(v_up_body_earth_init_proj, v_up_body_earth_proj);
+	rocket_state->dynamics.azimuth_deg = acosf(fminf(fmaxf(dot_product, -1.0f), 1.0f)) * RAD_TO_DEG;
+}
+
+
 
 
 /* ===================================================
@@ -431,6 +588,7 @@ void on_new_pressure_frame(rocket_state_t *rocket_state, data_sub_t *sub) {
 
 void second_stage_init_state_machine(rocket_state_t *rocket_state) {
 	switch (second_stage_init_phase) {
+		case FIRST_STAGE_INIT_IDLE: { break; }
 		case SECOND_STAGE_INIT_WAIT_JACK_READY: {
 			static led_evt_handle_t led_evt_handle = LED_SCHED_HANDLE_INVALID;
 			if (rocket_state->input_gpio_states[JACK_READY] == GPIO_PIN_SET) {
@@ -456,7 +614,6 @@ void second_stage_init_state_machine(rocket_state_t *rocket_state) {
 			switch (Actuator_HomingProcess(&actuator_hatch2)) {
 				case ACTUATOR_HOMING_IDLE: {
 					Actuator_HomingStart(&actuator_hatch2);
-					led_evt_handle = LedSched_Add(&waveform_wait_actuator, 0, false, 0, LED_SCHED_NO_FORCE);
 				}
 				case ACTUATOR_HOMING_IN_PROGRESS: {
 					break;
@@ -471,7 +628,8 @@ void second_stage_init_state_machine(rocket_state_t *rocket_state) {
 					LedSched_Remove(led_evt_handle);
 
 					second_stage_init_next_phase = SECOND_STAGE_INIT_WAIT_ALL_GOOD;
-					second_stage_init_phase = SECOND_STAGE_INIT_WAIT_BUTTON;
+					change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_INIT_WAIT_BUTTON);
+					homing_started = false;
 					break;
 				}
 			}
@@ -688,8 +846,10 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 						}}
 					));
 					change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION);
+					break;
 				}
 			}
+			break;
 		}
 		case SECOND_STAGE_FLIGHT_WAIT_APOGEE_CONFIRMATION: {
 			switch (window_time_get_state(&window_time_beta_apogee, HAL_GetTick() - rocket_state->t_launch)) {
@@ -698,7 +858,7 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 					break;
 				}
 				case WINDOW_TIME_STATE_ACTIVE: {
-					if (rocket_state->dynamics.pressure_variation_pa_s < 5.0f) { // If we are near apogee (low pressure variation), confirm apogee
+					if (rocket_state->dynamics.pressure_variation_pa_s > 0.0f) { // If we are near apogee, variation of pressure should be positive (going down)
 						// Apogee confirmed
 						event_uart_producer_add_event(&event_uart_producer, event_uart_msg_format(
 							HAL_GetTick(), EVENT_UART_TYPE_WINDOW_TIME, (event_uart_payload_u){ .window_time_payload = {

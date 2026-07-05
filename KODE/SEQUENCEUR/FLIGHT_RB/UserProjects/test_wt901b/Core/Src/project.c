@@ -197,7 +197,6 @@ void loop() {
 		y_basis.x, y_basis.y, y_basis.z
 	);
 
-
 	CDC_Transmit_FS(buffer, strlen((char *)buffer) + 1);
 
 	HAL_Delay(1);

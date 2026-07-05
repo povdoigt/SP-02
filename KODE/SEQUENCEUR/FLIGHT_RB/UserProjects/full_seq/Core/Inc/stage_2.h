@@ -60,6 +60,7 @@ void loop_stage_2(rocket_state_t *rocket_state);
 void on_new_accel_frame(rocket_state_t *rocket_state, data_sub_t *sub);
 void on_new_gyro_frame(rocket_state_t *rocket_state, data_sub_t *sub);
 void on_new_pressure_frame(rocket_state_t *rocket_state, data_sub_t *sub);
+void compute_elevation_azimut(rocket_state_t *rocket_state);
 
 
 
@@ -69,6 +70,8 @@ void on_new_pressure_frame(rocket_state_t *rocket_state, data_sub_t *sub);
    =================================================== */
 
 typedef enum second_stage_initialisation_phase_t {
+	SECOND_STAGE_INIT_IDLE,
+
 	SECOND_STAGE_INIT_WAIT_JACK_READY,
 
 	SECOND_STAGE_INIT_PARA_ZERO,

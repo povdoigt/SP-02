@@ -10,10 +10,10 @@ set(MX_Defines_Syms
 
 # Configure project path
 set(CMAKE_USER_PROJECT_PATH
-    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test1
     ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq_stage_1
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/full_seq_stage_2
+    # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_buzzer
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_uart
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_infla
     # ${CMAKE_CURRENT_SOURCE_DIR}/../../UserProjects/test_led_event

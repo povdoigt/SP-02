@@ -61,6 +61,8 @@ typedef enum sepa_assembly_phase_t {
 } sepa_assembly_phase_t;
 
 typedef enum first_stage_initialisation_phase_t {
+	FIRST_STAGE_INIT_IDLE,
+
 	FIRST_STAGE_INIT_WAIT_JACK_READY,
 
 	FIRST_STAGE_INIT_AF_ZERO,
