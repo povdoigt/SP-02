@@ -106,13 +106,13 @@ typedef enum Hatch2_Position_t {
    ============================================================ */
  
 static const Actuator_Config_t config_hatch2 = {
-    .homing_speed_rpm       = -2.0f,
+    .homing_speed_rpm       = -10.0f,
     .homing_calibration_idx = HATCH2_POS_CLOSED,
     .num_positions          = 3,
     .positions_deg          = {
         [HATCH2_POS_CLOSED]  =   0.0f,
-        [HATCH2_POS_PARTIAL] =  15.0f,
-        [HATCH2_POS_OPEN]    =  30.0f,
+        [HATCH2_POS_PARTIAL] =  45.0f,
+        [HATCH2_POS_OPEN]    =  90.0f,
     },
 };
 
@@ -588,7 +588,7 @@ void compute_elevation_azimut(rocket_state_t *rocket_state) {
 
 void second_stage_init_state_machine(rocket_state_t *rocket_state) {
 	switch (second_stage_init_phase) {
-		case FIRST_STAGE_INIT_IDLE: { break; }
+		case SECOND_STAGE_INIT_IDLE: { break; }
 		case SECOND_STAGE_INIT_WAIT_JACK_READY: {
 			static led_evt_handle_t led_evt_handle = LED_SCHED_HANDLE_INVALID;
 			if (rocket_state->input_gpio_states[JACK_READY] == GPIO_PIN_SET) {

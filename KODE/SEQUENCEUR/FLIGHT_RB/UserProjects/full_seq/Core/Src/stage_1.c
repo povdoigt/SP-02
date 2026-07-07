@@ -92,24 +92,24 @@ typedef enum Separation_Position_t {
    ============================================================ */
  
 static const Actuator_Config_t config_aerobrake = {
-    .homing_speed_rpm       = -10.0f,
+    .homing_speed_rpm       = 10.0f,
     .homing_calibration_idx = AF_POS_MOUNT,   /* Hard-stop = 0°; flight range 30° ~ 120° */ 
     .num_positions          = 3,
     .positions_deg          = {
-        [AF_POS_MOUNT]  =   0.0f,
-        [AF_POS_CLOSED] =  30.0f,
-        [AF_POS_OPEN]   = 120.0f,
+        [AF_POS_MOUNT]  =    0.0f,
+        [AF_POS_CLOSED] =  -30.0f,
+        [AF_POS_OPEN]   = -120.0f,
     },
 };
  
 static const Actuator_Config_t config_hatch1 = {
-    .homing_speed_rpm       = -2.0f,
+    .homing_speed_rpm       = -10.0f,
     .homing_calibration_idx = HATCH1_POS_CLOSED,
     .num_positions          = 3,
     .positions_deg          = {
         [HATCH1_POS_CLOSED]  =   0.0f,
-        [HATCH1_POS_PARTIAL] =  15.0f,
-        [HATCH1_POS_OPEN]    =  30.0f,
+        [HATCH1_POS_PARTIAL] =  45.0f,
+        [HATCH1_POS_OPEN]    =  90.0f,
     },
 };
  
