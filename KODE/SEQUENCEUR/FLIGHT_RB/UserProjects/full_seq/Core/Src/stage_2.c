@@ -14,6 +14,7 @@
 #include "iir_filter.h"
 #include "led_scheduler.h"
 #include "stm32f0xx_hal.h"
+#include "stm32f0xx_hal_def.h"
 #include "stm32f0xx_hal_gpio.h"
 #include "usbd_cdc_if.h"
 #include "waveform.h"
@@ -33,6 +34,9 @@ typedef enum GPIO_idx_name_t {
 	SEPARATION	= 1,
 	JACK_READY	= 2,
 } GPIO_idx_name_t;
+
+
+static setup_stage_2_result_t setup_stage_2_result = { 0 };
 
 
 /* ===================================================
@@ -111,7 +115,7 @@ static const Actuator_Config_t config_hatch2 = {
     .num_positions          = 3,
     .positions_deg          = {
         [HATCH2_POS_CLOSED]  =   0.0f,
-        [HATCH2_POS_PARTIAL] =  45.0f,
+        [HATCH2_POS_PARTIAL] =  48.5f,
         [HATCH2_POS_OPEN]    =  90.0f,
     },
 };
@@ -148,11 +152,19 @@ static iir_filter_t wz_iir_filter;
    =================================================== */
 
 ground_func_state_t ground_func_1_stage_2(rocket_state_t *rocket_state) {
+	if (setup_stage_2_result.sts_servo4 != HAL_OK || setup_stage_2_result.sts_actuator_hatch2 != HAL_OK) {
+		LedSched_Add(&waveform_error, 255, false, 0, LED_SCHED_HARD_FORCE);
+		return GROUND_FUNC_STATE_DONE;
+	}
 	return __ground_func_homming(rocket_state, &actuator_hatch2);
 }
 
 ground_func_state_t ground_func_2_stage_2(rocket_state_t *rocket_state) {
 	static ground_func_play_actuator_direction_t direction = DIR_FORWARD;
+	if (setup_stage_2_result.sts_servo4 != HAL_OK || setup_stage_2_result.sts_actuator_hatch2 != HAL_OK) {
+		LedSched_Add(&waveform_error, 255, false, 0, LED_SCHED_HARD_FORCE);
+		return GROUND_FUNC_STATE_DONE;
+	}
 	return __ground_func_play_actuator(rocket_state, &actuator_hatch2, &direction);
 }
 
@@ -365,6 +377,10 @@ ground_func_state_t ground_func_15_stage_2(rocket_state_t *rocket_state) {
 	return GROUND_FUNC_STATE_DONE;
 }
 
+HAL_StatusTypeDef get_setup_stage_2_result(setup_stage_2_result_t *result) {
+	return result->sts_uart_port2 | result->sts_servo4 | result->sts_actuator_hatch2;
+}
+
 // FROM LAUNCH !!!!!! use -> get_beta_target_deg_over_time(HAL_GetTick() - rocket_state->t_launch) to get beta rad at time t
 static float get_beta_target_deg_over_time(const window_time_t * const window_time_beta_ignition, uint32_t t_ms) {
 	
@@ -418,9 +434,13 @@ void setup_stage_2(rocket_state_t *rocket_state) {
 
 	rocket_state_setup_gpio(rocket_state, stage2_input_gpio_port, stage2_input_gpio_pin);
 
-    setup_servomotors_stage_2(rocket_state);
+    setup_servomotors_stage_2(&setup_stage_2_result, rocket_state);
     setup_data_acquisition_stage_2(rocket_state);
 	setup_iir_filters_stage_2();
+
+	if (get_setup_stage_2_result(&setup_stage_2_result) != HAL_OK) {
+		LedSched_Add(&waveform_error, 255, false, 0, LED_SCHED_HARD_FORCE);
+	}
 
     second_stage_init_next_phase = SECOND_STAGE_INIT_WAIT_JACK_READY;
 	second_stage_init_phase = SECOND_STAGE_INIT_IDLE;
@@ -450,18 +470,19 @@ void loop_stage_2(rocket_state_t *rocket_state) {
    SETUP FUNCTIONS
    =================================================== */
 
-void setup_servomotors_stage_2(rocket_state_t *rocket_state) {
-	HAL_StatusTypeDef res;
+void setup_servomotors_stage_2(setup_stage_2_result_t *result, rocket_state_t *rocket_state) {
 
-	res = STS_UART_Port_Init(&huart_sts_port1, &huart2); // TODO: NEED TO BE CHANGED
-	if (res != HAL_OK) { goto error; }
+	result->sts_uart_port2 = STS_UART_Port_Init(&huart_sts_port2, &huart3);
+	if (result->sts_uart_port2 != HAL_OK) { goto error; }
 
-	res = STS_Servo_Init(&servo4, &huart_sts_port1, 2); // TODO: NEED TO BE CHANGED
-	if (res != HAL_OK) { goto error; }
 
-    /* Actuator_Init() writes CW/CCW EPROM limits derived from each config */
-    res = Actuator_Init(&actuator_hatch2, &servo4, &config_hatch2);
-    if (res != HAL_OK) { goto error; }
+	result->sts_servo4 = STS_Servo_Init(&servo4, &huart_sts_port2, 4);
+
+    if (result->sts_servo4 == HAL_OK) {
+		result->sts_actuator_hatch2 = Actuator_Init(&actuator_hatch2, &servo4, &config_hatch2);
+	} else {
+		result->sts_actuator_hatch2 = HAL_ERROR;
+	}
 
 	HAL_Delay(100);
     return;
@@ -703,6 +724,12 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 
 	switch (second_stage_flight_phase) {
 		case SECOND_STAGE_FLIGHT_INITIALISATION: {
+
+			if (get_setup_stage_2_result(&setup_stage_2_result) != HAL_OK) {
+				LED_RGB_SetColor(rocket_state->led_rgb, FLOAT3_UNIT_X); // red
+				Error_Handler();
+			}
+
 			second_stage_init_state_machine(rocket_state);
 			break;
 		}

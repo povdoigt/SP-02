@@ -35,11 +35,20 @@ ground_func_state_t ground_func_15_stage_2(rocket_state_t *rocket_state);
    SETUP FUNCTIONS
    =================================================== */
 
-void setup_stage_2(rocket_state_t *rocket_state);
+typedef struct setup_stage_2_result_t {
+	HAL_StatusTypeDef sts_uart_port2;
+	HAL_StatusTypeDef sts_servo4;
+	HAL_StatusTypeDef sts_actuator_hatch2;
+} setup_stage_2_result_t;
 
-void setup_servomotors_stage_2(rocket_state_t *rocket_state);
+HAL_StatusTypeDef get_setup_stage_2_result(setup_stage_2_result_t *result);
+
+void setup_uart_buffers_stage_2(rocket_state_t *rocket_state);
+void setup_servomotors_stage_2(setup_stage_2_result_t *result, rocket_state_t *rocket_state);
 void setup_data_acquisition_stage_2(rocket_state_t *rocket_state);
 void setup_iir_filters_stage_2(void);
+
+void setup_stage_2(rocket_state_t *rocket_state);
 
 
 

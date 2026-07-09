@@ -10,6 +10,7 @@
 #include "event_uart.h"
 #include "led_scheduler.h"
 #include "stm32f0xx_hal.h"
+#include "stm32f0xx_hal_def.h"
 #include "waveform_def.h"
 #include "window_time.h"
 
@@ -23,6 +24,9 @@ typedef enum GPIO_idx_name_t {
 	SEPARATION	= 1,
 	JACK_READY	= 2,
 } GPIO_idx_name_t;
+
+
+static setup_stage_1_result_t setup_stage_1_result = { 0 };
 
 
 /* ===================================================
@@ -92,13 +96,13 @@ typedef enum Separation_Position_t {
    ============================================================ */
  
 static const Actuator_Config_t config_aerobrake = {
-    .homing_speed_rpm       = 10.0f,
+    .homing_speed_rpm       = -10.0f,
     .homing_calibration_idx = AF_POS_MOUNT,   /* Hard-stop = 0°; flight range 30° ~ 120° */ 
     .num_positions          = 3,
     .positions_deg          = {
-        [AF_POS_MOUNT]  =    0.0f,
-        [AF_POS_CLOSED] =  -30.0f,
-        [AF_POS_OPEN]   = -120.0f,
+        [AF_POS_MOUNT]  =   0.0f,
+        [AF_POS_CLOSED] =  30.0f,
+        [AF_POS_OPEN]   = 120.0f,
     },
 };
  
@@ -141,29 +145,53 @@ static Actuator_t actuator_separation;  /* servo3 */
    =================================================== */
 
 ground_func_state_t ground_func_1_stage_1(rocket_state_t *rocket_state) {
+	if (setup_stage_1_result.sts_servo1 != HAL_OK || setup_stage_1_result.sts_actuator_aerobrake != HAL_OK) {
+		LedSched_Add(&waveform_error, 255, false, 0, LED_SCHED_HARD_FORCE);
+		return GROUND_FUNC_STATE_DONE;
+	}
 	return __ground_func_homming(rocket_state, &actuator_aerobrake);
 }
 
 ground_func_state_t ground_func_2_stage_1(rocket_state_t *rocket_state) {
+	if (setup_stage_1_result.sts_actuator_hatch1 != HAL_OK || setup_stage_1_result.sts_actuator_hatch1 != HAL_OK) {
+		LedSched_Add(&waveform_error, 255, false, 0, LED_SCHED_HARD_FORCE);
+		return GROUND_FUNC_STATE_DONE;
+	}
 	return __ground_func_homming(rocket_state, &actuator_hatch1);
 }
 
 ground_func_state_t ground_func_3_stage_1(rocket_state_t *rocket_state) {
+	if (setup_stage_1_result.sts_actuator_separation != HAL_OK || setup_stage_1_result.sts_actuator_separation != HAL_OK) {
+		LedSched_Add(&waveform_error, 255, false, 0, LED_SCHED_HARD_FORCE);
+		return GROUND_FUNC_STATE_DONE;
+	}
 	return __ground_func_homming(rocket_state, &actuator_separation);
 }
 
 ground_func_state_t ground_func_4_stage_1(rocket_state_t *rocket_state) {
 	static ground_func_play_actuator_direction_t direction = DIR_FORWARD;
+	if (setup_stage_1_result.sts_servo1 != HAL_OK || setup_stage_1_result.sts_actuator_aerobrake != HAL_OK) {
+		LedSched_Add(&waveform_error, 255, false, 0, LED_SCHED_HARD_FORCE);
+		return GROUND_FUNC_STATE_DONE;
+	}
 	return __ground_func_play_actuator(rocket_state, &actuator_aerobrake, &direction);
 }
 
 ground_func_state_t ground_func_5_stage_1(rocket_state_t *rocket_state) {
 	static ground_func_play_actuator_direction_t direction = DIR_FORWARD;
+	if (setup_stage_1_result.sts_actuator_hatch1 != HAL_OK || setup_stage_1_result.sts_actuator_hatch1 != HAL_OK) {
+		LedSched_Add(&waveform_error, 255, false, 0, LED_SCHED_HARD_FORCE);
+		return GROUND_FUNC_STATE_DONE;
+	}
 	return __ground_func_play_actuator(rocket_state, &actuator_hatch1, &direction);
 }
 
 ground_func_state_t ground_func_6_stage_1(rocket_state_t *rocket_state) {
 	static ground_func_play_actuator_direction_t direction = DIR_FORWARD;
+	if (setup_stage_1_result.sts_actuator_separation != HAL_OK || setup_stage_1_result.sts_actuator_separation != HAL_OK) {
+		LedSched_Add(&waveform_error, 255, false, 0, LED_SCHED_HARD_FORCE);
+		return GROUND_FUNC_STATE_DONE;
+	}
 	return __ground_func_play_actuator(rocket_state, &actuator_separation, &direction);
 }
 
@@ -213,7 +241,10 @@ ground_func_state_t ground_func_15_stage_1(rocket_state_t *rocket_state) {
 }
 
 
-
+HAL_StatusTypeDef get_setup_stage_1_result(setup_stage_1_result_t *result) {
+	return result->sts_uart_port1 | result->sts_uart_port2 | result->sts_servo1 | result->sts_servo2 | result->sts_servo3 |
+		result->sts_actuator_aerobrake | result->sts_actuator_hatch1 | result->sts_actuator_separation;
+}
 
 void setup_stage_1(rocket_state_t *rocket_state) {
 	
@@ -236,7 +267,11 @@ void setup_stage_1(rocket_state_t *rocket_state) {
 
 	rocket_state_setup_gpio(rocket_state, stage1_input_gpio_port, stage1_input_gpio_pin);
 
-    setup_servomotors_stage_1(rocket_state);
+    setup_servomotors_stage_1(&setup_stage_1_result, rocket_state);
+
+	if (get_setup_stage_1_result(&setup_stage_1_result) != HAL_OK) {
+		LedSched_Add(&waveform_error, 255, false, 0, LED_SCHED_HARD_FORCE);
+	}
 
 	first_stage_init_next_phase = FIRST_STAGE_INIT_WAIT_JACK_READY;
 	first_stage_init_phase = FIRST_STAGE_INIT_IDLE;
@@ -260,30 +295,34 @@ void loop_stage_1(rocket_state_t *rocket_state) {
    SETUP FUNCTIONS
    =================================================== */
 
-void setup_servomotors_stage_1(rocket_state_t *rocket_state) {
-	HAL_StatusTypeDef res;
-
+void setup_servomotors_stage_1(setup_stage_1_result_t *result, rocket_state_t *rocket_state) {
 	/* STS_UART_Port_Init() make sure that the UART ports are properly initialized */
-	res = STS_UART_Port_Init(&huart_sts_port1, &huart2);
-	if (res != HAL_OK) { goto error; }
-	res = STS_UART_Port_Init(&huart_sts_port2, &huart3);
-	if (res != HAL_OK) { goto error; }
+	result->sts_uart_port1 = STS_UART_Port_Init(&huart_sts_port1, &huart2);
+	if (result->sts_uart_port1 != HAL_OK) { goto error; }
+	result->sts_uart_port2 = STS_UART_Port_Init(&huart_sts_port2, &huart3);
+	if (result->sts_uart_port2 != HAL_OK) { goto error; }
 
 	/* STS_Servo_Init() initializes the servo motors */
-	res = STS_Servo_Init(&servo1, &huart_sts_port1, 1);
-	if (res != HAL_OK) { goto error; }
-	res = STS_Servo_Init(&servo2, &huart_sts_port1, 2);
-	if (res != HAL_OK) { goto error; }
-	res = STS_Servo_Init(&servo3, &huart_sts_port2, 3);
-	if (res != HAL_OK) { goto error; }
+	result->sts_servo1 = STS_Servo_Init(&servo1, &huart_sts_port1, 1);
+	result->sts_servo2 = STS_Servo_Init(&servo2, &huart_sts_port1, 2);
+	result->sts_servo3 = STS_Servo_Init(&servo3, &huart_sts_port2, 3);
 
     /* Actuator_Init() writes CW/CCW EPROM limits derived from each config */
-    res = Actuator_Init(&actuator_aerobrake,  &servo1, &config_aerobrake);
-    if (res != HAL_OK) { goto error; }
-    res = Actuator_Init(&actuator_hatch1,     &servo2, &config_hatch1);
-    if (res != HAL_OK) { goto error; }
-    res = Actuator_Init(&actuator_separation, &servo3, &config_separation);
-    if (res != HAL_OK) { goto error; }
+	if (result->sts_servo1 == HAL_OK) {
+		result->sts_actuator_aerobrake = Actuator_Init(&actuator_aerobrake,  &servo1, &config_aerobrake);
+	} else {
+		result->sts_actuator_aerobrake = HAL_ERROR;
+	}
+    if (result->sts_servo2 == HAL_OK) {
+        result->sts_actuator_hatch1 = Actuator_Init(&actuator_hatch1,     &servo2, &config_hatch1);
+    } else {
+		result->sts_actuator_hatch1 = HAL_ERROR;
+	}
+    if (result->sts_servo3 == HAL_OK) {
+        result->sts_actuator_separation = Actuator_Init(&actuator_separation, &servo3, &config_separation);
+    } else {
+		result->sts_actuator_separation = HAL_ERROR;
+	}
 
 	HAL_Delay(100);
     return;
@@ -552,6 +591,12 @@ void first_stage_flight_state_machine(rocket_state_t *rocket_state) {
 
 	switch (first_stage_flight_phase) {
 		case FIRST_STAGE_FLIGHT_INITIALISATION: {
+
+			if (get_setup_stage_1_result(&setup_stage_1_result) != HAL_OK) {
+				LED_RGB_SetColor(rocket_state->led_rgb, FLOAT3_UNIT_X); // red
+				Error_Handler();
+			}
+
 			first_stage_init_state_machine(rocket_state);
 			break;
 		}
