@@ -1,0 +1,9 @@
+Manufacturer=TE Connectivity
+PartNumber=MS580305BA01-00
+PartCategory=Undefined or Miscellaneous
+PackageCategory=Other
+PinCount=8
+Version=2.1
+Released=2017-06-08 12:35:32
+Downloaded=2025-12-03 18:23:00
+3D=Y

@@ -1,0 +1,16 @@
+.MS580305BA01-00 :1 ;Dimensions: Dimensions 6.2 x 6.4 MM | Dimensions .24 x .25 INCH | Electrical Characteristics: Board Level Pressure Sensor Supply Voltage 1.8  3.6 V | Operation/Application: Pressure 5000 MBAR | Resolution .036 | Board Level Pressure Sensor Accuracy +/-120mbar | Output/Span 24 bit ADC | Other: Sensor Options No Option | Packaging Features: Board Level Pressure Sensor Package Surface Mountable | Product Type Features: Board Level Pressure Sensor Style Absolute | Board Level Pressure Sensor Type Digital Pres
+MS580305BA
+*STM U
+*NGS
+*PLB 1="SCLK" 2="GND" 3="CSB" 4="NC" 5="VDD" 6="PS" 7="SDI/SDA" 8="SDO"
+*MXP 8
+*DFN MS580305BA01-00
+~!Mouser Part Number (824-MS580305BA01-00)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Measurement-Specialties/MS580305BA01-00?qs=oFx6pF86PmAdNB98SCP3Rg%3D%3D)
+~!Manufacturer_Name (TE Connectivity)
+~!Manufacturer_Part_Number (MS580305BA01-00)
+~!Link Datasheet (https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=MS5803-05BA&DocType=Data%20Sheet&DocLang=English&PartCntxt=MS580305BA01-00&DocFormat=pdf)
+~!Height (-)
+~!3D_Model (MS580305BA01-00)
+MS580305BA01-00
+1.1!U 2.1!U 3.1!U 4.1!U 5.1!U 6.1!U 7.1!U 8.1!U 

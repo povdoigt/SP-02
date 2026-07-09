@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP MS580305BA01-00
+D Dimensions: Dimensions 6.2 x 6.4 MM | Dimensions .24 x .25 INCH | Electrical Characteristics: Board Level Pressure Sensor Supply Voltage 1.8  3.6 V | Operation/Application: Pressure 5000 MBAR | Resolution .036 | Board Level Pressure Sensor Accuracy +/-120mbar | Output/Span 24 bit ADC | Other: Sensor Options No Option | Packaging Features: Board Level Pressure Sensor Package Surface Mountable | Product Type Features: Board Level Pressure Sensor Style Absolute | Board Level Pressure Sensor Type Digital Pres
+K
+F https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=MS5803-05BA&DocType=Data%20Sheet&DocLang=English&PartCntxt=MS580305BA01-00&DocFormat=pdf
+$ENDCMP
+#
+#End Doc Library
