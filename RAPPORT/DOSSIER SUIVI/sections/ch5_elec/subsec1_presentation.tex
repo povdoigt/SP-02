@@ -7,7 +7,7 @@ au niveau de la ligne de mise à feu du deuxième étage.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth]{figures/Schema_simple.drawio.png}
+    \includegraphics[width=\textwidth]{figures/elec/Schema_simple.drawio.png}
     \caption{Schéma simplifié du système électronique général de la fusée SP-02}
     \label{fig:schema_electronique_general}
 \end{figure}
@@ -78,9 +78,7 @@ On distinguera quatres principaux éléments :
 Ces intéractions sont succinctement présentées dans le schéma de la figure \ref{fig:schema_electronique_general} et y sont
 détaillées dans le schéma plus complet présenté en annexe \ref{subsec:synoptique_fusee}.
 
-\subsection{Présentation des cartes électroniques}
-
-% Faut faire un tableau...
+\subsubsection{Présentation des cartes électroniques}
 
 \begin{table}[h!]
     \centering
@@ -93,7 +91,7 @@ détaillées dans le schéma plus complet présenté en annexe \ref{subsec:synop
                                 & Caméra & Carte de contrôle des caméras & 1 & 1 & 2 \\
     \hline
     \multirow{3}{*}{Séquenceur} & Séquenceur & Carte séquenceur & 1 & 1 & 2 \\ \cline{2-6}
-                                & I.H.F. & Carte Interface Homme Fusée & 1 & 1 & 2 \\ \cline{2-6}
+                                & \acrshort{IHF} & Carte Interface Homme Fusée & 1 & 1 & 2 \\ \cline{2-6}
                                 & Allumage principale & Carte servant de logique de puissance et d'interface du système d'allumage & 0 & 1 & 1 \\ \cline{2-6}
                                 & Condensateur & Banque des condensateurs du système d'allumage & 0 & 1 & 1 \\
     \hline
@@ -105,5 +103,8 @@ détaillées dans le schéma plus complet présenté en annexe \ref{subsec:synop
     \end{tabular}
     \caption{Présentation de l'ensemble des cartes électroniques}
 \end{table}
+
+Les cartes électroniques embarquées à bord de la fusée SP-02 sont présentées dans le tableau ci-dessus. L'intégralité des schémas
+électriques de ces cartes sont présentés en annexe \ref{subsec:schema_elecs}.
 
 \newpage

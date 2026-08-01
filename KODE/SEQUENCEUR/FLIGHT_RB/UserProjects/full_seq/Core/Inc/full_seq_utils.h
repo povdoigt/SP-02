@@ -57,19 +57,19 @@ void update_gpio_input_states(GPIO_TypeDef *input_gpio_port[], uint16_t input_gp
 // Les temps sont en millisecondes par rapport au T0 (lancement)
 
 #define T_ALPHA_BETA_0 3600		/* Fin de propulsion du premier étage */
-#define T_ALPHA_BETA_1 3700		/* Séparation du premier étage */
-#define T_ALPHA_BETA_2 16200	/* Apogée de l'ensemble de la fusée (1er et 2e étage sans séparation) */
-#define T_ALPHA_BETA_3 34500	/* Atterrisage de l'ensemble de la fusée (1er et 2e étage sans séparation) */
+#define T_ALPHA_BETA_1 2000		/* Séparation du premier étage */
+#define T_ALPHA_BETA_2 17400	/* Apogée de l'ensemble de la fusée (1er et 2e étage sans séparation) */
+// #define T_ALPHA_BETA_3 34500		/* Atterrisage de l'ensemble de la fusée (1er et 2e étage sans séparation) */
 
-#define T_ALPHA_0 15100	/* Apogée du premier étage */
-#define T_ALPHA_1 33400	/* Atterrissage du premier étage */
+#define T_ALPHA_0 15700		/* Apogée du premier étage */
+// #define T_ALPHA_1 33400			/* Atterrissage du premier étage */
 
 #define T_BETA_0 4700	/* Allumage du second étage */
 #define T_BETA_1 4700	/* Confirmation de l'allumage du second étage */
-#define T_BETA_2 15900	/* Apogée du second étage si séparation et actif */
-#define T_BETA_3 35400	/* Atterrissage du second étage si séparation et actif */
-#define T_BETA_4 15000	/* Apogée du second étage si séparation mais passif */
-#define T_BETA_5 33500	/* Atterrissage du second étage si séparation mais passif */
+#define T_BETA_2 16200	/* Apogée du second étage si séparation et actif */
+// #define T_BETA_3 35400	/* Atterrissage du second étage si séparation et actif */
+#define T_BETA_4 15300	/* Apogée du second étage si séparation mais passif */
+// #define T_BETA_5 33500	/* Atterrissage du second étage si séparation mais passif */
 
 #define DEG_TO_RAD (M_PI / 180.0f)
 #define RAD_TO_DEG (180.0f / M_PI)
@@ -81,10 +81,10 @@ void update_gpio_input_states(GPIO_TypeDef *input_gpio_port[], uint16_t input_gp
 #define ATTITUDE_AZIMUTH_GOAL_DEG 0 /* Objectif d'angle d'azimut pour le second étage, à ajuster selon la trajectoire souhaitée */
 
 
-#define ATIITUDE_ELEVATION_OVER_TIME_COEF0	-0.0002f	// rad / s^3
-#define ATTITUDE_ELEVATION_OVER_TIME_COEF1	+0.0013f	// rad / s^2
-#define ATTITUDE_ELEVATION_OVER_TIME_COEF2	-0.0153f	// rad / s
-#define ATTITUDE_ELEVATION_OVER_TIME_COEF3	+1.3783f	// rad
+#define ATIITUDE_ELEVATION_OVER_TIME_COEF0	-0.0001f	// rad / s^3
+#define ATTITUDE_ELEVATION_OVER_TIME_COEF1	+0.0003f	// rad / s^2
+#define ATTITUDE_ELEVATION_OVER_TIME_COEF2	-0.0109f	// rad / s
+#define ATTITUDE_ELEVATION_OVER_TIME_COEF3	+1.3698f	// rad
 
 
 extern uint8_t uart1_buffer[WT901B_RX_BUFFER_SIZE];

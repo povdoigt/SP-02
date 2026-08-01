@@ -163,7 +163,7 @@ void loop() {
 
 
 
-	event_uart_producer_run(&event_uart_producer);
+	// event_uart_producer_run(&event_uart_producer);
 
 	LED_RGB_SetColor(rocket_state.led_rgb, LedSched_Process(HAL_GetTick()));
 }

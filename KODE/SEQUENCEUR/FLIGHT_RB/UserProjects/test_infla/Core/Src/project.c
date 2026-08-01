@@ -6,6 +6,10 @@
 
 void setup() {
 
+    HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LED1G_GPIO_Port, LED1G_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, GPIO_PIN_SET);
+
     for (size_t i = 0; i < 10; i++) {
         HAL_GPIO_TogglePin(LED1B_GPIO_Port, LED1B_Pin);
         HAL_Delay(500);

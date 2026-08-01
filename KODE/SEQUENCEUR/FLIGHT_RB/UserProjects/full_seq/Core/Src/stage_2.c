@@ -45,37 +45,37 @@ static setup_stage_2_result_t setup_stage_2_result = { 0 };
 
 static const window_time_t window_time_sepa = {
 	.id = 0,
-	.start_time_ms = T_ALPHA_BETA_1,
-	.duration_ms = 5000
+	.start_time_ms = 3000,
+	.duration_ms = 7000
 };
 
 static const window_time_t window_time_beta_ignition = {
 	.id = 1,
 	.start_time_ms = T_BETA_0,
-	.duration_ms = 5000
+	.duration_ms = 10300
 };
 
 static const window_time_t window_time_beta_ignition_confirm = {
 	.id = 2,
 	.start_time_ms = T_BETA_1,
-	.duration_ms = 5000
+	.duration_ms = 10300
 };
 
 static const window_time_t window_time_beta_apogee_sepa_ignition = {
 	.id = 3,
-	.start_time_ms = T_BETA_2,
+	.start_time_ms = T_BETA_2 - 1500,
 	.duration_ms = 3000
 };
 
 static const window_time_t window_time_beta_apogee_sepa_no_ignition = {
 	.id = 4,
-	.start_time_ms = T_BETA_4,
+	.start_time_ms = T_BETA_4 - 1500,
 	.duration_ms = 3000
 };
 
 static const window_time_t window_time_alpha_beta_apogee_no_sepa = {
 	.id = 5,
-	.start_time_ms = T_ALPHA_BETA_2,
+	.start_time_ms = T_ALPHA_BETA_2 - 1500,
 	.duration_ms = 3000
 };
 
@@ -288,6 +288,7 @@ ground_func_state_t ground_func_3_stage_2(rocket_state_t *rocket_state) {
 			if (!LedSched_IsHandleValid(led_evt_handle_green)) {
 				led_evt_handle_green = LedSched_Add(&waveform_prgm_3_green, 1, false, 0, LED_SCHED_NO_FORCE);
 			}
+			HAL_GPIO_WritePin(STAGE2_IGNITION_GPIO_Port, STAGE2_IGNITION_Pin, GPIO_PIN_SET);
 		} else if (is_elev_ok || is_azim_ok) {
 			// Blue
 			LedSched_Remove(led_evt_handle_red);
@@ -295,6 +296,7 @@ ground_func_state_t ground_func_3_stage_2(rocket_state_t *rocket_state) {
 			if (!LedSched_IsHandleValid(led_evt_handle_blue)) {
 				led_evt_handle_blue = LedSched_Add(&waveform_prgm_3_blue, 1, false, 0, LED_SCHED_NO_FORCE);
 			}
+			HAL_GPIO_WritePin(STAGE2_IGNITION_GPIO_Port, STAGE2_IGNITION_Pin, GPIO_PIN_RESET);
 		} else {
 			// Red
 			LedSched_Remove(led_evt_handle_green);
@@ -302,6 +304,7 @@ ground_func_state_t ground_func_3_stage_2(rocket_state_t *rocket_state) {
 			if (!LedSched_IsHandleValid(led_evt_handle_red)) {
 				led_evt_handle_red = LedSched_Add(&waveform_prgm_3_red, 1, false, 0, LED_SCHED_NO_FORCE);
 			}
+			HAL_GPIO_WritePin(STAGE2_IGNITION_GPIO_Port, STAGE2_IGNITION_Pin, GPIO_PIN_RESET);
 		}
 	} else {
 		LedSched_Remove(led_evt_handle_red);
@@ -318,8 +321,12 @@ ground_func_state_t ground_func_3_stage_2(rocket_state_t *rocket_state) {
 }
 
 ground_func_state_t ground_func_4_stage_2(rocket_state_t *rocket_state) {
-	(void)rocket_state;
-	return GROUND_FUNC_STATE_DONE;
+	if (waiting_button_play(&waiting_button, false)) {
+		HAL_GPIO_WritePin(STAGE2_IGNITION_GPIO_Port, STAGE2_IGNITION_Pin, GPIO_PIN_RESET);
+		return GROUND_FUNC_STATE_DONE;
+	} 		
+	HAL_GPIO_WritePin(STAGE2_IGNITION_GPIO_Port, STAGE2_IGNITION_Pin, GPIO_PIN_SET);
+	return GROUND_FUNC_STATE_RUNNING;
 }
 
 ground_func_state_t ground_func_5_stage_2(rocket_state_t *rocket_state) {
@@ -912,7 +919,9 @@ void second_stage_flight_state_machine(rocket_state_t *rocket_state) {
 			break;
 		}
 		case SECOND_STAGE_FLIGHT_APOGEE: {
-			Actuator_GoToPosition(&actuator_hatch2, HATCH2_POS_OPEN);
+			if (rocket_state->is_separation_confirmed) {
+				Actuator_GoToPosition(&actuator_hatch2, HATCH2_POS_OPEN);
+			}
 			LedSched_Add(&waveform_apogee, 1, false, 0, LED_SCHED_NO_FORCE);
 			change_state_and_notify(&rocket_state->stage_phase_transition, SECOND_STAGE_FLIGHT_IDLE);
 			break;

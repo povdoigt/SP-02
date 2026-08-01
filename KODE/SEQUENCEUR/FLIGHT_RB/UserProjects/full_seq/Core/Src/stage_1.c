@@ -35,19 +35,19 @@ static setup_stage_1_result_t setup_stage_1_result = { 0 };
 
 static const window_time_t window_time_alpha_beta_sepa = {
 	.id = 0,
-	.start_time_ms = T_ALPHA_BETA_1,
-	.duration_ms = 1000
+	.start_time_ms = 3000,
+	.duration_ms = 7000
 };
 
 static const window_time_t window_time_alpha_apogee_sepa = {
 	.id = 1,
-	.start_time_ms = T_ALPHA_0,
+	.start_time_ms = T_ALPHA_0 - 1500,
 	.duration_ms = 3000
 };
 
 static const window_time_t window_time_alpha_beta_apogee_no_sepa = {
 	.id = 2,
-	.start_time_ms = T_ALPHA_BETA_2,
+	.start_time_ms = T_ALPHA_BETA_2 - 1500,
 	.duration_ms = 3000
 };
 
@@ -118,13 +118,13 @@ static const Actuator_Config_t config_hatch1 = {
 };
  
 static const Actuator_Config_t config_separation = {
-    .homing_speed_rpm       = 10.0f,   /* CW toward upper hard-stop            */
+    .homing_speed_rpm       = 100.0f,   /* CW toward upper hard-stop            */
     .homing_calibration_idx = SEPA_POS_LOCKED,   /* Hard-stop = 0°     */
     .num_positions          = 3,
     .positions_deg          = {
         [SEPA_POS_LOCKED]   =    0.0f,
-        [SEPA_POS_UNLOCKED] = -540.0f,
-        [SEPA_POS_RELEASED] = -690.0f, // 2 full turns
+        [SEPA_POS_UNLOCKED] = -590.0f,
+        [SEPA_POS_RELEASED] = -740.0f,
     },
 };
  
@@ -274,7 +274,7 @@ void setup_stage_1(rocket_state_t *rocket_state) {
 	}
 
 	first_stage_init_next_phase = FIRST_STAGE_INIT_WAIT_JACK_READY;
-	first_stage_init_phase = FIRST_STAGE_INIT_IDLE;
+	first_stage_init_phase = FIRST_STAGE_INIT_WAIT_BUTTON;
 
     phase_transition_init(&rocket_state->stage_phase_transition, STAGE_PHASE_FLIGHT, (uint8_t*)&first_stage_flight_phase);
 	change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_INITIALISATION);
@@ -622,6 +622,15 @@ void first_stage_flight_state_machine(rocket_state_t *rocket_state) {
 				LedSched_Remove(led_evt_handle);
 				LedSched_Add(&waveform_in_flight, 0, false, 0, LED_SCHED_NO_FORCE);
 				LedSched_Add(&waveform_flash_green, 1, false, 0, LED_SCHED_HARD_FORCE);
+				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_SEPARATION);
+			}
+			break;
+		}
+		case FIRST_STAGE_FLIGHT_SEPARATION: {
+			uint32_t t_elapsed = HAL_GetTick() - rocket_state->t_launch;
+			if (HAL_GetTick() - rocket_state->t_launch > T_ALPHA_BETA_1) {
+				LedSched_Add(&waveform_flash_green, 1, false, 0, LED_SCHED_HARD_FORCE);
+				Actuator_GoToPosition(&actuator_separation, SEPA_POS_UNLOCKED);
 				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_WAIT_BURN_END);
 			}
 			break;
@@ -629,15 +638,8 @@ void first_stage_flight_state_machine(rocket_state_t *rocket_state) {
 		case FIRST_STAGE_FLIGHT_WAIT_BURN_END: {
 			// Besoin de le garder ???
 			if (HAL_GetTick() - rocket_state->t_launch > T_ALPHA_BETA_0) {
-				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_SEPARATION);
-			}
-			break;
-		}
-		case FIRST_STAGE_FLIGHT_SEPARATION: {
-			if (HAL_GetTick() - rocket_state->t_launch > T_ALPHA_BETA_1) {
-				LedSched_Add(&waveform_flash_green, 1, false, 0, LED_SCHED_HARD_FORCE);
-				Actuator_GoToPosition(&actuator_aerobrake, AF_POS_OPEN);
 				Actuator_GoToPosition(&actuator_separation, SEPA_POS_RELEASED);
+				Actuator_GoToPosition(&actuator_aerobrake, AF_POS_OPEN);
 				change_state_and_notify(&rocket_state->stage_phase_transition, FIRST_STAGE_FLIGHT_WAIT_SEPARATION_CONFIRMATION);
 			}
 			break;

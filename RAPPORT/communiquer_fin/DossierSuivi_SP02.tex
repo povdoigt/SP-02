@@ -1,0 +1,356 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage[a4paper, total={6.5in, 10in}, margin=2.5cm]{geometry}
+\usepackage{tgpagella}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{hyphenat}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{float}
+\hyphenation{mate-mática recu-perar}
+\usepackage{pifont}
+\usepackage{tikz,tikz-3dplot}
+\usepackage{listings}
+\usepackage{etoolbox}
+\usepackage{lmodern}
+% \usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage[utf8]{inputenc}
+% \usepackage[dvipsnames]{xcolor}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.symbols}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{cprotect}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{pdfpages}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage[colorlinks=true, linkcolor=black, citecolor=black]{hyperref}
+\usepackage{dirtree}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{cancel}
+\usepackage{chngcntr}
+\usepackage{amsmath}
+\usepackage{tcolorbox}
+\usepackage{colortbl}
+\usepackage[printonlyused]{acronym}
+\usepackage[xindy, acronyms]{glossaries} 
+\usepackage{xparse}
+\usepackage{enumitem}
+% \usepackage{biblatex}
+
+\renewcommand{\arraystretch}{1.3}
+
+\newlength{\larg}
+\setlength{\larg}{15.5cm}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\definecolor{font}{RGB}{28, 28, 28}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{A}{RGB}{245, 87, 146}
+\definecolor{B}{RGB}{242, 142, 93}
+\definecolor{C}{RGB}{245, 206, 60}
+\definecolor{D}{RGB}{159, 210, 108}
+\definecolor{E}{RGB}{110, 210, 222}
+\definecolor{F}{RGB}{161, 147, 232}
+\definecolor{G}{RGB}{85, 83, 88}
+
+
+\renewcommand*{\lstlistlistingname}{Liste des codes}
+\renewcommand*{\lstlistingname}{Code}
+\lstdefinestyle{terminal}{
+    postbreak=\mbox{{$\hookrightarrow$}\space},
+    aboveskip=1.5em,
+    belowskip=1.5em,
+    escapeinside={(*@}{@*)},
+    breaklines=true,
+    frame=tb,
+    numbers=none,
+    inputencoding=utf8,  % Input encoding
+    extendedchars=true,  % Extended ASCII
+    literate={
+        {á}{{\'a}}1  {é}{{\'e}}1  {í}{{\'i}}1 {ó}{{\'o}}1  {ú}{{\'u}}1
+        {Á}{{\'A}}1  {É}{{\'E}}1  {Í}{{\'I}}1 {Ó}{{\'O}}1  {Ú}{{\'U}}1
+        {à}{{\`a}}1  {è}{{\`e}}1  {ì}{{\`i}}1 {ò}{{\`o}}1  {ù}{{\`u}}1
+        {À}{{\`A}}1  {È}{{\'E}}1  {Ì}{{\`I}}1 {Ò}{{\`O}}1  {Ù}{{\`U}}1
+        {ä}{{\"a}}1  {ë}{{\"e}}1  {ï}{{\"i}}1 {ö}{{\"o}}1  {ü}{{\"u}}1
+        {Ä}{{\"A}}1  {Ë}{{\"E}}1  {Ï}{{\"I}}1 {Ö}{{\"O}}1  {Ü}{{\"U}}1
+        {â}{{\^a}}1  {ê}{{\^e}}1  {î}{{\^i}}1 {ô}{{\^o}}1  {û}{{\^u}}1
+        {Â}{{\^A}}1  {Ê}{{\^E}}1  {Î}{{\^I}}1 {Ô}{{\^O}}1  {Û}{{\^U}}1
+        {œ}{{\oe}}1  {Œ}{{\OE}}1  {æ}{{\ae}}1 {Æ}{{\AE}}1  {ß}{{\ss}}1
+        {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1  {Ø}{{\O}}1   {å}{{\r a}}1
+        {Å}{{\r A}}1 {ã}{{\~a}}1  {õ}{{\~o}}1 {Ã}{{\~A}}1  {Õ}{{\~O}}1
+        {ñ}{{\~n}}1  {Ñ}{{\~N}}1  {¿}{{?`}}1  {¡}{{!`}}1
+        {°}{{\textdegree}}1 {º}{{\textordmasculine}}1 {ª}{{\textordfeminine}}1
+    }
+}
+\lstdefinestyle{prog}{
+    language=C,
+    basicstyle=\ttfamily\small,
+    stepnumber=1,                   
+    numbersep=5pt,
+    numberstyle=\tiny\color{codegray},
+    postbreak=\mbox{{$\hookrightarrow$}\space},
+    showstringspaces=false,
+    aboveskip=1.5em,
+    belowskip=1.5em,
+    % escapechar=\&,
+    escapeinside={(*@}{@*)},
+    breaklines=true,
+    frame=tb,
+    numbers=left,
+    showlines=true,
+    consecutivenumbers=false,
+    texcl=true,
+    % identifierstyle={\color{B}},
+    % backgroundcolor={\color{font}},
+    keywordstyle={\color{A}},
+    stringstyle={\color{D}},
+    commentstyle={\color{G}},
+    emph={[1]=, <, >, +, -, /, //, *}, emphstyle={[1]\color{A}},
+    emph={[5]void, uint32_t, uint16_t, uint8_t, size_t, bool, float}, emphstyle={[5]\color{E}},
+    % otherkeywords={\&},
+    % emph={&},
+    % emph={[6]True, False, None}, emphstyle={[6]\color{F}},
+    inputencoding=utf8,  % Input encoding
+    extendedchars=true,  % Extended ASCII
+    literate={
+        {á}{{\'a}}1  {é}{{\'e}}1  {í}{{\'i}}1 {ó}{{\'o}}1  {ú}{{\'u}}1
+        {Á}{{\'A}}1  {É}{{\'E}}1  {Í}{{\'I}}1 {Ó}{{\'O}}1  {Ú}{{\'U}}1
+        {à}{{\`a}}1  {è}{{\`e}}1  {ì}{{\`i}}1 {ò}{{\`o}}1  {ù}{{\`u}}1
+        {À}{{\`A}}1  {È}{{\'E}}1  {Ì}{{\`I}}1 {Ò}{{\`O}}1  {Ù}{{\`U}}1
+        {ä}{{\"a}}1  {ë}{{\"e}}1  {ï}{{\"i}}1 {ö}{{\"o}}1  {ü}{{\"u}}1
+        {Ä}{{\"A}}1  {Ë}{{\"E}}1  {Ï}{{\"I}}1 {Ö}{{\"O}}1  {Ü}{{\"U}}1
+        {â}{{\^a}}1  {ê}{{\^e}}1  {î}{{\^i}}1 {ô}{{\^o}}1  {û}{{\^u}}1
+        {Â}{{\^A}}1  {Ê}{{\^E}}1  {Î}{{\^I}}1 {Ô}{{\^O}}1  {Û}{{\^U}}1
+        {œ}{{\oe}}1  {Œ}{{\OE}}1  {æ}{{\ae}}1 {Æ}{{\AE}}1  {ß}{{\ss}}1
+        {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1  {Ø}{{\O}}1   {å}{{\r a}}1
+        {Å}{{\r A}}1 {ã}{{\~a}}1  {õ}{{\~o}}1 {Ã}{{\~A}}1  {Õ}{{\~O}}1
+        {ñ}{{\~n}}1  {Ñ}{{\~N}}1  {¿}{{?`}}1  {¡}{{!`}}1
+        {°}{{\textdegree}}1 {º}{{\textordmasculine}}1 {ª}{{\textordfeminine}}1
+        % {0}{{{\color{F}0}}}1
+        % {1}{{{\color{F}1}}}1 {2}{{{\color{F}2}}}1 {3}{{{\color{F}3}}}1
+        % {4}{{{\color{F}4}}}1 {5}{{{\color{F}5}}}1 {6}{{{\color{F}6}}}1
+        % {7}{{{\color{F}7}}}1 {8}{{{\color{F}8}}}1 {9}{{{\color{F}9}}}1
+        {=}{{{\color{A}$=$}}}1
+        {==}{{{\color{A}$=\joinrel=$}}}1
+        {<=}{{{\color{A}$\leq$}}}1
+        {>=}{{{\color{A}$\geq$}}}1
+        {!=}{{{\color{A}$\neq$}}}1
+        {:=}{{{\color{A}:=}}}1
+    }
+}
+
+\newtcbox{\mybox}[1][black]{
+    on line, 
+    arc=0pt, 
+    outer arc=0pt, 
+    colback=white,
+    colframe=#1,
+    boxsep=0pt, left=2pt, right=2pt, top=2pt, bottom=2pt, boxrule=2pt
+}
+
+% glossary
+\makenoidxglossaries
+
+\input{glossary.tex}
+
+% \addbibresource{biblio.bib}
+
+
+
+\titleclass{\subsubsubsection}{straight}[\subsection]
+
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\renewcommand\theparagraph{\thesubsubsubsection.\arabic{paragraph}} % optional; useful if paragraphs are to be numbered
+
+\titleformat{\subsubsubsection}
+  {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+
+
+\title{
+    \Huge \textbf{Communiqué officiel} \\
+    \large Communiqué de fin de projet du co-chef d'Sp02\\
+} 
+
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\def\toclevel@subsubsubsection{4}
+\def\l@subsubsubsection{\@dottedtocline{4}{7em}{4em}}
+\def\@maketitle{
+    \begin{flushright}
+        {\rule{\larg}{1mm}}\\
+        \vspace{3mm}
+        \@title
+        \vspace{2mm}
+        {\rule{\larg}{1mm}}\\
+    \end{flushright}
+}
+\makeatother
+
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\counterwithin{figure}{section}
+\AtBeginDocument{\numberwithin{lstlisting}{section}}
+
+\pagenumbering{gobble}
+
+\begin{document}
+
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0pt} % removes horizontal line
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\renewcommand{\subsectionmark}[1]{}
+% \fancyhead[R]{\vspace{2cm}\rightmark}
+\fancyhead[R]{\rightmark}
+\fancyfoot[L]{\thepage/\pageref{LastPage}} 
+
+%Header and footer images
+\AddToShipoutPictureBG{%
+  \AtPageUpperLeft{%
+    \makebox(\paperwidth,0)[lt]{\includegraphics[height=1.25cm]{AEROIPSA_HEADER.png}}%
+  }
+  \AtPageLowerLeft{%
+    \makebox(\paperwidth,0)[rb]{\includegraphics[height=1.25cm]{AEROIPSA_FOOTER.png}}%
+  }%
+}
+
+\maketitle
+
+Cela faisait bien longtemps que nous voulions travailler sur une fusée bi-étage active. Nous en parlions déjà au c'space 2024.
+L'idée ne nous était pas sortie de la tête et arrivé en février 2025, nous commencions déjà les premières esquisses de ce qui
+sera le système de séparation. Les idées fusaient, les prototypes s'imprimaient.... Arrivé fin c'space 2025 nous savions. Nous
+savions que nous étions capables de faire cette fusée. Nos idées étaient bonnes.\\
+
+Nous avons passé tout l'été à travailler sur la définition globale de la fusée, ses dimensions, ses masses, ses ailerons,
+bagues, son architecture système. On savait la grandeur de ce projet et ce qu'il allait représenter comme charge de travail
+pour cette année qui allait s'annoncer pourtant si rapide et si complexe avec Malo en alternance et tous les A5 en... A5.\\
+
+Arrivé à la rentrée nous n'avons pas perdu de temps. Si bien qu'arrivé en RCE1 nous avions déjà nos deux tubes des deux étages,
+la dernière version majeure du système de séparation et notre système d'aérofreins imprimé en 3D et un document de définition
+de projet déjà de plus de 50 pages. Le but affiché, montrer à Planète Sciences (et sûrement à nous-même également) notre
+sérieux et notre capacité à mener à bien ce projet pour la campagne de 2026.\\
+
+En février, l'architecture élec s'est figée avec l'ensemble des cartes PCBs et composants de commandés. Nous sommes arrivés
+en RCE2 avec un prototype de séquenceur pouvant contrôler nos servomoteurs en UART ainsi que pouvant effectuer la mesure
+d'attitude de la fusée. Nos ailerons étaient tous découpés, collés sur le premier étage ainsi que le rétreint de fait. Le
+système d'aérofreins était également usiné en aluminium au Skylab.\\
+
+Les mois suivants furent compliqués. Les aero5 étaient tous en stage et bien que les aero4 étaient de retour, ils avaient
+énormément de travail de leur côté. Nous avions tous également beaucoup de mal à former pleinement tout le monde sur le
+projet afin qu'on soit tous autonomes. Beaucoup de travail restait encore à faire tant bien niveau mécanique que
+électronique. C'est je pense cette période qui a été la plus mal anticipée par tous et c'est à partir de ce moment là que
+nous commencions tous à puiser dans notre énergie.\\
+
+Nous avons éprouvé beaucoup de problèmes en électronique avec des PCBs à refaire, des composants électroniques à
+recommander... En mécanique aussi beaucoup de problèmes sont arrivés notamment avec les ailerons du 2e étage que nous avons
+pris plus d'une semaine à faire avec le doute qu'on perde complètement le 2e étage à cause du démoulage...\\
+
+Nous sommes arrivés en RCE3 peu confiants. Sans système de récupération de prêt, avec des aérofreins non-fiables, sans
+intégration électronique au 2e étage ni expériences de prêtes sur l'ensemble. Beaucoup de briques de faites mais non
+assemblées, beaucoup à refaire également. Néanmoins, la démonstration du séquenceur et du système de séparation a par contre
+montré le sérieux de l'équipe et la faisabilité du projet. Il était clair pour les contrôleurs que la conception de la fusée
+ne présentait aucun défaut majeur et qu'il fallait juste maintenant la pression jusqu'au c'space pour pouvoir mettre la fusée
+en rampe.\\
+
+Travail acharné de chacun pour pouvoir finir tout ce qu'il restait encore à faire sur ce dernier mois de rush intensif. Nous
+sommes arrivés au c'space avec une fusée entièrement peinte, un premier étage entièrement intégré prêt à recevoir le 2e
+étage. La conception même de l'intégration élec de ce dernier n'était pas finie à cause d'un changement de place des
+batteries permettant de relever suffisamment le centre de masse. Cela, mais comme beaucoup d'autres choses, nous a causé
+beaucoup de retard.\\
+
+Lundi, nous avons passé les premiers contrôles principalement mécaniques. Contrôle très très long à cause du caractère
+bi-étage mais contrôle passé avec brio. Le point le plus critique mécaniquement pour une bi-étage, le test de flèche, est
+passé du premier coup sans retouche à faire. La plupart des systèmes électroniques ont eux aussi été vérifiés.\\
+
+Mardi, après avoir travaillé sur le 2e étage, on a dû remonter entièrement la fusée en un temps record afin de la préparer
+pour une compatibilité rampe dont nous avons été prévu trop tardivement. Cette dernière, bien que intanckablement trop
+longue et malgré les problèmes que nous avons eu en rampe lors de l'assemblage des fusées, nous a appris tout de même
+beaucoup de choses. La première a été d'expérimenter une pseudo campagne de lancement avec le départ en ZAS de la fusée, sa
+mise en rampe, les discussions avec les pyrotechniciens... La deuxième, la peinture blanche, si on souhaite garder une fusée
+propre, c'est une très mauvaise idée !\\
+
+Mercredi nous avons continué les nombreux contrôles et grâce à Nathan Garnier (ce giga goat) nous avons notamment pu valider
+électriquement parlant l'allumeur du 2e étage. Arrivé au soir, alors que Malo et Nathan travaillaient en parallèle d'arrache
+pied sur la station sol, le code expérience n'était toujours pas fini et la chaîne de télémesure n'avait toujours pas été
+validée.\\
+
+Arrivé le jeudi matin, nous avons donc décidé d'abandonner cette dernière et de faire un code expérience le plus simple
+possible. Le code fini, après que toutes les batteries soient chargées (dsl Yahia) nous avons remonté la fusée (encore plus
+rapidement qu'avant) (et cette fois-ci avec tout de branché). C'était la dernière ligne droite pour finir les contrôles et
+partir en qualifications. Après avoir contrôlé la séquence de lancement entière et corrigé les derniers bugs en matinée, nous
+étions prêts pour la dernière phase, les vols simulés.\\
+
+Une chronologie que nous effectuons tous pour la première fois, une excellente chronologie qui (après quelques modifications
+mineures) fonctionne très très bien, une procédure pyrotechnique effectuée par Thierry Stillace que nous regardions tous avec
+beaucoup d'attention, le vol débute, tout se passe à la perfection sauf...sauf pour la trappe du 1er étage qui ne s'est pas
+ouverte... Flavien et Thierry nous offre cependant une 2e chance inespérée de refaire un vol simulé. Ce vol qui était la
+dernière chance pour le projet de retourner en ZAS. Ce dernier s'est parfaitement exécuté et nous étions alors qualifiés.\\
+
+Nombreux sont ceux qui ont ressenti autant d'émotions en qualifications, beaucoup de larmes de joie, de tristesse, de
+fatigue, d'excitation et de stress ont été pleurées cette après-midi. Nous étions l'avant dernière fusex à avoir qualifié.\\
+
+Vendredi matin, nous sommes arrivés en ZAS la fusée montée. Le ciel est très nuageux, le plafond très bas. Lorsque nous
+étions en rampe, il pleuvait. La chronologie s'est parfaitement exécutée que ce soit de notre côté ou de celui des pyro du
+CNES. La fusée semblait prête, nous également. 3, 2, 1 décollage, le bouton appuyé, la fusée partie. 4 secondes plus tard,
+les deux étages se séparent et disparaissent dans les nuages. Après une dizaine de secondes on entendit au loin un parachute
+s'ouvrir puis.... Un bruit aérodynamique de redescente..... POC balistique.\\
+
+À ce stade tout était encore possible. On a perdu quelque chose c'est sûr... mais quoi ? Un étage ? Les deux ?\\
+
+Lors des recherches par drones, et à partir de très peu de témoignages (merci Timothée) nous avons retrouvé ce qui s'avérait
+être le 2e étage, intact en grande partie. Il avait atterri en zone rouge et on se doutait fortement que son propulseur ne
+s'était pas allumé. Après négociation entre le CNES, Planète Sciences et les militaires, il a été décidé de quand même partir
+récupérer le 2e étage pour éviter qu'il devienne un danger pour plus tard. Après avoir couru pour récupérer tous les outils
+nécessaires à l'extraction du moteur, les pyrotechniciens sont partis récupérer notre étage. Bien que le 1er étage restait
+introuvable, nous n'allions pas repartir du camp du Gers (sans rien ? je sais pas s'il y avait une fin ici).\\
+
+Le programme de l'expérience que nous avions fait jeudi matin la veille du lancement, et qui n'avait jamais été testé,
+s'avérait être buggé et de ce fait, nous n'avons récupéré aucune donnée de vol. Les caméras embarquées n'ont, elles aussi,
+pas fonctionné pour des raisons qui nous échappent. Les seules informations que nous avons réellement sont donc les quelques
+vidéos du sol.\\
+
+Quand bien même, nous avons volé ! Nous avons lancé une fusée bi-étage et effectué une séparation en vol exemplaire.\\
+
+Il serait compliqué de dire ce qu'il s'est vraiment passé, de se dire ce qu'on aurait dû faire ou ne pas faire sur le
+projet, ce qu'on aurait dû dire ou ne pas dire, les choix techniques qu'on aurait dû ou non tenir ou oublié.\\
+
+Il serait compliqué d'expliquer à quel point l'année a été compliqué pour tout le monde, à quel point le projet était
+ambitieux, à quel point le projet allait être important pour chacun de nous et à quel point il était fou de se dire qu'on
+allait y arriver en si peu de temps avec si peu de disponibilité de la part de tout le monde.\\
+
+Quelque chose qui est facile à dire, c'est que je n'ai jamais travaillé sur un projet aussi ambitieux de toute ma vie que
+cette fusée, aussi longtemps. Que je n'ai jamais autant rêvé de la voir s'élever sur la rampe avec autant d'élégance, de la
+voir partir avec autant d'élan.\\
+
+Quelque chose qui est facile à dire c'est à quel point j'aurais bien été incapable de faire le 10e de ce qui a été fait sur
+le projet tout seul. À quel point si ce rêve s'est réalisé c'est par le travail qu'on a tous et toutes fourni à nos échelles
+et avec nos contraintes.\\
+
+Quelque chose que je vous dis, c'est à quel point on a été la meilleur team et à quel point j'ai été chanceux d'en faire
+partie.\\
+
+C'est ma dernière année à l'IPSA, ma dernière année chez l'AéroIPSA. Et je ne pouvais pas rêver mieux comme expérience que
+vous m'avez fait vivre.\\
+
+Merci,\\
+
+Aérospatialement vôtre,\\
+
+Votre co-chef de projet.
+
+\end{document}
