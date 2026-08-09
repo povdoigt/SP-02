@@ -3,79 +3,93 @@
 Deux évenements critiques de la mission sont détectés électroniquement par le système embarqué : le décollage et la séparation
 inter-étage.\\
 
-% \hspace*{-\parindent}%
-% \begin{minipage}{0.44\textwidth}
-%     Chaque séquenceur possède deux connecteurs deux pins composés d'un signal d'entrée configuré en pull-up et d'une masse. En
-%     formant un circuit entre ces deux pins, deux états sont possibles : un circuit fermé ou un circuit ouvert.
-%     \begin{itemize}
-%         \item Circuit fermé : le signal est connecté à la masse en basse impédance.
-%         \item Circuit ouvert : le signal est connecté à la tension d'alimentation en haute
-%         impédance.
-%     \end{itemize}
-
-%     \noindent Jouer sur l'état du circuit permet de détecter ces événements critiques. Un code couleur a été utilisé afin de
-%     faciliter l'identification: le vert pour la détection du \textcolor{green}{décollage} et le bleu pour la détection de la
-%     \textcolor{blue}{séparation inter-étage}. Le schéma de principe de ces boucles de détection avec l'utilisation de la carte
-%     routage est présenté à la figure \ref{fig:systeme_jack_sepa} ci-dessous.
-% \end{minipage}
-% \hfill
-% \begin{minipage}{0.55\textwidth}
-%     \centering
-%     \includegraphics[width=\textwidth]{figures/elec/systeme_jack_sepa.jpg}
-%     \captionof{figure}{Système de détection du décollage et de la séparation inter-étage}
-%     \label{fig:systeme_jack_sepa}
-% \end{minipage}
-
-% \vspace{0.5cm}
-
-Chaque séquenceur possède deux connecteurs deux pins composés d'un signal d'entrée configuré en pull-up et d'une masse. En formant
-un circuit entre ces deux pins, deux états sont possibles : un circuit fermé ou un circuit ouvert.
+Chaque séquenceur possède des connecteurs de deux broches composés d'un signal d'entrée configuré en pull-up et d'une masse.
+Chacun de ces connecteurs peut servir à mesurer un évenement en créant une boucle de courant entre les deux broches de ces
+premiers. Le séquenceur peut alors déterminer l'état (fermé ou ouvert) de ces boucles en mesurant le niveau logique du signal:
 \begin{itemize}
-    \item Circuit fermé : le signal est connecté à la masse en basse impédance.
-    \item Circuit ouvert : le signal est connecté à la tension d'alimentation en haute
-    impédance.
+    \item Boucle fermée : le signal est connecté à la masse en basse impédance $\longrightarrow$ 0 V mesuré ;
+    \item Boucle ouverte : le signal est connecté à la tension d'alimentation en haute impédance $\longrightarrow$ 3,3 V mesuré.
 \end{itemize}
 
-\noindent Jouer sur l'état du circuit permet de détecter ces événements critiques. Un code couleur a été utilisé afin de faciliter
-l'identification: le vert pour la détection du \textcolor{green}{décollage}, le bleu pour la détection de la
-\textcolor{blue}{séparation inter-étage} et le noir pour la masse. Le schéma de principe de ces boucles de détection avec
-l'utilisation de la carte routage est présenté à la figure \ref{fig:systeme_jack_sepa} ci-dessous.
+\noindent Les séquenceurs de chaque étage utilisent deux de ces connecteurs pour la détection du \textcolor{green2}{
+\textbf{décollage}} et de la \textcolor{blue}{\textbf{séparation inter-étage}}. Le schéma de principe de ces boucles de détection
+avec l'utilisation de la carte routage est présenté à la figure \ref{fig:systeme_jack_sepa} ci-dessous.
 
-\begin{figure}[H]
+\vspace{0.5cm}
+
+\hspace*{-\parindent}%
+\begin{minipage}{0.60\textwidth}
+
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/elec/systeme_jack_sepa.jpg}
-    \caption{Système de détection du décollage et de la séparation inter-étage}
-    \label{fig:systeme_jack_sepa}
-\end{figure}
+    \begin{tikzpicture}
+        \node at (0, 0) {\includegraphics[width=\textwidth]{figures/elec/systeme_jack_sepa.jpg}};
+        % \draw[help lines, step=1cm] (-5,-4) grid (4.5, 4);
+        % \draw[help lines, step=0.5cm, lightgray] (-5,-4) grid (4.5, 4);
+        % \draw[line width=2] (-5.0, +0.0) -- (+4.5, +0.0);
+        % \draw[line width=2] (+0.0, -4.0) -- (+0.0, +4.0);
 
-Les cartes de routage sont les mêmes sur le premier et le deuxième étage. La seule différence est la configuration du connecteur
-\verb|JACK| branché au séquenceur. Schématisé sur la figure plus haut par un interupteur, la carte possède deux empruntes de
-résistance zéro ohm permettant de choisir entre deux configurations : une pour le premier étage et une pour le deuxième étage. En
-effet nous voulons que chaque étage ait sa propre boucle de détection du décollage et de la séparation inter-étage.\\
+        \node (jack1_lbl) at (+0.20, +2.55) {\scriptsize \verb|jack1|};
+        \node (jack2_lbl) at (+0.20, +2.20) {\scriptsize \verb|jack2|};
+        \node (sepa1_lbl) at (+0.20, -0.50) {\scriptsize \verb|sepa1|};
+        \node (sepa2_lbl) at (+0.20, -0.85) {\scriptsize \verb|sepa2|};
+
+        \draw [red, ->, line width=0.5] (jack1_lbl.west) -- (-2.40, +1.85);
+        \draw [red, ->, line width=0.5] (jack2_lbl.east) -- (+2.25, +1.70);
+        \draw [red, ->, line width=0.5] (sepa1_lbl.west) -- (-1.25, -0.30);
+        \draw [red, ->, line width=0.5] (sepa2_lbl.east) -- (+1.70, -0.30);
+
+    \end{tikzpicture}
+    \captionof{figure}{Système de détection du décollage et de la séparation inter-étage}
+    \label{fig:systeme_jack_sepa}
+
+\end{minipage}
+\hfill
+\begin{minipage}{0.37\textwidth}
+    Les connexions \textcolor{green2}{\textbf{vertes}} représentent la boucle du décollage et les connexions
+    \textcolor{blue}{\textbf{bleues}} celle de la séparation inter-étage. Les connexions noires représentent les masses
+    (communes lorsque les étages sont connectés).\\
+
+    Les cartes de routage sont les mêmes sur le premier et le deuxième étage. La seule différence est la configuration du
+    connecteur \verb|JACK|\footnotemark \ branché au séquenceur. Schématisé sur la figure plus haut par un interupteur, la carte
+    possède deux empruntes de résistance zéro ohm permettant de choisir entre deux configurations : une pour le premier étage et
+    une pour le deuxième étage. En effet nous voulons que chaque étage ait sa propre boucle de détection de décollage et de la
+    séparation inter-étage.
+\end{minipage}
+
+\vspace{0.5cm}
 
 Il y a donc 4 signaux distincts : \verb|jack_1| et \verb|sepa_1| pour le premier étage et \verb|jack_2| et \verb|sepa_2| pour le
-deuxième étage. \verb|sepa_1| et \verb|sepa_2| ne se retrouvent jamais sur une même carte l'électronique au vu de la symétrie du
-système ce qui n'est pas le cas pour \verb|jack_1| et \verb|jack_2| bien ne sont pas connectés entre eux. La boucle du signal
-\verb|jack_1| n'est branchée qu'au connecteur nommé \verb|JACKS| tandis que celle du signal \verb|jack_2| l'est également au
-connecteur \verb|INTER ETAGE| lui permettant de traverser les deux étages. Ainsi :\\
+second. \verb|sepa_1| et \verb|sepa_2| ne se retrouvent jamais sur une même carte l'électronique au vu de la symétrie du
+système ce qui n'est pas le cas pour \verb|jack_1| et \verb|jack_2|. Le signal \verb|jack_1| n'est branchée qu'au connecteur
+nommé \verb|JACKS| tandis que le signal \verb|jack_2| est également branché au connecteur \verb|INTER ETAGE| lui permettant de
+traverser les deux étages. Ainsi :\\
 
 \begin{itemize}
     \item Pour le premier étage, le signal \verb|jack_1| part du séquenceur du premier étage, arrive sur la carte de routage du
-    premier étage au travers du connecteur \verb|JACK|, sort de la carte par le connecteur \verb|JACKS| où la boucle est formée.
+    premier étage au travers du connecteur \verb|JACK|, sort de la carte par le connecteur \verb|JACKS| où la boucle est
+    formée.\\
     \item Pour le deuxième étage, le signal \verb|jack_2| part du séquenceur du deuxième étage, arrive sur la carte de routage du
-    deuxième étage au travers du connecteur \verb|JACK|, sort de la carte par le connecteur \verb|INTER ETAGE|, rentre dans la carte
-    routage du premier étage et enfin sort de cette dernière par le connecteur \verb|JACKS| où la boucle est formée.
+    deuxième étage au travers du connecteur \verb|JACK|, sort de la carte par le connecteur \verb|INTER ETAGE|, rentre dans la
+    carte routage du premier étage et enfin sort de cette dernière par le connecteur \verb|JACKS| où la boucle est formée.
 \end{itemize}
 
+\footnotetext{Dans l'association, nous avons pris l'habitude d'associer le terme "jack" avec le système permettant de détecter le
+décollage d'une fusée. Cela vient du fait que dans la majeur partie de nos fusée, ce système est composé d'un jack audio,
+connecteur jugé très fiable et robuste pour ce type d'application.}
+
+\newpage
 
 Le connecteur \verb|INTER ETAGE| schématisé sur la figure \ref{fig:connexion_inter_etage} représente en réalité un ensemble de
-4 connecteurs JST 3 pins offrant un total de 12 broches. Ces 12 broches sont réparties sur 2 connecteurs de bord de carte, les
-connecteurs se trouvant sur le deuxième étage et les cartes rentrant dans ces connecteurs, sur le premier étage et monté dans
-directement dans le système de séparation. 4 signaux doivent passer par ce connecteur : \verb|jack_2|, \verb|sepa_1|,
+4 connecteurs JST 3 broches offrant un total de 12 connexions depuis la carte routage. Sur le premier étage, ces 12 broches sont
+réparties sur 2 cartes PCB dit "connecteur séparation" (figure \ref{fig:PCB_connexion_sepa}) nommés \verb|PCB_SEPA_[1,2]|, tandis
+que sur le deuxième étage, ces broches sont réparties sur 2 connecteurs de bord de carte (figure \ref{fig:edge_connector})
+nommés \verb|EDGE_CONNECTOR_[1,2]|. Lorsque les deux étages sont assemblés, les \verb|PCB_SEPA_1| et \verb|PCB_SEPA_2| du
+premier étage rentrent dans respectivement dans les \verb|CONN_SEPA_1| et \verb|CONN_SEPA_2| du deuxième étage, assurant ainsi la
+continuité des signaux entre les deux étages. Quatre signaux doivent passer par ce connecteur : \verb|jack_2|, \verb|sepa_1|,
 \verb|sepa_2| et la masse. Avec 12 broche, il est alors possible d'obtenir une redondance de 3 broches par signaux afin d'assurer
 la continuité du signal même en cas de défaillance d'une broche ou de mauvais contact.
 
-\vspace{0.5cm}
+% \vspace{0.2cm}
 
 \hspace*{-\parindent}%
 \begin{minipage}{0.40\textwidth}
@@ -88,33 +102,37 @@ la continuité du signal même en cas de défaillance d'une broche ou de mauvais
 \begin{minipage}{0.18\textwidth}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/elec/PCB_connexion_sepa.jpg}
-    \captionof{figure}{PCB de la connexion inter-étage}
+    \captionof{figure}{PCB "connecteur séparation" du premier étage}
+    \label{fig:PCB_connexion_sepa}
 \end{minipage}
 \hfill
 \begin{minipage}{0.30\textwidth}
-    Nous avons créer une nomencalture pour les 4 jst sortant de la carte routage
-    des étages : \verb|H1|, \verb|H2|, \verb|H3| et \verb|H4| et établie une règle de connexion pin à pin de ces connecteurs.
+    Nous avons créer une nomencalture pour les 4 JST sortant de la carte routage des étages : \verb|H1|, \verb|H2|, \verb|H3| et
+    \verb|H4| et établie une règle de connexion pin à pin de ces connecteurs.\\
+    
     Ainsi nous avons :
     \begin{itemize}
         \item \verb|H1| $\Longleftrightarrow$ \verb|H1|
         \item \verb|H2| $\Longleftrightarrow$ \verb|H2|
         \item \verb|H3| $\Longleftrightarrow$ \verb|H4|
-        \item \verb|H4| $\Longleftrightarrow$ \verb|H3|
+        \item \verb|H4| $\Longleftrightarrow$ \verb|H3|\\
     \end{itemize}
+
     Avec également la règle de connexion pin à pin suivante :
     \begin{itemize}
         \item Pin 1 $\Longleftrightarrow$ Pin 3
         \item Pin 2 $\Longleftrightarrow$ Pin 2
-        \item Pin 3 $\Longleftrightarrow$ Pin 1
+        \item Pin 3 $\Longleftrightarrow$ Pin 1\\
     \end{itemize}
 
-    Aussi, les jsts \verb|H1| et \verb|H2| sont regroupés sur le même connecteur de bord de carte et les jsts \verb|H3| et
-    \verb|H4| sur l'autre connecteur de bord de carte.\\
-
-    Toutes ces règles de connexion peuvent être visualisées sur la figure \ref{fig:connexion_inter_etage} ci-contre.\\
+    Toutes ces règles de connexion peuvent être visualisées sur la figure \ref{fig:connexion_inter_etage} ci-contre.
 \end{minipage}
 
-\vfill
+\vspace{0.2cm}
+
+Ainsi on peut lire par exemple que la broche 1 d'un connecteur \verb|H3| doit être connecté à la broche 3 du connecteur
+\verb|H4|. Aussi, les JSTs \verb|H1| et \verb|H2| sont regroupés sur un premier ensemble \verb|[PCB/CONN]_SEPA_1| et les JSTs
+\verb|H3| et \verb|H4| sur l'autre ensemble \verb|[PCB/CONN]_SEPA_2|.\\
 
 \begin{figure}[h]
     \centering
@@ -129,11 +147,9 @@ la continuité du signal même en cas de défaillance d'une broche ou de mauvais
         \centering
         \includegraphics[width=0.8\textwidth]{figures/elec/pcb_edge_connector.jpg}
         \caption{Connecteur de bord de carte se trouvant sur la partie du système de séparation du deuxième étage}
-        \label{fig:PCB_connexion_sepa}
+        \label{fig:edge_connector}
     \end{subfigure}
     \caption{PCB routage et connecteur de bord de PCB}
 \end{figure}
-
-\vfill
 
 \newpage
