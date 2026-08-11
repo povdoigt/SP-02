@@ -3,9 +3,9 @@
 Deux évenements critiques de la mission sont détectés électroniquement par le système embarqué : le décollage et la séparation
 inter-étage.\\
 
-Chaque séquenceur possède des connecteurs de deux broches composés d'un signal d'entrée configuré en pull-up et d'une masse.
-Chacun de ces connecteurs peut servir à mesurer un évenement en créant une boucle de courant entre les deux broches de ces
-premiers. Le séquenceur peut alors déterminer l'état (fermé ou ouvert) de ces boucles en mesurant le niveau logique du signal:
+Chaque séquenceur possède des connecteurs JST de deux pins composés d'un signal d'entrée configuré en pull-up et d'une masse.
+Chacun de ces connecteurs peut servir à mesurer un évenement en créant une boucle de courant entre ses deux pins. Le séquenceur
+peut alors déterminer l'état (fermé ou ouvert) de ces boucles en mesurant le niveau logique du signal:
 \begin{itemize}
     \item Boucle fermée : le signal est connecté à la masse en basse impédance $\longrightarrow$ 0 V mesuré ;
     \item Boucle ouverte : le signal est connecté à la tension d'alimentation en haute impédance $\longrightarrow$ 3,3 V mesuré.
@@ -50,18 +50,18 @@ avec l'utilisation de la carte routage est présenté à la figure \ref{fig:syst
     (communes lorsque les étages sont connectés).\\
 
     Les cartes de routage sont les mêmes sur le premier et le deuxième étage. La seule différence est la configuration du
-    connecteur \verb|JACK|\footnotemark \ branché au séquenceur. Schématisé sur la figure plus haut par un interupteur, la carte
-    possède deux empruntes de résistance zéro ohm permettant de choisir entre deux configurations : une pour le premier étage et
-    une pour le deuxième étage. En effet nous voulons que chaque étage ait sa propre boucle de détection de décollage et de la
-    séparation inter-étage.
+    connecteur \verb|JACK|\footnotemark \ branché au séquenceur. Schématisé sur la figure \ref{fig:systeme_jack_sepa} par un
+    interupteur, la carte possède deux empruntes de résistance zéro ohm permettant de choisir entre deux configurations : une
+    pour le premier étage et une pour le deuxième étage. En effet nous voulons que chaque étage ait sa propre boucle de
+    détection de décollage et de la séparation inter-étage tout en gardant un design unique de PCB pour les deux étages.
 \end{minipage}
 
 \vspace{0.5cm}
 
 Il y a donc 4 signaux distincts : \verb|jack_1| et \verb|sepa_1| pour le premier étage et \verb|jack_2| et \verb|sepa_2| pour le
-second. \verb|sepa_1| et \verb|sepa_2| ne se retrouvent jamais sur une même carte l'électronique au vu de la symétrie du
-système ce qui n'est pas le cas pour \verb|jack_1| et \verb|jack_2|. Le signal \verb|jack_1| n'est branchée qu'au connecteur
-nommé \verb|JACKS| tandis que le signal \verb|jack_2| est également branché au connecteur \verb|INTER ETAGE| lui permettant de
+second. \verb|sepa_1| et \verb|sepa_2| ne se retrouvent jamais sur une même carte électronique au vu de la symétrie du système ce
+qui n'est pas le cas pour \verb|jack_1| et \verb|jack_2|. Le signal \verb|jack_1| n'est branchée qu'au connecteur nommé
+\verb|JACKS| tandis que le signal \verb|jack_2| est également branché au connecteur \verb|INTER ETAGE| lui permettant de
 traverser les deux étages. Ainsi :\\
 
 \begin{itemize}
@@ -151,5 +151,15 @@ Ainsi on peut lire par exemple que la broche 1 d'un connecteur \verb|H3| doit ê
     \end{subfigure}
     \caption{PCB routage et connecteur de bord de PCB}
 \end{figure}
+
+\newpage
+
+[METTRE PHOTO SEPARATION]\\
+
+\vfill
+
+[METTRE PHOTO CIRCUIT ROUTAGE]
+
+\vfill
 
 \newpage

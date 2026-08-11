@@ -130,66 +130,18 @@ pour le développement et le débogage du firmware.
 
 \subsubsection{Interface Homme Fusée}
 
-\newpage
-
-\subsubsection{Programme logiciel embarqué}
-
-\subsubsubsection{Contrôle des actionneurs}
-
-\subsubsubsection{Séquenceur au sol}
-
-\newpage
-
-\subsubsubsection{Séquence événementielle de vol}
-
-Le fonctionnement repose sur une succession d’états décrits dans le logigramme de chaque séquenceur, cadencés par un
-chronomètre démarré au décollage.
-
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    \begin{subfigure}{0.48\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/elec/Sequenceur1.drawio.png}
-        \caption{1er étage}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/elec/Sequenceur2.drawio.png}
-        \caption{2e étage}
-    \end{subfigure}
-    \caption{Schémas fonctionnels des séquenceurs des deux étages}
+    \begin{tikzpicture}
+        \node at (0, 0) {\includegraphics[width=0.3\textwidth]{figures/elec/PCB_IHF.jpg}};
+        \draw[help lines, step=1cm] (-5,-4) grid (4.5, 4);
+        \draw[help lines, step=0.5cm, lightgray] (-5,-4) grid (4.5, 4);
+        \draw[line width=2] (-5.0, +0.0) -- (+4.5, +0.0);
+        \draw[line width=2] (+0.0, -4.0) -- (+0.0, +4.0);
+    \end{tikzpicture}
+    
+    \caption{PCB \acrlong{IHF}}
+    \label{fig:pcb_ihf}
 \end{figure}
-
-Voici les principaux évènements surveillés et partagés par les deux séquenceurs :
-\begin{itemize}
-    \item $T0$ : instant du décollage ;
-    \item $T_{\alpha\beta0}$ : fin de la propulsion du premier étage ;
-    \item $T_{\alpha\beta1}$ : séparation inter-étage ;
-    \item $T_{\alpha\beta2}$ : apogée de l'ensemble du lanceur sans séparation ;
-    \item $T_{\alpha\beta3}$ : atterrissage de l'ensemble du lanceur sans séparation.\\
-\end{itemize}
-
-\newpage
-
-Voici les principaux évènements surveillés par le séquenceur du premier étage :
-\begin{itemize}
-    \item $T_{\alpha0}$ : apogée du premier étage seul si séparation ;
-    \item $T_{\alpha1}$ : atterrissage du premier étage seul si séparation.\\
-\end{itemize}
-
-Voici les principaux évènements surveillés par le séquenceur du second étage :
-\begin{itemize}
-    \item $T_{\beta0}$ : allumage du moteur du second étage si séparation ;
-    \item $T_{\beta1}$ : date de mesure de la confirmation d’allumage du moteur du second étage ;
-    \item $T_{\beta2}$ : apogée du second étage seul si séparation et allumage confirmé ;
-    \item $T_{\beta3}$ : atterrissage du second étage seul si séparation et allumage confirmé ;
-    \item $T_{\beta4}$ : apogée du second étage seul si séparation et allumage non confirmé ;
-    \item $T_{\beta5}$ : atterrissage du second étage seul si séparation et allumage non confirmé.\\
-\end{itemize}
-
-\newpage
-
-\subsubsubsection{Mesure d'attitude}
 
 \newpage
