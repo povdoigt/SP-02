@@ -1,4 +1,4 @@
-\subsection{Séquenceurs et Interface Homme Fusée}
+\subsection{Séquenceurs}
 
 \subsubsection{Présentation générale}
 
@@ -122,26 +122,47 @@ Le STM32F072RBT6 a été sélectionné pour ses caractéristiques techniques ada
     \item faible consommation énergétique, essentielle pour les opérations prolongées en vol ;
     \item large gamme d’interfaces de communication (\acrshort{UART}, \acrshort{SPI}, \acrshort{I2C}, \acrshort{GPIO}),
     facilitant l’intégration avec les capteurs et actionneurs embarqués ;
-    \item 128~kB de mémoire flash et 16~kB de \acrshort{RAM}. \\
+    \item 128~kB de mémoire flash et 16~kB de \acrshort{RAM}.
 \end{itemize}
 
 Ayant déjà travaillé avec cette famille de microcontrôleurs sur des projets antérieurs, l’équipe dispose d’une expertise
 pour le développement et le débogage du firmware.
 
-\subsubsection{Interface Homme Fusée}
+\subsubsubsection{Moyen de détection d'attitude}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \node at (0, 0) {\includegraphics[width=0.3\textwidth]{figures/elec/PCB_IHF.jpg}};
-        \draw[help lines, step=1cm] (-5,-4) grid (4.5, 4);
-        \draw[help lines, step=0.5cm, lightgray] (-5,-4) grid (4.5, 4);
-        \draw[line width=2] (-5.0, +0.0) -- (+4.5, +0.0);
-        \draw[line width=2] (+0.0, -4.0) -- (+0.0, +4.0);
-    \end{tikzpicture}
-    
-    \caption{PCB \acrlong{IHF}}
-    \label{fig:pcb_ihf}
-\end{figure}
+Un des objectifs que doit remplir le séquenceur, et qui le distingue des séquenceurs de fusée monoétage, est la présence d'un
+moyen de détection d'attitude. En effet, le séquenceur du deuxième étage doit être capable de déterminer l'attitude de la fusée
+à un instant donné afin de vérifier que l'allumage du moteur du deuxième étage remplit les conditions primaires de sécurité.
+Pour cela, le séquenceur est équipé d'une centrale inertielle \verb|WT901B|.
+
+\hspace*{-\parindent}%
+\begin{minipage}{0.25\textwidth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{figures/elec/wt901b.jpg}
+        \caption{wt901b}
+        \label{fig:WT901B}
+    \end{figure}
+\end{minipage}
+\hfill
+\begin{minipage}{0.75\textwidth}
+    Ce module regroupe, un accéléromètre trois axes (\(\pm\SI{16}{\g}\)), un gyromètre trois axes
+    (\(\pm\SI{2000}{\degree\per\second}\)), un magnétomètre trois axes (\(\pm\SI{4900}{\micro\tesla}\)) ainsi qu'un baromètre. Sa
+    particularité, et la raison principale de son choix, est qu'il n'expose pas uniquement des mesures brutes : un microcontrôleur
+    interne exécute un algorithme de fusion de type filtre de Kalman et restitue directement l'attitude du module, sous forme
+    d'angles d'Euler et de quaternion. Le constructeur annonce une précision angulaire de \SI{0.05}{\degree} sur les axes X et Y,
+    et de \SI{1}{\degree} sur l'axe Z après calibration magnétique.\\
+\end{minipage}
+
+\vspace{0.2cm}
+
+La communication avec le séquenceur s'effectue par liaison \acrshort{UART} sur un port dédié de la carte. Le module émet
+spontanément ses trames, à une cadence configurable de \SI{0.2}{\hertz} à \SI{200}{\hertz}.
+
+\vfill
+
+[METTRE PHOTO SEQUENCEUR]
+
+\vfill
 
 \newpage
