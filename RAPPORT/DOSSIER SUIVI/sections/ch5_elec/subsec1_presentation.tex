@@ -1,8 +1,8 @@
-\subsection{Présentation du système électronique général}
+\subsection{Système électronique général}
 \label{subsec:presentation}
 
 Les systèmes électroniques embarqué à bord des deux étages de la fusée ont été conçus pour être sensiblement similaires, afin de
-faciliter le développement, la maintenance et les opérations au sol. Les seuls différences notables entre les deux étages sont
+faciliter le développement, la maintenance et les opérations au sol. Les seules différences notables entre les deux étages sont
 au niveau de la ligne de mise à feu du deuxième étage.
 
 \begin{figure}[h!]
@@ -17,7 +17,7 @@ système électronique général de la fusée SP-02 et leurs interactions.\\
 
 Un schéma amplement plus détaillé est présenté en annexe \ref{subsec:synoptique_fusee}. Ce schéma ne figure pas dans le corps du
 rapport pour des raisons de lisibilité, mais est essentiel pour comprendre les différentes interactions entre les éléments du
-système électronique et doit être vue comme la synthèse référente principale.
+système électronique et doit être vu comme la synthèse référente principale.
 
 \newpage
 
@@ -26,13 +26,13 @@ système électronique et doit être vue comme la synthèse référente principa
 On distinguera quatres principaux éléments :
 \begin{itemize}
     \item \textbf{\texttt{SEQUENCEUR}} : Responsable de la gestion de tous les événements critiques de la mission et de leur
-    synchronisation. C'est lui qui déclenche les différentes étapes de la mission, comme le déploiment des aérofreins, la
+    synchronisation. C'est lui qui déclenche les différentes étapes de la mission, comme le déploiement des aérofreins, la
     séparation des étages, la commande mise à feu du moteur et le déploiement des parachutes.
     \item \textbf{\texttt{ALLUMAGE}} : Circuit de commande de la ligne de mise à feu du moteur. Son rôle est de fournir la
-    puissance nécessaire pour allumer le moteur lorsque le séquenceur l'ordonne et ce en maintenant un niveau de sécurité
-    lorsque le moteur n'est pas censé être allumé.
+    puissance nécessaire pour allumer le moteur lorsque le séquenceur l'ordonne mais également d'isolé l'inflamateur moteur de toute
+    source d'énergie le reste du temps, afin de maintenir un niveau de sécurié suffisant pour les opérateur pyrotechnique au sol.
     \item \textbf{\texttt{APEX - APEXeX}} : Comme énoncé plus tôt dans ce document, le projet SP-02 embarquera une carte APEX pour
-    réaliser l'ensemble des mesures d'enregistrement et d'envoie par télémesure des données de mission. Elle sera accompagnée
+    réaliser l'ensemble des mesures d'enregistrement et d'envoi par télémesure des données de mission. Elle sera accompagnée
     d'une carte APEXeX\footnote{Parfois également noté ApexEx.}, qui est une extension de la carte APEX, pour permettre
     d'embarquer davantage de capteurs et d'interfaces de communication ainsi que l'ajout d'un module de télémesure supplémentaire.
     Par la suite, dans ce document, nous utiliserons le terme APEX pour faire référence à l'ensemble de la carte APEX et de sa
@@ -41,16 +41,18 @@ On distinguera quatres principaux éléments :
     caméras, leur déclenchement et l'enregistrement de données vidéos.
 \end{itemize}
 
+\vspace{-0.3cm}
+
 \subsubsection{Interactions entre les éléments du système}
 
 \begin{itemize}
     \item \textbf{\texttt{SEQUENCEUR} $\longrightarrow$ \texttt{SOL}} : Le séquenceur détecte le décollage de la fusée via
-    l'arrachange d'un connecteur branché à la rampe de décollage.
-    \item \textbf{\texttt{SEQUENCEUR} $\longrightarrow$ \texttt{AEROFREIN}} : Le séquenceur du première étage contrôle le
+    l'arrachage d'un connecteur branché à la rampe de décollage.
+    \item \textbf{\texttt{SEQUENCEUR} $\longrightarrow$ \texttt{AEROFREIN}} : Le séquenceur du premier étage contrôle le
     servomoteur du système de déploiement des aérofreins.
     \item \textbf{\texttt{SEQUENCEUR} $\longrightarrow$ \texttt{PARACHUTE}} : Chaque séquenceur contrôle le servomoteur du
     système de déploiement du parachutes de l'étage dans lequel il se trouve.
-    \item \textbf{\texttt{SEQUENCEUR} $\longrightarrow$ \texttt{SEPARATION}} : Le séquenceur du première étage contrôle le
+    \item \textbf{\texttt{SEQUENCEUR} $\longrightarrow$ \texttt{SEPARATION}} : Le séquenceur du premier étage contrôle le
     servomoteur du système de séparation.
     \item \textbf{\texttt{SEQUENCEUR} $\longrightarrow$ \texttt{ETAGE}} : Chaque séquenceur est branché à un circuit passant par
     l'étage dans lequel il ne se trouve pas. Ainsi, lors de la séparation, ce circuit s'ouvre ce qui permet la détection  de la
@@ -71,16 +73,15 @@ On distinguera quatres principaux éléments :
     caméras de son étage respectif, lui permettant de déclencher les caméras embarquées à distance via des commandes envoyées par
     télémesure depuis le sol, ou de manière autonome en fonction de la logique de vol programmée dans APEX.
     \item \textbf{\texttt{APEX} $\longleftrightarrow$ \texttt{STATION SOL}} : APEX de chaque étage est connecté à la station sol
-    via deux modules de télémesures, lui permettant d'envoyer des données en temps réel vers le sol et de recevoir des commandes
+    via deux modules de télémesure, lui permettant d'envoyer des données en temps réel vers le sol et de recevoir des commandes
     depuis le sol.
 \end{itemize}
 
-Ces intéractions sont succinctement présentées dans le schéma de la figure \ref{fig:schema_electronique_general} et y sont
-détaillées dans le schéma plus complet présenté en annexe \ref{subsec:synoptique_fusee}.
+\subsubsection{Cartes électroniques}
 
-\subsubsection{Présentation des cartes électroniques}
+\vspace{-0.3cm}
 
-\begin{table}[h!]
+\begin{table}[H]
     \centering
     \begin{tabular}{|l|p{2cm}|p{6cm}|c|c|c|}
     \hline
@@ -104,10 +105,10 @@ détaillées dans le schéma plus complet présenté en annexe \ref{subsec:synop
     \caption{Présentation de l'ensemble des cartes électroniques}
 \end{table}
 
+\vspace{-0.3cm}
+
 Les cartes électroniques embarquées à bord de la fusée SP-02 sont présentées dans le tableau ci-dessus. L'intégralité des schémas
 électriques de ces cartes sont présentés en annexe \ref{subsec:schema_elecs}.
-
-\vfill
 
 \begin{figure}[H]
     \centering

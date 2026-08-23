@@ -29,8 +29,7 @@ commune facilite la fabrication, les essais et la maintenance, tout en permettan
 La face avant de la carte séquenceur (\ref{fig:PCB_Sequenceur_front}) est le côté dirigé vers l'intérieur de la fusée, tandis
 que la face arrière (\ref{fig:PCB_Sequenceur_back}) est orientée vers l'extérieur. Ainsi l'ensemble des connecteurs, hormis ceux
 de la batterie et de ceux de la carte \acrshort{IHF}, sont orientés vers l'intérieur de la fusée pour faciliter l'intégration.
-Ceux de la carte \acrshort{IHF} sont orientés vers l'extérieur de la fusée pour permettre à cette dernière d'être accessible
-depuis l'extérieur de la fusée.
+Ceux de la carte \acrshort{IHF} sont orientés de telle sorte à ce que cette dernière soit accessible depuis l'extérieur de la fusée.
 
 \vspace{0.2cm}
 
@@ -102,6 +101,7 @@ gardé au cours du développement afin de guarentir une agilité face à des pro
 arrivé nécessitant des changements au niveau de l'architecture système global.  
 
 \subsubsubsection{Alimentation électrique}
+\label{subsubsubsec:sequenceur_alimentation}
 Le séquenceur est alimenté par deux batteries Li-ion 18650 de 2600 mAh mis en série et fournissant une tension nominale de 7,4 V.
 La puissance de la batterie passe par le connecteur Molex Micro-Fit 3.0, puis par la carte \acrshort{IHF} via les dupont
 vecticaux et dans un interupteur mécanique. Ce dernier permet de contrôler l'alimentation du séquenceur depuis l'extérieur de la
