@@ -1,58 +1,306 @@
 \subsection{Structure du second étage}
 \label{subsec:second_etage}
 
-\subsubsection{Flèche}
-\label{subsubsec:second_etage}
-Pour le tube du second étage de 80mm interne et 2mm d'épaisseur, nous avons mesuré une petite flèche sur deux côtés opposés mais
-assez négligeable.\\
+Le second étage de SP-02 est composé de la seconde partie du bloc de séparation dans lequel est logé le second propulseur (ici un Pro-24) ainsi que l'ensemble des connexions avec le premier étage. En remontant vers la coiffe, nous retrovons le shunt pyro connecté au système d'allumage et leurs condensateurs ; puis le bloc électronique.
+Le bloc parachute se situe dans l'extension au dessus du bloc éléctronique surplombé de la coiffe avec les batteries et le capteur barométrique en aval de la pointe aluminium.
 
-Le test dynamique sera réalisé dès que possible.
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+    
+        \node at (0, 0) {\includegraphics[width=\textwidth]{figures/meca/catia_beta_final.png}};
+        
+        \node (bloc_sepa_lbl)   at (+6.00, +1.65) {\textbf{Interface de séparation}};
+        \node (propu_lbl)       at (+3.30, +2.3) {\textbf{Pro24-6G}};
+        \node (bague_propu_lbl) at (+2.00, +1.5) {\textbf{Bloc allumage}};
+        \node (aileron_lbl)     at (+2.00, -1.5) {\textbf{Ailerons (x4)}};
+        \node (bloc_elec_lbl)   at (+0.00, +2.3) {\textbf{Bloc électronique}};
+        \node (bloc_para_lbl)   at (-2.50, +1.5) {\textbf{Bloc parachute}};
+        \node (coiffe_lbl)      at (-5.00, +2.3) {\textbf{Coiffe conique/Batteries}};
+        \node (pointe_alu_lbl)  at (-6.00, -1.5) {\textbf{Pointe aluminium}};
+
+        \draw[red, ->, line width=1.5] (bloc_sepa_lbl.east)    -- (+7.50, +0.60);
+        \draw[red, ->, line width=1.5] (propu_lbl.south)        -- (+5.00, +0.00);
+        \draw[red, ->, line width=1.5] (bague_propu_lbl.south)  -- (+0.75, +0.00);
+        \draw[red, ->, line width=1.5] (aileron_lbl.east)       -- (+6.50, -1.00);
+        \draw[red, ->, line width=1.5] (bloc_elec_lbl.south)    -- (-0.30, +0.60);
+        \draw[red, ->, line width=1.5] (bloc_para_lbl.south)    -- (-2.50, +0.00);
+        \draw[red, ->, line width=1.5] (coiffe_lbl.south)       -- (-5.30, +0.00);
+        \draw[red, ->, line width=1.5] (pointe_alu_lbl.north)   -- (-7.30, -0.30);
+
+    \end{tikzpicture}
+    \caption{Vue du second étage sur \acrshort{CATIA}}
+    \label{fig:sp02_s2_ork}
+\end{figure}
+
+Comme vu précédemment, le second étage est aussi soumis à toutes les règles mécaniques évoquées et nous devons nous assurer qu'il les respecte lors de la conception et fabrication des éléments.
+
+
+
+\subsubsection{Fuselage et flèche}
+\label{subsubsec:second_etage}
+Le second étage étant davantage soumis à la contrainte de flèche, nous devions également nous assurer du bon comportement du fuselage dans les coditions d'un contrôle sur banc de flèche.
+Nous avons fait  plusieurs compromis le concernant :
+\begin{itemize}
+    \item La pièce du sytème de séparation doit bouger le moins possible dans le tube et doit rester parfaitement dans l'axe du tube : la géométrie des ailerons et leur fixation peut fragiliser le tube si insérés dans le tube
+    \item Le tube doit posséder le moins d'ouvertures possible : le procédé de collage des ailerons et la cage parachute doivent être changé pour le premier et déplacé dans une extension pour le second, et limiter au mieux le nombre de vis
+    \item Le tube doit pouvoir laisser passer les ondes (télémesure) : fibre de verre obligatoirement.\\
+\end{itemize}
+
+Au vue des différentes contraintes répertoriées, nous avons fait le choix de garder un nombre de couches de fibres identique à celui du premier étage :
+diamètre de 80mm interne et 2mm d'épaisseur. Après sa fabrication, nous avons mesuré la flèche du tube et avons mesuré :
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{|c|c|c|}
 \hline
 Positionnement & Flèche statique & Flèche dynamique \\ \hline
-Patins à 0° & 0mm & À tester \\ \hline
-Patins à 90° & 0.5mm & À tester \\ \hline
-Patins à 180° & 0mm & À tester \\ \hline
-Patins à 270° & -0.5mm & À tester \\ \hline
+Patins à 0° & 0mm & 0mm \\ \hline
+Patins à 90° & 0.5mm & 0.5mm \\ \hline
+Patins à 180° & 0mm & À 0mm \\ \hline
+Patins à 270° & -0.5mm & -0,5mm \\ \hline
 \end{tabular}
 \end{table}
-
+Sur deux côtés opposés, nous avons noté une légère flèche naturelle du tube mais sans vraie flèche, ce qui est dans les prévisions 
+et largement dans les normes du C'Space.
 
 \subsubsection{Fabrication et collage des ailerons}
-Les ailerons sont fabriqués à partir d'une plaque de fibre de verre achetée dans le commerce, dans laquelle il est possible de
+Les ailerons sont fabriqués à partir d'une plaque de fibre de verre achetée chez Ahltec, dans laquelle il est possible de
 découper les 4 ailerons aux dimensions souhaitées à la \acrshort{CNC}, afin d'obtenir des ailerons strictement identiques. Un
 ponçage méticuleux est ensuite réalisé sur les surfaces des 4 pièces et accroître l'adhérence de la fibre résinée et donc
-l'efficacité du collage.\\
+l'efficacité du futur collage.\\
 
-La méthode a été testée et approuvée sur la \gls{Minif} \textit{Arcturus} lancée au \gls{C'Space} 2024 et sur la \gls{Fusex}
+La méthode de fixation des ailerons utilisée ici est un \textbf{collage surfacique externe}, c'est-à-dire que les ailerons ne sont 
+plus insérés dans le tube mais juste collés sur la surface externe du tube.
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+    
+        \node at (0, 0) {\includegraphics[width=\textwidth]{figures/meca/collage_ailerons_full1.png}};
+        
+        \node (tube)   at (+6.00, -2.00) {\textbf{Fuselage}};
+        \node (plaque_aileron)       at (+6.00, -1.00) {\textbf{Aileron (x4)}};
+        \node (conge_resine)     at (-6.00, -1.5) {\textbf{Congé en résine}};
+        \node (renfort)   at (+0.00, +2.3) {\textbf{Renforts en fibre de verre (163$g/cm^2$)}};
+
+        \draw[red, ->, line width=1.5] (tube.west)             -- (+2.50, -2.60);
+        \draw[red, ->, line width=1.5] (plaque_aileron.west)   -- (+3.40, +0.00);
+        \draw[red, ->, line width=1.5] (conge_resine.east)      -- (-2.00, -1.50);
+        \draw[red, ->, line width=1.5] (renfort.south)          -- (-0.00, -0.35);
+
+    \end{tikzpicture}
+    \caption{Illustration du collage des ailerons du 2nd étage (Epaisseur des renforts éxagérée) }
+    \label{fig:collage_ailerons}
+\end{figure}
+
+
+Cette méthode a déjà été testée et approuvée sur la \gls{Minif} \textit{Arcturus} lancée au \gls{C'Space} 2024 et sur la \gls{Fusex}
 \textit{Fast Forward} \cite{FF} lancée à \acrshort{FAR} aux États-Unis. Celle-ci consite à coller nos ailerons sur la surface
 extérieur du tube de l'étage à l'aide de résine époxy, puis de la création des congés pour accroître la tenue sans découper de
 fentes dans ce dernier. Cette méthode présente l'avantage de ne pas fragiliser la structure du tube. Cependant, elle nécessite
 de renforcer la fixation des ailerons sur le tube en ajoutant des renforts en composite, sous forme de couches supplémentaires
-de fibre de verre.
+de fibre de verre.\\
+
+\underline{Avantages d'un stratifié}\\
+Un bon matériau composite est un matériau capable de résister aux forces de traction et de compression qui lui sont appliquées 
+dans toutes les directions. Cependant, une couche unique de matériau composite telle que la fibre de carbone, ne résiste 
+pas à une force appliquée dans les coins opposés.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/collage_ailerons_arcturus.png} % Remplacez par le nom de votre fichier image
-    \caption{Illustration du collage des ailerons sur le tube de la mini-fusée \textit{Arcturus}.}
-    \label{fig:collage_ailerons_arcturus}
+    \includegraphics[width=0.9\textwidth]{figures/meca/couche_fibre.png}
+    \caption{Exemple de force appliquée sur une couche de fibre de carbone}
+    \label{fig:couche_fibre}
 \end{figure}
+
+Pour résoudre ce problème, une solution consiste à superposer plusieurs couches de matériau composite et à modifier l'orientation de la couche (différente de la précédente).\\
+
+\underline{Précision sur l'orientation des fibres}\\
+Contrairement à un tube, où les efforts se répartissent de manière homogène sur toute la section circulaire, les plaques sont 
+soumises à des contraintes multiaxiales (traction, compression, cisaillement) qui varient selon leur géométrie et leur 
+utilisation. Pour y remédier, l’orientation des fibres de verre doit être optimisée :
+\begin{itemize}
+    \item Fibres unidirectionnelles : Alignées selon l’axe principal des efforts dominants (par exemple, longitudinalement pour résister à la traction).
+    \item Tissu bidirectionnel (0°/90°) : Utilisé pour répartir les charges dans deux directions perpendiculaires, idéal pour les plaques soumises à des sollicitations complexes.
+    \item Tissu à ±45° : Renforce la résistance au cisaillement (efforts tangentiels), souvent combiné avec d’autres orientations pour équilibrer la rigidité.\\
+\end{itemize}
+
+Le choix de changer l'orientation des couches est très crucial. En effet, lorsque nous analysons visuellement la figure \autoref{fig:couche_fibre}, les fibres bougent moins lorsque la force de traction est appliquée dans leur direction parallèle que le deuxième cas (forces dans les coins).
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/meca/sandwich.png}
+    \caption{Exemple de stratifié en fibre de carbone avec plusieurs orientations}
+    \label{fig:sandwich_fibre}
+\end{figure}
+Nous pouvons différencier deux structures, l'une avec l'orientation changeante des couches (la même que la figure \autoref{fig:sandwich_fibre}) et l'autre sans aucune. Nous dessinerons les fibres d'un échantillon à 6 couches avec la référence L-T (longitudinal-transversal) dans le plan.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/meca/reperes_fibre.png}
+    \caption{Comparaison de la superposition de 6 couches en fonction de l'angle des couches}
+    \label{fig:couche_fibre}
+\end{figure}
+
+Grâce à cette représentation, nous sommes en mesure de dire qu'en superposant plusieurs couches avec différentes orientations, 
+les fibres créent un maillage multidirectionnel qui permet au composite de mieux résister dans les directions souhaitées suivant le choix des orientations. 
+Cette approche permet de maximiser la résistance mécanique tout en limitant l’ajout de matière, donc la masse.\\
+
+Dans notre cas où il s'agit uniquement de renfort et que chaque aileron -- une fois renforcé -- sollicitera les deux les plus proches, on peut limiter l'épaisseur finale à 4mm (3mm initiaux de la plaque usinée).
+Ceci nous donne le nombre de renforts à ajouter : 4 par jeu de deux ailerons (Cf. \autoref{fig:collage_ailerons}).
+
+Le choix de la composition pour notre stratifié est le suivant :
+\begin{align*}
+    \text{[0°, (45°, -45°)]}_S \Leftrightarrow \text{[0°, (+45°, -45°),(-45°, +45°),0°]}_S
+\end{align*}
+
+\begin{itemize}
+    \item 1 couche à 0° en fibre de carbone twill 2x2
+    \item 1 couche de fibres unidirectionelles à composantes 45° \& -45° cousues entre elles
+    \item 1 couche symétrique de fibres unidirectionelles à composantes -45° \& 45° cousues entre elles
+    \item 1 couche à 0° en fibre de carbone twill 2x2
+\end{itemize}
+
+
+Pour réaliser ce procédé, nous avons également mis sous vide l'ensemble des renforts afin d'éviter toute présence d'air lors du séchage, 
+ce qui peut créer des zones plus sensibles à endommagement.\\
+
+\newpage
+
+\underline{Composants pour mise sous vide}\\
+\begin{minipage}{0.5\textwidth}
+    Les composants utilisés lors de la mise sous vide sont les suivants :
+    \begin{itemize}
+        \item Joint d'étanchéité | ST150 Vacuum Bagging sealant tape
+        \item Film de mise sous vide | VB160 Vacuum bagging film LFT
+        \item Feutre absorbant | BR180 Breather cloth
+        \item Film de séparation perforé | R120 P3 Perforated Release film
+        \item Tissu d'arrachage | PP230 Nylon Peel Ply Red Tracer
+        \item Composite | Stratifié en fibre de carbone
+        \item Résine \& Durcisseur | EL2 \& AT30 Slow\\
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/meca/mise_sous_vide.png}
+    \label{fig:mise_sous_vide}
+\end{minipage}
+
+\underline{Ordre de réalisation}\\
+Le collage des renforts se fera de la manière suivante :
+\begin{figure}[H]
+    \centering
+    % Première ligne : 2 images
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/couche_tube.png}
+        \caption{Positionnement du tube sur le mandrin}
+        \label{fig:tube_beta_mandrin}
+    \end{subfigure}
+    \hfill % Espacement horizontal entre les sous-figures
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/couche_tape.png}
+        \caption{Placement de joint aux deux extrémités}
+        \label{fig:tube_beta_joint}
+    \end{subfigure}
+    
+    % Deuxième ligne : 2 images
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/couche1.png}
+        \caption{Première couche de fibre}
+        \label{fig:renfort_ailerons_beta1}
+    \end{subfigure}
+    \hfill % Espacement horizontal entre les sous-figures
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/couche2.png}
+        \caption{Seconde couche de fibre}
+        \label{fig:renfort_ailerons_beta2}
+    \end{subfigure}    
+    % Troisième ligne : 2 images
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/couche3.png}
+        \caption{Troisième couche de fibre}
+        \label{fig:renfort_ailerons_beta3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/couche4.png}
+        \caption{Quatrième couche de fibre}
+        \label{fig:renfort_ailerons_beta4}
+    \end{subfigure}
+
+    % Légende globale pour les 4 premières images
+    \caption{Placement et application des renforts de fibre sur le second étage}
+    \label{fig:ailerons_etage2_SP02}
+\end{figure}
+
+
+\underline{NB :} Le placement de joint 'tapping tape' aux deux extrémités permet de sceller toute entrée d'air lors de la réalisation de la mise sous vide. Une incursion d'air entre le mandrin et l'assemblage de fibre est possible car le jeu provient de sa réalisation via le film plastique expliqué dans la \autoref{subsubsec:fab_tub}.
+Également, lors de notre réalisation, nous avions testé avec et sans. L'abscence de joint sous la section des ailerons a permis à la résine de s'incruster entre le tube et son mandrin les collant ensemble. Un démoulage par glace carbonique est efficace et a permis sa libération du mandrin.
+% Cinquième image : centrée et alignée sous les 4 précédentes
 
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}{0.35\textwidth} % Réduire légèrement pour éviter le débordement
+    % Première ligne : 2 images
+    \begin{subfigure}{0.45\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/collage_ailerons_beta.jpg}
+        \includegraphics[width=\linewidth]{figures/meca/couche_arrache.png}
+        \caption{Tissu d'arrachage}
+        \label{fig:renfort_ailerons_beta1}
+    \end{subfigure}
+    \hfill % Espacement horizontal entre les sous-figures
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/couche_film_perfore.png}
+        \caption{Film perforé}
+        \label{fig:renfort_ailerons_beta2}
+    \end{subfigure}    
+    % Troisième ligne : 2 images
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/couche_feutre.png}
+        \caption{Feutre absorbant}
+        \label{fig:renfort_ailerons_beta3}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/couche_vide.png}
+        \caption{Film sous vide}
+        \label{fig:renfort_ailerons_beta4}
+    \end{subfigure}
+
+    % Légende globale pour les 4 premières images
+    \caption{Placement et application des éléments de mise sous vide}
+    \label{fig:ailerons_etage2_SP02-1}
+\end{figure}
+
+
+La réalisation des couches de renfort a été opérée sous vide et les dimensions des renforts fut variable pour permettre d'obtenir une meilleure transition entre le bord d'attaque et l'épaisseur nominale.
+L'utilisation de tissur d'arrachage (peel ply) et des consommables tels tissu perforé P3, feutre et film de mise sous vide ont permis l'extraction de la résine excédente présente lors de son application et limiter la masse tout en ayant une répartition homogène de la résine.\\
+
+Un conseil pour faciliter le démoulage est de positionner le joint de mise sous vide juste à la fin de la section du tube pour éviter d'éventuelles coulures lors de la mise sous vide. À noter que la glace carbonique est efficace.
+
+\newpage
+\underline{Images de la réalisation}\\
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.8\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/collage_ailerons_beta.jpg}
         \caption{Collage surfacique des ailerons}
         \label{fig:collage_ailerons_beta}
     \end{subfigure}
-    \begin{subfigure}{0.13\textwidth} % Réduire légèrement pour éviter le débordement
+    \begin{subfigure}{0.28\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
-        \includegraphics[width=\linewidth]{figures/ailerons_renfort_beta.jpg}
+        \includegraphics[width=\linewidth]{figures/meca/ailerons_renfort_beta.jpg}
         \caption{Renfort}
         \label{fig:renfort_ailerons_beta}
     \end{subfigure}
@@ -60,14 +308,87 @@ de fibre de verre.
     \label{fig:ailerons_etage2_SP02}
 \end{figure}
 
-La réalisation des couches de renfort a été opérée sous vide et les dimensions des renforts fut variable pour permettre d'obtenir une meilleure transition entre le bord d'attaque et l'épaisseur nominale.
-L'utilisation de tissur d'arrachage (peel ply) et des consommables tels tissu perforé P3, feutre et film de mise sous vide ont permis l'extraction de la résine excédente présente lors de son application et limiter la masse tout en ayant une répartition homogène de la résine.\\
-
-Un conseil pour faciliter le démoulage est de positionner le joint de mise sous vide juste à la fin de la section du tube pour éviter d'éventuelles coulures lors de la mise sous vide. À noter que la glace carbonique est efficace.
 
 
 
 
+
+
+
+
+
+
+\newpage
+\subsubsection{Intégration du système allumage}
+\label{subsec:def_allumage}
+L'intégration des cartes pour l'allumage du second moteur est positionnée les plus proche de la tuyère saus dépasser la limite des renforts des ailerons en fibre de carbone. La hauteur et la position des condensateurs nous permettra d'ajuster le centre de masse et éviter tout rajout de masse inerte inutile.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/Bloc_allumage_1.png}
+        \caption{Vue isométrique transparente}
+        \label{fig:para_etage1-1}
+    \end{subfigure}
+    \begin{subfigure}{0.26\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/Bloc_allumage_2.png}
+        \caption{Vue isométrique}
+        \label{fig:para_etage1-2}
+    \end{subfigure}
+    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/Bloc_allumage_3.png}
+        \caption{Vue de profil}
+        \label{fig:para_etage1-3}
+    \end{subfigure}
+    \caption{Bloc parachute du second étage sur \acrshort{CATIA}}
+    \label{fig:para_etage1_SP02}
+\end{figure}
+
+
+
+
+
+
+
+
+
+\newpage
+
+\subsubsection{Définition du bloc électronique}
+\label{subsec:def_elec2}
+Tout comme le premier étage, nous intégrons les cartes identiques mais dans un volume moindre : 80mm de diamètre. Cette contrainte a nécessité la séparation des piles du bloc principal en dessous et y conserver la caméra et autres composants.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.32\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/visu_bloc_elec_2-2.jpg}
+        \caption{Vue isométrique}
+        \label{fig:para_etage1-1}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/visu_bloc_elec_2-1.jpg}
+        \caption{Vue isométrique de dos}
+        \label{fig:para_etage1-2}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/visu_bloc_elec_2-3.jpg}
+        \caption{Position ouverte}
+        \label{fig:para_etage1-3}
+    \end{subfigure}
+    \caption{Bloc parachute du second étage sur \acrshort{CATIA}}
+    \label{fig:para_etage1_SP02}
+\end{figure}
+
+
+
+
+\newpage
 \subsubsection{Définition du système d'ouverture/parachute}
 \label{subsec:def_para2}
 En suivant les mêmes contraintes du \acrshort{CDC}, la définition du bloc parachute du second étage reprend les mêmes principes
@@ -91,19 +412,19 @@ sur les ailerons et le système de séparation afin de limiter certains dégâts
     \centering
     \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
-        \includegraphics[width=\linewidth]{figures/para_etage2-1.png}
+        \includegraphics[width=\linewidth]{figures/meca/para_etage2-1.png}
         \caption{Position verrouillée}
         \label{fig:para_etage1-1}
     \end{subfigure}
     \begin{subfigure}{0.26\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/para_etage2-2.png}
+        \includegraphics[width=\linewidth]{figures/meca/para_etage2-2.png}
         \caption{Servomoteur à mi-course}
         \label{fig:para_etage1-2}
     \end{subfigure}
     \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
-        \includegraphics[width=\linewidth]{figures/para_etage2-3.png}
+        \includegraphics[width=\linewidth]{figures/meca/para_etage2-3.png}
         \caption{Position ouverte}
         \label{fig:para_etage1-3}
     \end{subfigure}
@@ -123,6 +444,7 @@ La construction du bloc est réalisée de la manière suivante :
 
 
 
+
 \subsubsection{Définition du la coiffe et du pitot}
 \label{subsec:def_coiffe}
 La coiffe du second étage a été conçue et réalisée en fibre de verre et en aluminium pour le système pointe-baromètre.
@@ -130,88 +452,70 @@ Les contraintes de dimensionnement étaient une masse réduite, une résistance 
 
 La CAO regroupe le moule, la coiffe aux dimensions souhaitées et les guides de découpe de l'éxédant de fibre. À noter que l'équivant en coiffe PLA n'offrait pas la résistance souhaitée pour l'intégration de la PCB pitot et de capteurs plus imposants.
 Nous avons mesuré une différence de 19g supplémentaires pour la version fibre-aluminium en tenant compte de ce module complet en alu 7075-T6.
-La coiffe seule en PLA est plus lourde que celle en fibre et ne sera pas adaptée pour les conditions de stockage en extérieur (soleil).
+La coiffe seule en PLA est plus lourde que celle en fibre et ne sera pas adaptée pour les conditions de stockage en extérieur (soleil).\\
+
 \begin{figure}[H]
     \centering
-    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/CAO_coiffe.png}
+    \begin{subfigure}{0.26\textwidth}
+        \includegraphics[width=\linewidth]{figures/meca/CAO_coiffe.png}
         \caption{Vue 3D (moule + coiffe)}
         \label{fig:elec_etage2-1}
     \end{subfigure}
-    \begin{subfigure}{0.2\textwidth}
+    \begin{subfigure}{0.26\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/coiffe_beta.jpg}
+        \includegraphics[width=0.8\textwidth]{figures/meca/coiffe_beta.jpg} % Remplacez par le nom de votre fichier image
         \caption{Coiffe du second étage avec pointe et baromètre intégrés}
-        \label{fig:coiffe_etage2-2}
+        \label{fig:coiffe}
     \end{subfigure}
-    \caption{Bloc électronique du second étage sur \acrshort{CATIA}}
-    \label{fig:coiffe_SP02}
+    \caption{Bloc coiffe du second étage sur \acrshort{CATIA}}
+    \label{fig:coiffe4}
 \end{figure}
 
-Pour mieux visualiser l'ensemble, voici la vue de coupe du système avec le coupleur coiffe vers le tube principal et la pointe comportant le conduit pour notre capteur barométrique.
-
+Pour mieux visualiser l’ensemble, voici la vue de coupe du système avec le coupleur coiffe vers le tube
+principal et la pointe comportant le conduit pour notre capteur barométrique.
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
-        \includegraphics[width=\linewidth]{figures/coiffe.png}
+        \includegraphics[width=\linewidth]{figures/meca/bloc_coiffe1.png}
         \caption{Vue isométrique}
-        \label{fig:elec_etage2-1}
+        \label{fig:coiffe1}
     \end{subfigure}
     \begin{subfigure}{0.26\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/vue_coupe_coiffe.png}
-        \caption{Vue de profil}
-        \label{fig:elec_etage2-2}
+        \includegraphics[width=\linewidth]{figures/meca/bloc_coiffe2.png}
+        \caption{Vue de face}
+        \label{fig:coiffe2}
     \end{subfigure}
-    \caption{Bloc électronique du second étage sur \acrshort{CATIA}}
-    \label{fig:elec_etage2_SP02}
-\end{figure}
-
-
-
-
-\subsubsection{Définition du bloc électronique}
-\label{subsec:def_elec2}
-Tout comme le premier étage, nous intégrons les cartes identiques mais dans un volume moindre : 80mm de diamètre. Cette contrainte a nécessité la séparation des piles du bloc principal en dessous et y conserver la caméra et autres composants.
-\begin{figure}[H]
-    \centering
     \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
-        \includegraphics[width=\linewidth]{figures/bloc_elec2-1.png}
-        \caption{Vue isométrique}
-        \label{fig:elec_etage2-1}
+        \includegraphics[width=\linewidth]{figures/meca/bloc_coiffe3.png}
+        \caption{Vue de coupe}
+        \label{fig:coiffe3}
     \end{subfigure}
-    \begin{subfigure}{0.26\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/bloc_elec2-2.png}
-        \caption{Vue de profil}
-        \label{fig:elec_etage2-2}
-    \end{subfigure}
-    \caption{Bloc électronique du second étage sur \acrshort{CATIA}}
-    \label{fig:elec_etage2_SP02}
+    \caption{Bloc coiffe du second étage sur \acrshort{CATIA}}
+    \label{fig:coiffe4}
 \end{figure}
 
-\subsubsection{Intégration du système allumage}
-\label{subsec:def_allumage}
-L'intégration des cartes pour l'allumage du second moteur est positionnée les plus proche de la tuyère saus dépasser la limite des renforts des ailerons en fibre de carbone. La hauteur et la position des condensateurs nous permettra d'ajuster le centre de masse et éviter tout rajout de masse inerte inutile.
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/integration_condos.png}
-        \caption{Vue isométrique}
-        \label{fig:condo_etage2-1}
-    \end{subfigure}
-    \begin{subfigure}{0.26\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/integration_condos_propu.png}
-        \caption{Vue isométrique avec Pro24}
-        \label{fig:condo_etage2-2}
-    \end{subfigure}
-    \caption{Bloc électronique du second étage sur \acrshort{CATIA}}
-    \label{fig:elec_etage2_SP02}
-\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \newpage

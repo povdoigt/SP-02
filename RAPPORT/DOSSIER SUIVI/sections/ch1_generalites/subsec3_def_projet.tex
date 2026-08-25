@@ -41,19 +41,17 @@ séparation des deux étages.\\
 
 Voici les principales caractéristiques techniques du premier étage :
 \begin{itemize}
-    \item Hauteur : 1120 mm
+    \item Hauteur : 1117 mm
     \item Diamètre interne : 100 mm
     \item Epaisseur de paroi : 2 mm
-    \item Masse à vide : 4431 g
+    \item Masse à vide : 4800 g
     \item Propulseur : Cesaroni K570 - Pro54-5G Barasinga
 \end{itemize}
 % \vspace{-2cm}
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}
-    
-        \node at (0, 0) {\includegraphics[width=\textwidth-0.75cm]{figures/catia_alpha1.png}};
-        
+        \node at (0, 0) {\includegraphics[width=\textwidth]{figures/meca/catia_alpha_final.png}};
         \node (retreint_lbl)   at (+8.00, +2.5) {\textbf{Rétreint}};
         \node (bloc_propu_lbl) at (+4.30, +2.3) {\textbf{Bloc propulsion}};
         \node (propu_lbl)      at (+2.00, +1.5) {\textbf{Pro54-5G}};
@@ -87,35 +85,35 @@ pitot.\\
 
 Voici les principales caractéristiques techniques du deuxième étage :
 \begin{itemize}
-    \item Hauteur : 1225 mm
+    \item Hauteur : 1217 mm
     \item Diamètre interne : 80 mm
     \item Epaisseur de paroi : 2 mm
-    \item Masse à vide : 3132 g
-    \item Propulseur : Cesaroni G150 - Pro24-3G (compatible avec Pandora)
+    \item Masse à vide : 3010 g
+    \item Propulseur : Cesaroni G150 - Pro24-6G Pandora
 \end{itemize}
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}
     
-        \node at (0, 0) {\includegraphics[width=\textwidth-1cm]{figures/catia_beta1.png}};
+        \node at (0, 0) {\includegraphics[width=\textwidth]{figures/meca/catia_beta_final.png}};
         
-        \node (bloc_sepa_lbl)   at (+8.00, +2.3) {\textbf{Interface de séparation}};
-        \node (propu_lbl)       at (+4.30, +2.3) {\textbf{Pro24-3G/6G}};
-        \node (bague_propu_lbl) at (+2.60, +1.5) {\textbf{bague de centrage}};
+        \node (bloc_sepa_lbl)   at (+8.00, +2.5) {\textbf{Interface de séparation}};
+        \node (propu_lbl)       at (+4.30, +2.3) {\textbf{Pro24-6G}};
+        \node (bague_propu_lbl) at (+2.00, +1.5) {\textbf{Bloc allumage}};
         \node (aileron_lbl)     at (+2.00, -1.5) {\textbf{Ailerons (x4)}};
-        \node (bloc_elec_lbl)   at (+0.50, +2.3) {\textbf{Bloc électronique}};
-        \node (bloc_para_lbl)   at (-2.00, +1.5) {\textbf{Bloc parachute}};
-        \node (coiffe_lbl)      at (-5.00, +2.1) {\textbf{Coiffe conique}};
+        \node (bloc_elec_lbl)   at (+0.00, +2.3) {\textbf{Bloc électronique}};
+        \node (bloc_para_lbl)   at (-2.50, +1.5) {\textbf{Bloc parachute}};
+        \node (coiffe_lbl)      at (-5.00, +2.3) {\textbf{Coiffe conique/Batteries}};
         \node (pointe_alu_lbl)  at (-6.00, -1.5) {\textbf{Pointe aluminium}};
 
-        \draw[red, ->, line width=1.5] (bloc_sepa_lbl.south)    -- (+7.08, +0.50);
-        \draw[red, ->, line width=1.5] (propu_lbl.south)        -- (+5.90, +0.00);
-        \draw[red, ->, line width=1.5] (bague_propu_lbl.south)  -- (+5.00, +0.00);
+        \draw[red, ->, line width=1.5] (bloc_sepa_lbl.south)    -- (+7.50, +0.60);
+        \draw[red, ->, line width=1.5] (propu_lbl.south)        -- (+5.00, +0.00);
+        \draw[red, ->, line width=1.5] (bague_propu_lbl.south)  -- (+0.75, +0.00);
         \draw[red, ->, line width=1.5] (aileron_lbl.east)       -- (+6.50, -1.00);
-        \draw[red, ->, line width=1.5] (bloc_elec_lbl.south)    -- (+1.95, +0.00);
+        \draw[red, ->, line width=1.5] (bloc_elec_lbl.south)    -- (-0.30, +0.60);
         \draw[red, ->, line width=1.5] (bloc_para_lbl.south)    -- (-2.50, +0.00);
         \draw[red, ->, line width=1.5] (coiffe_lbl.south)       -- (-5.30, +0.00);
-        \draw[red, ->, line width=1.5] (pointe_alu_lbl.north)   -- (-7.00, +0.00);
+        \draw[red, ->, line width=1.5] (pointe_alu_lbl.north)   -- (-7.30, -0.30);
 
     \end{tikzpicture}
     \caption{Vue du second étage sur \acrshort{CATIA}}
@@ -128,15 +126,16 @@ Voici les principales caractéristiques techniques du deuxième étage :
 
 L’ensemble de la fusée SP-02, une fois les deux étages assemblés, présente les caractéristiques suivantes :
 \begin{itemize}
-    \item Hauteur totale : 2225 mm
+    \item Hauteur totale : 2290 mm
     \item Diamètre externe : 104 mm
-    \item Masse à vide : 7473 g
+    \item Masse à vide : 7900 g
+    \item Centre de masse : 1295 mm
 \end{itemize}
 
 \begin{figure}[h]
     \centering
-    \rotatebox{15}{
-        \includegraphics[width=0.15\textwidth]{figures/catia_alpha_beta_narval.png}
+    \rotatebox{160}{
+        \includegraphics[width=0.23\textwidth]{figures/meca/SP_MaJ_1.png}
     }
     \caption{Vue d'ensemble de la fusée SP-02 sur \acrshort{CATIA}}
     \label{fig:sp02_ork}
