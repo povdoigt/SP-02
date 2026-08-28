@@ -1,90 +1,52 @@
 \subsection{Structure du premier étage}
 \label{subsec:premier_etage}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/meca/catia_alpha1.png}
-    \caption{Vue de la structure du premier étage sur \acrshort{CATIA}}
-    \label{fig:structure_premier_etage}
-\end{figure}
-
-\subsubsection{Flèche}
-\label{subsubsec:premier_etage}
-À la suite de la conception, nous avons pu réaliser les tubes de la structure porteuse de la fusée. Nous avons procédé à un test
-de flèche sur les tubes afin de nous assurer de la bonne tenue mécanique de ces derniers. Pour le tube du premier étage, nous
-avons encastré le tube comme si tenu par le propulseur et réalisé les tests comme au \gls{C'Space}.\\
-
-Afin de déterminer la force à appliquer à un mètre, on calcule le couple créé par le poids de la fusée au niveau de la base de
-l’étage inférieur.
-
-\begin{figure}[h!]
+Comme défini dans la \autoref{subsec:def_projet}, le premier étage est composé d'un bloc propulsion logeant le Pro-54 et sur lequel sont fixés les ailerons, le bloc aérofreins, le bloc parachute, le bloc électronique et la partie inférieure du bloc de séparation inter-étage. Nous détaillerons la conception et la fabrication de chaque bloc dans l'ordre énuméré précédemment.
+\begin{figure}[h]
     \centering
     \begin{tikzpicture}
-        \node at (0,0) {\includegraphics[width=\textwidth-0.75cm]{figures/SP_ork_narval-24.png}};
+    
+        \node at (0, 0) {\includegraphics[width=\textwidth]{figures/meca/catia_alpha_final.png}};
+        
+        \node (retreint_lbl)   at (+8.00, +2.5) {\textbf{Rétreint}};
+        \node (bloc_propu_lbl) at (+4.30, +2.3) {\textbf{Bloc propulsion}};
+        \node (propu_lbl)      at (+2.00, +1.5) {\textbf{Pro54-5G}};
+        \node (aileron_lbl)    at (+2.00, -1.5) {\textbf{Ailerons (x4)}};
+        \node (af_lbl)         at (+0.00, +2.3) {\textbf{Aérofreins (x3)}};
+        \node (bloc_para_lbl)  at (-2.00, +1.5) {\textbf{Bloc parachute}};
+        \node (bloc_elec_lbl)  at (-6.00, +2.3) {\textbf{Bloc électronique}};
+        \node (bloc_sepa_lbl)  at (-6.00, -1.5) {\textbf{Bloc séparation}};
 
-        \node (y_lbl)  at (-6.95, +0.500) {\textbf{y}};
-        \node (x_lbl)  at (-6.70, -0.205) {\textbf{x}};
-        \node (Cz_fbl) at (-6.60, +0.250) {\textbf{$C_z$}};
-        \node (P_lbl)  at (-0.85, +1.000) {\textbf{P}};
-        \node (F_lbl)  at (+6.00, +1.000) {\textbf{F}};
+        \node (bloc_propu_box) at (+5.10, 0.00) [minimum width=35mm, minimum height=18mm, rectangle, line width=2, draw=red] {};
+        
+        \draw[red, ->, line width=1.5] (retreint_lbl.south)   -- (+7.20, +0.60);
+        \draw[red, ->, line width=1.5] (bloc_propu_lbl.south) -- (bloc_propu_box.140);
+        \draw[red, ->, line width=1.5] (propu_lbl.south)      -- (+2.20, +0.00);
+        \draw[red, ->, line width=1.5] (aileron_lbl.east)     -- (+6.50, -1.50);
+        \draw[red, ->, line width=1.5] (af_lbl.south)         -- (+0.30, +0.60);
+        \draw[red, ->, line width=1.5] (bloc_para_lbl.south)  -- (-2.00, +0.00);
+        \draw[red, ->, line width=1.5] (bloc_elec_lbl.south)  -- (-5.00, +0.00);
+        \draw[red, ->, line width=1.5] (bloc_sepa_lbl.north)  -- (-6.75, +0.00);
 
-        \draw[red, <-, line width=1] (-7.200, +0.5) -- (-7.200, +0.0);
-        \draw[red, <-, line width=1] (x_lbl.north)  -- (-7.200, +0.0);
-        \draw[red, ->, line width=1] (+5.800, +1.0) -- (+5.800, +0.3);
-        \draw[red, ->, line width=1] (-1.080, +1.0) -- (-1.080, +0.3);
-        \draw[red, ->] (-6.7, 0) arc (0:90:.5cm);
-        \draw [<->, > = stealth, black] (-7.2, -0.75) -- (-1.080, -0.75) node [midway, fill = white] {0,880m} ;
-        \draw [<->, > = stealth, black] (-7.2, -1.25) -- (+5.800, -1.25) node [midway, fill = white] {1,960m} ;
     \end{tikzpicture}
-    \caption{Schéma de calcul du couple exercé au niveau de la base du premier étage}
-    \label{fig:placeholder}
+    \caption{Vue du premier étage sur \acrshort{CATIA}}
+    \label{fig:sp02_s1_ork}
 \end{figure}
 
-\begin{align*}
-    P &= 9,81 \times 7,327 = 73,310\ N \\
-    F &= 9,81 \times 0,8 = 7,848\ N\\
-    \\
-    C_Z &= 0,880 \times  (- P) + 1,960 \times (- F) \\
-    &= 0,880 \times (- 73,310) + 1,960 \times (-7,848) \\
-    &= -79,895\ N\cdotp m
-\end{align*}
-On a donc un couple de $-79,895\ N\cdotp m$, ce qui équivaut a :
-$$\frac{|-79,895|}{9,81} = m_{test} \approx 8,144\ kg$$
-$m_{test}$ étant la valeur de la masse à appliqués à un mètre du point d'encastrement pour reproduire le même couple.
-Notre estimation de masse étant approximative, nous avons décidé d’arrondir la charge $m_{test}$ à $10\ kg$.
 
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{|c|c|c|}
-        \hline
-        Positionnement & Flèche statique & Flèche dynamique \\ \hline
-        Patins à 0° & 0mm & 1mm \\ \hline
-        Patins à 90° & 0mm & 1,5mm \\ \hline
-        Patins à 180° & 0mm & 1mm \\ \hline
-        Patins à 270° & 0mm & 2mm \\ \hline
-        \end{tabular}
-    \caption{Résultats des tests de flèche du tube du premier étage}
-\end{table}
-
-Les résultats montrent une flèche maximale de 0 mm en statique et 2 mm en dynamique pour une longueur de 1 m de tube. Cela 
-correspond à une flèche relative de 0 \% en statique et 0,2 \% en dynamique, ce qui est largement en dessous de la limite de
-1 \% imposée par le \gls{CDC} \cite[p.~32]{CDC_BiEtage}
-
-\newpage
 
 \subsubsection{Fabrication et collage du bloc propulsion avec ailerons}
 Le bloc propulsion de SP-02 reprend la même architecture générale que celle définie pour SP-01, à savoir quatre ailerons en
 fibre de verre fixés sur un tube porte-moteur intégré dans le fuselage. Le rétreint arrière est de nouveau utilisé pour
 optimiser la réduction de traînée, mais le système de maintien du propulseur évolue : la vis latérale utilisée sur SP-01 est
-remplacée par une bague filetée venant se visser à l’arrière du tube porte-moteur, assurant un appui axial direct sur le
-propulseur. Cette modification permet de conserver la même géométrie extérieure tout en simplifiant la transmission des efforts
+remplacée par deux loquets venant se visser sur la bague centrage basse (Cf. \autoref{fig:collage_aileronsSP01_1}), assurant un blocage axial direct lors de la décélération du propulseur sur le
+rétrain. Cette modification permet de conserver la même géométrie extérieure tout en simplifiant la transmission des efforts
 axiaux et en maintenant la compatibilité avec le format moteur retenu.\\
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{figures/meca/schema1_SP-01.PNG}
     \caption{Procédé de collage ailerons/tube porte-moteur}
-    \label{fig:collage_aileronsSP01_1}
+    \label{fig:collage_aileronsSP01}
 \end{figure}
 
 Le tube porte-moteur de SP-02, déjà fabriqué, reprend exactement le même principe de géométrie et de construction que celui
@@ -98,7 +60,7 @@ précédemment et à assurer une continuité dans l’intégration structurelle 
     \centering
     \includegraphics[width=0.55\textwidth]{figures/meca/schema3_SP-01.PNG}
     \caption{Procédé de collage ailerons/structure avec congés en résine}
-    \label{fig:collage2_aileronsSP01_2}
+    \label{fig:collage2_aileronsSP01}
 \end{figure}
 
 Enfin, SP-02 reprend également la logique de finition appliquée sur SP-01 : des perçages seront réalisés en amont et en aval
@@ -109,7 +71,7 @@ proprement les points d’injection tout en assurant une finition aérodynamique
 % Ajouter photo usinage ailerons CNC
 
 
-\textbf{\underline{Fabrication du rétrain}}\\
+\textbf{\underline{Fabrication du rérain}}\\
 Le rétrain (communément "rérain") a été réalisé à partir d'un moule positif et par-dessus lequel on a possitionné 11 couches découpées en tiers afin 
 d'épouser au mieux la forme du moule pour une épaisseur désirée de 1,969mm. L'agent démoulant utilsé est deux préservatifs. 
 Le positionnement de deux bagues en fibre de verre au-dessus et au bout du tube propu guident et contraignent l'assemblage entier 
@@ -119,16 +81,22 @@ finition optimale de rugosité de surface pour l'aérodynamisme après ponçage.
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
+    \begin{subfigure}{0.29\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
         \includegraphics[width=\linewidth]{figures/meca/rerian_brut.jpg}
         \caption{Rérain brut après démoulage} % Ajoute une légende si nécessaire
         \label{fig:maintien3}
     \end{subfigure}
-    \begin{subfigure}{0.3\textwidth}
+    \begin{subfigure}{0.29\textwidth}
         \centering
         \includegraphics[width=\linewidth]{figures/meca/rerain.jpg}
         \caption{Rérain terminé avant collage} % Ajoute une légende si nécessaire
+        \label{fig:maintien4}
+    \end{subfigure}
+    \begin{subfigure}{0.38\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/rerain_fixe.jpg}
+        \caption{Rérain terminé, collé et mastiqué } % Ajoute une légende si nécessaire
         \label{fig:maintien4}
     \end{subfigure}
     \caption{Réalisation du rérain}
@@ -144,31 +112,12 @@ Le diamètre nominal du mandrin a été agrandi pour obtenir le jeu suffisant à
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.5\textwidth]{figures/meca/tube_propu.jpg}
-    \caption{Tube propulseur}
+    \includegraphics[width=0.3\textwidth]{figures/meca/tube_propu.jpg}
+    \caption{Tube porte-propulseur}
     \label{fig:collage2_aileronsSP01}
 \end{figure}
 
 
-\textbf{\underline{Bloc propulseur}}\\
-Ci-dessous, la visualisation de l'assemblage du bloc complet avec l'ensemble des composants.
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.27\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/bloc_propu_vue_coupe.png}
-        \caption{Vue de coupe} % Ajoute une légende si nécessaire
-        \label{fig:maintien3}
-    \end{subfigure}
-    \begin{subfigure}{0.27\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/bloc_propu_vue_face.png}
-        \caption{Vue de face} % Ajoute une légende si nécessaire
-        \label{fig:maintien4}
-    \end{subfigure}
-    \caption{CAO du bloc propu du preier étage(Pro-54 6G)}
-    \label{fig:bloc_pro54}
-\end{figure}
 
 
 \newpage
@@ -187,13 +136,13 @@ l'opérabilité du système. En effet, cette dernière ne nécessite pas de devo
 Les deux loquets devront être vissés si utilisés, mais ne requièrent pas de changement de pièce dans l'assemblage.
 \begin{figure}[H]
     \centering
-    \begin{subfigure}{0.38\textwidth} % Réduire légèrement pour éviter le débordement
+    \begin{subfigure}{0.48\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
         \includegraphics[width=\linewidth]{figures/meca/maintien3_pro54.png}
         \caption{Vue de dessous} % Ajoute une légende si nécessaire
         \label{fig:maintien3}
     \end{subfigure}
-    \begin{subfigure}{0.38\textwidth}
+    \begin{subfigure}{0.48\textwidth}
         \centering
         \includegraphics[width=\linewidth]{figures/meca/maintien4_pro54.png}
         \caption{Vue trimétrique} % Ajoute une légende si nécessaire
@@ -423,29 +372,197 @@ aérofreins en fonction de leur angle de déploiement $\theta$.
 Dans l'objectif de récupération de chaque étage, nous devons définir et valider nos deux systèmes de sauvegarde des lanceurs.
 Ceux-ci sont définis par des trappes latérales actionnées par un servomoteur chacun.\\
 
-Le tableau suivant récapitule les règles du \acrshort{CDC} nous concernant (règles concernant les ralentisseurs pilotés non
-présentes) et devant faire l'objet d'une validation technique.
+Le parachute sera fixé à la bague principale du bloc parachute dont cette dernière sera réalisée en aluminium 7075-T6 et fixée
+au tube par 3 vis CBLX M5x12mm, qui, d'après nos tests, restent conformes à REC5. L'ensemble des règles REC6 à REC8 concernant la
+bonne tenue de la trappe latérale seront confirmées de par la forme du réceptacle du parachute avec des rebords pour le bon
+maintien de la trappe avec le tube ainsi que son usinage pour avoir aucun jeu lors du test en torsion. \\
 
-\begin{table}[h!]
+L'utilisation d'un émérillon en acier inoxydable de diamètre 8mm permettra une tenue maximale en traction de 2943 N, pour être
+conforme à REC10 et un anneau anti-torche pour confirmer REC11. Enfin, une batterie de tests (filmés) sera réalisée pour confirmer REC9.\\
+
+Le système d’ouverture — une brique technologique déjà développée et validée sur SP-01 — se compose d’un servomoteur et d’un
+crochet assurant le verrouillage de la trappe. En plaçant le servomoteur à la verticale, avec un axe de rotation aligné sur
+l’axe de roulis de la fusée, on améliore son efficacité au décollage : il est moins sollicité en cas d’infiltration d’air dans
+la trappe et lors de l’ouverture.
+
+
+\begin{figure}[H]
     \centering
-    \begin{tabular}{|p{1.2cm}|p{4cm}|p{10cm}|}
-        \hline
-        Règles & Type & Détails du \acrshort{CDC} \\ \hline
-        REC1  & Système récupération & Chaque étage doit être équipé d’un système ralentisseur fiable permettant de réduire sa vitesse de descente. L’éjection du/des ralentisseurs doit être franche. \\ \hline
-        REC2  & Système récupération & Les systèmes ralentisseurs des étages et de tout autre élément éjecté doivent permettre une arrivée au sol à une vitesse verticale comprise entre 5 m/s et 15 m/s, y compris dans le cas dégradé où les deux étages ne se sont pas séparés. \\ \hline
-        REC3  & Cohérence du système & Les instants de déploiement des systèmes ralentisseurs doivent être compatibles avec l’expérience menée par le club. \\ \hline
-        REC4  & Séparation transversale & Non utilisé. \\ \hline
-        REC5  & Séparation latérale & La case contenant le système de récupération doit rester opérationnelle lorsqu’elle supporte en compression longitudinale une force : $F = 2 \times \text{Accélération}{\text{Max}} \times M_{\text{sup}}$ (numériquement, l’accélération en m/s$^2$ et la masse en kg donnent $F$ en newtons). \\ \hline
-        REC6  & Assemblage trappe & En position fermée, la porte latérale ne doit pas dépasser du profil de l’étage. \\ \hline
-        REC7  & Tenue en torsion & La porte ne doit pas s’ouvrir ou se bloquer lorsqu’on applique un couple de torsion de 1 N·m entre le haut et le bas de l’étage. \\ \hline
-        REC8  & Vibrations & L’accélération et les vibrations de la fusée ne doivent pas modifier le fonctionnement des systèmes de récupération. \\ \hline
-        REC9  & Tenue mécanique globale & Les systèmes de récupération utilisés doivent auparavant avoir été testés avec succès. \\ \hline
-        REC10 & Solidité du parachute & Les ralentisseurs doivent être suffisamment solides pour résister au choc à l’ouverture. \\ \hline
-        REC11 & Anneau anti-torche & Dans le cas de l’utilisation d’un parachute, celui-ci doit être équipé d’un anneau anti-torche (également appelé glisseur). \\ \hline
-    \end{tabular}
-    \caption{Règles de dimensionnement des systèmes de récupération issues du \acrshort{CDC} \gls{Fusex} \cite[p.~36-42]{CDC_BiEtage}}
-\end{table}
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/para_etage1-1.png}
+        \caption{Position verrouillée}
+        \label{fig:para_etage1-1}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/para_etage1-2.png}
+        \caption{Servomoteur à mi-course}
+        \label{fig:para_etage1-2}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/para_etage1-3.png}
+        \caption{Position ouverte}
+        \label{fig:para_etage1-3}
+    \end{subfigure}
+    \caption{Bloc parachute du premier étage sur \acrshort{CATIA}}
+    \label{fig:para_etage1_SP02}
+\end{figure}
+ 
+De plus, le crochet (visible en bleu foncé sur la figure \autoref{fig:para_etage1_SP02}) est contraint dans toutes les translations 
+grâce à un trou concentrique dans la bague en aluminium (ici en bleu clair). L'unique mouvement possible est alors 
+la rotation souhaitée dans l'axe x du lanceur.\\
 
+La spécificité du bloc de cet étage est la forme de la cage en cuillère visible en rouge (sans bague en dessous) afin de limiter 
+au mieux la masse et une sortie du parachute plus efficiente, tout en facilitant son intégration dans le lanceur 
+avec notamment le bloc aérofreins juste en-dessous. La conception a été réalisée pour une fabrication 
+en composite et compatible en matériau polymère tel PETG. La configuration matériau retenue est le composite après avoir validé la 
+méthode de fabrication en composite (surtoût dans le rayon minimal entre les 
+différentes couches). L'épaisseur de cette dernière est de 2,5mm en PETG ; et réduite à 1,2mm en fibre de verre.\\
+
+\underline{Réalisation de la cage en fibre de verre}\\
+
+\begin{minipage}{0.5\textwidth}
+    La structure de la cage reprend la forme et l'espace maximal tout en facilitant l'éjection du parachute sans compromettre le 
+    centre de masse du bloc parachute.\\
+    Elle reprend une ouverture de 90° sur le tube pour une longueur totale de -----------mm. La forme en cuillère spécifique permet 
+    une éjection plus directe par gravité qu'une bague traditionelle, ainsi que les maintiens latéraux octroient une meilleure 
+    stabilité de la trappe en position fermée, évitant son enfoncement ou déformation axiale.\\
+
+    Pour permettre sa fabrication, nous avons fait le choix de réaliser le moule en PLA (simplification et rapidité d'usinage), et 
+    dont l'agent démoulant appliqué est de la WAX (Cf. \autoref{fig:para_etage1-1}) -- non toxique et simple d'application -- sur l'ensemble de la surface à résiner.
+    Les morceaux de fibre de verre sont ici découpés de deux manières : soit il servira dans la direction \textcolor{YellowOrange}{longitudinale}, dans l'axe du lanceur, soit dans l'axe \textcolor{blue}{circonférentiel} (Cf. flèches de la \autoref{fig:CAO_moule_cage1}). La combinaison des deux constitue une couche complète et renforcée pour pallier toute déformation excessive.\\
+\end{minipage}
+\hfill
+\begin{minipage}{0.4\textwidth}
+\centering
+    \includegraphics[width=\textwidth]{figures/meca/moule_cage_alpha2.png}
+    \captionof{figure}{Moule de la cage parachute du premier étage sur \acrshort{CATIA}}
+    \label{fig:CAO_moule_cage1}
+\end{minipage}
+
+Une fois la WAX appliquée et la première couche appliquée, nous avons répété l'opération de superpostion des morceaux de fibre tout en respectant l'alternance entre morceau de direction \textcolor{YellowOrange}{longitudinale} et morceau de direction \textcolor{blue}{circonférentielle}.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/cage_alpha1.jpg}
+        \caption{WAX sur le moule}
+        \label{fig:para_etage1-1}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/cage_alpha2.jpg}
+        \caption{Vue de face}
+        \label{fig:para_etage1-2}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/cage_alpha4.jpg}
+        \caption{Vue de dessus}
+        \label{fig:para_etage1-3}
+    \end{subfigure}
+    \caption{Bloc parachute du premier étage sur \acrshort{CATIA}}
+    \label{fig:para_etage1_SP02}
+\end{figure}
+
+Cette forme-ci de moule a engendré deux soucis lors de la fabrication :
+\begin{itemize}
+    \item Un surplus de résine s'est accumulé au niveau de la cuillière. Un moule positif aurait permis une répartition plus homogène lors de l'application de la résine et enfin lors de la mise sous vide
+    \item Les bords se décollaient très souvent (largeur pas assez suffisante pour tomber sur le moule par gravité), la forme en moule positif aurait pû améliorer ce problème.\\
+\end{itemize}
+
+Des améliorations seront à noter dans la forme externe des congés. En effet, la marge de PLA dont la courbure est parfaite pour la pièce finale aurait pû être légèrement prolongée afin d'éviter tout désagrément lors de la découpe finale après démoulage. 
+
+
+\newpage
+\begin{minipage}{0.5\textwidth}
+    Les composants utilsés lors de la mise sous vide sont les suivants :
+    \begin{itemize}
+        \item Joint d'étanchéité | ST150 Vacuum Bagging sealant tape
+        \item Film de mise sous vide | VB160 Vacuum bagging film LFT
+        \item Feutre absorbant | BR180 Breather cloth
+        \item Film de séparation perforé | R120 P3 Perforated Release film
+        \item Tissu d'arrachage | PP230 Nylon Peel Ply Red Tracer
+        \item Composite | Stratifié en fibre de verre 13 g/cm$^2$
+        \item Résine \& Durcisseur | EL2 \& AT30 Slow\\
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/meca/mise_sous_vide.png}
+    \label{fig:mise_sous_vide}
+\end{minipage}
+
+Nous avons donc ici la mise sous vide finale nous permettant de sortir l'air et de comprimer l'ensemble des couches à la forme souhaitée. 
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/cage_alpha5.jpg}
+        \caption{Vue d'ensemble}
+        \label{fig:para_etage1-4}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/cage_alpha6.jpg}
+        \caption{Vue en profondeur}
+        \label{fig:para_etage1-5}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/cage_alpha7.jpg}
+        \caption{Zoom sur le haut}
+        \label{fig:para_etage1-6}
+    \end{subfigure}
+    \caption{Bloc parachute du premier étage sur \acrshort{CATIA}}
+    \label{fig:para_etage1_SP02-2}
+\end{figure}
+
+Une fois démoulé, les découpes des morceaux éxcédants ont pu être retirés puis la cage poncée pour l'installation sur la bague de retenue du parachute.\\
+
+
+\underline{Usinage de la bague de retenue du parachute}\\
+
+Pour pouvoir usiner les deux côtés, nous avons ajouté quatre trous pour des pions de positionnement afin d'aligner au mieux le brut sur le mortier de la CNC.\\
+Cela nous a permis d'usiner un côté puis le second tout en gardant le trou princpial concentrique avec le diamètre externe.\\
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/bague_alu1-1.png}
+        \caption{Vue isométrique supérieure}
+        \label{fig:bague_alu1-1}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/bague_alu1.png}
+        \caption{Vue isométrique inférieure}
+        \label{fig:bague_alu1-2}
+    \end{subfigure}
+    \caption{Bague parachute en aluminium du premier étage sur \acrshort{CATIA}}
+    \label{fig:bague_alu1} 
+\end{figure}
+
+La masse global de la pièce a été minimisée tout en resistant à la charge maximale que la suspente du parachute doit tenir dans le cas pire de la fenêtre d'ouverture du parachute.
+
+
+\underline{Usinage du crochet du servomoteur}\\
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/meca/usinage_loquets.png}
+    \caption{Usinage des loquets sur logiciel compatible CNC}
+    \label{fig:usinage_loquets}
+\end{figure}
+
+
+
+
+\underline{Choix des dimensions du parachute du premier étage}\\
 La contrainte imposée par le \acrshort{CDC} est une vitesse de redescente comprise entre 5 et 15m/s pour les trois
 configurations (étage 1, étage 2 et non séparé). De par les dimensions des deux étages, le premier sera en charge du retour
 sous parachute de l'ensemble non séparé.
@@ -479,54 +596,52 @@ parachute devra résister à l'ouverture.
 \end{aligned}
 \end{equation}
 
-Le parachute sera fixé à la bague principale du bloc parachute dont cette dernière sera réalisée en aluminium 7075-T6 et fixée
-au tube par 3 vis CBLX M5x12mm, qui, d'après nos tests, restent conformes à REC5. L'ensemble des règles REC6 à REC8 concernant la
-bonne tenue de la trappe latérale seront confirmées de par la forme du réceptacle du parachute avec des rebords pour le bon
-maintien de la trappe avec le tube ainsi que son usinage pour avoir aucun jeu lors du test en torsion. \\
+\newpage
+\subsubsection{Définition du bloc électronique}
+\label{subsec:defblocelec1}
 
-L'utilisation d'un émérillon en acier inoxydable de diamètre 8mm permettra une tenue maximale en traction de 2943 N, pour être
-conforme à REC10 et un anneau anti-torche pour confirmer REC11. Enfin, une batterie de tests (filmés) sera réalisée pour confirmer REC9.\\
-
-Le système d’ouverture — une brique technologique déjà développée et validée sur SP-01 — se compose d’un servomoteur et d’un
-crochet assurant le verrouillage de la trappe. En plaçant le servomoteur à la verticale, avec un axe de rotation aligné sur
-l’axe de roulis de la fusée, on améliore son efficacité au décollage : il est moins sollicité en cas d’infiltration d’air dans
-la trappe et lors de l’ouverture.
-
-
+Le bloc électronique regroupe l'ensemble des éléments permettant de lancer une action, mouvoir un actionneur, détecter un évènement dans toutes les phases depuis le début de la chronologie à la récupération de la fusée.
+Dans notre cas, nous avons neuf éléments 'électroniques' (cartes électroniques, batteries...) et trois éléments 'mécaniques' (pièces structurelles en impression 3D) :
+\begin{itemize}
+    \item 1 bloc central de fixation en PETG,
+    \item 1 support inférieur du shunt, de la caméra Runcam Thumb Pro et du servomoteur de la séparation (non comptabilisé dans cet assemblage),
+    \item 1 plaque de maintien des batteries.\\
+\end{itemize}
+\begin{itemize}
+    \item 1 PCB séquenceur,
+    \item 1 PCB IHF (Interface Homme-Fusée) possédant les commandes de contrôle tels interrupteurs et LEDs de visualisation
+    \item 1 PCB APEX : carte électronique pour enregistrement de données
+    \item 1 PCB APEX-EX : carte connectée à APEX pour de nouvelles fonctionnalités
+    \item 4 cellules 18650 pour l'ensemble de l'électronique du premier étage
+    \item 1 jack pour l'acquisition de l'information du décollage
+    \item 1 shunt pour bloquer toute émission de télémesure si branché
+    \item 1 PCB caméra pour le contrôle de l'allumage et enregistrement des flux vidéos des deux caméras de l'étage
+    \item 1 caméra RunCam Thumb Pro v2
+\end{itemize}
 \begin{figure}[H]
     \centering
-    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
-        \includegraphics[width=\linewidth]{figures/meca/para_etage1-1.png}
-        \caption{Position verrouillée}
-        \label{fig:para_etage1-1}
+        \includegraphics[width=\linewidth]{figures/meca/visu_bloc_elec_1-1.png}
+        \caption{Vue isométrique}
+        \label{fig:eleec_etage1-1}
     \end{subfigure}
-    \begin{subfigure}{0.26\textwidth}
+    \begin{subfigure}{0.3\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/meca/para_etage1-2.png}
-        \caption{Servomoteur à mi-course}
-        \label{fig:para_etage1-2}
+        \includegraphics[width=\linewidth]{figures/meca/visu_bloc_elec_1-2.png}
+        \caption{Vue isométrique de dos}
+        \label{fig:elec_etage1-2}
     \end{subfigure}
-    \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
-        \includegraphics[width=\linewidth]{figures/meca/para_etage1-3.png}
-        \caption{Position ouverte}
-        \label{fig:para_etage1-3}
+        \includegraphics[width=\linewidth]{figures/meca/visu_bloc_elec_1-3.png}
+        \caption{Vue de profil}
+        \label{fig:elec_etage1-3}
     \end{subfigure}
-    \caption{Bloc parachute du premier étage sur \acrshort{CATIA}}
+    \caption{Bloc électronique du premier étage sur \acrshort{CATIA}}
     \label{fig:para_etage1_SP02}
 \end{figure}
- 
-De plus, le crochet (visible en bleu foncé sur l'image précédente) est contraint dans toutes les translations 
-grâce à un trou concentrique dans la bague en aluminium (ici en bleu clair). L'unique mouvement possible est alors 
-la rotation souhaitée dans l'axe x du lanceur.\\
 
-La spécificité du bloc de cet étage est la forme de la cage en cuillère visible en rouge (sans bague en dessous) afin de limiter 
-au mieux la masse et une sortie du parachute plus efficiente, tout en facilitant son intégration dans le lanceur 
-avec notamment le bloc aérofreins juste en-dessous. La conception a été réalisée pour une otique de fabrication 
-en composite et compatible en matériau polymère tel PETG. La configuration matériau retenue pour le moment 
-est en PETG car nous devons encore qualifier la méthode de fabrication en composite (surtoût dans le rayon minimal entre les 
-différentes couches). L'épaisseur de cette dernière est de 2,5mm en PETG ; et réduite à 1,2mm en fibre de verre si le protocole 
-est validé pré-C'Space.
+L'ensemble est fixé au bloc central qui sera fixé directement à la peau porteuse à l'aide de quatre vis M5x12mm.
 
 \newpage
