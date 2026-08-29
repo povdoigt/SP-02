@@ -165,6 +165,9 @@ Le choix de la composition pour notre stratifié est le suivant :
 Pour réaliser ce procédé, nous avons également mis sous vide l'ensemble des renforts afin d'éviter toute présence d'air lors du séchage, 
 ce qui peut créer des zones plus sensibles à endommagement.\\
 
+La réalisation des couches de renfort a été opérée sous vide et les dimensions des renforts fut variable pour permettre d'obtenir une meilleure transition entre le bord d'attaque et l'épaisseur nominale.
+Dans notre cas, notre dernière couche se place jusqu'aux extrémités des ailerons ; et chaque couche inférieure est 1cm plus loin des bordures de la couche supérieure.
+
 \newpage
 
 \underline{Composants pour mise sous vide}\\
@@ -242,9 +245,7 @@ Le collage des renforts se fera de la manière suivante :
 
 
 \underline{NB :} Le placement de joint 'tapping tape' aux deux extrémités permet de sceller toute entrée d'air lors de la réalisation de la mise sous vide. Une incursion d'air entre le mandrin et l'assemblage de fibre est possible car le jeu provient de sa réalisation via le film plastique expliqué dans la \autoref{subsubsec:fab_tub}.
-Également, lors de notre réalisation, nous avions testé avec et sans. L'abscence de joint sous la section des ailerons a permis à la résine de s'incruster entre le tube et son mandrin les collant ensemble. Un démoulage par glace carbonique est efficace et a permis sa libération du mandrin.
-% Cinquième image : centrée et alignée sous les 4 précédentes
-
+Ceci évitera d'éventuelles coulures de résine lors de la mise sous vide. À noter que la glace carbonique est efficace.
 
 \begin{figure}[H]
     \centering
@@ -283,39 +284,137 @@ Le collage des renforts se fera de la manière suivante :
 \end{figure}
 
 
-La réalisation des couches de renfort a été opérée sous vide et les dimensions des renforts fut variable pour permettre d'obtenir une meilleure transition entre le bord d'attaque et l'épaisseur nominale.
-L'utilisation de tissur d'arrachage (peel ply) et des consommables tels tissu perforé P3, feutre et film de mise sous vide ont permis l'extraction de la résine excédente présente lors de son application et limiter la masse tout en ayant une répartition homogène de la résine.\\
+L'utilisation de tissu d'arrachage (peel ply) et des consommables tels tissu perforé P3, feutre et film de mise sous vide ont permis l'extraction de la résine excédente présente lors de son application et limiter la masse tout en ayant une répartition homogène de la résine.\\
 
-Un conseil pour faciliter le démoulage est de positionner le joint de mise sous vide juste à la fin de la section du tube pour éviter d'éventuelles coulures lors de la mise sous vide. À noter que la glace carbonique est efficace.
+%Un conseil pour faciliter le démoulage est de positionner le joint de mise sous vide juste à la fin de la section du tube pour éviter d'éventuelles coulures lors de la mise sous vide. À noter que la glace carbonique est efficace.\\
 
-\newpage
-\underline{Images de la réalisation}\\
-\begin{figure}[H]
+\underline{Outils utilisés pour la mise sous vide}\\
+Une nouveauté dans nos procédés de fabrication cette année a été l'intégration d'une chambre à vide sur notre système de manomètres connecté à la pompe à vide.
+Cette structure nous a permis de pouvoir réaliser des mélanges de résine plus homogènes sans crainte d'ajouter plus d'air dans le mélange.
+\begin{figure}[h]
     \centering
-    \begin{subfigure}{0.8\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/collage_ailerons_beta.jpg}
-        \caption{Collage surfacique des ailerons}
-        \label{fig:collage_ailerons_beta}
-    \end{subfigure}
-    \begin{subfigure}{0.28\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/ailerons_renfort_beta.jpg}
-        \caption{Renfort}
-        \label{fig:renfort_ailerons_beta}
-    \end{subfigure}
-    \caption{Fixation des ailerons du second étage sur \acrshort{CATIA}}
-    \label{fig:ailerons_etage2_SP02}
+    \begin{tikzpicture}
+    
+        \node at (0, 0) {\includegraphics[width=0.63\textwidth]{figures/meca/outils_mise_sous_vide.png}};
+        
+        \node (vide)   at (+6.00, +0.50) {\textbf{Mise sous vide}};
+        \node (pompe)       at (+6.00, +1.50) {\textbf{Pompe à vide}};
+        \node (chambre)     at (-6.00, +0.5) {\textbf{Chambre à vide}};
+        \node (vannes)   at (-6.00, +1.5) {\textbf{Manomètres et vannes}};
+
+        \draw[red, ->, line width=1.5] (vide.south)   -- (+3.55, -2.00);
+        \draw[red, ->, line width=1.5] (pompe.west)   -- (+1.00, -1.50);
+        \draw[red, ->, line width=1.5] (chambre.south)-- (-4.50, -1.05);
+        \draw[red, ->, line width=1.5] (vannes.east)  -- (-1.50, +1.50);
+        \draw[red, ->, line width=1.5] (vannes.east)  -- (-1.35, +2.50);
+
+    \end{tikzpicture}
+    \caption{Illustration du collage des ailerons du 2nd étage (Epaisseur des renforts éxagérée) }
+    \label{fig:collage_ailerons}
 \end{figure}
 
 
 
 
+\newpage
+\underline{Images de la réalisation}\\
+Nous avons débuté le procédé de collage par un positionnement des ailerons via deux cornières en acier et notre guide en PLA pour aligner les quatre ailerons ensemble. 
+Chaque aileron a été pré-fixé à la résine rapide 5min, puis une fois en place on a réalisé les congés en résine -- visibles sur la \autoref{fig:collage_ailerons} -- via de la résine rapide à séchage en 3h et fixation totale 8h.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/meca/collage_ailerons_beta.jpg}
+    \caption{Pré-collage des ailerons du second étage}
+    \label{fig:ailerons_etage2_SP02}
+\end{figure}
+
+Une fois les quatre ailerons réalisés, un ponçage s'impose afin de permettre à la résine de bieen adhérer à la surface. Un nettoyage à l'acétone permet de retirer tout dépot/résidu susceptible de fragiliser l'ensemble.
+Les étapes réalisés dans la \autoref{fig:ailerons_etage2_SP02-1} reprennent des étapes expliquées dans les schémas ultérieurs.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.28\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/realisation_joint.jpg}
+        \caption{Etanchéification}
+        \label{fig:collage_ailerons_beta_1}
+    \end{subfigure}
+    \begin{subfigure}{0.28\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/realisation_couche2.jpg}
+        \caption{Ajout Renfort}
+        \label{fig:renfort_ailerons_beta_2}
+    \end{subfigure}
+    \begin{subfigure}{0.28\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/realisation_couche3.jpg}
+        \caption{Ajout Renfort}
+        \label{fig:renfort_ailerons_beta_3}
+    \end{subfigure}
+    \caption{Fixation des ailerons du second étage}
+    \label{fig:ailerons_etage2_SP02-1}
+\end{figure}
 
 
+Enfin, pour la mise en place des derniers éléments de la mise sous vide, nous avons opté pour du gaffeur pour maintenir l'ensemble des morceaux de feutre et le positionnement du joint sur les films a été réalisé comme ceci :
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.28\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/realisation_feutre1.jpg}
+        \caption{Fixation de l'ensemble}
+        \label{fig:collage_ailerons_beta_4}
+    \end{subfigure}
+    \begin{subfigure}{0.28\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/realisation_film1.jpg}
+        \caption{Placement joint sur film}
+        \label{fig:renfort_ailerons_beta_5}
+    \end{subfigure}
+    \begin{subfigure}{0.28\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/realisation_film_fixe.jpg}
+        \caption{Positionnement final}
+        \label{fig:renfort_ailerons_beta_6}
+    \end{subfigure}
+    \caption{Positionnement des composants de mise sous vide}
+    \label{fig:ailerons_etage2_SP02-2}
+\end{figure}
 
 
+Nous avons pû lancer la pome à vide et ensuite attendre 24h à température ambiante afin de laisser la structure se figer. La vérification de fuites est primordiale dans toute mise sous vide.
 
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.28\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/realisation_vide_1.jpg}
+        \caption{Fixation de l'ensemble}
+        \label{fig:collage_ailerons_beta_7}
+    \end{subfigure}
+    \begin{subfigure}{0.28\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/realisation_vide2.jpg}
+        \caption{Placement joint sur film}
+        \label{fig:renfort_ailerons_beta_8}
+    \end{subfigure}
+    \begin{subfigure}{0.28\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/realisation_vide3.jpg}
+        \caption{Positionnement final}
+        \label{fig:renfort_ailerons_beta_9}
+    \end{subfigure}
+    \caption{Positionnement des composants de mise sous vide}
+    \label{fig:ailerons_etage2_SP02-3}
+\end{figure}
+
+Après démoulage, nous avons obtenu notre structure renforcée :
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.48\textwidth]{figures/meca/ailerons_renfort_beta.jpg}
+    \caption{Résultat final après démoulage des ailerons du second étage}
+    \label{fig:ailerons_etage2_SP02_4}
+\end{figure}
 
 
 \newpage
@@ -385,7 +484,25 @@ Tout comme le premier étage, nous intégrons les cartes identiques mais dans un
     \label{fig:para_etage1_SP02}
 \end{figure}
 
+Nous retrouvons nos éléments 'électroniques' (cartes électroniques, batteries...) et 'mécaniques' (pièces structurelles en impression 3D) :
 
+\begin{itemize}
+    \item 1 PCB séquenceur,
+    \item 1 PCB IHF (Interface Homme-Fusée) possédant les commandes de contrôle tels interrupteurs et LEDs de visualisation,
+    \item 1 PCB APEX : carte électronique pour enregistrement de données,
+    \item 1 PCB APEX-EX : carte connectée à APEX pour de nouvelles fonctionnalités,
+    \item 1 shunt pour bloquer toute émission de télémesure si branché,
+    \item 1 PCB caméra pour le contrôle de l'allumage et enregistrement des flux vidéos des deux caméras de l'étage,
+    \item 2 caméras RunCam Thumb Pro v2.
+\end{itemize}
+
+\begin{itemize}
+    \item 1 support inférieur pour fixer le shunt, les deux caméras Runcam Thumb Pro et le séquenceur avec son IHF,
+    \item 1 support supérieur sur lequel est fixé APEX, APEX-EX et la carte en charge du contrôle des caméras.\\
+\end{itemize}
+
+Cette fois-ci, les batteries ne sont plus dans le bloc électronique mais déportées dans la coiffe. Ceci nous permet à la fois de 
+pouvoir réhausser le centre de masse et accéder plus facilement aux batteries via la coiffe pour tous les cycles de charge. 
 
 
 \newpage
