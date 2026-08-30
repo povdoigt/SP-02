@@ -10,8 +10,8 @@
  */
 
 #include "WT901B.h"
-#include "stm32f0xx_hal_uart.h"
 #include "usart.h"
+#include "usbd_cdc_if.h"
 
 #include <string.h>
 
@@ -65,31 +65,21 @@ static inline uint8_t wt901b_compute_checksum(const uint8_t buf[11]) {
 
 WT901B_status_t WT901B_Init(WT901B_t *wt, UART_HandleTypeDef *huart) {
     wt->huart = huart;
-    memset(wt->uart_buffer, 0, WT901B_FRAME_LENGTH * WT901B_FRAME_TYPE_NBR);
+    wt->parse_buffer = NULL;
     wt->new_data_available = false;
     wt->data_in_progress = false;
     wt->last_status = WT901B_OK;
 
-    UART_buffer_t *buffer_obj;
-    HAL_StatusTypeDef res;
-    UART_get_buffer(huart, &buffer_obj);
-    if (buffer_obj != NULL) {
-        buffer_obj->rx_buffer = wt->uart_buffer;
-        buffer_obj->rx_length = sizeof(wt->uart_buffer);
-        res = HAL_UART_Abort_IT(huart);
-        if (res != HAL_OK) {
-            wt->last_status = WT901B_UART_ERROR;
-            return WT901B_UART_ERROR; // UART receive error
-        }
-        res = HAL_UARTEx_ReceiveToIdle_IT(huart, buffer_obj->rx_buffer, buffer_obj->rx_length);
-        if (res != HAL_OK) {
-            wt->last_status = WT901B_UART_ERROR;
-            return WT901B_UART_ERROR; // UART receive error
-        }
-    } else {
+    UART_buffer_t *uart_buffer = UART_buffer_get(huart);
+    if (uart_buffer == NULL) {
         wt->last_status = WT901B_UART_ERROR;
         return WT901B_UART_ERROR; // Unknown UART instance
     }
+    if (uart_buffer->rx_length < WT901B_RX_BUFFER_SIZE) {
+        wt->last_status = WT901B_UART_ERROR;
+        return WT901B_UART_ERROR; // Buffer size is too small
+    }
+    wt->parse_buffer = uart_buffer->rx_buffer;
 
 	data_topic_init(&wt->data_topic, wt->dt_storage, sizeof(WT901B_Frame_t), WT901B_DATA_TOPIC_LENGTH, CB_OVERWRITE_OLDEST);
 
@@ -98,9 +88,8 @@ WT901B_status_t WT901B_Init(WT901B_t *wt, UART_HandleTypeDef *huart) {
 
 void WT901B_UART_Callback_RX_IRQHandler(WT901B_t *wt, uint16_t Size) {
     // Frame received
-    if (Size >= WT901B_FRAME_LENGTH) {
+    if (Size >= WT901B_FRAME_READ_LENGTH) {
         if (!wt->data_in_progress) {
-            memcpy(wt->parse_buffer, wt->uart_buffer, Size);
             wt->last_received_size = Size;
             wt->data_in_progress = true;
 			wt->last_timestamp_ms = HAL_GetTick();
@@ -113,20 +102,20 @@ void WT901B_UART_Callback_RX_IRQHandler(WT901B_t *wt, uint16_t Size) {
 
 
 void WT901B_Parse_Frames(WT901B_t *wt) {
-    if (!wt->data_in_progress || wt->last_received_size < WT901B_FRAME_LENGTH) {
+    if (!wt->data_in_progress || wt->last_received_size < WT901B_FRAME_READ_LENGTH) {
         wt->last_status = WT901B_NO_DATA;
 		// Make sure uart interrupts are re-enabled
-		HAL_UARTEx_ReceiveToIdle_IT(wt->huart, wt->uart_buffer, sizeof(wt->uart_buffer));
+		HAL_UARTEx_ReceiveToIdle_IT(wt->huart, wt->parse_buffer, WT901B_RX_BUFFER_SIZE);
         return; // No new data to parse (or not enought)
     }
 
     // Get the head of the frames
-    for (size_t i = 0; i <= (wt->last_received_size - WT901B_FRAME_LENGTH); i++) {
-        if (wt->parse_buffer[i] == WT901B_FRAME_HEADER) {
+    for (size_t i = 0; i <= (wt->last_received_size - WT901B_FRAME_READ_LENGTH); i++) {
+        if (wt->parse_buffer[i] == WT901B_FRAME_READ_HEADER) {
             // Found potential frame header
             WT901B_Parse_One_Frame(wt, &wt->parse_buffer[i]);
-            i += WT901B_FRAME_LENGTH; // Move to next potential frame
-            if (i + WT901B_FRAME_LENGTH > wt->last_received_size) {
+            i += WT901B_FRAME_READ_LENGTH; // Move to next potential frame
+            if (i + WT901B_FRAME_READ_LENGTH > wt->last_received_size) {
                 break; // No more complete frames
             }
             i--; // Adjust for the loop increment
@@ -138,7 +127,7 @@ void WT901B_Parse_Frames(WT901B_t *wt) {
 
 void WT901B_Parse_One_Frame(WT901B_t *wt, const uint8_t frame_ptr[11]) {
     // Verify header
-    if (frame_ptr[0] != WT901B_FRAME_HEADER) {
+    if (frame_ptr[0] != WT901B_FRAME_READ_HEADER) {
         return; // Invalid header, skip frame
     }
 
@@ -186,6 +175,7 @@ static void WT901B_parse_time_frame(const uint8_t data[8], WT901B_TimeFrame_t *f
 }
 
 static void WT901B_parse_accel_frame(const uint8_t data[8], WT901B_AccelFrame_t *frame_obj) {
+    // CDC_Transmit_FS("New ACCEL frame received\r\n", 27);
     frame_obj->ax_g				= (float)((int16_t)(data[1] << 8 | data[0])) * WT901B_ACCEL_SCALE_G;
     frame_obj->ay_g				= (float)((int16_t)(data[3] << 8 | data[2])) * WT901B_ACCEL_SCALE_G;
     frame_obj->az_g				= (float)((int16_t)(data[5] << 8 | data[4])) * WT901B_ACCEL_SCALE_G;
@@ -268,4 +258,21 @@ static void WT901B_parse_gsa_frame(const uint8_t data[8], WT901B_GSAFrame_t *fra
     frame_obj->pdop = (float)((int16_t)(data[3] << 8 | data[2])) * 1.0f; // TODO: change converstion
     frame_obj->hdop = (float)((int16_t)(data[5] << 8 | data[4])) * 1.0f; // TODO: change converstion
     frame_obj->vdop = (float)((int16_t)(data[7] << 8 | data[6])) * 1.0f; // TODO: change converstion
+}
+
+void __WT901B_Write(WT901B_t *wt, uint8_t reg_addr, uint16_t value) {
+    uint8_t frame[WT901B_FRAME_WRITE_LENGTH] = {
+        WT901B_FRAME_WRITE_HEADER_1,
+        WT901B_FRAME_WRITE_HEADER_2,
+        reg_addr,
+        (uint8_t)((value >> 0) & 0xFF), // Low byte
+        (uint8_t)((value >> 8) & 0xFF), // High byte
+    };
+    HAL_UART_Transmit(wt->huart, frame, sizeof(frame), HAL_MAX_DELAY);
+}
+
+void WT901B_Write(WT901B_t *wt, uint8_t reg_addr, uint16_t value) {
+    __WT901B_Write(wt, WT901B_REG_KEY, WT901B_UNLOCK_KEY);
+    __WT901B_Write(wt, reg_addr, value);
+    __WT901B_Write(wt, WT901B_REG_SAVECONF, 0x0000);
 }

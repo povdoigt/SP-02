@@ -1,0 +1,291 @@
+\subsection{Stabilité}
+\label{subsec:stabilite}
+
+\subsubsection{Méthodologie}
+\label{subsubsec:stabilite_methode}
+
+L'analyse de la stabilité de la fusée SP-02 a été réalisée en utilisant deux outils principaux : \gls{Stabtraj} et
+\gls{OpenRocket}. Ces logiciels permettent de modéliser la fusée, d'analyser ses caractéristiques aérodynamiques et de simuler
+son comportement en vol. La méthodologie suivie pour l'analyse de la stabilité comprend les étapes suivantes:\\
+
+\begin{enumerate}
+    \item \textbf{Modélisation \acrshort{CAO} :} La fusée SP-02 a été modélisée en détail dans un logiciel de \acrshort{CAO}, en
+    tenant compte des dimensions, de la géométrie et de la répartition des masses de chaque composant.\\
+    
+    \item \textbf{Importation dans \gls{OpenRocket} :} Après avoir finalisé la modélisation \acrshort{CAO}, le modèle a été
+    construit dans le logiciel \gls{OpenRocket} à partir de ces briques de construction. Cette étape permet essentiellement de
+    placer les différents éléments de la fusée et de leur attribuer des matériaux. Cela permet de définir la masse et le
+    \acrfull{CdG} de chaque élément et donc de la fusée dans son ensemble. Aussi, \gls{OpenRocket} permet d'estimer les
+    caractéristiques aérodynamiques de la fusée, telles que le coefficient de traînée ($C_d$), le coefficient de portance ($C_l$)
+    et le \acrfull{CdP}, en fonction de la géométrie et des conditions de vol.\\
+
+    \item \textbf{Importation dans le \gls{Stabtraj} :} Le modèle de la fusée a ensuite été importé dans le \gls{Stabtraj} en comptant
+    la masse et le \acrshort{CdG} ainsi que le $C_d$ fournis par \gls{OpenRocket}. En utilisant ces données, le \gls{Stabtraj}
+    permet de calculer le \acrshort{CdP} à partir de l'approximation de Barrowman \cite{Stab_doc} et d'analyser la stabilité
+    longitudinale de la fusée.\\
+
+    \item \textbf{Correction et itérations :} Si les résultats de l'analyse de stabilité indiquent que la fusée n'est pas stable,
+    des ajustements sont effectués sur la conception, tels que le déplacement du \acrshort{CdG} ou la modification de la géométrie
+    des surfaces de portances. La nouvelle conception est ensuite réévaluée en répétant les étapes précédentes jusqu'à obtenir
+    une stabilité satisfaisante.\\
+\end{enumerate}
+
+\vfill
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/sp02_ork_24-3G.png}
+    \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
+    \label{fig:sp02_ork_model_24-3G}
+\end{figure}
+
+\vfill
+
+\newpage
+
+\subsubsection{Résultats}
+\label{subsubsec:stabilite_resultats}
+
+\subsubsubsection{Configurations possibles}
+SP-02 a été conçue selon les règles et le Stabtraj pour une participation au C'Space et donc nous avons fait le choix d'étudier le comportement 
+du lanceur suivant différents propulseurs.\\
+
+Dans nos choix, nous nous sommes focalisés sur les configurations suivantes :
+\begin{itemize}
+    \item Pro54-K570 pour le premier étage ; Pro24-6G pour le second (passage au Pro24-3G)
+    \item Pro54-K570 pour le premier étage ; Pro38-5G pour le second
+    \item Pro54-K570 pour le premier étage ; Pro54 K570 pour le second
+    \item Pro54-K1200 pour le premier étage ; Pro54-K1200 pour le second\\
+\end{itemize}
+
+
+\underline{Configuration C'Space (Pro54-24)}\\
+blabla
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/sp02_ork_24-3G.png}
+    \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
+    \label{fig:sp02_ork_model}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/sp02_v3_24_3g.png}
+    \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
+    \label{fig:sp02_ork_model}
+\end{figure}
+
+
+
+
+
+
+
+\newpage
+\underline{Configuration Pro54-Pro38}\\
+blabla
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/meca/image5438.png}
+    \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
+    \label{fig:sp02_ork_model}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/sp02_v3_38.png}
+    \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
+    \label{fig:sp02_ork_model}
+\end{figure}
+
+
+
+
+
+\newpage
+\underline{Configuration Pro54-Pro54 (K570)}\\
+blabla
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/meca/image5454.png}
+    \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
+    \label{fig:sp02_ork_model}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/sp02_v3_54_570.png}
+    \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
+    \label{fig:sp02_ork_model}
+\end{figure}
+
+
+
+
+
+
+
+
+\newpage
+\underline{Configuration Pro54-Pro54 (K1200)}\\
+blabla
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/meca/image5454.png}
+    \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
+    \label{fig:sp02_ork_model}
+\end{figure}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/sp02_v3_54_1200.png}
+    \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
+    \label{fig:sp02_ork_model}
+\end{figure}
+
+
+
+
+
+
+
+\newpage
+\subsubsubsection{Configuration adoptée}
+Après plusieurs itérations de conception et d'analyses, nous avons abouti à une configuration générale composée d'un jeu de 4
+ailerons de type trapezoïdal sur chaque étage, une coiffe conique, un changement de diamètre entre les deux étages et un
+rétreint au niveau du bas du premier étage.\\
+
+Bien que le nombre d'ailerons soit le même pour les deux étages, entrainant le questionnement de l'effet de masquage des
+surfaces portantes du premier étage par le second, le choix a été fait de non pas aligner ces deux jeux d'ailerons mais de les
+décaler de 15° l'un par rapport à l'autre. Ceci répond directemnt à la règle STAB6 du \acrshort{CDC} et à sa partie "contrôle" :
+
+\begin{quote}
+    (Règle) \textit{"STAB6 : Dans le cas d’une fusée à deux jeux d’ailerons dont les ailerons sont alignés, la fusée doit être
+    stable à la fois sans tenir compte des effets de masquage du jeu d’aileron inférieur par le jeu d’aileron supérieur et à la
+    fois en tenant compte de cette interaction.}\newline\cite[p.~34]{CDC_BiEtage}
+\end{quote}
+
+\begin{quote}
+    (Contrôle) \textit{"STAB6 : On considère que deux jeux d’ailerons sont alignés s’il est possible, vue du vent relatif, de
+    trouver deux ailerons consécutifs séparés par un angle de 10° ou moins.}\newline\cite[p.~34]{CDC_BiEtage}
+\end{quote}
+
+Le choix de ces 15° de décalage permet donc de s'affranchir de cette règle et de simplifier les analyses de stabilité. Cela
+entraine néanmoins une légère diminution de la place disponible entre les ailerons de la fusée et la rampe de lancement car nous
+passons d'un angle de 90° entre deux ailerons consécutifs à un angle de 75°. Cette diminution a été jugée acceptable au regard
+des bénéfices apportés par ce décalage.\\
+
+\subsubsubsection{Résultats des analyses}
+
+De cette étude de stabilité, trois graphiques principaux ont été extraits, présentés dans la figure \ref{fig:stabilite_resultats}.
+Ces graphiques montrent l'évolution des marges de stabilité longitudinale de la fusée SP-02 complète, du premier étage et du
+second étage en fonction de la variation de masse de propergol consommée durant le vol.\\
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/stabtraj_ensemble.png}
+        \caption{Fusée SP-02 complète}
+        \label{fig:stabilite_sp02}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/stabtraj_alpha.png}
+        \caption{Premier étage}
+        \label{fig:stabilite_etage1}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/stabtraj_beta.png}
+        \caption{Second étage}
+        \label{fig:stabilite_etage2}
+    \end{subfigure}
+    \caption{Résultats des analyses de stabilité longitudinale de la fusée SP-02 et de ses étages (\gls{Stabtraj})}
+    \label{fig:stabilite_resultats}
+\end{figure}
+
+Nous observons que le graphique de la figure \ref{fig:stabilite_sp02} montre que les marges de stabilité de la fusée au complet
+forment un prisme dû à l'effet de masquage. Ainsi, bien qu'une partie du prisme soit en dehors de la zone de stabilité (marge de
+statique $< 2$), seule la droite supérieure du prisme à portance constante est celle effective. Cette droite étant incluse dans la
+zone de stabilité, la fusée est donc stable durant toute sa phase de vol.\\
+
+On remarque également que les marges de stabilité des deux étages individuellement, sont eux aussi stables bien que collés à la
+limite inférieure de portance. Après discussion avec notre encadrant technique de la \acrshort{RCE}-1, il a été conclu que cette
+situation était acceptable étant donné qu'au moment de la séparation des étages, ces deux étages auront déjà des vitesses
+relativement élevées, assurant une stabilité dynamique suffisante malgré une portance faible.\\
+
+Ces résultats ont été corrélés avec ceux obtenus via \gls{OpenRocket}, qui confirment la stabilité de la fusée.
+
+\newpage
+\subsubsubsection{Divergences de résultats avec les contrôles}
+Pour confirmer notre étude de stabilité, nous devons confirmer nos résultats lors des contrôles au C'Space.
+Nous verrons ici les divergences de valeurs et hypothèses avec le contrôle final et ainsi conclure l'étude.\\
+
+\underline{Changements de dimensions}\\
+Tout d'abord, vérifions les dimensions globales de la fusée complète et des deux étages entre les outils de conception (Stabtraj et OpenRocket) et le contrôle final.
+Nous calculons dans chaque cas l'erreur relative entre l'outil utilisé et la réalité.\\
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+        \hline
+        \textbf{Fusée complète} & \textbf{Stabtraj} & \textbf{OpenRocket} & \textbf{Contrôle final} & \textbf{Erreur} \\
+        \hline
+        \textbf{Longueur (mm)} & 2252 & 2307 & 2290 & \textcolor{ForestGreen}{1,66 \%} | \textcolor{ForestGreen}{-0,74 \%}\\
+        \hline
+        \textbf{Centre de masse (mm)} & 1251 & 1295 & 1295 & \textcolor{YellowOrange}{3,39 \%} | \textcolor{ForestGreen}{\textbf{0,00 \%}}\\
+        \hline
+        \textbf{Masse (g)} & 7719 & 7719 & 7900 & \textcolor{ForestGreen}{2,29 \%} | \textcolor{ForestGreen}{2,29 \%} \\
+        \hline
+    \end{tabular}
+    \caption{Résumé des gabarits de vol de la fusée SP-02 dans différentes configurations}
+    \label{tab:gabarits_vol}
+\end{table}
+
+Pour la fusée complète, deux observations sont à noter :
+\begin{itemize}
+    \item L'erreur de longueur et du centre de masse sont liées à un allongement du second étage (+38mm) et corrigé dans l'estimation OpenRocket avec une masse identique,
+    \item La longueur totale d'OpenRocket prend en compte la pointe en aluminium comme parfaite sans l'arrondi de l'entrée du capteur de pression.
+\end{itemize}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+        \hline
+        \textbf{1er étage} & \textbf{Stabtraj} & \textbf{OpenRocket} & \textbf{Contrôle final} & \textbf{Erreur} \\
+        \hline
+        \textbf{Longueur (mm)} & 1120 & 1125 & 1117 & \textcolor{ForestGreen}{-0,27 \%} | \textcolor{ForestGreen}{-0,72 \%}\\
+        \hline
+        \textbf{Centre de masse (mm)} & 542 & 493 & 520 & \textcolor{YellowOrange}{-4,23 \%} | \textcolor{Red}{5,19 \%}\\
+        \hline
+        \textbf{Masse (g)} & 4993 & 4341 & 4800 & \textcolor{YellowOrange}{-4,02 \%} | \textcolor{Red}{9,56 \%} \\
+        \hline
+    \end{tabular}
+    \caption{Résumé des gabarits de vol de la fusée SP-02 dans différentes configurations}
+    \label{tab:gabarits_vol}
+\end{table}
+
+Pour le premier étage, nous avons noté ici deux références de centre de masse avec une masse ajustée. Ce test nous a permis de calibrer l'étage entier.
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+        \hline
+        \textbf{2nd étage} & \textbf{Stabtraj} & \textbf{OpenRocket} & \textbf{Contrôle final} & \textbf{Erreur} \\
+        \hline
+        \textbf{Longueur (mm)} & 1177 & 1227 & 1217 & \textcolor{YellowOrange}{3,29 \%}   | \textcolor{ForestGreen}{-0,82 \%}\\
+        \hline
+        \textbf{Centre de masse (mm)} & 751 & 784 & 680 & \textcolor{Red}{-10,44 \%} | \textcolor{Red}{-15,29 \%}\\
+        \hline
+        \textbf{Masse (g)} & 3081 & 3228 & 3010 & \textcolor{ForestGreen}{-2,36 \%}  | \textcolor{Red}{-7,24 \%}\\
+        \hline
+    \end{tabular}
+    \caption{Résumé des gabarits de vol de la fusée SP-02 dans différentes configurations}
+    \label{tab:gabarits_vol}
+\end{table}
+
+Pour le second, nous avons dû changer le positionnement d'un bloc pour ainsi relever le centre de masse global et être cohérent avec la nouvelle longueur de l'étage. La masse globale n'a pas évoluée.\\
+
+\underline{Changements d'hypothèses}\\
+Également, nous noterons plusieurs changements dans les outils utilisés ainsi que dans les hypothèses d'étude définies :
+\begin{itemize}
+    \item Nous avons défini lors de l'étude notre diamètre de référence pondéré suivant la taille des étages, alors que dans le contrôle final c'est le plus petit diamètre qui a été choisi.\\ \underline{Conséquence :} Modification de l'emplacement du prisme de stabilité vers une surstabilité.
+    \item Un changement de version du Stabtraj a modifié les données du Pro54 Barasinga, ainsi que le placement de la seconde paire d'ailerons (canards) qui est collée au tube dans la dernière version.\\ \underline{Conséquences :} Légères modifications des coefficients tels portance, marge statique, couple, $X_{Cp}$\ldots
+\end{itemize}
+
+\newpage

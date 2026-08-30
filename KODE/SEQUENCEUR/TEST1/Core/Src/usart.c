@@ -22,10 +22,10 @@
 
 /* USER CODE BEGIN 0 */
 
-#include "STS.h"
 #include "project.h"
-// #include "WT901B.h"
-// #include "event_uart.h"
+#include "STS.h"
+#include "WT901B.h"
+#include "event_uart.h"
 
 /* USER CODE END 0 */
 
@@ -33,8 +33,6 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 UART_HandleTypeDef huart4;
-DMA_HandleTypeDef hdma_usart4_rx;
-DMA_HandleTypeDef hdma_usart4_tx;
 
 /* USART1 init function */
 
@@ -265,39 +263,6 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF4_USART4;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    /* USART4 DMA Init */
-    /* USART4_RX Init */
-    hdma_usart4_rx.Instance = DMA1_Channel6;
-    hdma_usart4_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
-    hdma_usart4_rx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_usart4_rx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_usart4_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_usart4_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_usart4_rx.Init.Mode = DMA_CIRCULAR;
-    hdma_usart4_rx.Init.Priority = DMA_PRIORITY_LOW;
-    if (HAL_DMA_Init(&hdma_usart4_rx) != HAL_OK)
-    {
-      Error_Handler();
-    }
-
-    __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart4_rx);
-
-    /* USART4_TX Init */
-    hdma_usart4_tx.Instance = DMA1_Channel7;
-    hdma_usart4_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
-    hdma_usart4_tx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_usart4_tx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_usart4_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_usart4_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_usart4_tx.Init.Mode = DMA_CIRCULAR;
-    hdma_usart4_tx.Init.Priority = DMA_PRIORITY_LOW;
-    if (HAL_DMA_Init(&hdma_usart4_tx) != HAL_OK)
-    {
-      Error_Handler();
-    }
-
-    __HAL_LINKDMA(uartHandle,hdmatx,hdma_usart4_tx);
-
     /* USART4 interrupt Init */
     HAL_NVIC_SetPriority(USART3_4_IRQn, 0, 0);
     HAL_NVIC_EnableIRQ(USART3_4_IRQn);
@@ -389,10 +354,6 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOA, TX_OUT_Pin|RX_OUT_Pin);
 
-    /* USART4 DMA DeInit */
-    HAL_DMA_DeInit(uartHandle->hdmarx);
-    HAL_DMA_DeInit(uartHandle->hdmatx);
-
     /* USART4 interrupt Deinit */
   /* USER CODE BEGIN USART4:USART3_4_IRQn disable */
     /**
@@ -426,34 +387,44 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
   UART_buffer_t uart_buffer_5 = { 0 };
 #endif
 
-void UART_get_buffer(UART_HandleTypeDef *huart, UART_buffer_t **buffer_obj_ptr) {
+UART_buffer_t *UART_buffer_init(UART_HandleTypeDef *huart, uint8_t *buffer, size_t length) {
+  UART_buffer_t *uart_buffer = UART_buffer_get(huart);
+  if (uart_buffer == NULL) {
+    return NULL; // Unknown UART instance
+  }
+  uart_buffer->rx_buffer = buffer;
+  uart_buffer->rx_length = length;
+  return uart_buffer;
+}
+
+UART_buffer_t *UART_buffer_get(UART_HandleTypeDef *huart) {
 #ifdef USART1
   if (huart->Instance == USART1) {
-    *buffer_obj_ptr = &uart_buffer_1;
+    return &uart_buffer_1;
   } else
 #endif
 #ifdef USART2
   if (huart->Instance == USART2) {
-    *buffer_obj_ptr = &uart_buffer_2;
+    return &uart_buffer_2;
   } else
 #endif
 #ifdef USART3
   if (huart->Instance == USART3) {
-    *buffer_obj_ptr = &uart_buffer_3;
+    return &uart_buffer_3;
   } else
 #endif
 #ifdef USART4
   if (huart->Instance == USART4) {
-    *buffer_obj_ptr = &uart_buffer_4;
+    return &uart_buffer_4;
   } else
 #endif
 #ifdef USART5
   if (huart->Instance == USART5) {
-    *buffer_obj_ptr = &uart_buffer_5;
+    return &uart_buffer_5;
   } else
 #endif
   {
-    *buffer_obj_ptr = NULL; // Unknown USART instance
+    return NULL; // Unknown USART instance
   }
 }
 
@@ -468,30 +439,23 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
     STS_UART_Port_Callback_RX_IRQHandler(&huart_sts_port2, Size);
   }
 
-  // if (wt901b.huart == huart) {
-  //   HAL_UART_AbortReceive_IT(huart);
-  //   // HAL_UART_Abort_IT(huart); // Dont work if not aborted for some reason...
-  //   WT901B_UART_Callback_RX_IRQHandler(&wt901b, Size);
-  // }
+  if (wt901b.huart == huart) {
+    HAL_UART_AbortReceive_IT(huart);
+    // HAL_UART_Abort_IT(huart); // Dont work if not aborted for some reason...
+    WT901B_UART_Callback_RX_IRQHandler(&wt901b, Size);
+  }
 
-  // if (event_uart_producer.huart == huart) {
-  //   // HAL_UART_AbortReceive_IT(huart);
-  //   event_uart_callback();
-  // }
+  if (event_uart_producer.huart == huart) {
+    // HAL_UART_AbortReceive_IT(huart);
+    event_uart_producer_callback(Size);
+  }
 
-  UART_buffer_t *buffer_obj;
-  UART_get_buffer(huart, &buffer_obj);
+  UART_buffer_t *buffer_obj = UART_buffer_get(huart);
   if (buffer_obj != NULL) {
     // HAL_UART_Transmit(&huart2, buffer_obj->rx_buffer, Size, HAL_MAX_DELAY); // Echo received data for debugging
     HAL_UARTEx_ReceiveToIdle_IT(huart, buffer_obj->rx_buffer, buffer_obj->rx_length);
   }
 }
-
-// void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-//   if (huart->Instance == USART4) {
-//     uart_apex_callback(); // Call the user-defined callback function for USART4 data reception
-//   }
-// }
 
 /* USER CODE END 1 */
 

@@ -1,0 +1,169 @@
+#include "project.h"
+#include "float3.h"
+#include "led_scheduler.h"
+#include "main.h"
+
+#include "stm32f0xx_hal_gpio.h"
+#include "usart.h"
+
+#include "full_seq_utils.h"
+
+#include "stage_1.h"
+#include "stage_2.h"
+
+#include "led.h"
+
+#include "waveform.h"
+#include "event_uart.h"
+#include "waveform_def.h"
+
+#include <stdint.h>
+
+
+
+static ground_func_t ground_funcs[16];
+
+static rocket_state_t rocket_state;
+
+static led_rgb_t led_rgb2;
+
+static stage_phase_type_t current_stage_phase_type;
+
+static uint8_t current_ground_func_id = GROUND_FUNC_NONE;
+
+void setup() {
+
+	HAL_GPIO_WritePin(LED1R_GPIO_Port, LED1R_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LED1G_GPIO_Port, LED1G_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LED1B_GPIO_Port, LED1B_Pin, GPIO_PIN_SET);
+
+	LED_Init(&led_rgb2.red  , &htim3, TIM_CHANNEL_1);
+	LED_Init(&led_rgb2.green, &htim3, TIM_CHANNEL_2);
+	LED_Init(&led_rgb2.blue , &htim3, TIM_CHANNEL_3);
+	LED_RGB_SetColor(&led_rgb2, FLOAT3_ZERO);
+
+	rocket_state_init(&rocket_state, &led_rgb2);
+
+	LedSched_Init();
+	led_states_init();
+	setup_uart_buffers();
+	event_uart_producer_init(&event_uart_producer, TX_OPTO_N1_GPIO_Port, TX_OPTO_N1_Pin, &huart4);
+
+	// Looking for which stage we are
+	if (HAL_GPIO_ReadPin(STAGE1_GPIO_Port, STAGE1_Pin) == GPIO_PIN_RESET) {
+		rocket_state.stage = ROCKET_FIRST_STAGE;
+		ground_funcs[1]  = ground_func_1_stage_1;
+		ground_funcs[2]  = ground_func_2_stage_1;
+		ground_funcs[3]  = ground_func_3_stage_1;
+		ground_funcs[4]  = ground_func_4_stage_1;
+		ground_funcs[5]  = ground_func_5_stage_1;
+		ground_funcs[6]  = ground_func_6_stage_1;
+		ground_funcs[7]  = ground_func_7_stage_1;
+		ground_funcs[8]  = ground_func_8_stage_1;
+		ground_funcs[9]  = ground_func_9_stage_1;
+		ground_funcs[10] = ground_func_10_stage_1;
+		ground_funcs[11] = ground_func_11_stage_1;
+		ground_funcs[12] = ground_func_12_stage_1;
+		ground_funcs[13] = ground_func_13_stage_1;
+		ground_funcs[14] = ground_func_14_stage_1;
+		ground_funcs[15] = ground_func_15_stage_1;
+	} else if (HAL_GPIO_ReadPin(STAGE2_GPIO_Port, STAGE2_Pin) == GPIO_PIN_RESET) {
+		rocket_state.stage = ROCKET_SECOND_STAGE;
+		ground_funcs[1]  = ground_func_1_stage_2;
+		ground_funcs[2]  = ground_func_2_stage_2;
+		ground_funcs[3]  = ground_func_3_stage_2;
+		ground_funcs[4]  = ground_func_4_stage_2;
+		ground_funcs[5]  = ground_func_5_stage_2;
+		ground_funcs[6]  = ground_func_6_stage_2;
+		ground_funcs[7]  = ground_func_7_stage_2;
+		ground_funcs[8]  = ground_func_8_stage_2;
+		ground_funcs[9]  = ground_func_9_stage_2;
+		ground_funcs[10] = ground_func_10_stage_2;
+		ground_funcs[11] = ground_func_11_stage_2;
+		ground_funcs[12] = ground_func_12_stage_2;
+		ground_funcs[13] = ground_func_13_stage_2;
+		ground_funcs[14] = ground_func_14_stage_2;
+		ground_funcs[15] = ground_func_15_stage_2;
+
+	} else {
+		LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
+		Error_Handler();
+	}
+
+	current_stage_phase_type = STAGE_PHASE_GROUND_FUNC;
+
+	waiting_button_init(&waiting_button, false);
+
+	switch (rocket_state.stage) {
+		case ROCKET_FIRST_STAGE: {
+			setup_stage_1(&rocket_state);
+			break;
+		}
+		case ROCKET_SECOND_STAGE: {
+			setup_stage_2(&rocket_state);
+			break;
+		}
+		case ROCKET_STAGE_NO_SET: {
+			LED_RGB_SetColor(&led_rgb2, (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f });
+			Error_Handler();
+		}
+	}
+}
+
+void loop() {
+
+	update_gpio_input_states(
+		rocket_state.input_gpio_ports,
+		rocket_state.input_gpio_pins,
+		rocket_state.input_gpio_states,
+		MAX_INPUT_NUMBER
+	);
+
+
+	switch (current_stage_phase_type) {
+		case STAGE_PHASE_GROUND_FUNC: {
+			if (current_ground_func_id == GROUND_FUNC_NONE) {
+				if (waiting_button_play(&waiting_button, true)) {
+					uint8_t prgm = get_prgm();
+					if (prgm == 0x00) {
+						current_stage_phase_type = STAGE_PHASE_INIT;
+						LedSched_Clear();
+						LedSched_Add(&waveform_prgm0_start, 1, false, 1000, LED_SCHED_NO_FORCE);
+					} else if (prgm <= GROUND_FUNC_MAX_ID) {
+						current_ground_func_id = prgm;
+					}
+				}
+			} else {
+				ground_func_t ground_func = ground_funcs[current_ground_func_id];
+				ground_func_state_t ground_func_state = ground_func(&rocket_state);
+				if (ground_func_state == GROUND_FUNC_STATE_DONE) {
+					current_ground_func_id = GROUND_FUNC_NONE;
+				}
+			}
+			break;
+		}
+		case STAGE_PHASE_INIT:
+		case STAGE_PHASE_FLIGHT: {
+			switch (rocket_state.stage) {
+				case ROCKET_FIRST_STAGE: {
+					loop_stage_1(&rocket_state);
+					break;
+				}
+				case ROCKET_SECOND_STAGE: {
+					loop_stage_2(&rocket_state);
+					break;
+				}
+				case ROCKET_STAGE_NO_SET: {
+					// Wait what ????
+				}
+			}
+			break;
+		}
+	}
+
+
+
+	// event_uart_producer_run(&event_uart_producer);
+
+	LED_RGB_SetColor(rocket_state.led_rgb, LedSched_Process(HAL_GetTick()));
+}

@@ -175,7 +175,7 @@ typedef enum STS_StatusFlags {
 
 typedef struct STS_UART_Port_t {
 	UART_HandleTypeDef *huart;  // UART handle
-	uint8_t __rx_buffer[STS_SERIAL_BUFFER_SIZE]; // Internal RX buffer
+	uint8_t *__rx_buffer; // Internal RX buffer
 
 	volatile bool rx_complete;  // RX complete flag (set in IRQ handler)
 } STS_UART_Port_t;
