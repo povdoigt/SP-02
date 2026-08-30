@@ -1,74 +1,111 @@
 \babel@toc {french}{}\relax 
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Photo de groupe de membres du club de l'AéroIPSA lors du \gls {C'Space} 2025.}}{5}{figure.caption.2}%
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Vue du premier étage sur \acrshort {CATIA}}}{7}{figure.caption.3}%
-\contentsline {figure}{\numberline {1.3}{\ignorespaces Vue du second étage sur \acrshort {CATIA}}}{7}{figure.caption.4}%
-\contentsline {figure}{\numberline {1.4}{\ignorespaces Vue d'ensemble de la fusée SP-02 sur \acrshort {CATIA}}}{8}{figure.caption.5}%
-\contentsline {figure}{\numberline {1.5}{\ignorespaces Minif Arcturus}}{9}{figure.caption.6}%
-\contentsline {figure}{\numberline {1.6}{\ignorespaces Fusée SP-01}}{9}{figure.caption.7}%
-\contentsline {figure}{\numberline {1.7}{\ignorespaces Module électronique Unknown}}{10}{figure.caption.8}%
-\contentsline {figure}{\numberline {1.8}{\ignorespaces Module électronique \gls {APEX}}}{10}{figure.caption.9}%
-\contentsline {figure}{\numberline {1.9}{\ignorespaces Diagramme de Gantt du projet SP-02 (octobre 2025 – juillet 2026)}}{12}{figure.caption.10}%
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Diagramme des phases nominales de vol depuis SP-02}}{13}{figure.caption.12}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Tableau d'attribution des indices G, F, D et calcul de l'\acrshort {IPR} pour chaque \acrshort {MDF}}}{21}{figure.caption.15}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Extrait de l'analyse \acrshort {AMDEC} réalisée pour le projet SP-02}}{22}{figure.caption.16}%
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{25}{figure.caption.17}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{26}{figure.caption.18}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{26}{figure.caption.19}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{27}{figure.caption.20}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{27}{figure.caption.21}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{28}{figure.caption.22}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{28}{figure.caption.23}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{29}{figure.caption.24}%
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{29}{figure.caption.25}%
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Résultats des analyses de stabilité longitudinale de la fusée SP-02 et de ses étages (\gls {Stabtraj})}}{30}{figure.caption.26}%
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Schéma de calcul du couple exercé au niveau de la base du premier étage}}{34}{figure.caption.32}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Définition du composite du tube porteur du premier étage}}{38}{figure.caption.36}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Préparation \acrshort {CAM} sous \textsc {Fusion 360} : définition des opérations et validation par simulation.}}{39}{figure.caption.37}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Pièce usinée restant solidaire du brut grâce aux onglets de maintien.}}{40}{figure.caption.38}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Pièces usinées finies : éléments des aérofreins et ailerons.}}{40}{figure.caption.39}%
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Vue du premier étage sur \acrshort {CATIA}}}{41}{figure.caption.40}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Procédé de collage ailerons/tube porte-moteur}}{41}{figure.caption.41}%
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Procédé de collage ailerons/structure avec congés en résine}}{42}{figure.caption.42}%
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Réalisation du rérain}}{42}{figure.caption.43}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Tube porte-propulseur}}{42}{figure.caption.44}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Méthodes de fixation du Pro54}}{43}{figure.caption.45}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Système d'aérofrein d'SP-02 sur \acrshort {CATIA}}}{44}{figure.4.12}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Position des aérofreins d'SP-02}}{44}{figure.caption.46}%
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Vu éclatée du système d'aérofrein d'SP-02}}{45}{figure.4.14}%
-\contentsline {figure}{\numberline {4.15}{\ignorespaces Bloc parachute du premier étage sur \acrshort {CATIA}}}{46}{figure.caption.47}%
-\contentsline {figure}{\numberline {4.16}{\ignorespaces Moule de la cage parachute du premier étage sur \acrshort {CATIA}}}{47}{figure.4.16}%
-\contentsline {figure}{\numberline {4.17}{\ignorespaces Bloc parachute du premier étage sur \acrshort {CATIA}}}{47}{figure.caption.48}%
-\contentsline {figure}{\numberline {4.18}{\ignorespaces Bloc parachute du premier étage sur \acrshort {CATIA}}}{48}{figure.caption.49}%
-\contentsline {figure}{\numberline {4.19}{\ignorespaces Bague parachute en aluminium du premier étage sur \acrshort {CATIA}}}{48}{figure.caption.50}%
-\contentsline {figure}{\numberline {4.20}{\ignorespaces Usinage des loquets sur logiciel compatible CNC}}{49}{figure.caption.51}%
-\contentsline {figure}{\numberline {4.21}{\ignorespaces Bloc électronique du premier étage sur \acrshort {CATIA}}}{50}{figure.caption.53}%
-\contentsline {figure}{\numberline {4.22}{\ignorespaces Vue en coupe du mécanisme de séparation inter-étages}}{53}{figure.caption.54}%
-\contentsline {figure}{\numberline {4.24}{\ignorespaces Évolution de la configuration des ressorts de séparation entre l'état armé et l'état libéré.}}{54}{figure.caption.56}%
-\contentsline {figure}{\numberline {4.25}{\ignorespaces Vue du second étage sur \acrshort {CATIA}}}{55}{figure.caption.57}%
-\contentsline {figure}{\numberline {4.26}{\ignorespaces Illustration du collage des ailerons du 2nd étage (Epaisseur des renforts éxagérée) }}{56}{figure.caption.59}%
-\contentsline {figure}{\numberline {4.27}{\ignorespaces Exemple de force appliquée sur une couche de fibre de carbone}}{56}{figure.caption.60}%
-\contentsline {figure}{\numberline {4.28}{\ignorespaces Exemple de stratifié en fibre de carbone avec plusieurs orientations}}{57}{figure.caption.61}%
-\contentsline {figure}{\numberline {4.29}{\ignorespaces Comparaison de la superposition de 6 couches en fonction de l'angle des couches}}{57}{figure.caption.62}%
-\contentsline {figure}{\numberline {4.30}{\ignorespaces Placement et application des renforts de fibre sur le second étage}}{58}{figure.caption.63}%
-\contentsline {figure}{\numberline {4.31}{\ignorespaces Placement et application des éléments de mise sous vide}}{59}{figure.caption.64}%
-\contentsline {figure}{\numberline {4.32}{\ignorespaces Fixation des ailerons du second étage sur \acrshort {CATIA}}}{60}{figure.caption.65}%
-\contentsline {figure}{\numberline {4.33}{\ignorespaces Bloc parachute du second étage sur \acrshort {CATIA}}}{61}{figure.caption.66}%
-\contentsline {figure}{\numberline {4.34}{\ignorespaces Bloc parachute du second étage sur \acrshort {CATIA}}}{62}{figure.caption.67}%
-\contentsline {figure}{\numberline {4.35}{\ignorespaces Bloc parachute du second étage sur \acrshort {CATIA}}}{63}{figure.caption.69}%
-\contentsline {figure}{\numberline {4.36}{\ignorespaces Bloc coiffe du second étage sur \acrshort {CATIA}}}{64}{figure.caption.70}%
-\contentsline {figure}{\numberline {4.37}{\ignorespaces Bloc coiffe du second étage sur \acrshort {CATIA}}}{64}{figure.caption.71}%
-\contentsline {figure}{\numberline {4.38}{\ignorespaces Angles entre les ailerons proches de la rampe sur la configuration de mise en rampe}}{65}{figure.caption.72}%
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Schéma simplifié du système électronique général de la fusée SP-02}}{66}{figure.caption.73}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Rendu 3D de la carte séquenceur}}{69}{figure.caption.75}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Zoom sur le séquenceur et interface}}{69}{figure.caption.76}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Schémas fonctionnels des séquenceurs des deux étages}}{71}{figure.caption.77}%
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Rendu 3D des cartes PCBs principale et condensateurs dy système d'allumage}}{73}{figure.caption.78}%
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Zoom sur le sinopsis de la ligne de mise à feu (ref. annexe \ref {subsec:synoptique_fusee})}}{73}{figure.caption.79}%
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Schéma de la ligne de mise à feu}}{74}{figure.caption.80}%
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Zoom sur le circuit de charge/décharge des condensateurs}}{74}{figure.caption.81}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Zoom sur le circuit de condensateurs}}{74}{figure.caption.82}%
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Zoom sur le circuit isolateur}}{76}{figure.caption.83}%
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Zoom sur le circuit final}}{76}{figure.caption.84}%
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Zoom sur l'interface de la carte principale du système d'allumage}}{76}{figure.caption.85}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Batterie Li-Ion 18650-26H}}{80}{figure.5.13}%
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Batterie Li-Po plate}}{80}{figure.caption.86}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Photo de groupe de membres du club de l'AéroIPSA lors du \gls {C'Space} 2025.}}{6}{figure.caption.2}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Vue du premier étage sur \acrshort {CATIA}}}{8}{figure.caption.3}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Vue du second étage sur \acrshort {CATIA}}}{8}{figure.caption.4}%
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Vue d'ensemble de la fusée SP-02 sur \acrshort {CATIA}}}{9}{figure.caption.5}%
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Minif Arcturus}}{10}{figure.caption.6}%
+\contentsline {figure}{\numberline {1.6}{\ignorespaces Fusée SP-01}}{10}{figure.caption.7}%
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Module électronique Unknown}}{11}{figure.caption.8}%
+\contentsline {figure}{\numberline {1.8}{\ignorespaces Module électronique \gls {APEX}}}{11}{figure.caption.9}%
+\contentsline {figure}{\numberline {1.9}{\ignorespaces Diagramme de Gantt du projet SP-02 (octobre 2025 – juillet 2026)}}{13}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Diagramme des phases nominales de vol depuis SP-02}}{14}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Tableau d'attribution des indices G, F, D et calcul de l'\acrshort {IPR} pour chaque \acrshort {MDF}}}{22}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Extrait de l'analyse \acrshort {AMDEC} réalisée pour le projet SP-02}}{23}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{26}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{27}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{27}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{28}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{28}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{29}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{29}{figure.caption.23}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{30}{figure.caption.24}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Modélisation de la fusée SP-02 dans \gls {OpenRocket}}}{30}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Résultats des analyses de stabilité longitudinale de la fusée SP-02 et de ses étages (\gls {Stabtraj})}}{31}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Schéma de calcul du couple exercé au niveau de la base du premier étage}}{35}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Définition du composite du tube porteur du premier étage}}{39}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Préparation \acrshort {CAM} sous \textsc {Fusion 360} : définition des opérations et validation par simulation.}}{40}{figure.caption.37}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Pièce usinée restant solidaire du brut grâce aux onglets de maintien.}}{41}{figure.caption.38}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Pièces usinées finies : éléments des aérofreins et ailerons.}}{41}{figure.caption.39}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Vue du premier étage sur \acrshort {CATIA}}}{42}{figure.caption.40}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Procédé de collage ailerons/tube porte-moteur}}{42}{figure.caption.41}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Procédé de collage ailerons/structure avec congés en résine}}{43}{figure.caption.42}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Réalisation du rérain}}{43}{figure.caption.43}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Tube porte-propulseur}}{43}{figure.caption.44}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Méthodes de fixation du Pro54}}{44}{figure.caption.45}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Système d'aérofrein d'SP-02 sur \acrshort {CATIA}}}{45}{figure.4.12}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Position des aérofreins d'SP-02}}{45}{figure.caption.46}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Vu éclatée du système d'aérofrein d'SP-02}}{46}{figure.4.14}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Maquette numérique simplifiée de la fusée (\acrshort {CATIA}).}}{47}{figure.caption.47}%
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Configurations d’ouverture des aérofreins étudiées.}}{48}{figure.caption.48}%
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Propriétés physiques et modèles activés dans Simcenter STAR-CCM+.}}{49}{figure.4.17}%
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Comparaison qualitative des méthodes DNS, LES et RANS selon le coût de calcul et la précision.}}{50}{figure.caption.49}%
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Schéma de la géométrie du domaine d’étude et des dimensions principales.}}{51}{figure.caption.50}%
+\contentsline {figure}{\numberline {4.20}{\ignorespaces Représentation 3D du domaine de calcul autour de la fusée.}}{51}{figure.caption.51}%
+\contentsline {figure}{\numberline {4.21}{\ignorespaces Configuration du maillage dans STAR-CCM+ (outil de maillage et contrôles).}}{52}{figure.4.21}%
+\contentsline {figure}{\numberline {4.22}{\ignorespaces Raffinement local du maillage au niveau des aérofreins.}}{52}{figure.caption.52}%
+\contentsline {figure}{\numberline {4.23}{\ignorespaces Raffinement local du maillage au niveau des ailerons.}}{53}{figure.caption.53}%
+\contentsline {figure}{\numberline {4.24}{\ignorespaces Maillage au niveau de la pointe de la fusée.}}{53}{figure.caption.54}%
+\contentsline {figure}{\numberline {4.25}{\ignorespaces Vue globale du maillage du domaine de calcul.}}{54}{figure.caption.55}%
+\contentsline {figure}{\numberline {4.26}{\ignorespaces Évolution du coefficient de traînée en fonction du taux d'ouverture des aérofreins}}{55}{figure.caption.57}%
+\contentsline {figure}{\numberline {4.27}{\ignorespaces Carte de la pression sur SP02 sans les aérofreins}}{56}{figure.caption.58}%
+\contentsline {figure}{\numberline {4.28}{\ignorespaces Cartes de pression sur les aérofreins déployés à 50\%}}{56}{figure.caption.59}%
+\contentsline {figure}{\numberline {4.29}{\ignorespaces Cartes de pression sur les aérofreins déployés à 100\%}}{56}{figure.caption.60}%
+\contentsline {figure}{\numberline {4.30}{\ignorespaces Champ de vitesse autour de SP02 sans les aérofreins}}{57}{figure.caption.61}%
+\contentsline {figure}{\numberline {4.31}{\ignorespaces Champ de vitesse autour de SP02 avec les aérofreins ouverts à 50\%}}{57}{figure.caption.62}%
+\contentsline {figure}{\numberline {4.32}{\ignorespaces Champ de vitesse autour de SP02 avec les aérofreins ouverts à 100\%}}{57}{figure.caption.63}%
+\contentsline {figure}{\numberline {4.33}{\ignorespaces Bloc parachute du premier étage sur \acrshort {CATIA}}}{58}{figure.caption.64}%
+\contentsline {figure}{\numberline {4.34}{\ignorespaces Moule de la cage parachute du premier étage sur \acrshort {CATIA}}}{59}{figure.4.34}%
+\contentsline {figure}{\numberline {4.35}{\ignorespaces Bloc parachute du premier étage sur \acrshort {CATIA}}}{59}{figure.caption.65}%
+\contentsline {figure}{\numberline {4.36}{\ignorespaces Bloc parachute du premier étage sur \acrshort {CATIA}}}{60}{figure.caption.66}%
+\contentsline {figure}{\numberline {4.37}{\ignorespaces Bague parachute en aluminium du premier étage sur \acrshort {CATIA}}}{60}{figure.caption.67}%
+\contentsline {figure}{\numberline {4.38}{\ignorespaces Usinage des loquets sur logiciel compatible CNC}}{61}{figure.caption.68}%
+\contentsline {figure}{\numberline {4.39}{\ignorespaces Bloc électronique du premier étage sur \acrshort {CATIA}}}{63}{figure.caption.70}%
+\contentsline {figure}{\numberline {4.40}{\ignorespaces Vue en coupe du mécanisme de séparation inter-étages}}{66}{figure.caption.71}%
+\contentsline {figure}{\numberline {4.42}{\ignorespaces Évolution de la configuration des ressorts de séparation entre l'état armé et l'état libéré.}}{67}{figure.caption.73}%
+\contentsline {figure}{\numberline {4.43}{\ignorespaces Pièce de séparation du premier étage}}{68}{figure.caption.74}%
+\contentsline {figure}{\numberline {4.44}{\ignorespaces Visualisation de la déformée maximale de la pièce de séparation du premier étage}}{68}{figure.caption.75}%
+\contentsline {figure}{\numberline {4.45}{\ignorespaces Visualisation de la contrainte maximale de la pièce de séparation du premier étage}}{69}{figure.caption.76}%
+\contentsline {figure}{\numberline {4.46}{\ignorespaces Contraintes de von Mises sur la pièce de séparation du premier étage}}{69}{figure.caption.77}%
+\contentsline {figure}{\numberline {4.47}{\ignorespaces Analyse modale (fréquences de résonance)}}{69}{figure.caption.78}%
+\contentsline {figure}{\numberline {4.48}{\ignorespaces Design d'un loquet avec contraintes appliquées}}{70}{figure.caption.79}%
+\contentsline {figure}{\numberline {4.49}{\ignorespaces Déformée maximale sur un loquet avec contraintes appliquées}}{70}{figure.caption.80}%
+\contentsline {figure}{\numberline {4.50}{\ignorespaces Contraintes de von Mises sur un loquet avec contraintes appliquées}}{71}{figure.caption.81}%
+\contentsline {figure}{\numberline {4.51}{\ignorespaces Vue du second étage sur \acrshort {CATIA}}}{73}{figure.caption.83}%
+\contentsline {figure}{\numberline {4.52}{\ignorespaces Illustration du collage des ailerons du 2nd étage (Epaisseur des renforts éxagérée) }}{74}{figure.caption.85}%
+\contentsline {figure}{\numberline {4.53}{\ignorespaces Exemple de force appliquée sur une couche de fibre de carbone}}{74}{figure.caption.86}%
+\contentsline {figure}{\numberline {4.54}{\ignorespaces Exemple de stratifié en fibre de carbone avec plusieurs orientations}}{75}{figure.caption.87}%
+\contentsline {figure}{\numberline {4.55}{\ignorespaces Comparaison de la superposition de 6 couches en fonction de l'angle des couches}}{75}{figure.caption.88}%
+\contentsline {figure}{\numberline {4.56}{\ignorespaces Placement et application des renforts de fibre sur le second étage}}{76}{figure.caption.89}%
+\contentsline {figure}{\numberline {4.57}{\ignorespaces Placement et application des éléments de mise sous vide}}{77}{figure.caption.90}%
+\contentsline {figure}{\numberline {4.58}{\ignorespaces Illustration du collage des ailerons du 2nd étage (Epaisseur des renforts éxagérée) }}{77}{figure.caption.91}%
+\contentsline {figure}{\numberline {4.59}{\ignorespaces Pré-collage des ailerons du second étage}}{78}{figure.caption.92}%
+\contentsline {figure}{\numberline {4.60}{\ignorespaces Fixation des ailerons du second étage}}{78}{figure.caption.93}%
+\contentsline {figure}{\numberline {4.61}{\ignorespaces Positionnement des composants de mise sous vide}}{78}{figure.caption.94}%
+\contentsline {figure}{\numberline {4.62}{\ignorespaces Positionnement des composants de mise sous vide}}{79}{figure.caption.95}%
+\contentsline {figure}{\numberline {4.63}{\ignorespaces Résultat final après démoulage des ailerons du second étage}}{79}{figure.caption.96}%
+\contentsline {figure}{\numberline {4.64}{\ignorespaces Bloc parachute du second étage sur \acrshort {CATIA}}}{80}{figure.caption.97}%
+\contentsline {figure}{\numberline {4.65}{\ignorespaces Bloc parachute du second étage sur \acrshort {CATIA}}}{81}{figure.caption.98}%
+\contentsline {figure}{\numberline {4.66}{\ignorespaces Bloc parachute du second étage sur \acrshort {CATIA}}}{82}{figure.caption.100}%
+\contentsline {figure}{\numberline {4.67}{\ignorespaces Bloc parachute du premier étage sur \acrshort {CATIA}}}{83}{figure.caption.101}%
+\contentsline {figure}{\numberline {4.68}{\ignorespaces Moule de la cage parachute du premier étage sur \acrshort {CATIA}}}{84}{figure.4.68}%
+\contentsline {figure}{\numberline {4.69}{\ignorespaces Bloc parachute du premier étage sur \acrshort {CATIA}}}{84}{figure.caption.102}%
+\contentsline {figure}{\numberline {4.70}{\ignorespaces Bloc parachute du premier étage sur \acrshort {CATIA}}}{85}{figure.caption.103}%
+\contentsline {figure}{\numberline {4.71}{\ignorespaces Bague parachute en aluminium du premier étage sur \acrshort {CATIA}}}{85}{figure.caption.104}%
+\contentsline {figure}{\numberline {4.72}{\ignorespaces Usinage des loquets sur logiciel compatible CNC}}{86}{figure.caption.105}%
+\contentsline {figure}{\numberline {4.73}{\ignorespaces Bloc coiffe du second étage sur \acrshort {CATIA}}}{88}{figure.caption.106}%
+\contentsline {figure}{\numberline {4.74}{\ignorespaces Bloc coiffe du second étage sur \acrshort {CATIA}}}{88}{figure.caption.107}%
+\contentsline {figure}{\numberline {4.75}{\ignorespaces Angles entre les ailerons proches de la rampe sur la configuration de mise en rampe}}{89}{figure.caption.108}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Schéma simplifié du système électronique général de la fusée SP-02}}{90}{figure.caption.109}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Rendu 3D de la carte séquenceur}}{93}{figure.caption.111}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Zoom sur le séquenceur et interface}}{93}{figure.caption.112}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Schémas fonctionnels des séquenceurs des deux étages}}{95}{figure.caption.113}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Rendu 3D des cartes PCBs principale et condensateurs dy système d'allumage}}{97}{figure.caption.114}%
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Zoom sur le sinopsis de la ligne de mise à feu (ref. annexe \ref {subsec:synoptique_fusee})}}{97}{figure.caption.115}%
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Schéma de la ligne de mise à feu}}{98}{figure.caption.116}%
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Zoom sur le circuit de charge/décharge des condensateurs}}{98}{figure.caption.117}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Zoom sur le circuit de condensateurs}}{98}{figure.caption.118}%
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Zoom sur le circuit isolateur}}{100}{figure.caption.119}%
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Zoom sur le circuit final}}{100}{figure.caption.120}%
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Zoom sur l'interface de la carte principale du système d'allumage}}{100}{figure.caption.121}%
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Batterie Li-Ion 18650-26H}}{104}{figure.5.13}%
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Batterie Li-Po plate}}{104}{figure.caption.122}%
