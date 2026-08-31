@@ -230,11 +230,21 @@ En considérant la plage de fonctionnement du baromètre, l'altitude maximale qu
 de l'ordre de \SI{10}{\kilo\meter} et la vitesse maximale mesurable est de l'ordre de \SI{705}{\meter\per\second}.
 
 \vfill
-
-\begin{figure}[H]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.55\textwidth]{figures/meca/Assemblage_pitot_pointe.png}
-    \caption{Assemblage de la PCB pitot sur le support de la pointe}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/meca/Assemblage_pitot_pointe.png}
+        \caption{Assemblage de la PCB pitot sur le support de la pointe}
+        \label{fig:vue_pointe1}
+    \end{subfigure}
+    \hfill% Espace horizontal entre les deux sous-figures
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/sp02_controle91.png} % Remplace par ton deuxième fichier
+        \caption{Vue externe de la pointe montée}
+        \label{fig:vue_pointe2}
+    \end{subfigure}
+    \caption{Légende globale pour les deux images (optionnelle).}
+    \label{fig:vue_pitot}
 \end{figure}
 \vfill
 
