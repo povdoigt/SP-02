@@ -153,10 +153,6 @@ Les deux loquets devront être vissés si utilisés, mais ne requièrent pas de 
 \end{figure}
 
 \newpage
-<<<<<<< HEAD
-=======
-
->>>>>>> ALEXIS
 \subsubsection{Aérofreins}
 
 \subsubsubsection{Définition du système}
@@ -861,8 +857,6 @@ crochet assurant le verrouillage de la trappe. En plaçant le servomoteur à la 
 l’axe de roulis de la fusée, on améliore son efficacité au décollage : il est moins sollicité en cas d’infiltration d’air dans
 la trappe et lors de l’ouverture.
 
-<<<<<<< HEAD
-=======
 
 \begin{figure}[H]
     \centering
@@ -883,262 +877,10 @@ la trappe et lors de l’ouverture.
         \includegraphics[width=\linewidth]{figures/meca/para_etage1-3.png}
         \caption{Position ouverte}
         \label{fig:para_etage1-3}
-    \end{subfigure}
-    \caption{Bloc parachute du premier étage sur \acrshort{CATIA}}
-    \label{fig:para_etage1_SP02}
-\end{figure}
- 
-De plus, le crochet (visible en bleu foncé sur la figure \autoref{fig:para_etage1_SP02}) est contraint dans toutes les translations 
-grâce à un trou concentrique dans la bague en aluminium (ici en bleu clair). L'unique mouvement possible est alors 
-la rotation souhaitée dans l'axe x du lanceur.\\
-
-La spécificité du bloc de cet étage est la forme de la cage en cuillère visible en rouge (sans bague en dessous) afin de limiter 
-au mieux la masse et une sortie du parachute plus efficiente, tout en facilitant son intégration dans le lanceur 
-avec notamment le bloc aérofreins juste en-dessous. La conception a été réalisée pour une fabrication 
-en composite et compatible en matériau polymère tel PETG. La configuration matériau retenue est le composite après avoir validé la 
-méthode de fabrication en composite (surtoût dans le rayon minimal entre les 
-différentes couches). L'épaisseur de cette dernière est de 2,5mm en PETG ; et réduite à 1,2mm en fibre de verre.\\
-
-\underline{Réalisation de la cage en fibre de verre}\\
-
-\begin{minipage}{0.5\textwidth}
-    La structure de la cage reprend la forme et l'espace maximal tout en facilitant l'éjection du parachute sans compromettre le 
-    centre de masse du bloc parachute.\\
-    Elle reprend une ouverture de 90° sur le tube pour une longueur totale de -----------mm. La forme en cuillère spécifique permet 
-    une éjection plus directe par gravité qu'une bague traditionelle, ainsi que les maintiens latéraux octroient une meilleure 
-    stabilité de la trappe en position fermée, évitant son enfoncement ou déformation axiale.\\
-
-    Pour permettre sa fabrication, nous avons fait le choix de réaliser le moule en PLA (simplification et rapidité d'usinage), et 
-    dont l'agent démoulant appliqué est de la WAX (Cf. \autoref{fig:para_etage1-1}) -- non toxique et simple d'application -- sur l'ensemble de la surface à résiner.
-    Les morceaux de fibre de verre sont ici découpés de deux manières : soit il servira dans la direction \textcolor{YellowOrange}{longitudinale}, dans l'axe du lanceur, soit dans l'axe \textcolor{blue}{circonférentiel} (Cf. flèches de la \autoref{fig:CAO_moule_cage1}). La combinaison des deux constitue une couche complète et renforcée pour pallier toute déformation excessive.\\
-\end{minipage}
-\hfill
-\begin{minipage}{0.4\textwidth}
-\centering
-    \includegraphics[width=\textwidth]{figures/meca/moule_cage_alpha2.png}
-    \captionof{figure}{Moule de la cage parachute du premier étage sur \acrshort{CATIA}}
-    \label{fig:CAO_moule_cage1}
-\end{minipage}
-
-Une fois la WAX appliquée et la première couche appliquée, nous avons répété l'opération de superpostion des morceaux de fibre tout en respectant l'alternance entre morceau de direction \textcolor{YellowOrange}{longitudinale} et morceau de direction \textcolor{blue}{circonférentielle}.
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/cage_alpha1.jpg}
-        \caption{WAX sur le moule}
-        \label{fig:para_etage1-1}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/cage_alpha2.jpg}
-        \caption{Vue de face}
-        \label{fig:para_etage1-2}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/cage_alpha4.jpg}
-        \caption{Vue de dessus}
-        \label{fig:para_etage1-3}
-    \end{subfigure}
-    \caption{Bloc parachute du premier étage sur \acrshort{CATIA}}
-    \label{fig:para_etage1_SP02}
-\end{figure}
-
-Cette forme-ci de moule a engendré deux soucis lors de la fabrication :
-\begin{itemize}
-    \item Un surplus de résine s'est accumulé au niveau de la cuillière. Un moule positif aurait permis une répartition plus homogène lors de l'application de la résine et enfin lors de la mise sous vide
-    \item Les bords se décollaient très souvent (largeur pas assez suffisante pour tomber sur le moule par gravité), la forme en moule positif aurait pû améliorer ce problème.\\
-\end{itemize}
-
-Des améliorations seront à noter dans la forme externe des congés. En effet, la marge de PLA dont la courbure est parfaite pour la pièce finale aurait pû être légèrement prolongée afin d'éviter tout désagrément lors de la découpe finale après démoulage. 
-
-
-\newpage
-\begin{minipage}{0.5\textwidth}
-    Les composants utilsés lors de la mise sous vide sont les suivants :
-    \begin{itemize}
-        \item Joint d'étanchéité | ST150 Vacuum Bagging sealant tape
-        \item Film de mise sous vide | VB160 Vacuum bagging film LFT
-        \item Feutre absorbant | BR180 Breather cloth
-        \item Film de séparation perforé | R120 P3 Perforated Release film
-        \item Tissu d'arrachage | PP230 Nylon Peel Ply Red Tracer
-        \item Composite | Stratifié en fibre de verre 13 g/cm$^2$
-        \item Résine \& Durcisseur | EL2 \& AT30 Slow\\
-    \end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}{0.5\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{figures/meca/mise_sous_vide.png}
-    \label{fig:mise_sous_vide}
-\end{minipage}
-
-Nous avons donc ici la mise sous vide finale nous permettant de sortir l'air et de comprimer l'ensemble des couches à la forme souhaitée. 
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/cage_alpha5.jpg}
-        \caption{Vue d'ensemble}
-        \label{fig:para_etage1-4}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/cage_alpha6.jpg}
-        \caption{Vue en profondeur}
-        \label{fig:para_etage1-5}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/cage_alpha7.jpg}
-        \caption{Zoom sur le haut}
-        \label{fig:para_etage1-6}
-    \end{subfigure}
-    \caption{Bloc parachute du premier étage sur \acrshort{CATIA}}
-    \label{fig:para_etage1_SP02-2}
-\end{figure}
-
-Une fois démoulé, les découpes des morceaux éxcédants ont pu être retirés puis la cage poncée pour l'installation sur la bague de retenue du parachute.\\
-
-
-\underline{Usinage de la bague de retenue du parachute}\\
-
-Pour pouvoir usiner les deux côtés, nous avons ajouté quatre trous pour des pions de positionnement afin d'aligner au mieux le brut sur le mortier de la CNC.\\
-Cela nous a permis d'usiner un côté puis le second tout en gardant le trou princpial concentrique avec le diamètre externe.\\
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/bague_alu1-1.png}
-        \caption{Vue isométrique supérieure}
-        \label{fig:bague_alu1-1}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/bague_alu1.png}
-        \caption{Vue isométrique inférieure}
-        \label{fig:bague_alu1-2}
-    \end{subfigure}
-    \caption{Bague parachute en aluminium du premier étage sur \acrshort{CATIA}}
-    \label{fig:bague_alu1} 
-\end{figure}
-
-La masse global de la pièce a été minimisée tout en resistant à la charge maximale que la suspente du parachute doit tenir dans le cas pire de la fenêtre d'ouverture du parachute.
-
-
-\underline{Usinage du crochet du servomoteur}\\
-
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figures/meca/usinage_loquets.png}
-    \caption{Usinage des loquets sur logiciel compatible CNC}
-    \label{fig:usinage_loquets}
-\end{figure}
-
-
-
-
-\underline{Choix des dimensions du parachute du premier étage}\\
-La contrainte imposée par le \acrshort{CDC} est une vitesse de redescente comprise entre 5 et 15m/s pour les trois
-configurations (étage 1, étage 2 et non séparé). De par les dimensions des deux étages, le premier sera en charge du retour
-sous parachute de l'ensemble non séparé.
-\begin{equation}
-\begin{aligned}
-    V_d &= \sqrt{\frac{2 M g}{\rho_0 C_x S}} \
-    %V_d &= \sqrt{\frac{2 \times 7.2 \times 9.81}{1.3 \times 1 \times 0.65}}
-\end{aligned}
-\end{equation}
-
-Avec la règle REC2, nous devons dimensionner les deux parachutes pour les cas suivants :
-
-\begin{table}[h!]
-    \centering
-    \begin{tabular}{|c|c|c|c|}
-        \hline
-        Cas d'étude & Pas de séparation & Étage 1 & Étage 2 \\ \hline
-        Masse de l'ensemble & 7,327kg & 4,431kg & 2,895kg \\ \hline
-        Dimensions du parachute utilisé & a=b=360mm & a=b=360mm & a=b=310mm \\ \hline
-        Vitesse sous parachute & 13,1 m/s & 9,2 m/s & 10,7 m/s \\ \hline
-    \end{tabular}
-\end{table}
-
-La forme des parachutes utilisés sera de type croix, avec a et b les valeurs d'un carré de la croix. De plus, l'ensemble du
-parachute devra résister à l'ouverture.
-\begin{equation}
-\begin{aligned}
-    F &= 2 \times Acc_{max} \times K_{safety} \times M_{sup} \\
-    F &= 2 \times 9,7 \times 1,5 \times 3,055 \\
-    F &= 88,90 N \\
-\end{aligned}
-\end{equation}
-
-\newpage
-\subsubsection{Définition du bloc électronique}
-\label{subsec:defblocelec1}
->>>>>>> ALEXIS
-
-Le bloc électronique regroupe l'ensemble des éléments permettant de lancer une action, mouvoir un actionneur, détecter un évènement dans toutes les phases depuis le début de la chronologie à la récupération de la fusée.
-Dans notre cas, nous avons neuf éléments 'électroniques' (cartes électroniques, batteries...) et trois éléments 'mécaniques' (pièces structurelles en impression 3D) :
-\begin{itemize}
-    \item 1 bloc central de fixation en PETG,
-    \item 1 support inférieur du shunt, de la caméra Runcam Thumb Pro et du servomoteur de la séparation (non comptabilisé dans cet assemblage),
-    \item 1 plaque de maintien des batteries.\\
-\end{itemize}
-\begin{itemize}
-    \item 1 PCB séquenceur,
-    \item 1 PCB IHF (Interface Homme-Fusée) possédant les commandes de contrôle tels interrupteurs et LEDs de visualisation
-    \item 1 PCB APEX : carte électronique pour enregistrement de données
-    \item 1 PCB APEX-EX : carte connectée à APEX pour de nouvelles fonctionnalités
-    \item 4 cellules 18650 pour l'ensemble de l'électronique du premier étage
-    \item 1 jack pour l'acquisition de l'information du décollage
-    \item 1 shunt pour bloquer toute émission de télémesure si branché
-    \item 1 PCB caméra pour le contrôle de l'allumage et enregistrement des flux vidéos des deux caméras de l'étage
-    \item 1 caméra RunCam Thumb Pro v2
-\end{itemize}
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-<<<<<<< HEAD
-        \includegraphics[width=\linewidth]{figures/meca/para_etage1-1.png}
-        \caption{Position verrouillée}
-        \label{fig:para_etage1-1}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/para_etage1-2.png}
-        \caption{Servomoteur à mi-course}
-        \label{fig:para_etage1-2}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/para_etage1-3.png}
-        \caption{Position ouverte}
-        \label{fig:para_etage1-3}
-=======
-        \includegraphics[width=\linewidth]{figures/meca/visu_bloc_elec_1-1.png}
-        \caption{Vue isométrique}
-        \label{fig:eleec_etage1-1}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/visu_bloc_elec_1-2.png}
-        \caption{Vue isométrique de dos}
-        \label{fig:elec_etage1-2}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/visu_bloc_elec_1-3.png}
-        \caption{Vue de profil}
-        \label{fig:elec_etage1-3}
->>>>>>> ALEXIS
     \end{subfigure}
     \caption{Bloc électronique du premier étage sur \acrshort{CATIA}}
     \label{fig:para_etage1_SP02}
 \end{figure}
-<<<<<<< HEAD
  
 De plus, le crochet (visible en bleu foncé sur la figure \autoref{fig:para_etage1_SP02}) est contraint dans toutes les translations 
 grâce à un trou concentrique dans la bague en aluminium (ici en bleu clair). L'unique mouvement possible est alors 
@@ -1376,6 +1118,8 @@ Dans notre cas, nous avons neuf éléments 'électroniques' (cartes électroniqu
     \item 1 PCB caméra pour le contrôle de l'allumage et enregistrement des flux vidéos des deux caméras de l'étage
     \item 1 caméra RunCam Thumb Pro v2
 \end{itemize}
+
+
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
@@ -1408,9 +1152,5 @@ Les outils nécessaires à l'utilisation des différents interfaces sont :
     \item Un JTAG (connecteur clipsable) pour le débuggage sans avoir besoin de retirer le bloc de la fusée.
 \end{itemize}
 Et les interrupteurs ne requièrent pas d'outils spécifiques.
-=======
-
-L'ensemble est fixé au bloc central qui sera fixé directement à la peau porteuse à l'aide de quatre vis M5x12mm.
->>>>>>> ALEXIS
 
 \newpage
