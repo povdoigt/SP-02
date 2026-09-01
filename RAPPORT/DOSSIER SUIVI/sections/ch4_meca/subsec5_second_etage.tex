@@ -1,10 +1,13 @@
 \subsection{Structure du second étage}
 \label{subsec:second_etage}
 
-Le second étage de SP-02 est composé de la seconde partie du bloc de séparation dans lequel est logé le second propulseur (ici un Pro-24) ainsi que l'ensemble des connexions avec le premier étage. En remontant vers la coiffe, nous retrovons le shunt pyro connecté au système d'allumage et leurs condensateurs ; puis le bloc électronique.
-Le bloc parachute se situe dans l'extension au dessus du bloc éléctronique surplombé de la coiffe avec les batteries et le capteur barométrique en aval de la pointe aluminium.
+Le second étage de SP-02 est composé de la seconde partie du bloc de séparation dans lequel est logé le second propulseur 
+(ici un Pro-24) ainsi que l'ensemble des connexions avec le premier étage. En remontant vers la coiffe, nous retrouvons 
+le shunt pyro connecté au système d'allumage et leurs condensateurs ; puis le bloc électronique.
+Le bloc parachute se situe dans l'extension au dessus du bloc électronique surplombé de la coiffe avec les batteries et 
+le capteur barométrique en aval de la pointe aluminium.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
     
@@ -33,22 +36,27 @@ Le bloc parachute se situe dans l'extension au dessus du bloc éléctronique sur
     \label{fig:sp02_s2_ork}
 \end{figure}
 
-Comme vu précédemment, le second étage est aussi soumis à toutes les règles mécaniques évoquées et nous devons nous assurer qu'il les respecte lors de la conception et fabrication des éléments.
+Comme vu précédemment, le second étage est aussi soumis à toutes les règles mécaniques évoquées et nous devons nous 
+assurer qu'il les respecte lors de la conception et fabrication des éléments.
 
 
 
 \subsubsection{Fuselage et flèche}
 \label{subsubsec:second_etage}
-Le second étage étant davantage soumis à la contrainte de flèche, nous devions également nous assurer du bon comportement du fuselage dans les coditions d'un contrôle sur banc de flèche.
+Le second étage étant davantage soumis à la contrainte de flèche, nous devions également nous assurer du bon comportement 
+du fuselage dans les conditions d'un contrôle sur banc de flèche.
 Nous avons fait  plusieurs compromis le concernant :
 \begin{itemize}
-    \item La pièce du sytème de séparation doit bouger le moins possible dans le tube et doit rester parfaitement dans l'axe du tube : la géométrie des ailerons et leur fixation peut fragiliser le tube si insérés dans le tube
-    \item Le tube doit posséder le moins d'ouvertures possible : le procédé de collage des ailerons et la cage parachute doivent être changé pour le premier et déplacé dans une extension pour le second, et limiter au mieux le nombre de vis
-    \item Le tube doit pouvoir laisser passer les ondes (télémesure) : fibre de verre obligatoirement.\\
+    \item La pièce du système de séparation doit bouger le moins possible dans le tube et doit rester parfaitement dans 
+    l'axe du tube : la géométrie des ailerons et leur fixation peut fragiliser le tube si insérés dans le tube
+    \item Le tube doit posséder le moins d'ouvertures possible : le procédé de collage des ailerons et la cage parachute 
+    doivent être changé pour le premier et déplacé dans une extension pour le second, et limiter au mieux le nombre de vis
+    \item Le tube doit pouvoir laisser passer les ondes (télémesure) : fibre de verre obligatoirement.
 \end{itemize}
 
-Au vue des différentes contraintes répertoriées, nous avons fait le choix de garder un nombre de couches de fibres identique à celui du premier étage :
-diamètre de 80mm interne et 2mm d'épaisseur. Après sa fabrication, nous avons mesuré la flèche du tube et avons mesuré :
+Au vue des différentes contraintes répertoriées, nous avons fait le choix de garder un nombre de couches de fibres 
+identique à celui du premier étage : diamètre de 80mm interne et 2mm d'épaisseur. Après sa fabrication, nous avons mesuré 
+la flèche du tube et avons mesuré :
 
 \begin{table}[h!]
 \centering
@@ -61,19 +69,22 @@ Patins à 180° & 0mm & À 0mm \\ \hline
 Patins à 270° & -0.5mm & -0,5mm \\ \hline
 \end{tabular}
 \end{table}
-Sur deux côtés opposés, nous avons noté une légère flèche naturelle du tube mais sans vraie flèche, ce qui est dans les prévisions 
-et largement dans les normes du C'Space.
+
+Sur deux côtés opposés, nous avons noté une légère flèche naturelle du tube mais sans vraie flèche, ce qui est dans les 
+prévisions et largement dans les normes du C'Space.
+\newpage
+
 
 \subsubsection{Fabrication et collage des ailerons}
 Les ailerons sont fabriqués à partir d'une plaque de fibre de verre achetée chez Ahltec, dans laquelle il est possible de
-découper les 4 ailerons aux dimensions souhaitées à la \acrshort{CNC}, afin d'obtenir des ailerons strictement identiques. Un
-ponçage méticuleux est ensuite réalisé sur les surfaces des 4 pièces et accroître l'adhérence de la fibre résinée et donc
+découper les 4 ailerons aux dimensions souhaitées à la \acrshort{CNC}, afin d'obtenir des ailerons strictement identiques. 
+Un ponçage méticuleux est ensuite réalisé sur les surfaces des 4 pièces et accroître l'adhérence de la fibre résinée et donc
 l'efficacité du futur collage.\\
 
-La méthode de fixation des ailerons utilisée ici est un \textbf{collage surfacique externe}, c'est-à-dire que les ailerons ne sont 
-plus insérés dans le tube mais juste collés sur la surface externe du tube.
+La méthode de fixation des ailerons utilisée ici est un \textbf{collage surfacique externe}, c'est-à-dire que les ailerons 
+ne sont plus insérés dans le tube mais juste collés sur la surface externe du tube.
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
     \begin{tikzpicture}
     
@@ -90,7 +101,7 @@ plus insérés dans le tube mais juste collés sur la surface externe du tube.
         \draw[red, ->, line width=1.5] (renfort.south)          -- (-0.00, -0.35);
 
     \end{tikzpicture}
-    \caption{Illustration du collage des ailerons du 2nd étage (Epaisseur des renforts éxagérée) }
+    \caption{Illustration du collage des ailerons du 2nd étage (Epaisseur des renforts éxagérée)}
     \label{fig:collage_ailerons}
 \end{figure}
 
@@ -102,7 +113,7 @@ fentes dans ce dernier. Cette méthode présente l'avantage de ne pas fragiliser
 de renforcer la fixation des ailerons sur le tube en ajoutant des renforts en composite, sous forme de couches supplémentaires
 de fibre de verre.\\
 
-\underline{Avantages d'un stratifié}\\
+\subsubsubsection{Avantages d'un stratifié}
 Un bon matériau composite est un matériau capable de résister aux forces de traction et de compression qui lui sont appliquées 
 dans toutes les directions. Cependant, une couche unique de matériau composite telle que la fibre de carbone, ne résiste 
 pas à une force appliquée dans les coins opposés.
@@ -114,19 +125,26 @@ pas à une force appliquée dans les coins opposés.
     \label{fig:couche_fibre}
 \end{figure}
 
-Pour résoudre ce problème, une solution consiste à superposer plusieurs couches de matériau composite et à modifier l'orientation de la couche (différente de la précédente).\\
+Pour résoudre ce problème, une solution consiste à superposer plusieurs couches de matériau composite et à modifier l'orientation 
+de la couche (différente de la précédente).
 
-\underline{Précision sur l'orientation des fibres}\\
+\newpage
+\subsubsubsection{Précision sur l'orientation des fibres}
 Contrairement à un tube, où les efforts se répartissent de manière homogène sur toute la section circulaire, les plaques sont 
 soumises à des contraintes multiaxiales (traction, compression, cisaillement) qui varient selon leur géométrie et leur 
 utilisation. Pour y remédier, l’orientation des fibres de verre doit être optimisée :
 \begin{itemize}
-    \item Fibres unidirectionnelles : Alignées selon l’axe principal des efforts dominants (par exemple, longitudinalement pour résister à la traction).
-    \item Tissu bidirectionnel (0°/90°) : Utilisé pour répartir les charges dans deux directions perpendiculaires, idéal pour les plaques soumises à des sollicitations complexes.
-    \item Tissu à ±45° : Renforce la résistance au cisaillement (efforts tangentiels), souvent combiné avec d’autres orientations pour équilibrer la rigidité.\\
+    \item Fibres unidirectionnelles : Alignées selon l’axe principal des efforts dominants (par exemple, longitudinalement pour 
+    résister à la traction).
+    \item Tissu bidirectionnel (0°/90°) : Utilisé pour répartir les charges dans deux directions perpendiculaires, idéal pour les 
+    plaques soumises à des sollicitations complexes.
+    \item Tissu à ±45° : Renforce la résistance au cisaillement (efforts tangentiels), souvent combiné avec d’autres orientations 
+    pour équilibrer la rigidité.
 \end{itemize}
 
-Le choix de changer l'orientation des couches est très crucial. En effet, lorsque nous analysons visuellement la figure \autoref{fig:couche_fibre}, les fibres bougent moins lorsque la force de traction est appliquée dans leur direction parallèle que le deuxième cas (forces dans les coins).
+Le choix de changer l'orientation des couches est très crucial. En effet, lorsque nous analysons visuellement la \autoref{fig:couche_fibre}, 
+les fibres bougent moins lorsque la force de traction est appliquée dans leur direction parallèle que le deuxième cas (forces dans 
+les coins).
 
 \begin{figure}[h!]
     \centering
@@ -134,7 +152,11 @@ Le choix de changer l'orientation des couches est très crucial. En effet, lorsq
     \caption{Exemple de stratifié en fibre de carbone avec plusieurs orientations}
     \label{fig:sandwich_fibre}
 \end{figure}
-Nous pouvons différencier deux structures, l'une avec l'orientation changeante des couches (la même que la figure \autoref{fig:sandwich_fibre}) et l'autre sans aucune. Nous dessinerons les fibres d'un échantillon à 6 couches avec la référence L-T (longitudinal-transversal) dans le plan.
+
+Nous pouvons différencier deux structures, l'une avec l'orientation changeante des couches (la même que la \autoref{fig:sandwich_fibre}) 
+et l'autre sans aucune. Nous dessinerons les fibres d'un échantillon à 6 couches avec la référence L-T (longitudinal-transversal) dans 
+le plan.
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.9\textwidth]{figures/meca/reperes_fibre.png}
@@ -143,10 +165,12 @@ Nous pouvons différencier deux structures, l'une avec l'orientation changeante 
 \end{figure}
 
 Grâce à cette représentation, nous sommes en mesure de dire qu'en superposant plusieurs couches avec différentes orientations, 
-les fibres créent un maillage multidirectionnel qui permet au composite de mieux résister dans les directions souhaitées suivant le choix des orientations. 
+les fibres créent un maillage multidirectionnel qui permet au composite de mieux résister dans les directions souhaitées suivant le 
+choix des orientations. 
 Cette approche permet de maximiser la résistance mécanique tout en limitant l’ajout de matière, donc la masse.\\
 
-Dans notre cas où il s'agit uniquement de renfort et que chaque aileron -- une fois renforcé -- sollicitera les deux les plus proches, on peut limiter l'épaisseur finale à 4mm (3mm initiaux de la plaque usinée).
+Dans notre cas où il s'agit uniquement de renfort et que chaque aileron -- une fois renforcé -- sollicitera les deux les plus proches, 
+on peut limiter l'épaisseur finale à 4mm (3mm initiaux de la plaque usinée).
 Ceci nous donne le nombre de renforts à ajouter : 4 par jeu de deux ailerons (Cf. \autoref{fig:collage_ailerons}).
 
 Le choix de la composition pour notre stratifié est le suivant :
@@ -165,12 +189,14 @@ Le choix de la composition pour notre stratifié est le suivant :
 Pour réaliser ce procédé, nous avons également mis sous vide l'ensemble des renforts afin d'éviter toute présence d'air lors du séchage, 
 ce qui peut créer des zones plus sensibles à endommagement.\\
 
-La réalisation des couches de renfort a été opérée sous vide et les dimensions des renforts fut variable pour permettre d'obtenir une meilleure transition entre le bord d'attaque et l'épaisseur nominale.
-Dans notre cas, notre dernière couche se place jusqu'aux extrémités des ailerons ; et chaque couche inférieure est 1cm plus loin des bordures de la couche supérieure.
+La réalisation des couches de renfort a été opérée sous vide et les dimensions des renforts fut variable pour permettre d'obtenir une 
+meilleure transition entre le bord d'attaque et l'épaisseur nominale.
+Dans notre cas, notre dernière couche se place jusqu'aux extrémités des ailerons ; et chaque couche inférieure est 1cm plus loin des 
+bordures de la couche supérieure.
 
-\newpage
 
-\underline{Composants pour mise sous vide}\\
+\subsubsubsection{Composants pour mise sous vide}
+
 \begin{minipage}{0.5\textwidth}
     Les composants utilisés lors de la mise sous vide sont les suivants :
     \begin{itemize}
@@ -190,7 +216,36 @@ Dans notre cas, notre dernière couche se place jusqu'aux extrémités des ailer
     \label{fig:mise_sous_vide}
 \end{minipage}
 
-\underline{Ordre de réalisation}\\
+\subsubsubsection{Outils utilisés pour la mise sous vide}
+Une nouveauté dans nos procédés de fabrication cette année a été l'intégration d'une chambre à vide sur notre système de manomètres 
+connecté à la pompe à vide.
+Cette structure nous a permis de pouvoir réaliser des mélanges de résine plus homogènes sans crainte d'ajouter plus d'air dans le 
+mélange.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    
+        \node at (0, 0) {\includegraphics[width=0.63\textwidth]{figures/meca/outils_mise_sous_vide.png}};
+        
+        \node (vide)   at (+6.00, +0.50) {\textbf{Mise sous vide}};
+        \node (pompe)       at (+6.00, +1.50) {\textbf{Pompe à vide}};
+        \node (chambre)     at (-6.00, +0.5) {\textbf{Chambre à vide}};
+        \node (vannes)   at (-6.00, +1.5) {\textbf{Manomètres et vannes}};
+
+        \draw[red, ->, line width=1.5] (vide.south)   -- (+3.55, -2.00);
+        \draw[red, ->, line width=1.5] (pompe.west)   -- (+1.00, -1.50);
+        \draw[red, ->, line width=1.5] (chambre.south)-- (-4.50, -1.05);
+        \draw[red, ->, line width=1.5] (vannes.east)  -- (-1.50, +1.50);
+        \draw[red, ->, line width=1.5] (vannes.east)  -- (-1.35, +2.50);
+
+    \end{tikzpicture}
+    \caption{Illustration du collage des ailerons du 2nd étage (Epaisseur des renforts éxagérée) }
+    \label{fig:collage_ailerons}
+\end{figure}
+
+\newpage
+\subsubsubsection{Ordre de réalisation}
 Le collage des renforts se fera de la manière suivante :
 \begin{figure}[H]
     \centering
@@ -244,7 +299,9 @@ Le collage des renforts se fera de la manière suivante :
 \end{figure}
 
 
-\underline{NB :} Le placement de joint 'tapping tape' aux deux extrémités permet de sceller toute entrée d'air lors de la réalisation de la mise sous vide. Une incursion d'air entre le mandrin et l'assemblage de fibre est possible car le jeu provient de sa réalisation via le film plastique expliqué dans la \autoref{subsubsec:fab_tub}.
+\underline{NB :} Le placement de joint 'tapping tape' aux deux extrémités permet de sceller toute entrée d'air lors de la réalisation 
+de la mise sous vide. Une incursion d'air entre le mandrin et l'assemblage de fibre est possible car le jeu provient de sa réalisation 
+via le film plastique expliqué dans la \autoref{subsubsec:fab_tub}.
 Ceci évitera d'éventuelles coulures de résine lors de la mise sous vide. À noter que la glace carbonique est efficace.
 
 \begin{figure}[H]
@@ -284,42 +341,20 @@ Ceci évitera d'éventuelles coulures de résine lors de la mise sous vide. À n
 \end{figure}
 
 
-L'utilisation de tissu d'arrachage (peel ply) et des consommables tels tissu perforé P3, feutre et film de mise sous vide ont permis l'extraction de la résine excédente présente lors de son application et limiter la masse tout en ayant une répartition homogène de la résine.\\
+L'utilisation de tissu d'arrachage (peel ply) et des consommables tels tissu perforé P3, feutre et film de mise sous vide ont permis 
+l'extraction de la résine excédente présente lors de son application et limiter la masse tout en ayant une répartition homogène de 
+la résine.\\
 
-%Un conseil pour faciliter le démoulage est de positionner le joint de mise sous vide juste à la fin de la section du tube pour éviter d'éventuelles coulures lors de la mise sous vide. À noter que la glace carbonique est efficace.\\
-
-\underline{Outils utilisés pour la mise sous vide}\\
-Une nouveauté dans nos procédés de fabrication cette année a été l'intégration d'une chambre à vide sur notre système de manomètres connecté à la pompe à vide.
-Cette structure nous a permis de pouvoir réaliser des mélanges de résine plus homogènes sans crainte d'ajouter plus d'air dans le mélange.
-\begin{figure}[h]
-    \centering
-    \begin{tikzpicture}
-    
-        \node at (0, 0) {\includegraphics[width=0.63\textwidth]{figures/meca/outils_mise_sous_vide.png}};
-        
-        \node (vide)   at (+6.00, +0.50) {\textbf{Mise sous vide}};
-        \node (pompe)       at (+6.00, +1.50) {\textbf{Pompe à vide}};
-        \node (chambre)     at (-6.00, +0.5) {\textbf{Chambre à vide}};
-        \node (vannes)   at (-6.00, +1.5) {\textbf{Manomètres et vannes}};
-
-        \draw[red, ->, line width=1.5] (vide.south)   -- (+3.55, -2.00);
-        \draw[red, ->, line width=1.5] (pompe.west)   -- (+1.00, -1.50);
-        \draw[red, ->, line width=1.5] (chambre.south)-- (-4.50, -1.05);
-        \draw[red, ->, line width=1.5] (vannes.east)  -- (-1.50, +1.50);
-        \draw[red, ->, line width=1.5] (vannes.east)  -- (-1.35, +2.50);
-
-    \end{tikzpicture}
-    \caption{Illustration du collage des ailerons du 2nd étage (Epaisseur des renforts éxagérée) }
-    \label{fig:collage_ailerons}
-\end{figure}
 
 
 
 
 \newpage
-\underline{Images de la réalisation}\\
-Nous avons débuté le procédé de collage par un positionnement des ailerons via deux cornières en acier et notre guide en PLA pour aligner les quatre ailerons ensemble. 
-Chaque aileron a été pré-fixé à la résine rapide 5min, puis une fois en place on a réalisé les congés en résine -- visibles sur la \autoref{fig:collage_ailerons} -- via de la résine rapide à séchage en 3h et fixation totale 8h.
+\subsubsubsection{Images de la réalisation}
+Nous avons débuté le procédé de collage par un positionnement des ailerons via deux cornières en acier et notre guide en PLA pour 
+aligner les quatre ailerons ensemble. 
+Chaque aileron a été pré-fixé à la résine rapide 5min, puis une fois en place on a réalisé les congés en résine -- visibles sur 
+la \autoref{fig:collage_ailerons} -- via de la résine rapide à séchage en 3h et fixation totale 8h.
 
 \begin{figure}[h!]
     \centering
@@ -328,8 +363,10 @@ Chaque aileron a été pré-fixé à la résine rapide 5min, puis une fois en pl
     \label{fig:ailerons_etage2_SP02}
 \end{figure}
 
-Une fois les quatre ailerons réalisés, un ponçage s'impose afin de permettre à la résine de bieen adhérer à la surface. Un nettoyage à l'acétone permet de retirer tout dépot/résidu susceptible de fragiliser l'ensemble.
+Une fois les quatre ailerons réalisés, un ponçage s'impose afin de permettre à la résine de bieen adhérer à la surface. Un nettoyage à 
+l'acétone permet de retirer tout dépot/résidu susceptible de fragiliser l'ensemble.
 Les étapes réalisés dans la \autoref{fig:ailerons_etage2_SP02-1} reprennent des étapes expliquées dans les schémas ultérieurs.
+
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.28\textwidth} % Réduire légèrement pour éviter le débordement
@@ -355,7 +392,8 @@ Les étapes réalisés dans la \autoref{fig:ailerons_etage2_SP02-1} reprennent d
 \end{figure}
 
 
-Enfin, pour la mise en place des derniers éléments de la mise sous vide, nous avons opté pour du gaffeur pour maintenir l'ensemble des morceaux de feutre et le positionnement du joint sur les films a été réalisé comme ceci :
+Enfin, pour la mise en place des derniers éléments de la mise sous vide, nous avons opté pour du gaffeur pour maintenir l'ensemble 
+des morceaux de feutre et le positionnement du joint sur les films a été réalisé comme ceci :
 
 \begin{figure}[H]
     \centering
@@ -382,7 +420,7 @@ Enfin, pour la mise en place des derniers éléments de la mise sous vide, nous 
 \end{figure}
 
 
-Nous avons pû lancer la pome à vide et ensuite attendre 24h à température ambiante afin de laisser la structure se figer. La vérification de fuites est primordiale dans toute mise sous vide.
+Nous avons pu lancer la pome à vide et ensuite attendre 24h à température ambiante afin de laisser la structure se figer. La vérification de fuites est primordiale dans toute mise sous vide.
 
 \begin{figure}[H]
     \centering
@@ -420,7 +458,7 @@ Après démoulage, nous avons obtenu notre structure renforcée :
 \newpage
 \subsubsection{Intégration du système allumage}
 \label{subsec:def_allumage}
-L'intégration des cartes pour l'allumage du second moteur est positionnée les plus proche de la tuyère saus dépasser la limite des renforts des ailerons en fibre de carbone. La hauteur et la position des condensateurs nous permettra d'ajuster le centre de masse et éviter tout rajout de masse inerte inutile.
+L'intégration des cartes pour l'allumage du second moteur est positionnée les plus proche de la tuyère sans dépasser la limite des renforts des ailerons en fibre de carbone. La hauteur et la position des condensateurs nous permettra d'ajuster le centre de masse et éviter tout rajout de masse inerte inutile.
 
 \begin{figure}[H]
     \centering
@@ -445,11 +483,6 @@ L'intégration des cartes pour l'allumage du second moteur est positionnée les 
     \caption{Bloc parachute du second étage sur \acrshort{CATIA}}
     \label{fig:para_etage1_SP02}
 \end{figure}
-
-
-
-
-
 
 
 
@@ -531,19 +564,19 @@ sur les ailerons et le système de séparation afin de limiter certains dégâts
         \centering
         \includegraphics[width=\linewidth]{figures/meca/para_etage2-1.png}
         \caption{Position verrouillée}
-        \label{fig:para_etage1-1}
+        \label{fig:para_etage2-1}
     \end{subfigure}
     \begin{subfigure}{0.26\textwidth}
         \centering
         \includegraphics[width=\linewidth]{figures/meca/para_etage2-2.png}
         \caption{Servomoteur à mi-course}
-        \label{fig:para_etage1-2}
+        \label{fig:para_etage2-2}
     \end{subfigure}
     \begin{subfigure}{0.26\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
         \includegraphics[width=\linewidth]{figures/meca/para_etage2-3.png}
         \caption{Position ouverte}
-        \label{fig:para_etage1-3}
+        \label{fig:para_etage2-3}
     \end{subfigure}
     \caption{Bloc parachute du second étage sur \acrshort{CATIA}}
     \label{fig:para_etage1_SP02}
@@ -553,36 +586,25 @@ sur les ailerons et le système de séparation afin de limiter certains dégâts
 
 La construction du bloc est réalisée de la manière suivante :
 \begin{itemize}
-    \item Une bague inférieure en aluminium 7075 faisant office de retunue du parachute avec l'ouverture garantissant la bonne sortie de la languette de la trappe lors de la séquence d'ouverture,
+    \item Une bague inférieure en aluminium 7075 faisant office de retenue du parachute avec l'ouverture garantissant la bonne sortie de la languette de la trappe lors de la séquence d'ouverture,
     \item Une bague supérieure en PETG où se trouve le servomoteur et le maintenant en place via un trou pour le crochet. Cette méthode est la même que précédemment où nous autorisons uniquement une rotation autour de l'axe x du lanceur,
     \item Une cage en fibre de verre maintenue sur les deux bagues à l'aide de 16 vis M3
 \end{itemize}
 \newpage
 
- 
-De plus, le crochet (visible en bleu foncé sur la figure \autoref{fig:para_etage1_SP02}) est contraint dans toutes les translations 
-grâce à un trou concentrique dans la bague en aluminium (ici en bleu clair). L'unique mouvement possible est alors 
-la rotation souhaitée dans l'axe x du lanceur.\\
 
-La spécificité du bloc de cet étage est la forme de la cage en cuillère visible en rouge (sans bague en dessous) afin de limiter 
-au mieux la masse et une sortie du parachute plus efficiente, tout en facilitant son intégration dans le lanceur 
-avec notamment le bloc aérofreins juste en-dessous. La conception a été réalisée pour une fabrication 
-en composite et compatible en matériau polymère tel PETG. La configuration matériau retenue est le composite après avoir validé la 
-méthode de fabrication en composite (surtoût dans le rayon minimal entre les 
-différentes couches). L'épaisseur de cette dernière est de 2,5mm en PETG ; et réduite à 1,2mm en fibre de verre.\\
-
-\underline{Réalisation de la cage en fibre de verre}\\
+\subsubsubsection{Réalisation de la cage en fibre de verre}
 
 \begin{minipage}{0.5\textwidth}
     La structure de la cage reprend la forme et l'espace maximal tout en facilitant l'éjection du parachute sans compromettre le 
     centre de masse du bloc parachute.\\
-    Elle reprend une ouverture de 90° sur le tube pour une longueur totale de 180 mm. La forme en cuillère spécifique permet 
-    une éjection plus directe par gravité qu'une bague traditionelle, ainsi que les maintiens latéraux octroient une meilleure 
-    stabilité de la trappe en position fermée, évitant son enfoncement ou déformation axiale.\\
+    Elle reprend une ouverture de 82° sur le tube pour une longueur totale de 160 mm. Contrairement au premier étage, nous gardons deux bagues de maintien en haut et en bas, ce qui empêche la réalisation de la forme en cuillère spécifique de la cage précédente.
 
     Pour permettre sa fabrication, nous avons fait le choix de réaliser le moule en PLA (simplification et rapidité d'usinage), et 
-    dont l'agent démoulant appliqué est de la WAX (Cf. \autoref{fig:para_etage1-1}) -- non toxique et simple d'application -- sur l'ensemble de la surface à résiner.
-    Les morceaux de fibre de verre sont ici découpés de deux manières : soit il servira dans la direction \textcolor{YellowOrange}{longitudinale}, dans l'axe du lanceur, soit dans l'axe \textcolor{blue}{circonférentiel} (Cf. flèches de la \autoref{fig:CAO_moule_cage1}). La combinaison des deux constitue une couche complète et renforcée pour pallier toute déformation excessive.\\
+    dont l'agent démoulant est le Kapton sur l'ensemble de la surface à résiner.\\
+    L'avantage est que la résine ne se fixe pas sur le scotch, ce qui rend le démoulage plus simple. Par contre, pour éviter toute fuite ou incursion de résine, la forme du moule doit rester très basique comme ici.\\
+
+    Les morceaux de fibre de verre sont ici découpés en rectangle pour être appliqués dans l'axe \textcolor{blue}{circonférentiel} du lanceur. La combinaison de plusieurs couches (6 au total pour 1,2 mm d'épaisseur) complète le composite final et donne ce matériau résistant.\\
 \end{minipage}
 \hfill
 \begin{minipage}{0.4\textwidth}
@@ -591,44 +613,15 @@ différentes couches). L'épaisseur de cette dernière est de 2,5mm en PETG ; et
     \captionof{figure}{Moule de la cage parachute du premier étage sur \acrshort{CATIA}}
     \label{fig:CAO_moule_cage1}
 \end{minipage}
-
-Une fois la WAX appliquée et la première couche appliquée, nous avons répété l'opération de superpostion des morceaux de fibre tout en respectant l'alternance entre morceau de direction \textcolor{YellowOrange}{longitudinale} et morceau de direction \textcolor{blue}{circonférentielle}.
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/cage_alpha1.jpg}
-        \caption{WAX sur le moule}
-        \label{fig:para_etage1-1}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/cage_alpha2.jpg}
-        \caption{Vue de face}
-        \label{fig:para_etage1-2}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/cage_alpha4.jpg}
-        \caption{Vue de dessus}
-        \label{fig:para_etage1-3}
-    \end{subfigure}
-    \caption{Bloc parachute du premier étage sur \acrshort{CATIA}}
-    \label{fig:para_etage1_SP02}
-\end{figure}
-
-Cette forme-ci de moule a engendré deux soucis lors de la fabrication :
+Comme pour le premier étage, cette forme-ci de moule a engendré un soucis lors de la fabrication :
 \begin{itemize}
-    \item Un surplus de résine s'est accumulé au niveau de la cuillière. Un moule positif aurait permis une répartition plus homogène lors de l'application de la résine et enfin lors de la mise sous vide
     \item Les bords se décollaient très souvent (largeur pas assez suffisante pour tomber sur le moule par gravité), la forme en moule positif aurait pû améliorer ce problème.\\
 \end{itemize}
 
-Des améliorations seront à noter dans la forme externe des congés. En effet, la marge de PLA dont la courbure est parfaite pour la pièce finale aurait pû être légèrement prolongée afin d'éviter tout désagrément lors de la découpe finale après démoulage. 
 
-
-\newpage
+\subsubsubsection{Liste des composants pour la mise sous vide}
 \begin{minipage}{0.5\textwidth}
-    Les composants utilsés lors de la mise sous vide sont les suivants :
+    Les composants utilisés lors de la mise sous vide sont les suivants :
     \begin{itemize}
         \item Joint d'étanchéité | ST150 Vacuum Bagging sealant tape
         \item Film de mise sous vide | VB160 Vacuum bagging film LFT
@@ -636,7 +629,7 @@ Des améliorations seront à noter dans la forme externe des congés. En effet, 
         \item Film de séparation perforé | R120 P3 Perforated Release film
         \item Tissu d'arrachage | PP230 Nylon Peel Ply Red Tracer
         \item Composite | Stratifié en fibre de verre 13 g/cm$^2$
-        \item Résine \& Durcisseur | EL2 \& AT30 Slow\\
+        \item Résine \& Durcisseur | EL2 \& AT30 Slow
     \end{itemize}
 \end{minipage}
 \hfill
@@ -646,94 +639,100 @@ Des améliorations seront à noter dans la forme externe des congés. En effet, 
     \label{fig:mise_sous_vide}
 \end{minipage}
 
-Nous avons donc ici la mise sous vide finale nous permettant de sortir l'air et de comprimer l'ensemble des couches à la forme souhaitée. 
-
-\begin{figure}[H]
-    \centering
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/cage_alpha5.jpg}
-        \caption{Vue d'ensemble}
-        \label{fig:para_etage1-4}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/cage_alpha6.jpg}
-        \caption{Vue en profondeur}
-        \label{fig:para_etage1-5}
-    \end{subfigure}
-    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
-        \centering
-        \includegraphics[width=\linewidth]{figures/meca/cage_alpha7.jpg}
-        \caption{Zoom sur le haut}
-        \label{fig:para_etage1-6}
-    \end{subfigure}
-    \caption{Bloc parachute du premier étage sur \acrshort{CATIA}}
-    \label{fig:para_etage1_SP02-2}
-\end{figure}
-
-Une fois démoulé, les découpes des morceaux éxcédants ont pu être retirés puis la cage poncée pour l'installation sur la bague de retenue du parachute.\\
-
-
-\underline{Usinage de la bague de retenue du parachute}\\
+\newpage
+\subsubsubsection{Usinage de la bague de retenue du parachute}
 
 Pour pouvoir usiner les deux côtés, nous avons ajouté quatre trous pour des pions de positionnement afin d'aligner au mieux le brut sur le mortier de la CNC.\\
-Cela nous a permis d'usiner un côté puis le second tout en gardant le trou princpial concentrique avec le diamètre externe.\\
+Cela nous a permis d'usiner un côté puis le second tout en gardant le trou principal concentrique avec le diamètre externe.\\
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
         \centering
-        \includegraphics[width=\linewidth]{figures/meca/bague_alu1-1.png}
-        \caption{Vue isométrique supérieure}
-        \label{fig:bague_alu1-1}
+        \includegraphics[width=\linewidth]{figures/meca/IMG_4991.jpg}
+        \caption{"1ère passe" | Usinage dans la masse}
+        \label{fig:bague_alu2-1}
+    \end{subfigure} 
+    \hfill
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/IMG_2484.jpg}
+        \caption{"2nde passe" | Usinage des trous et ouvertures}
+        \label{fig:bague_alu2-2}
     \end{subfigure}
+    \hfill
     \begin{subfigure}{0.3\textwidth}
         \centering
-        \includegraphics[width=\linewidth]{figures/meca/bague_alu1.png}
-        \caption{Vue isométrique inférieure}
-        \label{fig:bague_alu1-2}
+        \includegraphics[width=\linewidth]{figures/meca/IMG20260629132721.jpg}
+        \caption{Passage d'un câble d'un capteur dans la pièce usinée}
+        \label{fig:bague_alu2-3}
     \end{subfigure}
-    \caption{Bague parachute en aluminium du premier étage sur \acrshort{CATIA}}
-    \label{fig:bague_alu1} 
+    \caption{Bague parachute en aluminium du second étage par usinage sur CNC 3-axes}
+    \label{fig:bague_alu2} 
 \end{figure}
 
-La masse global de la pièce a été minimisée tout en resistant à la charge maximale que la suspente du parachute doit tenir dans le cas pire de la fenêtre d'ouverture du parachute.
+La masse globale de la pièce a été minimisée tout en résistant à la charge maximale que la suspente du parachute doit tenir dans le cas pire de la fenêtre d'ouverture du parachute.
 
 
-\underline{Usinage du crochet et du loquet du servomoteur}\\
-Comme défini dans la figure \autoref{fig:para_etage1_SP02}, le loquet et le crochet se verrouillent de par leur géométrie. Le mouvement est un pivot statique et requiert une rigidité adéquate pour la bonne fermeture et son maintien.
-Nous avons fait le choix de l'usiner en aluminium dans des plaques de 10 mm d'épaisseur directement via la CNC du Fablab.\\
+\subsubsubsection{Usinage du crochet et du loquet du servomoteur}
+Comme défini pour le premier étage, le loquet et le crochet se verrouillent de par leur géométrie. Le mouvement est un pivot statique et requiert une rigidité adéquate pour la bonne fermeture et son maintien.
 Nous avons pû procéder à la réalisation du fichier adéquat pour l'ensemble des opérations d'usinage, de fraisage\ldots
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/meca/usinage_loquets.png}
+    \includegraphics[width=0.6\textwidth]{figures/meca/usinage_loquets.png}
     \caption{Usinage des loquets sur logiciel compatible CNC}
     \label{fig:usinage_loquets}
 \end{figure}
 
-
-
-
 Le parachute est ainsi dimensionné pour nos cas de redescente, et confirme les règles du \acrshort{CDC}.
 
-\underline{Choix des cordes du parachute du premier étage}\\
-Les cordes utilisées pour la retenue du parachute sont les suivantes :
+\newpage
+\subsubsubsection{Choix des cordes du parachute du premier étage}
+Pour ce parachute, nous choisissons les cordes utilisées pour la retenue du parachute et nous gardons uniquement pour :
 \begin{itemize}
-    \item La corde princpale (fusée vers émérillon et émérillon vers trappe) : \href{https://www.kanirope.fr/liros-d-pro-xtr-dyneema-sk99-5mm-au-metre-couleur-argent-12x-tressee}{Liros D-PRO XTR Dyneema SK99 ø5mm} | Longueur 2,00 m | Résistance en traction : 3200 kg (datasheet)
-    \item Les suspentes (émérillon vers parachute) : \href{https://www.sierrafoxhobbies.com/fr/2375-cordon-kevlar-2-mm.html}{Cordon Kevlar ø2mm ignifugé} | Longueur par suspente : 0,80 cm | Résistance en traction : > 50 kg (mesure expérimentale x5) \\
+    \item La corde princpale et les suspentes : \href{https://www.sierrafoxhobbies.com/fr/2375-cordon-kevlar-2-mm.html}{Cordon Kevlar ø2mm ignifugé} | Longueur par suspente : 0,80 cm | Résistance en traction : > 50 kg (mesure expérimentale x5)
 \end{itemize}
 
-D'après les calculs de résistance suivant chaque scénario, le cas pire concerne l'ouverture de ce parachute (premier étage) sans séparation.
-Le parachute est ainsi sollicité pour une ouverture à :
+D'après les calculs de résistance :
 
 \begin{equation}
 \begin{aligned}
-    F &= \frac{\rho \times S_{parachute} \times V_{ouverture}^2}{2 \times g} = 113 \text{ kg} \ll 3200 \text{ kg} \\
-    \Leftrightarrow F &= 28 \text{ kg/suspente} \ll 50 \text{ kg}\\
+    F &= \frac{\rho \times S_{parachute} \times V_{ouverture}^2}{2 \times g} = 47 \text{ kg} < 50 \text{ kg} \\
+    \Leftrightarrow F &= 9 \text{ kg/suspente} \ll 50 \text{ kg}\\
 \end{aligned}
 \end{equation}
 
 Nous vérifions bien les conditions de résistance des cordes parachutes pour notre sous-système, la validation de REC10 est confirmée.
+
+
+
+\subsubsubsection{Visualisation du montage des pièces}
+Une fois les pièces fabriquées et montées, nous obtenons le bloc suivant :
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/bague_reprise_para_2e.jpg}
+        \caption{Fixation support cage sur bague alu}
+        \label{fig:bloc_para2-1}
+    \end{subfigure} 
+    \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/IMG20260701123913.jpg}
+        \caption{Positionnement du bloc dans le coupleur}
+        \label{fig:bloc_para2-2}
+    \end{subfigure}
+    \begin{subfigure}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/meca/IMG20260703090914.jpg}
+        \caption{Bloc entier avec trappe \& coupleur de la coiffe}
+        \label{fig:bloc_para2-3}
+    \end{subfigure}
+    \caption{Placement du bloc parachute du second étage dans l'extention (coupleur)}
+    \label{fig:bloc_para2} 
+\end{figure}
+
+
+
 
 \newpage
 
@@ -743,7 +742,7 @@ Nous vérifions bien les conditions de résistance des cordes parachutes pour no
 La coiffe du second étage a été conçue et réalisée en fibre de verre et en aluminium pour le système pointe-baromètre.
 Les contraintes de dimensionnement étaient une masse réduite, une résistance accrue pour le bon maintient du baromètre et la volonté de perfectionner de nouvelles techniques de démoulage de coiffe en fibre de verre.\\
 
-La CAO regroupe le moule, la coiffe aux dimensions souhaitées et les guides de découpe de l'éxédant de fibre. À noter que l'équivant en coiffe PLA n'offrait pas la résistance souhaitée pour l'intégration de la PCB pitot et de capteurs plus imposants.
+La CAO regroupe le moule, la coiffe aux dimensions souhaitées et les guides de découpe de l'éxédent de fibre. À noter que l'équivalent en coiffe PLA n'offrait pas la résistance souhaitée pour l'intégration de la PCB pitot et de capteurs plus imposants.
 Nous avons mesuré une différence de 19g supplémentaires pour la version fibre-aluminium en tenant compte de ce module complet en alu 7075-T6.
 La coiffe seule en PLA est plus lourde que celle en fibre et ne sera pas adaptée pour les conditions de stockage en extérieur (soleil).\\
 
@@ -789,24 +788,6 @@ principal et la pointe comportant le conduit pour notre capteur barométrique.
     \caption{Bloc coiffe du second étage sur \acrshort{CATIA}}
     \label{fig:coiffe4}
 \end{figure}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
