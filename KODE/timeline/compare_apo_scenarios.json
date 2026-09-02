@@ -1,0 +1,127 @@
+{
+  "scenario": {
+    "id": "COMP_SCE",
+    "name": "Différences d'apogée entre les scénarios",
+    "description": "Une description du scénario nominal"
+  },
+  "view": {
+    "t_min": 12.000,
+    "t_max": 20.000
+  },
+  "entities": [
+    {
+      "id": "sce0",
+      "label": "SCE_0",
+      "color": "auto",
+      "born": 0.000,
+      "tracks": [
+        {
+          "name": "Stage 1",
+          "nodes": [
+            {
+              "id": "sce0:s1:seq:FT_apo",
+              "type": "window",
+              "label": "FT_apogee_detection",
+              "opens": [14.300, 16.000],
+              "closes": [15.000, 17.200]
+            },
+            {
+              "id": "sce0:s1:seq:apo",
+              "type": "event",
+              "label": "apogee_detected",
+              "when": 15.700
+            }
+          ]
+        },
+        {
+          "name": "Stage 2",
+          "nodes": [
+            {
+              "id": "sce0:s2:seq:FT_apo",
+              "type": "window",
+              "label": "FT_apo",
+              "opens": [14.700, 16.000],
+              "closes": [15.00, 17.700]
+            },
+            {
+              "id": "sce0:s2:seq:apo",
+              "type": "event",
+              "label": "apogee_detected",
+              "when": 16.200
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sce1",
+      "label": "SCE_1",
+      "color": "auto",
+      "born": 0.000,
+      "tracks": [
+        {
+          "name": "Stage 1",
+          "nodes": [
+            {
+              "id": "sce1:s1:seq:FT_apo",
+              "type": "window",
+              "label": "FT_apogee_detection",
+              "opens": [14.300, 16.000],
+              "closes": [15.000, 17.200]
+            },
+            {
+              "id": "sce1:s1:seq:apo",
+              "type": "event",
+              "label": "apogee_detected",
+              "when": 15.700
+            }
+          ]
+        },
+        {
+          "name": "Stage 2",
+          "nodes": [
+            {
+              "id": "sce1:s2:seq:FT_apo",
+              "type": "window",
+              "label": "FT_apo",
+              "opens": [13.800, 16.000],
+              "closes": [15.000, 16.800]
+            },
+            {
+              "id": "sce1:s2:seq:apo",
+              "type": "event",
+              "label": "apogee_detected",
+              "when": 15.300
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sce2",
+      "label": "SCE_2",
+      "color": "auto",
+      "born": 0.000,
+      "tracks": [
+        {
+          "name": "Stage 1",
+          "nodes": [
+            {
+              "id": "sce2:s1:seq:FT_apo",
+              "type": "window",
+              "label": "FT_apogee_detection",
+              "opens": [15.900, 17.000],
+              "closes": [16.000, 18.900]
+            },
+            {
+              "id": "sce2:s1:seq:apo",
+              "type": "event",
+              "label": "apogee_detected",
+              "when": 17.400
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

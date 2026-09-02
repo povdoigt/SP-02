@@ -1,0 +1,188 @@
+{
+  "scenario": {
+    "id": "SCE_1",
+    "name": "SCE_1 : Vol sans allumage du second étage",
+    "description": "Une description du scénario nominal"
+  },
+  "view": {
+    "t_min": 0.000,
+    "t_max": 20.000
+  },
+  "entities": [
+    {
+      "id": "s1",
+      "label": "Stage 1",
+      "color": "#2E6F9E",
+      "born": 0.000,
+      "tracks": [
+        {
+          "name": "Sequenceur",
+          "nodes": [
+            {
+              "id": "s1:seq:sep_unlock",
+              "type": "event",
+              "label": "sepa_unlock",
+              "when": 2.000
+            },
+            {
+              "id": "s1:seq:airbrakes",
+              "type": "event",
+              "label": "airbreakes",
+              "when": 3.600
+            },
+            {
+              "id": "s1:seq:FT_sepa",
+              "type": "window",
+              "label": "FT_sepa_detection",
+              "opens": [3.600, 4.001],
+              "closes": [4.000, 7.000]
+            },
+            {
+              "id": "s1:seq:sep_release",
+              "type": "event",
+              "label": "sepa_release",
+              "when": "s1:airbrakes.end + 0.2"
+            },
+            {
+              "id": "s1:seq:sepa_detect",
+              "type": "event",
+              "label": "sepa_detected",
+              "when": "s1:airbrakes.end"
+            },
+            {
+              "id": "s1:seq:FT_apogee_detection",
+              "type": "window",
+              "label": "FT_apogee_detection",
+              "opens": [14.300, 16.000],
+              "closes": [15.000, 17.200]
+            },
+            {
+              "id": "s1:seq:apo",
+              "type": "event",
+              "label": "apogee_detected",
+              "when": 15.700
+            }
+          ]
+        },
+        {
+          "name": "Propulsion",
+          "nodes": [
+            {
+              "id": "s1:propu",
+              "type": "window",
+              "label": "First stage burn",
+              "opens": 0.000,
+              "closes": [3.500, 3.700]
+            }
+          ]
+        },
+        {
+          "name": "Actuators",
+          "nodes": [
+            {
+              "id": "s1:sep_unlock",
+              "type": "window",
+              "label": "sepa_unlock",
+              "opens": "s1:seq:sep_unlock.start",
+              "closes": [
+                3.500,
+                3.700
+              ]
+            },
+            {
+              "id": "s1:sep_release",
+              "type": "window",
+              "label": "sepa_release",
+              "opens": "s1:seq:sep_release.start",
+              "closes": "s1:seq:sep_release.start + 0.1"
+            },
+            {
+              "id": "s1:airbrakes",
+              "type": "window",
+              "label": "airbreakes",
+              "opens": "s1:seq:airbrakes.start",
+              "closes": "s1:seq:airbrakes.start + 0.5"
+            },
+            {
+              "id": "s1:para",
+              "type": "window",
+              "label": "parachute",
+              "opens": [14.300, 15.700],
+              "closes": [16.200, 17.700]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "label": "Stage 2",
+      "color": "auto",
+      "born": 0.000,
+      "tracks": [
+        {
+          "name": "Sequencer",
+          "nodes": [
+            {
+              "id": "s2:seq:FT_stage_sep",
+              "type": "window",
+              "label": "FT_sepa_detection",
+              "opens": [3.600, 5.000],
+              "closes": [4.000, 7.000]
+            },
+            {
+              "id": "s2:seq:sepa_detect",
+              "type": "event",
+              "label": "sepa_detected",
+              "when": "s1:seq:sepa_detect.start"
+            },
+            {
+              "id": "s2:seq:FT_attitude",
+              "type": "window",
+              "label": "FT_attitude",
+              "opens": [4.100, 5.500],
+              "closes": [5.000, 10.300]
+            },
+            {
+              "id": "s2:seq:FT_apogee_detection",
+              "type": "window",
+              "label": "FT_apogee_detection",
+              "opens": [13.800, 16.000],
+              "closes": [15.000, 16.800]
+            },
+            {
+              "id": "s2:seq:apo",
+              "type": "event",
+              "label": "apogee_detected",
+              "when": 15.300
+            }
+          ]
+        },
+        {
+          "name": "Propulsion",
+          "nodes": [
+            {
+              "id": "s2:propu",
+              "type": "window",
+              "label": "Second stage burn",
+              "opens": [4.100, 6.900],
+              "closes": [6.000, 10.300]
+            }
+          ]
+        },
+        {
+          "name": "Actuators",
+          "nodes": [
+            {
+              "id": "s2:para",
+              "type": "window",
+              "label": "parachute",
+              "opens": [13.800, 15.300],
+              "closes": [15.800, 16.800]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

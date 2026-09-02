@@ -8,131 +8,127 @@ L'analyse de la stabilité de la fusée SP-02 a été réalisée en utilisant de
 \gls{OpenRocket}. Ces logiciels permettent de modéliser la fusée, d'analyser ses caractéristiques aérodynamiques et de simuler
 son comportement en vol. La méthodologie suivie pour l'analyse de la stabilité comprend les étapes suivantes:\\
 
-\begin{enumerate}
-    \item \textbf{Modélisation \acrshort{CAO} :} La fusée SP-02 a été modélisée en détail dans un logiciel de \acrshort{CAO}, en
-    tenant compte des dimensions, de la géométrie et de la répartition des masses de chaque composant.\\
+\hspace*{-\parindent}%
+\begin{minipage}{0.75\textwidth}
+    \begin{enumerate}
+        \item \textbf{Modélisation \acrshort{CAO} :} La fusée SP-02 a été modélisée en détail dans un logiciel de \acrshort{CAO}, en
+        tenant compte des dimensions, de la géométrie et de la répartition des masses de chaque composant.\\
+        
+        \item \textbf{Importation dans \gls{OpenRocket} :} Après avoir finalisé la modélisation \acrshort{CAO}, le modèle a été
+        construit dans le logiciel \gls{OpenRocket} à partir de ces briques de construction. Cette étape permet essentiellement de
+        placer les différents éléments de la fusée et de leur attribuer des matériaux. Cela permet de définir la masse et le
+        \acrfull{CdG} de chaque élément et donc de la fusée dans son ensemble. Aussi, \gls{OpenRocket} permet d'estimer les
+        caractéristiques aérodynamiques de la fusée, telles que le coefficient de traînée ($C_d$), le coefficient de portance ($C_l$)
+        et le \acrfull{CdP}, en fonction de la géométrie et des conditions de vol.\\
+
+        \item \textbf{Importation dans le \gls{Stabtraj} :} Le modèle de la fusée a ensuite été importé dans le \gls{Stabtraj} en comptant
+        la masse et le \acrshort{CdG} ainsi que le $C_d$ fournis par \gls{OpenRocket}. En utilisant ces données, le \gls{Stabtraj}
+        permet de calculer le \acrshort{CdP} à partir de l'approximation de Barrowman \cite{Stab_doc} et d'analyser la stabilité
+        longitudinale de la fusée.\\
+
+        \item \textbf{Correction et itérations :} Si les résultats de l'analyse de stabilité indiquent que la fusée n'est pas stable,
+        des ajustements sont effectués sur la conception, tels que le déplacement du \acrshort{CdG} ou la modification de la géométrie
+        des surfaces de portances. La nouvelle conception est ensuite réévaluée en répétant les étapes précédentes jusqu'à obtenir
+        une stabilité satisfaisante.\\
+    \end{enumerate}
+
+    \subsubsection{Résultats}
+    \label{subsubsec:stabilite_resultats}
+
+    \subsubsubsection{Configurations possibles}
+
+    SP-02 a été conçue selon les règles et le Stabtraj pour une participation au C'Space et donc nous avons fait le choix d'étudier le comportement 
+    du lanceur suivant différents propulseurs.\\
+
+    Dans nos choix, nous nous sommes focalisés sur les configurations suivantes :
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{l|l|l}
+            \textbf{Conf.} & \textbf{Moteur Etage 1} & \textbf{Moteur Etage 2} \\
+            \hline
+            \hline
+            1 & \verb|Pro54-5G-K570|    & \verb|Pro24-3G-F85|\footnote{A cause des problème d'approvisionnement en moteur de fusée, bien que nous
+            devions à la base voler avec un \texttt{Pro24-6G-G150}, Planète Sciences nous a demander de changer pour un \texttt{Pro24-3G-F85}.} \\
+            2 & \verb|Pro54-5G-K570|    & \verb|Pro38-5G-J285|  \\
+            3 & \verb|Pro54-5G-K570|    & \verb|Pro54-5G-K570|  \\
+            4 & \verb|Pro54-5G-K1200|   & \verb|Pro54-5G-K1200| \\
+        \end{tabular}
+        \caption{Liste des configurations moteurs étudiés}
+    \end{table}
     
-    \item \textbf{Importation dans \gls{OpenRocket} :} Après avoir finalisé la modélisation \acrshort{CAO}, le modèle a été
-    construit dans le logiciel \gls{OpenRocket} à partir de ces briques de construction. Cette étape permet essentiellement de
-    placer les différents éléments de la fusée et de leur attribuer des matériaux. Cela permet de définir la masse et le
-    \acrfull{CdG} de chaque élément et donc de la fusée dans son ensemble. Aussi, \gls{OpenRocket} permet d'estimer les
-    caractéristiques aérodynamiques de la fusée, telles que le coefficient de traînée ($C_d$), le coefficient de portance ($C_l$)
-    et le \acrfull{CdP}, en fonction de la géométrie et des conditions de vol.\\
-
-    \item \textbf{Importation dans le \gls{Stabtraj} :} Le modèle de la fusée a ensuite été importé dans le \gls{Stabtraj} en comptant
-    la masse et le \acrshort{CdG} ainsi que le $C_d$ fournis par \gls{OpenRocket}. En utilisant ces données, le \gls{Stabtraj}
-    permet de calculer le \acrshort{CdP} à partir de l'approximation de Barrowman \cite{Stab_doc} et d'analyser la stabilité
-    longitudinale de la fusée.\\
-
-    \item \textbf{Correction et itérations :} Si les résultats de l'analyse de stabilité indiquent que la fusée n'est pas stable,
-    des ajustements sont effectués sur la conception, tels que le déplacement du \acrshort{CdG} ou la modification de la géométrie
-    des surfaces de portances. La nouvelle conception est ensuite réévaluée en répétant les étapes précédentes jusqu'à obtenir
-    une stabilité satisfaisante.\\
-\end{enumerate}
-
-\vfill
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth]{figures/sp02_ork_24-3G.png}
-    \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
-    \label{fig:sp02_ork_model_24-3G}
-\end{figure}
-
-\vfill
+\end{minipage}
+\hfill
+\begin{minipage}{0.20\textwidth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[angle=-90, width=\textwidth]{figures/sp02_ork_24-3G.png}
+        \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
+        \label{fig:sp02_ork_model_24-3G}
+    \end{figure}
+\end{minipage}
 
 \newpage
 
-\subsubsection{Résultats}
-\label{subsubsec:stabilite_resultats}
-
-\subsubsubsection{Configurations possibles}
-SP-02 a été conçue selon les règles et le Stabtraj pour une participation au C'Space et donc nous avons fait le choix d'étudier le comportement 
-du lanceur suivant différents propulseurs.\\
-
-Dans nos choix, nous nous sommes focalisés sur les configurations suivantes :
-\begin{itemize}
-    \item Pro54-K570 pour le premier étage ; Pro24-6G pour le second (passage au Pro24-3G)
-    \item Pro54-K570 pour le premier étage ; Pro38-5G pour le second
-    \item Pro54-K570 pour le premier étage ; Pro54 K570 pour le second
-    \item Pro54-K1200 pour le premier étage ; Pro54-K1200 pour le second\\
-\end{itemize}
-
-
-\underline{Configuration C'Space (Pro54-24)}\\
+\subsubsubsection{Configuration 1 : C'Space (Pro54-24)}
 blabla
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/sp02_ork_24-3G.png}
     \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
     \label{fig:sp02_ork_model}
 \end{figure}
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/sp02_v3_24_3g.png}
     \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
     \label{fig:sp02_ork_model}
 \end{figure}
 
-
-
-
-
-
-
 \newpage
-\underline{Configuration Pro54-Pro38}\\
+
+\subsubsubsection{Configuration 2 : Pro54-Pro38}
 blabla
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/meca/image5438.png}
     \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
     \label{fig:sp02_ork_model}
 \end{figure}
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/sp02_v3_38.png}
     \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
     \label{fig:sp02_ork_model}
 \end{figure}
 
-
-
-
-
 \newpage
-\underline{Configuration Pro54-Pro54 (K570)}\\
+
+\subsubsubsection{Configuration 3 : Pro54-Pro54 (K570)}
 blabla
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/meca/image5454.png}
     \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
     \label{fig:sp02_ork_model}
 \end{figure}
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/sp02_v3_54_570.png}
     \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
     \label{fig:sp02_ork_model}
 \end{figure}
 
-
-
-
-
-
-
-
 \newpage
-\underline{Configuration Pro54-Pro54 (K1200)}\\
+
+\subsubsubsection{Configuration 4 : Pro54-Pro54 (K1200)}
 blabla
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/meca/image5454.png}
     \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}
     \label{fig:sp02_ork_model}
 \end{figure}
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/sp02_v3_54_1200.png}
     \caption{Modélisation de la fusée SP-02 dans \gls{OpenRocket}}

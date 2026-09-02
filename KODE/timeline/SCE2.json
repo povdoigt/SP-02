@@ -1,0 +1,142 @@
+{
+  "scenario": {
+    "id": "SCE_2",
+    "name": "SCE_2 : Vol sans séparation",
+    "description": "Une description du scénario nominal"
+  },
+  "view": {
+    "t_min": 0.000,
+    "t_max": 20.000
+  },
+  "entities": [
+    {
+      "id": "s1",
+      "label": "Stage 1",
+      "color": "#2E6F9E",
+      "born": 0.000,
+      "tracks": [
+        {
+          "name": "Sequenceur",
+          "nodes": [
+            {
+              "id": "s1:seq:sep_unlock",
+              "type": "event",
+              "label": "sepa",
+              "when": 2.000
+            },
+            {
+              "id": "s1:seq:airbrakes",
+              "type": "event",
+              "label": "af",
+              "when": 3.600
+            },
+            {
+              "id": "s1:seq:FT_sepa",
+              "type": "window",
+              "label": "FT_sepa",
+              "opens": [3.600, 4.001],
+              "closes": [4.000, 7.000]
+            },
+            {
+              "id": "s1:seq:sep_release",
+              "type": "event",
+              "label": "sepa_release",
+              "when": "s1:airbrakes.end + 0.2"
+            },
+            {
+              "id": "s1:seq:FT_apogee_detection",
+              "type": "window",
+              "label": "FT_apogee_detection",
+              "opens": [15.900, 17.000],
+              "closes": [16.000, 18.900]
+            },
+            {
+              "id": "s1:seq:apo",
+              "type": "event",
+              "label": "apogee_detected",
+              "when": 17.400
+            }
+          ]
+        },
+        {
+          "name": "Propulsion",
+          "nodes": [
+            {
+              "id": "s1:propu",
+              "type": "window",
+              "label": "First stage burn",
+              "opens": 0.000,
+              "closes": [3.500, 3.700]
+            }
+          ]
+        },
+        {
+          "name": "Actuators",
+          "nodes": [
+            {
+              "id": "s1:sep_unlock",
+              "type": "window",
+              "label": "sepa_unlock",
+              "opens": "s1:seq:sep_unlock.start",
+              "closes": [
+                3.500,
+                3.700
+              ]
+            },
+            {
+              "id": "s1:sep_release",
+              "type": "window",
+              "label": "sepa_release",
+              "opens": "s1:seq:sep_release.start",
+              "closes": "s1:seq:sep_release.start + 0.1"
+            },
+            {
+              "id": "s1:airbrakes",
+              "type": "window",
+              "label": "af",
+              "opens": "s1:seq:airbrakes.start",
+              "closes": "s1:seq:airbrakes.start + 0.5"
+            },
+            {
+              "id": "s1:para",
+              "type": "window",
+              "label": "parachute",
+              "opens": [15.900, 17.400],
+              "closes": [18.100, 19.400]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "label": "Stage 2",
+      "color": "auto",
+      "born": 0.000,
+      "tracks": [
+        {
+          "name": "Sequencer",
+          "nodes": [
+            {
+              "id": "s2:seq:FT_stage_sep",
+              "type": "window",
+              "label": "FT_sepa",
+              "opens": [3.600, 5.000],
+              "closes": [4.000, 7.000]
+            }
+          ]
+        },
+        {
+          "name": "Propulsion",
+          "nodes": [
+          ]
+        },
+        {
+          "name": "Actuators",
+          "nodes": [
+          ]
+        }
+      ]
+    }
+  ]
+}
