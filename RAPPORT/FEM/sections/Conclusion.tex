@@ -1,0 +1,44 @@
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+
+L'étude par éléments finis présentée dans ce document avait pour objectif de vérifier la
+tenue mécanique du mécanisme de séparation de la fusée SP-02 avant l'usinage des pièces.\\
+
+L'analyse statique de la pièce principale de séparation, réalisée sous une charge
+représentative de la masse de la fusée au décollage affectée d'un facteur de sécurité de
+$1,5$, conduit à une déformée maximale de $2,04$~mm. Les contraintes de von Mises restent
+faibles sur la majeure partie de la pièce, mais atteignent localement environ $600$~MPa,
+au-delà de la limite élastique de l'alliage 7075-T6. Cette valeur étant concentrée sur un
+nombre restreint de nœuds, au voisinage immédiat des encastrements, elle relève très
+probablement d'une singularité numérique liée à l'idéalisation des liaisons vissées plutôt
+que d'un risque réel de plastification. Elle constitue néanmoins le point de vigilance
+principal de cette étude et justifierait soit un raffinement local du modèle, soit une
+modélisation plus fidèle des vis M5.\\
+
+Les loquets présentent quant à eux des niveaux de sollicitation très faibles, avec des
+déformées de l'ordre de $10^{-8}$~mm. La marge disponible sur ces pièces est donc
+confortable, ce qui est cohérent avec leur géométrie massive au regard des efforts repris.
+L'analyse modale conduite sur la pièce support, en configuration libre, a principalement
+servi à prendre en main la résolution SOL-103 ; elle ne constitue pas encore une
+vérification du comportement vibratoire du mécanisme en conditions de vol.\\
+
+La confrontation aux calculs analytiques appelle une lecture nuancée. Sur la pièce de
+séparation, l'estimation par la théorie des plaques circulaires encastrées donne
+$0,26$~mm contre $2,04$~mm en simulation, soit un écart d'un facteur huit, très au-delà
+du critère de $5~\%$. Cet écart n'invalide pas le modèle numérique : il traduit
+l'inadéquation du modèle analytique, qui suppose une plaque d'épaisseur constante
+encastrée sur tout son contour, là où la pièce réelle est une structure conique fixée en
+quatre points et chargée de manière non uniforme. Le calcul analytique doit donc être
+compris ici comme une vérification d'ordre de grandeur et non comme une validation
+croisée. Sur les loquets, le calcul de poutre encastrée donne $0,45$~mm pour une longueur
+de $50$~mm, alors que la longueur réellement en contact dans la géométrie usinée est de
+$6$~mm, ce qui explique l'essentiel de l'écart observé avec la simulation.\\
+
+Le mécanisme de séparation est donc jugé apte à reprendre les charges de vol, sous réserve
+des points identifiés ci-dessus. Plusieurs travaux restent toutefois à mener pour consolider
+cette conclusion : une étude de convergence en maillage documentée sur la pièce de
+séparation, une analyse modale conduite avec les conditions aux limites réelles de
+l'assemblage et confrontée au spectre d'excitation attendu en vol, la prise en compte des
+efforts aérodynamiques en complément des seuls efforts d'inertie, et enfin une validation
+expérimentale du mécanisme assemblé. Ces limites étant assumées, les résultats obtenus
+fournissent une base suffisante pour engager la fabrication des pièces.

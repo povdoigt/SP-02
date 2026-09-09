@@ -1,4 +1,7 @@
-\subsection{Présentation des phases de vol}
+\subsection{Phases et sénarios de vol}
+\label{subsec:phases_scenarios_vol}
+
+\subsubsection{Phases de vol}
 \label{subsec:phases_vol}
 
 Le vol de la fusée SP-02 se déroule selon six phases successives représentées dans la figure suivante. Ce découpage permet
@@ -12,7 +15,7 @@ d’identifier clairement les séquences critiques du lanceur.
 
 Les éléments marqué d'un " * " sont des éléments optionelles.
 
-\subsubsection*{Phase 0 — Préparation et mise en condition du système}
+\subsubsubsection*{Phase 0 — Préparation et mise en condition du système}
 \begin{itemize}
     \item \textbf{État initial} : Le lanceur est en configuration d’intégration au sol : les deux étages sont séparés, non armés, et
     aucun sous-système pyrotechnique ou avionique n’est actif.
@@ -43,7 +46,7 @@ Les éléments marqué d'un " * " sont des éléments optionelles.
     \end{itemize}
 \end{itemize}
 
-\subsubsection*{Phase 1 — Propulsion et ascension du premier étage}
+\subsubsubsection*{Phase 1 — Propulsion et ascension du premier étage}
 \begin{itemize}
     \item \textbf{État initial} : La Fusée est armée, l'autorisation sol donnée, le moteur du 1er étage est au repos les capteurs et
     séquenceurs sont armés et prêts au lancement.
@@ -66,7 +69,7 @@ Les éléments marqué d'un " * " sont des éléments optionelles.
     \end{itemize}
 \end{itemize}
 
-\subsubsection*{Phase 2 — Séparation par aérofreinage}
+\subsubsubsection*{Phase 2 — Séparation par aérofreinage}
 \begin{itemize}
     \item \textbf{État initial} : Les deux étages volent conjointement en balistique post-propulsion.
     \item \textbf{Objectif fonctionnel} : Obtenir une séparation passive, franche et symétrique, générée par un différentiel
@@ -82,7 +85,7 @@ Les éléments marqué d'un " * " sont des éléments optionelles.
     établie par l’avionique des deux étages.
 \end{itemize}
 
-\subsubsection*{Phase 3 — Propulsion du second étage}
+\subsubsubsection*{Phase 3 — Propulsion du second étage}
 \begin{itemize}
     \item \textbf{État initial} : Le second étage est séparé, stabilisé et en attente de conditions d’autorisation d’allumage.
     \item \textbf{Objectif fonctionnel} : Allumer le moteur du 2e étage uniquement si les trois critères suivants sont
@@ -109,8 +112,10 @@ Les éléments marqué d'un " * " sont des éléments optionelles.
     Dans tous les cas, la trajectoire doit rester dans le gabarit.
 \end{itemize}
 
+\vspace{-0.4cm}
 
-\subsubsection*{Phase 4 — Ouverture des parachutes et descente des étages}
+\subsubsubsection*{Phase 4 — Ouverture des parachutes et descente des étages}
+\vspace{-0.2cm}
 \begin{itemize}
     \item \textbf{État initial} : Les deux étages sont séparés et en trajectoire balistique, le 2e étage a ou non allumé son moteur.
     \item \textbf{Objectif fonctionnel} : Assurer un retour sécurisé au sol via :
@@ -129,7 +134,10 @@ Les éléments marqué d'un " * " sont des éléments optionelles.
     Dans les deux cas, les trajectoires de descente restent dans le gabarit de sécurité défini par le \acrshort{CDC}.
 \end{itemize}
 
-\subsubsection*{Phase 5 — Atterrissage et récupération}
+\vspace{-0.4cm}
+
+\subsubsubsection*{Phase 5 — Atterrissage et récupération}
+\vspace{-0.2cm}
 \begin{itemize}
     \item \textbf{État initial} : Les deux étages descendent sous parachute ou en chute libre contrôlée.
     \item \textbf{Objectif fonctionnel} : Assurer un atterrissage en toute sécurité dans le gabarit défini, minimisant les
@@ -143,5 +151,34 @@ Les éléments marqué d'un " * " sont des éléments optionelles.
     \end{itemize}
     Dans les deux cas, l’atterrissage doit se faire sans risque pour les personnes, les biens et l’environnement.
 \end{itemize}
+
+% \newpage
+\vspace{-0.4cm}
+
+\subsubsection{Scénarios de vol}
+
+Deux des évenement du vol influe particulièrement le profile de vol de la mission :
+
+\hspace*{-\parindent}%
+\begin{minipage}{0.6\textwidth}
+    \begin{itemize}
+        \item \textbf{Séparation} : Le système de séparation des deux étages de la fusée est considéré comme un système expérimental. Son bon foncionnement
+        n'est donc pas un élément certain. Le non délpoiement de ce dernier correspond au scénario \texttt{SCE2}.
+        \item \textbf{Allumage 2e étage} : L'allumage du moteur du deuxième étage est également un système expérimental. De plus, pour des raisons de
+        sécurité, cet allumage ne doit être effectué que si la trajectoire courante respecte un certain gabarie. On distinguera alors deux sous-cas :
+        \begin{itemize}
+            \item La trajectoire ne respecte pas la plage de sécurité (scénario \texttt{SCE1.1})
+            \item Le système d'allumage n'a pas fonctionné (scénario \texttt{SCE1.2})
+        \end{itemize}
+        Ces deux scénarios font partie du même scénario \texttt{SCE1} qui décrit le non allumage du moteur du deuxième étage.
+    \end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/SCE.jpg}
+    \captionof{figure}{Différent scénarios}
+    \label{fig:sces}
+\end{minipage}
 
 \newpage

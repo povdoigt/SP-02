@@ -1,0 +1,37 @@
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Ce document est une annexe au rapport de projet de la fusée bi-étage SP-02, développée par l'association \acrshort{IPSA} AéroIPSA
+au cours de l'année scolaire 2025-2026 \cite{rapportSP02}. Il n'a pas vocation à présenter le projet dans son ensemble :
+l'architecture générale de la fusée, le dimensionnement de ses sous-systèmes et le déroulement de la mission y sont supposés
+connus. La lecture préalable du rapport principal est donc nécessaire à la bonne compréhension du présent document, qui n'en
+développe qu'un point particulier.\\
+
+Pour situer brièvement le sujet traité ici, SP-02 est une fusée expérimentale à deux étages dont la séparation intervient après
+l'extinction du propulseur du premier étage. Cette séparation repose sur un bloc aérofreins, embarqué dans le premier étage et
+piloté par le séquenceur, dont le déploiement provoque une augmentation contrôlée de la traînée de l'étage inférieur. Le
+différentiel de décélération ainsi créé entre les deux corps assure leur dégagement mutuel. L'efficacité du mécanisme de
+séparation dépend donc directement des efforts aérodynamiques générés par les aérofreins, et c'est à la caractérisation de ces
+efforts qu'est consacrée cette étude.\\
+
+Une campagne d'essais en soufflerie ne pouvant être menée dans le cadre du projet (contraintes logistiques et de calendrier), la
+simulation numérique constitue le seul moyen d'anticiper le comportement du système en conditions de vol. L'étude aérodynamique
+par \acrfull{CFD} a ainsi été conduite en parallèle de la conception mécanique du bloc aérofreins, dans le but de valider
+théoriquement le concept avant sa mise en \oe uvre.\\
+
+L'approche \acrshort{CFD} présente pour ce projet plusieurs intérêts. Elle donne accès à des grandeurs difficilement mesurables
+sans moyens d'essai dédiés, en particulier les champs de pression et de vitesse ainsi que les efforts aérodynamiques localisés sur
+les aérofreins. Elle permet de comparer quantitativement plusieurs configurations d'ouverture et d'en déduire une loi reliant le
+taux de déploiement à la traînée du premier étage. Elle autorise enfin l'analyse de la structure de l'écoulement autour de la
+fusée, notamment le développement et le décollement de la couche limite, phénomène moteur dans la génération de traînée.\\
+
+L'étude se limite volontairement à l'aérodynamique du système. La tenue mécanique des pièces du bloc aérofreins, la cinématique de
+leur déploiement et le pilotage du servomoteur associé relèvent d'autres parties du projet et ne sont pas abordés ici. De même,
+seules des positions d'ouverture figées sont considérées, la phase transitoire de déploiement sortant du périmètre de ce travail.\\
+
+Le document s'organise en deux parties. La première décrit la méthodologie de simulation retenue : simplification de la maquette
+numérique, hypothèses de modélisation physique, construction du domaine de calcul et stratégie de maillage. La seconde présente et
+analyse les résultats obtenus, à travers l'évolution du coefficient de traînée, la répartition de pression sur les aérofreins et
+la structure des champs de vitesse.
+
+\newpage

@@ -1,1 +1,31 @@
 \subsubsection{Mécanique}
+La conception mécanique de la fusée \textbf{SP-02} a été l’un des défis majeurs du projet, avec une forte utilisation de \textbf{matériaux composites} pour optimiser la résistance tout en réduisant la masse. Voici les principaux enseignements tirés de cette expérience :
+
+\subsubsection*{Utilisation des composites}
+La majorité des structures porteuses (tubes, ailerons, coiffe) ont été réalisées en \textbf{fibre de verre et fibre de carbone}, avec des techniques de collages toutes aussi variées notamment pour les ailerons. Ces matériaux ont permis de réduire significativement la masse tout en garantissant une rigidité suffisante pour résister aux contraintes aérodynamiques et aux accélérations lors du vol.
+
+\begin{itemize}
+    \item \textbf{Avantages} :
+    \begin{itemize}
+        \item Réduction de la\textbf{masse} par rapport à une structure en aluminium équivalente.
+        \item Meilleure résistance aux vibrations et aux chocs thermiques.
+        \item Possibilité de réaliser des géométries complexes (ex. : coiffe conique, rétreints entre étages).
+    \end{itemize}
+    \item \textbf{Défis rencontrés} :
+    \begin{itemize}
+        \item \textbf{Fabrication} : Nécessité d’un moulage précis pour éviter les défauts de stratification ou les bulles d’air, qui peuvent compromettre la résistance.
+        \item \textbf{Collage} : Le choix des colles (époxy) et leur application ont été cruciaux pour assembler rapidement et garder une bonne solidité globale.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{Conception des étages}
+\begin{itemize}
+    \item Le \textbf{premier étage} a été conçu avec un \textbf{changement de diamètre} pour intégrer le second étage, ce qui a nécessité une étude poussée en résistance des matériaux pour éviter les concentrations de contraintes. Des simulations par éléments finis (via \textbf{Patran}) ont confirmé que la structure supportait les charges axiales et latérales lors du décollage et de la séparation.
+    \item Le \textbf{second étage} a bénéficié d’un décalage de ses ailerons de \textbf{15°} par rapport à ceux du premier étage (pour éviter l’effet de masquage), et d'une rapide étude CFD pour comprendre leur comportement aérodynamique.
+\end{itemize}
+
+\subsubsection*{Améliorations futures}
+\begin{itemize}
+    \item Intégrer des \textbf{capteurs de déformation} (jaunes de contrainte) pour surveiller en temps réel les efforts subis par les pièces en composite critiques.
+    \item Automatiser davantage la fabrication (ex. : découpe laser des tissus de carbone) pour gagner en précision.
+\end{itemize}

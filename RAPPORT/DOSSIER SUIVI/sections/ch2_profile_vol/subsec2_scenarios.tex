@@ -1,35 +1,37 @@
-\subsection{Scénarios et chronologies de vol}
-\label{subsec:scenarios_chronologies}
+% \subsection{Scénarios et chronologies de vol}
+% \label{subsec:scenarios_chronologies}
 
-Un vol de fusée bi-étage actif, respectant le \acrshort{CDC} du \acrshort{CNES} et de \gls{Planète Sciences}, se différentie de celui d'une fusée classique.
-En effet, beaucoup d'évenement en vol doivent se réaliser et le résultat de ces évenements influent sur la trajectoire de la fusée. Cette partie présente
-les différents scénarios pris en compte par le logiciel de vol et la chronologie des évenements du vol.
+% Un vol de fusée bi-étage actif, respectant le \acrshort{CDC} du \acrshort{CNES} et de \gls{Planète Sciences}, se différentie de celui d'une fusée classique.
+% En effet, beaucoup d'évenement en vol doivent se réaliser et le résultat de ces évenements influent sur la trajectoire de la fusée. Cette partie présente
+% les différents scénarios pris en compte par le logiciel de vol et la chronologie des évenements du vol.
 
-\subsubsection{Présentation des scénarios}
+% \subsubsection{Présentation des scénarios}
 
-Deux des évenement du vol influe particulièrement le profile de vol de la mission : \\
+% Deux des évenement du vol influe particulièrement le profile de vol de la mission : \\
 
-\hspace*{-\parindent}%
-\begin{minipage}{0.5\textwidth}
-    \begin{itemize}
-        \item \textbf{Séparation} : Le système de séparation des deux étages de la fusée est considéré comme un système expérimental. Son bon foncionnement
-        n'est donc pas un élément certain. Le non délpoiement de ce dernier correspond au scénario \texttt{SCE2}.
-        \item \textbf{Allumage 2e étage} : L'allumage du moteur du deuxième étage est également un système expérimental. De plus, pour des raisons de
-        sécurité, cet allumage ne doit être effectué que si la trajectoire courante respecte un certain gabarie. On distinguera alors deux sous-cas :
-        \begin{itemize}
-            \item La trajectoire ne respecte pas la plage de sécurité (scénario \texttt{SCE1.1})
-            \item Le système d'allumage n'a pas fonctionné (scénario \texttt{SCE1.2})
-        \end{itemize}
-        Ces deux scénarios font partie du même scénario \texttt{SCE1} qui décrit le non allumage du moteur du deuxième étage.
-    \end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{figures/SCE.jpg}
-    \captionof{figure}{Différent scénarios}
-    \label{fig:sces}
-\end{minipage}
+% \hspace*{-\parindent}%
+% \begin{minipage}{0.5\textwidth}
+%     \begin{itemize}
+%         \item \textbf{Séparation} : Le système de séparation des deux étages de la fusée est considéré comme un système expérimental. Son bon foncionnement
+%         n'est donc pas un élément certain. Le non délpoiement de ce dernier correspond au scénario \texttt{SCE2}.
+%         \item \textbf{Allumage 2e étage} : L'allumage du moteur du deuxième étage est également un système expérimental. De plus, pour des raisons de
+%         sécurité, cet allumage ne doit être effectué que si la trajectoire courante respecte un certain gabarie. On distinguera alors deux sous-cas :
+%         \begin{itemize}
+%             \item La trajectoire ne respecte pas la plage de sécurité (scénario \texttt{SCE1.1})
+%             \item Le système d'allumage n'a pas fonctionné (scénario \texttt{SCE1.2})
+%         \end{itemize}
+%         Ces deux scénarios font partie du même scénario \texttt{SCE1} qui décrit le non allumage du moteur du deuxième étage.
+%     \end{itemize}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.45\textwidth}
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/SCE.jpg}
+%     \captionof{figure}{Différent scénarios}
+%     \label{fig:sces}
+% \end{minipage}
+
+\subsection{Chronologies de vol}
 
 \subsubsection{Note de lecture des chronogrammes}
 
@@ -48,6 +50,17 @@ ancrée sur l'horodatage théorique de l'événement déclencheur dont elles hé
 Ces chronogrammes se lisent ainsi comme un enchaînement logique de conditions, d'événements et de conséquences, dans lequel
 seuls l'ordonnancement des étapes et l'amplitude des fenêtres font foi. La convention étant appliquée de façon homogène aux
 trois scénarios (\texttt{SCE\_0}, \texttt{SCE\_1}, \texttt{SCE\_2}), leur comparaison directe reste pertinente.
+
+\vfill
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/timeline_sce0.jpg}
+    \caption{Exemple de chronologie de vol (scénario 0)}
+    \label{fig:timeline_sce0_ex}
+\end{figure}
+
+\vfill
 
 \newpage
 

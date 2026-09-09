@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeroipsa.local/domaine-vol/vue.schema.json",
+  "title": "Vue de domaine de vol",
+  "description": "Sortie de analyse_terrain.py, entrée de genere_kml.py : ce qui est dessiné. Reprend l'étude et y ajoute un azimut, un demi-angle et une portée résolus. Éditable à la main entre les deux étapes.",
+  "type": "object",
+  "required": [
+    "pas_de_tir"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "_genere_par": {
+      "type": "string",
+      "description": "Trace d'origine, ignorée par le générateur."
+    },
+    "nom": {
+      "type": "string"
+    },
+    "pas_de_tir": {
+      "oneOf": [
+        {
+          "$ref": "etude.schema.json#/$defs/pasDeTir"
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "etude.schema.json#/$defs/pasDeTir"
+          }
+        }
+      ]
+    },
+    "zones": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "etude.schema.json#/$defs/zone"
+      }
+    },
+    "terrain": {
+      "$ref": "etude.schema.json#/$defs/anneau"
+    },
+    "vols": {
+      "$ref": "etude.schema.json#/$defs/blocVols"
+    },
+    "rendu": {
+      "$ref": "etude.schema.json#/$defs/rendu"
+    }
+  },
+  "$defs": {
+    "domaine": {
+      "type": "object",
+      "required": [
+        "azimut_deg",
+        "demi_angle_deg",
+        "portee_max_m"
+      ],
+      "additionalProperties": false,
+      "description": "Domaine résolu, attribut du groupe de vols dont il est issu. Le générateur ne cherche rien : ce sont ces valeurs que l'on édite.",
+      "properties": {
+        "nom": {
+          "type": "string"
+        },
+        "pas_de_tir": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "zone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "couleur": {
+          "$ref": "etude.schema.json#/$defs/couleurHex"
+        },
+        "azimut_deg": {
+          "$ref": "etude.schema.json#/$defs/azimut"
+        },
+        "demi_angle_deg": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 180
+        },
+        "portee_max_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "plafond_m": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "force": {
+          "type": "boolean",
+          "description": "Cône imposé par l'utilisateur, non validé par l'analyse : il sort de la zone."
+        },
+        "volume": {
+          "$ref": "etude.schema.json#/$defs/volume"
+        },
+        "affichage": {
+          "$ref": "etude.schema.json#/$defs/affichageDomaine"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+
+L'étude \acrshort{CFD} menée sur la fusée SP-02 avait pour objectif de valider théoriquement l'efficacité du système d'aérofreins
+du premier étage. Les simulations réalisées sur six configurations d'ouverture montrent une augmentation monotone du coefficient
+de traînée, de $0.5936$ aérofreins fermés à $0.7827$ en configuration totalement déployée, soit un gain de près de $32~\%$. Cette
+évolution est correctement décrite par la loi quadratique établie à la section \ref{sec:cd}, avec un coefficient de détermination
+de $0.999$.\\
+
+L'analyse des champs de pression et de vitesse confirme par ailleurs la cohérence physique de ces résultats. Le déploiement des
+aérofreins fait apparaître une zone de surpression sur leur face amont et une zone de dépression en aval, associée à un
+décollement précoce de la couche limite et à un élargissement du sillage. Ce déséquilibre de pression constitue bien le mécanisme
+dominant de génération de traînée, et son intensité croît avec le taux d'ouverture. En dehors des zones directement influencées
+par les aérofreins, l'écoulement conserve un comportement classique, ce qui traduit la validité générale du modèle.\\
+
+Le concept est donc validé sur le plan aérodynamique : le bloc aérofreins est capable de produire l'augmentation de traînée
+nécessaire à la séparation des étages, et la loi obtenue fournit une donnée d'entrée directement exploitable pour la simulation
+de vol et pour le dimensionnement des efforts repris par le mécanisme de déploiement.\\
+
+Ces conclusions doivent toutefois être lues à la lumière des hypothèses retenues. La résolution stationnaire des équations
+moyennées de Reynolds ne rend pas compte des fluctuations temporelles de l'écoulement, et le modèle $k-\varepsilon$ réalisable,
+s'il constitue un bon compromis pour une étude comparative, reste approximatif dans les zones de fort décollement. Les aérofreins
+ont de plus été simulés en positions figées et à incidence nulle, alors que la fusée présente en vol une incidence non nulle et
+une phase transitoire de déploiement. Enfin, aucune étude de convergence en maillage ni aucune confrontation à des données
+expérimentales n'a pu être conduite dans le cadre de ce projet.\\
+
+Les valeurs absolues de $C_D$ sont donc à considérer avec la réserve qui s'impose. En revanche, la tendance dégagée et les ordres
+de grandeur obtenus sont suffisamment robustes pour justifier la pertinence du concept et orienter la conception du bloc
+aérofreins.

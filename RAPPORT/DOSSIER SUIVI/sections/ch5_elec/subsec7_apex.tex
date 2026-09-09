@@ -175,7 +175,7 @@ Il permet d'ajouter les fonctionnalités suivantes au système expérimental : \
 Le système expérimental Apex dans le cadre du projet SP-02 est donc constitué du module \gls{APEX}, de la carte ApexEx et de la
 carte Pitot.
 
-\subsubsubsection{Mesure de la vitesse aéronautique}
+\subsubsubsection{Mesure de la vitesse aérodynamique}
 
 \hspace*{-\parindent}%
 \begin{minipage}{0.25\textwidth}
@@ -198,7 +198,7 @@ carte Pitot.
 \end{minipage}
 \hfill
 \begin{minipage}{0.65\textwidth}
-    La technique de mesure de la vitesse aéronautique utilisée par le module expérimental est la technique dite de la sonde
+    La technique de mesure de la vitesse aérodynamique utilisée par le module expérimental est la technique dite de la sonde
     Pitot. Elle consiste à mesurer la pression totale au niveau de la pointe de la coiffe du deuxième étage, ainsi que la
     pression statique à l'intérieur du fuselage de la fusée. La différence entre ces deux pressions permet de calculer la vitesse
     de l'air par rapport à la fusée.\\
@@ -230,9 +230,22 @@ En considérant la plage de fonctionnement du baromètre, l'altitude maximale qu
 de l'ordre de \SI{10}{\kilo\meter} et la vitesse maximale mesurable est de l'ordre de \SI{705}{\meter\per\second}.
 
 \vfill
-
-[METTRE PHOTO ASSEMBLAGE POINTE PLUS PITOT]
-
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{figures/meca/Assemblage_pitot_pointe.png}
+        \caption{Assemblage de la PCB pitot sur le support de la pointe}
+        \label{fig:vue_pointe1}
+    \end{subfigure}
+    \hfill% Espace horizontal entre les deux sous-figures
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/sp02_controle91.png} % Remplace par ton deuxième fichier
+        \caption{Vue externe de la pointe montée}
+        \label{fig:vue_pointe2}
+    \end{subfigure}
+    \caption{Légende globale pour les deux images (optionnelle).}
+    \label{fig:vue_pitot}
+\end{figure}
 \vfill
 
 \newpage

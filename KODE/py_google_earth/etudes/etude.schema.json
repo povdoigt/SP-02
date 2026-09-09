@@ -1,0 +1,688 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeroipsa.local/domaine-vol/etude.schema.json",
+  "title": "Étude de domaine de vol",
+  "description": "Entrée de analyse_terrain.py : ce qui est étudié — pas de tir, zones au sol, vols. Écrit à la main, stable.",
+  "type": "object",
+  "required": [
+    "pas_de_tir"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "nom": {
+      "type": "string",
+      "description": "Nom de la base de lancement."
+    },
+    "pas_de_tir": {
+      "description": "Un pas de tir, ou une liste. Tous sont dessinés ; un seul est analysé.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/pasDeTir"
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/pasDeTir"
+          }
+        }
+      ]
+    },
+    "zones": {
+      "description": "Zones au sol. Toutes sont dessinées ; celle marquée 'contrainte' borne le domaine.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/zone"
+      }
+    },
+    "terrain": {
+      "description": "Forme historique à une seule zone. Équivaut à zones[0] avec contrainte=true. Préférer 'zones'.",
+      "$ref": "#/$defs/anneau"
+    },
+    "vols": {
+      "$ref": "#/$defs/blocVols"
+    },
+    "rendu": {
+      "$ref": "#/$defs/rendu"
+    }
+  },
+  "$defs": {
+    "pasDeTir": {
+      "type": "object",
+      "required": [
+        "lat",
+        "lon"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifiant unique, référencé par tir.pas_de_tir."
+        },
+        "nom": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "lon": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "alt_m": {
+          "type": "number",
+          "default": 0,
+          "description": "Altitude du sol au pas de tir, en mètres. Sans effet en 2D ; décale tous les volumes si rendu.plafond_m > 0."
+        },
+        "reference": {
+          "type": "boolean",
+          "default": false,
+          "description": "Pas de tir analysé par défaut. Un seul au maximum."
+        },
+        "affichage": {
+          "$ref": "#/$defs/affichagePasDeTir"
+        }
+      }
+    },
+    "anneau": {
+      "type": "array",
+      "minItems": 3,
+      "description": "Sommets [latitude, longitude] dans l'ordre du contour. Ne pas répéter le premier point ; le sens n'a pas d'importance.",
+      "items": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "prefixItems": [
+          {
+            "type": "number",
+            "minimum": -90,
+            "maximum": 90
+          },
+          {
+            "type": "number",
+            "minimum": -180,
+            "maximum": 180
+          }
+        ]
+      }
+    },
+    "zone": {
+      "type": "object",
+      "required": [
+        "points"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "nom": {
+          "type": "string"
+        },
+        "points": {
+          "$ref": "#/$defs/anneau"
+        },
+        "contrainte": {
+          "type": "boolean",
+          "default": false,
+          "description": "Cette zone borne le domaine de vol. Un seul au maximum."
+        },
+        "couleur": {
+          "$ref": "#/$defs/couleurPolygone",
+          "description": "Surcharge rendu.couleurs.terrain pour cette zone."
+        },
+        "plafond_m": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Plafond propre à la zone, en mètres au-dessus du sol. Rendu avec les mêmes réglages qu'un domaine."
+        },
+        "volume": {
+          "$ref": "#/$defs/volume"
+        },
+        "affichage": {
+          "$ref": "#/$defs/affichageZone"
+        }
+      }
+    },
+    "couleurHex": {
+      "type": "string",
+      "pattern": "^#[0-9a-fA-F]{6}$"
+    },
+    "couleurPolygone": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "trait": {
+          "$ref": "#/$defs/couleurHex"
+        },
+        "fond": {
+          "$ref": "#/$defs/couleurHex"
+        },
+        "alpha_fond": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "epaisseur": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "couleurLigne": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "trait": {
+          "$ref": "#/$defs/couleurHex"
+        },
+        "epaisseur": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "azimut": {
+      "type": "number",
+      "minimum": 0,
+      "exclusiveMaximum": 360
+    },
+    "colonnes": {
+      "type": "object",
+      "description": "Numérotation 1-based : 1 = première colonne. Aucune détection automatique.",
+      "additionalProperties": false,
+      "properties": {
+        "temps": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Facultatif. Lu mais pas encore exploité."
+        },
+        "altitude": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "distance_laterale": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "motifRideau": {
+      "enum": [
+        "aucun",
+        "plein",
+        "hachures",
+        "hachures_0",
+        "hachures_45",
+        "hachures_90",
+        "hachures_135",
+        "quadrillage_0",
+        "quadrillage_45"
+      ],
+      "description": "'hachures' est un alias de 'hachures_90'."
+    },
+    "rideau": {
+      "description": "Objet complet, ou raccourci : une chaîne (le motif) ou un booléen (true='plein', false='aucun').",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/motifRideau"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "motif": {
+              "$ref": "#/$defs/motifRideau"
+            },
+            "pas_m": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "default": 100,
+              "description": "Espacement perpendiculaire, mesuré dans le plan (distance latérale, altitude)."
+            },
+            "epaisseur": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "default": 1.5
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "default": 0.25,
+              "description": "Opacité : du trait en mode motif, du PolyStyle en mode 'plein'."
+            },
+            "penetration_sol_m": {
+              "type": "number",
+              "minimum": 0,
+              "default": 30,
+              "description": "Enfoncement des pieds sous le sol, pour absorber l'écart entre alt_m et le relief réel."
+            },
+            "trace_sol": {
+              "type": "boolean",
+              "default": false,
+              "description": "Projection au sol, plaquée sur le relief."
+            }
+          }
+        }
+      ]
+    },
+    "reglagesVol": {
+      "description": "Réglages hérités en cascade : bloc 'vols' -> groupe -> vol. Chaque niveau peut tout redéfinir.",
+      "type": "object",
+      "properties": {
+        "colonnes": {
+          "$ref": "#/$defs/colonnes"
+        },
+        "separateur": {
+          "type": "string",
+          "minLength": 1,
+          "default": ","
+        },
+        "commentaire": {
+          "type": "string",
+          "default": "#",
+          "description": "Préfixe des lignes ignorées : entête et marqueurs d'événements."
+        },
+        "nb_points": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "default": null,
+          "description": "Points affichés. null = tous ; > total = limité avec avertissement ; <= 0 = vol non tracé."
+        },
+        "couleur": {
+          "$ref": "#/$defs/couleurHex"
+        },
+        "azimut_deg": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "description": "Azimut de projection. null = celui du tir."
+        },
+        "pas_de_tir": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Identifiant du pas de tir d'origine. null = celui du tir."
+        },
+        "balistique": {
+          "type": "boolean",
+          "default": false,
+          "description": "Compte dans le calcul de la portée du groupe."
+        },
+        "rideau": {
+          "$ref": "#/$defs/rideau"
+        },
+        "affichage": {
+          "$ref": "#/$defs/affichageVol"
+        }
+      }
+    },
+    "vol": {
+      "type": "object",
+      "required": [
+        "fichier"
+      ],
+      "unevaluatedProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/reglagesVol"
+        }
+      ],
+      "properties": {
+        "fichier": {
+          "type": "string",
+          "description": "Chemin du CSV, relatif à vols.dossier et au dossier du groupe."
+        },
+        "nom": {
+          "type": "string",
+          "description": "Défaut : nom du fichier sans extension."
+        }
+      }
+    },
+    "groupe": {
+      "type": "object",
+      "required": [
+        "liste"
+      ],
+      "unevaluatedProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/reglagesVol"
+        }
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "nom": {
+          "type": "string"
+        },
+        "dossier": {
+          "type": "string",
+          "description": "Sous-dossier du groupe, relatif à vols.dossier."
+        },
+        "reference": {
+          "type": "boolean",
+          "default": false,
+          "description": "Groupe dimensionnant par défaut. Sinon, celui de plus grande portée."
+        },
+        "liste": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/vol"
+          }
+        },
+        "pas_de_tir": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Identifiant du pas de tir de ce groupe. C'est depuis lui que l'analyseur calcule le domaine du groupe."
+        },
+        "zone": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Zone qui borne le domaine de ce groupe."
+        },
+        "plafond_m": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Plafond de vol du groupe, en mètres au-dessus du sol du pas de tir."
+        },
+        "azimut_deg": {
+          "$ref": "#/$defs/azimut",
+          "description": "Azimut imposé. Sans lui, l'analyseur recommande la bissectrice du plus large secteur admissible ; avec lui, il calcule le demi-angle exploitable autour."
+        },
+        "demi_angle_deg": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 180,
+          "description": "Demi-ouverture imposée. Nécessaire pour forcer un domaine quand aucun secteur n'est admissible."
+        },
+        "domaine": {
+          "$ref": "vue.schema.json#/$defs/domaine",
+          "description": "Écrit par l'analyseur dans la vue. Absent de l'étude."
+        }
+      }
+    },
+    "blocVols": {
+      "type": "object",
+      "unevaluatedProperties": false,
+      "allOf": [
+        {
+          "$ref": "#/$defs/reglagesVol"
+        }
+      ],
+      "properties": {
+        "dossier": {
+          "type": "string",
+          "default": ".",
+          "description": "Racine des chemins relatifs, résolue par rapport au fichier JSON."
+        },
+        "groupes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/groupe"
+          }
+        },
+        "liste": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/vol"
+          },
+          "description": "Forme sans groupe : produit un groupe unique implicite. Exclusif avec 'groupes'."
+        },
+        "zone": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Zone qui borne le domaine de ce groupe."
+        },
+        "plafond_m": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Plafond de vol du groupe, en mètres au-dessus du sol du pas de tir."
+        }
+      },
+      "not": {
+        "required": [
+          "groupes",
+          "liste"
+        ]
+      }
+    },
+    "rendu": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "segments_pointilles": {
+          "type": "boolean",
+          "default": true
+        },
+        "tiret_m": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "default": 25
+        },
+        "espace_m": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "default": 15
+        },
+        "couleurs": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "terrain": {
+              "$ref": "#/$defs/couleurPolygone"
+            },
+            "domaine": {
+              "$ref": "#/$defs/couleurPolygone"
+            },
+            "cercle": {
+              "$ref": "#/$defs/couleurLigne"
+            },
+            "secteur": {
+              "$ref": "#/$defs/couleurLigne"
+            },
+            "limites": {
+              "$ref": "#/$defs/couleurLigne"
+            },
+            "plafond": {
+              "$ref": "#/$defs/couleurLigne"
+            }
+          }
+        },
+        "volume": {
+          "$ref": "#/$defs/volume",
+          "description": "Réglages de volume par défaut, redéfinissables par zone et par domaine."
+        },
+        "affichage": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Valeurs d'affichage par défaut, redéfinissables élément par élément.",
+          "properties": {
+            "zone": {
+              "$ref": "#/$defs/affichageZone"
+            },
+            "domaine": {
+              "$ref": "#/$defs/affichageDomaine"
+            },
+            "vol": {
+              "$ref": "#/$defs/affichageVol"
+            },
+            "pas_de_tir": {
+              "$ref": "#/$defs/affichagePasDeTir"
+            }
+          }
+        }
+      }
+    },
+    "affichageZone": {
+      "description": "Éléments graphiques affichés pour une zone. Un booléen seul allume ou éteint tout l'élément.",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "polygone": {
+              "type": "boolean",
+              "default": true
+            },
+            "volume": {
+              "type": "boolean",
+              "default": true
+            },
+            "plafond": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        }
+      ]
+    },
+    "affichageDomaine": {
+      "description": "Éléments graphiques affichés pour un domaine. Un booléen seul allume ou éteint tout l'élément.",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "secteur": {
+              "type": "boolean",
+              "default": true
+            },
+            "limites": {
+              "type": "boolean",
+              "default": true
+            },
+            "reperes": {
+              "type": "boolean",
+              "default": true
+            },
+            "contour_secteur": {
+              "type": "boolean",
+              "default": true
+            },
+            "cercle_portee": {
+              "type": "boolean",
+              "default": true
+            },
+            "volume": {
+              "type": "boolean",
+              "default": true
+            },
+            "plafond": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        }
+      ]
+    },
+    "affichageVol": {
+      "description": "Éléments graphiques affichés pour un vol. Un booléen seul allume ou éteint tout l'élément.",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "trajectoire": {
+              "type": "boolean",
+              "default": true
+            },
+            "rideau": {
+              "type": "boolean",
+              "default": true
+            },
+            "trace_sol": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        }
+      ]
+    },
+    "affichagePasDeTir": {
+      "description": "Éléments graphiques affichés pour un pas de tir. Un booléen seul allume ou éteint tout l'élément.",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "repere": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        }
+      ]
+    },
+    "volume": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Rendu du volume sous le plafond.",
+      "properties": {
+        "style": {
+          "enum": [
+            "aretes",
+            "plein"
+          ],
+          "default": "aretes",
+          "description": "'aretes' : une verticale par sommet, en fil de fer. 'plein' : polygone extrudé."
+        },
+        "alpha_mur": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.15
+        }
+      }
+    }
+  }
+}

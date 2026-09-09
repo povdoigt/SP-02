@@ -362,7 +362,12 @@ des aérofreins) multipliée par le nombre d'aérofreins (3) :
 \end{align}
 
 La formule \ref{eq:surface_aerofrein} pourra être utilisée dans les calculs aérodynamiques pour estimer la trainée générée par les
-aérofreins en fonction de leur angle de déploiement $\theta$.
+aérofreins en fonction de leur angle de déploiement $\theta$.\\
+
+\subsubsubsection{Étude de performance du système d'aérofrein}
+
+Une étude détaillée de la performance aérodynamique du système d'aérofrein a été effectué dans le cadre du \acrshort{PMI} et se
+trouve en annexe \ref{sec:annexe_cfd}.
 
 \newpage
 
@@ -406,7 +411,7 @@ la trappe et lors de l’ouverture.
         \caption{Position ouverte}
         \label{fig:para_etage1-3}
     \end{subfigure}
-    \caption{Bloc parachute du premier étage sur \acrshort{CATIA}}
+    \caption{Bloc électronique du premier étage sur \acrshort{CATIA}}
     \label{fig:para_etage1_SP02}
 \end{figure}
  
@@ -426,7 +431,7 @@ différentes couches). L'épaisseur de cette dernière est de 2,5mm en PETG ; et
 \begin{minipage}{0.5\textwidth}
     La structure de la cage reprend la forme et l'espace maximal tout en facilitant l'éjection du parachute sans compromettre le 
     centre de masse du bloc parachute.\\
-    Elle reprend une ouverture de 90° sur le tube pour une longueur totale de -----------mm. La forme en cuillère spécifique permet 
+    Elle reprend une ouverture de 90° sur le tube pour une longueur totale de 180 mm. La forme en cuillère spécifique permet 
     une éjection plus directe par gravité qu'une bague traditionelle, ainsi que les maintiens latéraux octroient une meilleure 
     stabilité de la trappe en position fermée, évitant son enfoncement ou déformation axiale.\\
 
@@ -486,7 +491,7 @@ Des améliorations seront à noter dans la forme externe des congés. En effet, 
         \item Film de séparation perforé | R120 P3 Perforated Release film
         \item Tissu d'arrachage | PP230 Nylon Peel Ply Red Tracer
         \item Composite | Stratifié en fibre de verre 13 g/cm$^2$
-        \item Résine \& Durcisseur | EL2 \& AT30 Slow\\
+        \item Résine \& Durcisseur | EL2 \& AT30 Slow
     \end{itemize}
 \end{minipage}
 \hfill
@@ -547,11 +552,13 @@ Cela nous a permis d'usiner un côté puis le second tout en gardant le trou pri
     \label{fig:bague_alu1} 
 \end{figure}
 
-La masse global de la pièce a été minimisée tout en resistant à la charge maximale que la suspente du parachute doit tenir dans le cas pire de la fenêtre d'ouverture du parachute.
+La masse globale de la pièce a été minimisée tout en résistant à la charge maximale que la suspente du parachute doit tenir dans le cas pire de la fenêtre d'ouverture du parachute.
 
 
-\underline{Usinage du crochet du servomoteur}\\
-
+\underline{Usinage du crochet et du loquet du servomoteur}\\
+Comme défini dans la figure \autoref{fig:para_etage1_SP02}, le loquet et le crochet se verrouillent de par leur géométrie. Le mouvement est un pivot statique et requiert une rigidité adéquate pour la bonne fermeture et son maintien.
+Nous avons fait le choix de l'usiner en aluminium dans des plaques de 10 mm d'épaisseur directement via la CNC du Fablab.\\
+Nous avons pû procéder à la réalisation du fichier adéquat pour l'ensemble des opérations d'usinage, de fraisage\ldots
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/meca/usinage_loquets.png}
@@ -565,11 +572,11 @@ La masse global de la pièce a été minimisée tout en resistant à la charge m
 \underline{Choix des dimensions du parachute du premier étage}\\
 La contrainte imposée par le \acrshort{CDC} est une vitesse de redescente comprise entre 5 et 15m/s pour les trois
 configurations (étage 1, étage 2 et non séparé). De par les dimensions des deux étages, le premier sera en charge du retour
-sous parachute de l'ensemble non séparé.
+sous parachute de l'ensemble dans le cas pire non séparé.
 \begin{equation}
 \begin{aligned}
     V_d &= \sqrt{\frac{2 M g}{\rho_0 C_x S}} \
-    %V_d &= \sqrt{\frac{2 \times 7.2 \times 9.81}{1.3 \times 1 \times 0.65}}
+    %V_d &= \sqrt{\frac{2 \times 7.9 \times 9.81}{1.3 \times 1 \times 0.65}}
 \end{aligned}
 \end{equation}
 
@@ -580,9 +587,9 @@ Avec la règle REC2, nous devons dimensionner les deux parachutes pour les cas s
     \begin{tabular}{|c|c|c|c|}
         \hline
         Cas d'étude & Pas de séparation & Étage 1 & Étage 2 \\ \hline
-        Masse de l'ensemble & 7,327kg & 4,431kg & 2,895kg \\ \hline
-        Dimensions du parachute utilisé & a=b=360mm & a=b=360mm & a=b=310mm \\ \hline
-        Vitesse sous parachute & 13,1 m/s & 9,2 m/s & 10,7 m/s \\ \hline
+        Masse de l'ensemble & 7,850kg & 4,800kg & 3,010kg \\ \hline
+        Dimensions du parachute utilisé & a=b=360mm & a=b=360mm & N/A \\ \hline
+        Vitesse sous parachute & 13,1 m/s & 9,2 m/s & N/A \\ \hline
     \end{tabular}
 \end{table}
 
@@ -596,7 +603,34 @@ parachute devra résister à l'ouverture.
 \end{aligned}
 \end{equation}
 
+Le parachute est ainsi dimensionné pour nos cas de redescente, et confirme les règles du \acrshort{CDC}.
+
+
 \newpage
+
+\underline{Choix des cordes du parachute du premier étage}\\
+Les cordes utilisées pour la retenue du parachute sont les suivantes :
+\begin{itemize}
+    \item La corde princpale (fusée vers émérillon et émérillon vers trappe) : \href{https://www.kanirope.fr/liros-d-pro-xtr-dyneema-sk99-5mm-au-metre-couleur-argent-12x-tressee}{Liros D-PRO XTR Dyneema SK99 ø5mm} | Longueur 2,00 m | Résistance en traction : 3200 kg (datasheet)
+    \item Les suspentes (émérillon vers parachute) : \href{https://www.sierrafoxhobbies.com/fr/2375-cordon-kevlar-2-mm.html}{Cordon Kevlar ø2mm ignifugé} | Longueur par suspente : 0,80 cm | Résistance en traction : > 50 kg (mesure expérimentale x5) \\
+\end{itemize}
+
+D'après les calculs de résistance suivant chaque scénario, le cas pire concerne l'ouverture de ce parachute (premier étage) sans séparation.
+Le parachute est ainsi sollicité pour une ouverture à :
+
+\begin{equation}
+\begin{aligned}
+    F &= \frac{\rho \times S_{parachute} \times V_{ouverture}^2}{2 \times g} = 113 \text{ kg} \ll 3200 \text{ kg} \\
+    \Leftrightarrow F &= 28 \text{ kg/suspente} \ll 50 \text{ kg}\\
+\end{aligned}
+\end{equation}
+
+Nous vérifions bien les conditions de résistance des cordes parachutes pour notre sous-système, la validation de REC10 est confirmée.
+
+
+
+\newpage
+
 \subsubsection{Définition du bloc électronique}
 \label{subsec:defblocelec1}
 
@@ -618,6 +652,8 @@ Dans notre cas, nous avons neuf éléments 'électroniques' (cartes électroniqu
     \item 1 PCB caméra pour le contrôle de l'allumage et enregistrement des flux vidéos des deux caméras de l'étage
     \item 1 caméra RunCam Thumb Pro v2
 \end{itemize}
+
+
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.3\textwidth} % Réduire légèrement pour éviter le débordement
@@ -642,6 +678,13 @@ Dans notre cas, nous avons neuf éléments 'électroniques' (cartes électroniqu
     \label{fig:para_etage1_SP02}
 \end{figure}
 
-L'ensemble est fixé au bloc central qui sera fixé directement à la peau porteuse à l'aide de quatre vis M5x12mm.
+L'ensemble est fixé au bloc central qui sera fixé directement à la peau porteuse à l'aide de quatre vis M5x12mm.\\
+
+Les outils nécessaires à l'utilisation des différents interfaces sont :
+\begin{itemize}
+    \item Un mini tournevis plat pour la sélection du programme sur la molette centrale,
+    \item Un JTAG (connecteur clipsable) pour le débuggage sans avoir besoin de retirer le bloc de la fusée.
+\end{itemize}
+Et les interrupteurs ne requièrent pas d'outils spécifiques.
 
 \newpage

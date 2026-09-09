@@ -1,0 +1,47 @@
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Ce document est une annexe au rapport de projet de la fusée bi-étage SP-02, développée par
+l'association AéroIPSA au cours de l'année scolaire 2025-2026 \cite{rapportSP02}. Il n'a pas
+vocation à présenter le projet dans son ensemble : l'architecture générale de la fusée, le
+dimensionnement de ses sous-systèmes et le déroulement de la mission y sont supposés connus.
+La lecture préalable du rapport principal est donc nécessaire à la bonne compréhension du
+présent document, qui n'en développe qu'un point particulier.\\
+
+Pour situer brièvement le sujet traité ici, SP-02 est une fusée expérimentale à deux étages
+dont la séparation intervient en vol, après l'extinction du propulseur du premier étage. Le
+mécanisme qui assure cette séparation doit satisfaire deux exigences antagonistes : maintenir
+une liaison rigide entre les deux corps pendant toute la phase propulsée, où il transmet
+l'intégralité des efforts d'inertie et de flexion subis par la fusée, puis libérer cette
+liaison de manière franche sur ordre du séquenceur. Il constitue à ce titre un élément
+critique de la mission : sa défaillance en vol compromettrait aussi bien la tenue structurale
+de l'ensemble qu'une séparation propre des étages.\\
+
+Ce mécanisme repose sur deux pièces principales, une pièce de liaison en aluminium 7075-T6
+reliant le tube du premier étage au système de connexion du second, et un jeu de loquets
+assurant le verrouillage mécanique de l'interface. Ce sont ces pièces, et elles seules, qui
+font l'objet de la présente étude.\\
+
+Aucune campagne d'essais mécaniques instrumentés ne pouvant être menée dans le cadre du
+projet, la simulation numérique constitue le principal moyen de vérifier le dimensionnement
+de ces pièces avant leur usinage. L'analyse par \acrfull{FEM} a donc été conduite en parallèle
+de leur conception, afin d'évaluer leur tenue sous les charges de vol et d'identifier
+d'éventuelles zones critiques.\\
+
+L'approche \acrshort{FEM} présente pour ce projet plusieurs intérêts. Elle donne accès aux
+champs de contraintes et de déformations dans des géométries que les modèles analytiques
+classiques ne savent pas décrire, en raison des congés, perçages et variations d'épaisseur
+qui les caractérisent. Elle permet de localiser les concentrations de contraintes autour des
+fixations et des poches d'allègement, zones où s'amorcent en pratique les défaillances. Elle
+autorise enfin l'étude du comportement dynamique des pièces par le calcul de leurs fréquences
+propres. Ces résultats sont systématiquement confrontés à des calculs analytiques simplifiés,
+qui servent de garde-fou sur les ordres de grandeur.\\
+
+Le document s'organise en deux parties. La première décrit le cadre méthodologique retenu :
+la chaîne logicielle Patran-Nastran, les étapes de préparation et de résolution des modèles,
+le protocole de calcul analytique servant de référence, les paramètres d'étude et les limites
+inhérentes à la méthode. La seconde présente les analyses menées sur le mécanisme de
+séparation, pièce par pièce, puis confronte les résultats numériques aux estimations
+analytiques.
+
+\newpage

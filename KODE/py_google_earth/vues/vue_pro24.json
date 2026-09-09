@@ -1,0 +1,403 @@
+{
+  "$schema": "./vue.schema.json",
+  "_genere_par": "analyse_terrain.py — éditable avant génération du KML",
+  "nom": "Base de lancement de Ger",
+  "pas_de_tir": [
+    {
+      "id": "rampe_fusex",
+      "nom": "Rampe FusEx",
+      "lat": 43.2184361,
+      "lon": -0.0473333,
+      "alt_m": 428.96,
+      "reference": false,
+      "affichage": {
+        "repere": true
+      }
+    },
+    {
+      "id": "rampe_minif",
+      "nom": "Rampe Minif",
+      "lat": 43.220725,
+      "lon": -0.0522167,
+      "alt_m": 432.8,
+      "reference": false,
+      "affichage": {
+        "repere": true
+      }
+    }
+  ],
+  "zones": [
+    {
+      "id": "perimetre",
+      "nom": "Périmètre de la base",
+      "points": [
+        [
+          43.2219972,
+          -0.0736222
+        ],
+        [
+          43.2261111,
+          -0.0452944
+        ],
+        [
+          43.2168944,
+          -0.045575
+        ],
+        [
+          43.2075639,
+          -0.0414556
+        ],
+        [
+          43.1880028,
+          -0.0641194
+        ],
+        [
+          43.1904778,
+          -0.0757028
+        ]
+      ],
+      "contrainte": false,
+      "plafond_m": 3000.0,
+      "volume": {
+        "style": "aretes",
+        "alpha_mur": 0.15
+      },
+      "affichage": {
+        "polygone": true,
+        "volume": true,
+        "plafond": true
+      }
+    },
+    {
+      "id": "zone_rouge",
+      "nom": "Zone rouge",
+      "points": [
+        [
+          43.2094722,
+          -0.06125
+        ],
+        [
+          43.216675,
+          -0.0568861
+        ],
+        [
+          43.2152,
+          -0.0511361
+        ],
+        [
+          43.2033222,
+          -0.0572417
+        ],
+        [
+          43.203625,
+          -0.0607083
+        ]
+      ],
+      "contrainte": false,
+      "couleur": {
+        "trait": "#ff0000",
+        "fond": "#ff0000",
+        "alpha_fond": 0.2
+      },
+      "volume": {
+        "style": "aretes",
+        "alpha_mur": 0.15
+      },
+      "affichage": {
+        "polygone": true,
+        "volume": true,
+        "plafond": true
+      }
+    }
+  ],
+  "rendu": {
+    "volume": {
+      "style": "aretes",
+      "alpha_mur": 0.15
+    },
+    "affichage": {
+      "zone": {
+        "polygone": true,
+        "volume": true,
+        "plafond": true
+      },
+      "domaine": {
+        "secteur": true,
+        "limites": true,
+        "reperes": true,
+        "contour_secteur": true,
+        "cercle_portee": true,
+        "volume": true,
+        "plafond": true
+      },
+      "vol": {
+        "trajectoire": true,
+        "rideau": true,
+        "trace_sol": true
+      },
+      "pas_de_tir": {
+        "repere": true
+      }
+    },
+    "segments_pointilles": true,
+    "tiret_m": 25.0,
+    "espace_m": 15.0,
+    "couleurs": {
+      "terrain": {
+        "trait": "#ffd200",
+        "fond": "#ffd200",
+        "alpha_fond": 0.12,
+        "epaisseur": 2
+      },
+      "domaine": {
+        "trait": "#ff3020",
+        "fond": "#ff3020",
+        "alpha_fond": 0.28,
+        "epaisseur": 2
+      },
+      "cercle": {
+        "trait": "#22a0ff",
+        "epaisseur": 2
+      },
+      "secteur": {
+        "trait": "#ff8800",
+        "epaisseur": 2
+      },
+      "limites": {
+        "trait": "#ffffff",
+        "epaisseur": 3
+      },
+      "plafond": {
+        "trait": "#ff3020",
+        "epaisseur": 2
+      }
+    }
+  },
+  "vols": {
+    "dossier": "../vols",
+    "zone": "perimetre",
+    "pas_de_tir": "rampe_fusex",
+    "colonnes": {
+      "temps": 1,
+      "altitude": 2,
+      "distance_laterale": 3
+    },
+    "separateur": ",",
+    "commentaire": "#",
+    "nb_points": 150,
+    "rideau": {
+      "motif": "hachures_90",
+      "pas_m": 100.0,
+      "epaisseur": 1.5,
+      "alpha": 0.35,
+      "penetration_sol_m": 30.0,
+      "trace_sol": true
+    },
+    "groupes": [
+      {
+        "id": "sp02_v3_F85",
+        "nom": "SP02 F85",
+        "dossier": "sp02_v3_F85",
+        "couleur": "#ff0000",
+        "rideau": {
+          "motif": "quadrillage_45",
+          "pas_m": 150.0
+        },
+        "liste": [
+          {
+            "fichier": "alpha_80.csv",
+            "nom": "alpha 80 nominal",
+            "rideau": {
+              "motif": "quadrillage_45",
+              "pas_m": 150.0,
+              "epaisseur": 1.5,
+              "alpha": 0.35,
+              "penetration_sol_m": 30.0,
+              "trace_sol": true
+            },
+            "affichage": {
+              "trajectoire": true,
+              "rideau": true,
+              "trace_sol": true
+            }
+          },
+          {
+            "fichier": "beta_80.csv",
+            "nom": "beta 80 nominal",
+            "rideau": {
+              "motif": "quadrillage_45",
+              "pas_m": 150.0,
+              "epaisseur": 1.5,
+              "alpha": 0.35,
+              "penetration_sol_m": 30.0,
+              "trace_sol": true
+            },
+            "affichage": {
+              "trajectoire": true,
+              "rideau": true,
+              "trace_sol": true
+            }
+          },
+          {
+            "fichier": "alpha_45.csv",
+            "nom": "alpha 45 nominal",
+            "rideau": {
+              "motif": "quadrillage_45",
+              "pas_m": 150.0,
+              "epaisseur": 1.5,
+              "alpha": 0.35,
+              "penetration_sol_m": 30.0,
+              "trace_sol": true
+            },
+            "affichage": {
+              "trajectoire": true,
+              "rideau": true,
+              "trace_sol": true
+            }
+          },
+          {
+            "fichier": "beta_45.csv",
+            "nom": "beta 45 nominal",
+            "rideau": {
+              "motif": "quadrillage_45",
+              "pas_m": 150.0,
+              "epaisseur": 1.5,
+              "alpha": 0.35,
+              "penetration_sol_m": 30.0,
+              "trace_sol": true
+            },
+            "affichage": {
+              "trajectoire": true,
+              "rideau": true,
+              "trace_sol": true
+            }
+          }
+        ],
+        "domaine": {
+          "nom": "SP02 F85",
+          "pas_de_tir": "rampe_fusex",
+          "zone": "perimetre",
+          "couleur": "#ff0000",
+          "azimut_deg": 234.351,
+          "demi_angle_deg": 46.432,
+          "portee_max_m": 2143.2,
+          "volume": {
+            "style": "aretes",
+            "alpha_mur": 0.15
+          },
+          "affichage": {
+            "secteur": true,
+            "limites": true,
+            "reperes": true,
+            "contour_secteur": true,
+            "cercle_portee": true,
+            "volume": true,
+            "plafond": true
+          }
+        }
+      },
+      {
+        "id": "sp02_v3_G150",
+        "nom": "SP02 G150",
+        "dossier": "sp02_v3_G150",
+        "couleur": "#00ff00",
+        "rideau": {
+          "motif": "quadrillage_45",
+          "pas_m": 150.0
+        },
+        "liste": [
+          {
+            "fichier": "alpha_80.csv",
+            "nom": "alpha 80 nominal",
+            "rideau": {
+              "motif": "quadrillage_45",
+              "pas_m": 150.0,
+              "epaisseur": 1.5,
+              "alpha": 0.35,
+              "penetration_sol_m": 30.0,
+              "trace_sol": true
+            },
+            "affichage": {
+              "trajectoire": true,
+              "rideau": true,
+              "trace_sol": true
+            }
+          },
+          {
+            "fichier": "beta_80.csv",
+            "nom": "beta 80 nominal",
+            "rideau": {
+              "motif": "quadrillage_45",
+              "pas_m": 150.0,
+              "epaisseur": 1.5,
+              "alpha": 0.35,
+              "penetration_sol_m": 30.0,
+              "trace_sol": true
+            },
+            "affichage": {
+              "trajectoire": true,
+              "rideau": true,
+              "trace_sol": true
+            }
+          },
+          {
+            "fichier": "alpha_45.csv",
+            "nom": "alpha 45 nominal",
+            "rideau": {
+              "motif": "quadrillage_45",
+              "pas_m": 150.0,
+              "epaisseur": 1.5,
+              "alpha": 0.35,
+              "penetration_sol_m": 30.0,
+              "trace_sol": true
+            },
+            "affichage": {
+              "trajectoire": true,
+              "rideau": true,
+              "trace_sol": true
+            }
+          },
+          {
+            "fichier": "beta_45.csv",
+            "nom": "beta 45 nominal",
+            "rideau": {
+              "motif": "quadrillage_45",
+              "pas_m": 150.0,
+              "epaisseur": 1.5,
+              "alpha": 0.35,
+              "penetration_sol_m": 30.0,
+              "trace_sol": true
+            },
+            "affichage": {
+              "trajectoire": true,
+              "rideau": true,
+              "trace_sol": true
+            }
+          }
+        ],
+        "domaine": {
+          "nom": "SP02 G150",
+          "pas_de_tir": "rampe_fusex",
+          "zone": "perimetre",
+          "couleur": "#00ff00",
+          "azimut_deg": 221.031,
+          "demi_angle_deg": 30.674,
+          "portee_max_m": 2300.3,
+          "volume": {
+            "style": "aretes",
+            "alpha_mur": 0.15
+          },
+          "affichage": {
+            "secteur": true,
+            "limites": true,
+            "reperes": true,
+            "contour_secteur": true,
+            "cercle_portee": true,
+            "volume": true,
+            "plafond": true
+          }
+        }
+      }
+    ]
+  }
+}

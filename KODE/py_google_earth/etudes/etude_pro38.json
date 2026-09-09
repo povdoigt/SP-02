@@ -1,0 +1,105 @@
+{
+	"$schema": "./etude.schema.json",
+	"nom": "Base de lancement de Ger",
+	"pas_de_tir": [
+		{
+			"id": "rampe_fusex",
+			"nom": "Rampe FusEx",
+			"lat": 43.2184361,
+			"lon": -0.0473333,
+			"alt_m": 428.96
+		},
+		{
+			"id": "rampe_minif",
+			"nom": "Rampe Minif",
+			"lat": 43.2207250,
+			"lon": -0.0522167,
+			"alt_m": 432.8
+		}
+	],
+	"zones": [
+		{
+			"id": "perimetre",
+			"nom": "Périmètre de la base",
+			"points": [
+				[ 43.2219972, -0.0736222 ],
+				[ 43.2261111, -0.0452944 ],
+				[ 43.2168944, -0.0455750 ],
+				[ 43.2075639, -0.0414556 ],
+				[ 43.1880028, -0.0641194 ],
+				[ 43.1904778, -0.0757028 ]
+			],
+			"plafond_m": 3000.0,
+			"volume": {
+				"style": "aretes"
+			}
+		},
+		{
+			"id": "zone_rouge",
+			"nom": "Zone rouge",
+			"couleur": {
+				"trait": "#ff0000",
+				"fond": "#ff0000",
+				"alpha_fond": 0.2
+			},
+			"points": [
+				[ 43.2094722, -0.0612500 ],
+				[ 43.2166750, -0.0568861 ],
+				[ 43.2152000, -0.0511361 ],
+				[ 43.2033222, -0.0572417 ],
+				[ 43.2036250, -0.0607083 ]
+			]
+		}
+	],
+	"vols": {
+		"dossier": "../vols",
+    	"zone": "perimetre",
+		"pas_de_tir": "rampe_fusex",
+		"colonnes": {
+			"temps": 1,
+			"altitude": 2,
+			"distance_laterale": 3
+		},
+		"separateur": ",",
+		"commentaire": "#",
+		"nb_points": 150,
+		"rideau": {
+			"motif": "hachures_90",
+			"pas_m": 100.0,
+			"epaisseur": 1.5,
+			"alpha": 0.35,
+			"penetration_sol_m": 30.0,
+			"trace_sol": true
+		},
+		"groupes": [
+			{
+				"id": "sp02_v3_J285",
+				"nom": "SP02 J285",
+				"dossier": "sp02_v3_J285",
+				"couleur": "#0000ff",
+				"rideau": {
+					"motif": "quadrillage_45",
+					"pas_m": 150.0
+				},
+				"liste": [
+					{
+						"fichier": "alpha_80.csv",
+						"nom": "alpha 80 nominal"
+					},
+					{
+						"fichier": "beta_80.csv",
+						"nom": "beta 80 nominal"
+					},
+					{
+						"fichier": "alpha_45.csv",
+						"nom": "alpha 45 nominal"
+					},
+					{
+						"fichier": "beta_45.csv",
+						"nom": "beta 45 nominal"
+					}
+				]
+			}
+		]
+	}
+}

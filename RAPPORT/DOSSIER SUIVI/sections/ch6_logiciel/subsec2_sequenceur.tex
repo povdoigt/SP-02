@@ -1,0 +1,479 @@
+\subsection{Séquenceur}
+
+% \subsubsection{Contrôle des actionneurs}
+
+% \newpage
+
+% \subsubsection{Mesure d'attitude}
+
+% \newpage
+
+% \subsubsection{Séquenceur : partie sol}
+
+% \newpage
+
+% \subsubsection{Séquenceur : partie vol}
+
+% Le fonctionnement repose sur une succession d’états décrits dans le logigramme de chaque séquenceur, cadencés par un
+% chronomètre démarré au décollage.
+
+% \begin{figure}[h!]
+%     \centering
+%     \begin{subfigure}{0.48\linewidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{figures/elec/Sequenceur1.drawio.png}
+%         \caption{1er étage}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}{0.48\linewidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{figures/elec/Sequenceur2.drawio.png}
+%         \caption{2e étage}
+%     \end{subfigure}
+%     \caption{Schémas fonctionnels des séquenceurs des deux étages}
+% \end{figure}
+
+% Voici les principaux évènements surveillés et partagés par les deux séquenceurs :
+% \begin{itemize}
+%     \item $T0$ : instant du décollage ;
+%     \item $T_{\alpha\beta0}$ : fin de la propulsion du premier étage ;
+%     \item $T_{\alpha\beta1}$ : séparation inter-étage ;
+%     \item $T_{\alpha\beta2}$ : apogée de l'ensemble du lanceur sans séparation ;
+%     \item $T_{\alpha\beta3}$ : atterrissage de l'ensemble du lanceur sans séparation.\\
+% \end{itemize}
+
+% \newpage
+
+% Voici les principaux évènements surveillés par le séquenceur du premier étage :
+% \begin{itemize}
+%     \item $T_{\alpha0}$ : apogée du premier étage seul si séparation ;
+%     \item $T_{\alpha1}$ : atterrissage du premier étage seul si séparation.\\
+% \end{itemize}
+
+% Voici les principaux évènements surveillés par le séquenceur du second étage :
+% \begin{itemize}
+%     \item $T_{\beta0}$ : allumage du moteur du second étage si séparation ;
+%     \item $T_{\beta1}$ : date de mesure de la confirmation d’allumage du moteur du second étage ;
+%     \item $T_{\beta2}$ : apogée du second étage seul si séparation et allumage confirmé ;
+%     \item $T_{\beta3}$ : atterrissage du second étage seul si séparation et allumage confirmé ;
+%     \item $T_{\beta4}$ : apogée du second étage seul si séparation et allumage non confirmé ;
+%     \item $T_{\beta5}$ : atterrissage du second étage seul si séparation et allumage non confirmé.\\
+% \end{itemize}
+
+\subsubsection{Architecture générale du programme de vol}
+
+Les deux étages de la fusée embarquent une carte séquenceur identique. Les rôles de ces deux cartes diffèrent pourtant
+sensiblement : le premier étage commande les aérofreins, la séparation et son propre parachute, tandis que le second commande
+l'allumage de son propulseur et son parachute. Plutôt que de maintenir deux firmwares distincts, dont la partie commune aurait
+dû être tenue à jour en double, un unique firmware (\texttt{full\_seq}) est compilé pour les deux cartes. Cela écarte également
+tout risque de charger par erreur le programme du second étage sur la carte du premier, ou inversement. L'architecture générale
+du programme est représentée sur la figure \ref{fig:main_sequenceur} ci-après.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/elec/main_sequenceur.drawio.png}
+	\caption{Architecture générale du programme du séquenceur}
+	\label{fig:main_sequenceur}
+\end{figure}
+
+Le programme se décompose en deux temps, visibles sur la figure. La fonction \texttt{setup()}, exécutée une seule fois à la
+mise sous tension, réalise l'initialisation de la carte : configuration du matériel, puis détection de l'étage sur lequel elle
+est installée, d'où découle l'initialisation des organes qui lui sont propres. La fonction \texttt{loop()} prend ensuite le
+relais et s'exécute indéfiniment : c'est la boucle séquentielle décrite en section \ref{subsec:seq_loop}.\\
+
+Ce firmware unique ne réalise pas une action unique. Il embarque un ensemble de sous-programmes, correspondant chacun à une
+opération que la carte doit pouvoir exécuter, dont un seul s'exécute à la fois. C'est la boucle qui, à chaque itération, fait
+progresser le sous-programme actif. Le choix de ce dernier revient à l'opérateur, au moyen du sélecteur de programme de
+l'\acrshort{IHF}. Le schéma en distingue deux natures :
+
+\begin{itemize}
+	\item Les fonctions sol (\textit{ground functions}), en vert, regroupent les opérations de maintenance et de vérification
+	employées pendant les campagnes de test et lors de l'assemblage. Chacune se termine d'elle-même et rend la main au
+	séquenceur, qui se remet en attente d'une nouvelle consigne.
+	\item Le programme de campagne de lancement, en violet, correspond quant à lui au déroulement d'un lancement : une fois engagé,
+	il ne rend jamais la main et enchaîne l'armement de la fusée puis son vol.
+\end{itemize}
+
+\paragraph*{Détection de l'étage} Le firmware étant commun aux deux cartes, celles-ci doivent pouvoir déterminer seules le rôle
+qu'elles ont à tenir. Lors du monatge de la fusée, un jumper peut être placé sur le séquenceur selon deux configurations
+différentes, correspondant à l'étage sur lequel il est installé. Le programme lit cette configuration au démarrage. Si aucune des
+deux états est détecté, du fait que le jumper n'est pas présent par exemple, la configuration est jugée invalide : la LED passe
+au rouge et le programme s'arrête, plutôt que de laisser une carte s'exécuter sans savoir quel étage elle pilote.\\
+
+Cette lecture, effectuée une seule fois, conditionne tout le reste de l'exécution. Elle détermine d'une part la fonction
+d'initialisation appelée (\texttt{setup\_stage\_1} ou \texttt{setup\_stage\_2}), qui déclare les entrées utilisées par l'étage
+et initialise ses actionneurs. Elle détermine d'autre part le contenu des fonctions sol : une même position du sélecteur ne
+désigne pas la même opération selon l'étage, chacun ne disposant pas des mêmes organes.
+ 
+\paragraph*{Structure de la boucle} La fonction \texttt{loop()} conserve une structure constante tout au long de l'exécution,
+quel que soit le sous-programme actif. Elle se décompose en quatre étapes, décrites et illustrées ci-après :
+
+\vspace{0.4cm}
+
+\hspace*{-\parindent}%
+\begin{minipage}{0.5\textwidth}
+	\begin{lstlisting}[
+		language=C,
+		frame=tb,
+		tabsize = 2,
+		% showtabs=true,
+		% tab = \smash{\rule[-.25\baselineskip]{.4pt}{\baselineskip}\kern0.9em}
+	]
+void loop() {
+	update_gpio_input_states(...);
+
+	switch (current_phase_type) {
+		case STAGE_PHASE_GROUND_FUNC:
+			...
+			break;
+		case STAGE_PHASE_INIT:
+		case STAGE_PHASE_FLIGHT:
+			switch (stage) {
+				case ROCKET_FIRST_STAGE: {
+					loop_stage_1(...);
+					break;
+				}
+				case ROCKET_SECOND_STAGE: {
+					loop_stage_2(...);
+					break;
+				}
+				case ROCKET_STAGE_NO_SET: {
+					// Wait what ????
+				}
+			}
+			break;
+	}
+
+	event_uart_producer_run(...);
+
+	LED_RGB_SetColor(...);
+}
+	\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}	
+	\begin{itemize}
+		\item \texttt{update\_gpio\_input\_states} relève l'état de l'ensemble des entrées électronique de la carte. Ce relevé
+		groupé est préférable à une lecture de chaque broche au moment où une condition l'exige : toutes les décisions prises au
+		cours d'une même itération s'appuient ainsi sur une image cohérente des entrées, prise à un instant unique, et une même
+		broche ne peut pas être vue dans deux états différents par deux conditions successives. De plus, cela permet de mettre
+		plus simplement en place un mécanisme de filtrage logiciel des entrées. Bien qu'il ne fut pas nécessaire pour le projet,
+		cette fonctionnalité a été étudiée.\\
+
+		\item L'aiguillage vers le sous-programme actif, qui distingue les fonctions sol (\texttt{STAGE\_PHASE\_GROUND\_FUNC}) du
+		programme de campagne de lancement. Ce dernier se subdivise en deux phases, la phase d'initialisation en rampe
+		(\texttt{STAGE\_PHASE\_INIT}) et le vol (\texttt{STAGE\_PHASE\_FLIGHT}), Cette distinction reste toutefois sans effet
+		ici, puisque les deux cas conduisent à la même fonction, propre à l'étage, la logique de la phase étant gérée à
+		l'intérieur de cette fonction.
+	\end{itemize}
+\end{minipage}
+
+\vspace{0.4cm}
+
+\begin{itemize}
+	\item \texttt{event\_uart\_producer\_run} assure la transmission, vers l'expérience APEX, du journal des événements
+	survenus dans le séquenceur. Son fonctionnement est détaillé en section \ref{subsec:log_apex}.\\
+
+	\item \texttt{LED\_RGB\_SetColor} met à jour la LED de signalisation, unique retour d'information disponible sur la fusée une
+	fois celle-ci refermée.
+\end{itemize}
+
+\paragraph*{Une contrainte d'écriture} La boucle ne doit jamais être bloquée durablement, sous peine de retarder la
+surveillance des événements de vol. Aucune opération longue ne peut donc y être écrite d'un seul tenant : chaque
+sous-programme est réalisé sous forme de machine à états, dont l'état est conservé d'une itération à l'autre et qui progresse
+d'au plus une transition par passage. Cette contrainte ne s'applique en revanche pas à \texttt{setup()}, qui s'exécute avant
+toute échéance temporelle et peut donc attendre la fin d'une initialisation matérielle sans conséquence.
+
+\newpage
+
+\subsubsection{Sous-programmes}
+\label{subsubsec:seq_sous_programmes}
+
+La section précédente a décrit la structure du firmware et la manière dont il aiguille l'exécution vers l'un ou l'autre de ses
+sous-programmes. Celle-ci en détaille le contenu, c'est-à-dire ce que le séquenceur exécute réellement.\\
+
+Deux types de sous-programmes coexistent dans le firmware :
+\begin{itemize}
+	\item Les fonctions sol, d'une part, permettent de manipuler individuellement les organes de la fusée lors des essais et de
+	l'assemblage. Chacune constitue une opération indépendante, déclenchée à la demande et répétable à volonté.
+	\item Le programme de campagne de lancement, d'autre part, couvre le déroulement complet d'un lancement. Il constitue un
+	sous-programme unique, mais se déroule en deux temps : une phase d'initialisation, qui amène la fusée à un état vérifié et
+	prêt au décollage, puis une phase de vol, qui s'exécute sans aucune intervention possible.
+\end{itemize}
+
+\subsubsubsection{Fonctions sol}
+\label{par:seq_ground_funcs}
+
+De nombreuses opérations doivent pouvoir être commandées en dehors de tout vol : déployer les aérofreins pour vérifier leur
+débattement, ouvrir et refermer une trappe de parachute, actionner le système de séparation lors de l'assemblage des deux
+étages... Le séquenceur reste accessible et reprogrammable même fusée assemblée, mais recompiler et téléverser un firmware pour
+chacune de ces manipulations serait fastidieux, et surtout risqué : la carte qui vole ne serait plus celle qui a été validée. Ces
+opérations sont donc embarquées une fois pour toutes dans le firmware, sous forme de fonctions sol, et rendues accessibles
+par leur numéro depuis l'\acrshort{IHF}.
+
+\hspace*{-\parindent}%
+\begin{minipage}{0.5\textwidth}
+	\subparagraph*{Sélection et exécution} En l'absence de fonction sol active, le séquenceur attend un appui sur le bouton
+	poussoir. La position du sélecteur n'est lue qu'à cet instant précis, et non en continu : manipuler le sélecteur ne déclenche
+	donc rien tant que l'opérateur n'a pas validé son choix. La valeur lue détermine la suite : la position 0 engage le programme
+	de campagne de lancement, tandis que les positions 1 à 15 sélectionnent la fonction sol correspondante, qui devient alors la
+	fonction active. Le tableau \ref{tab:ground_funcs} récapitule les fonctions disponibles sur chaque étage.\\
+
+	\subparagraph*{Contrat d'une fonction sol} Toutes les fonctions sol partagent la même signature et le même contrat. Appelées
+	àchaque itération de la boucle tant qu'elles sont actives, elles renvoient \texttt{GROUND\_FUNC\_STATE\_RUNNING} pour
+	signaler qu'elles n'ont pas terminé, ou \texttt{GROUND\_FUNC\_STATE\_DONE} pour rendre la main au séquenceur, qui se remet
+	alors en attente d'une nouvelle consigne. Une opération de plusieurs secondes n'est donc jamais exécutée d'un seul tenant :
+	elle conserve son avancement dans des variables persistantes et progresse d'un pas à chaque appel.
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{figures/elec/Gnd_func.drawio.png}
+		\caption{Sélection et exécution d'une fonction sol}
+	\end{figure}
+\end{minipage}
+
+\newpage
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c l l}
+        \hline
+        \textbf{N\textsuperscript{o}} & \textbf{Nom} & \textbf{Description} \\
+        \hline
+        \multicolumn{3}{l}{\textit{Premier étage}} \\
+        \hline
+		0 & Programme de lancement & Déroulement complet d'un lancement \\
+        1 & Référence aérofreins & Recherche de butée de l'actionneur d'aérofreins \\
+        2 & Référence trappe & Recherche de butée de la trappe de parachute \\
+        3 & Référence séparation & Recherche de butée du système de séparation \\
+        4 & Man\oe uvre aérofreins & Déplacement d'une position à chaque appui \\
+        5 & Man\oe uvre trappe & Déplacement d'une position à chaque appui \\
+        6 & Man\oe uvre séparation & Déplacement d'une position à chaque appui \\
+        7 à 15 & --- & Emplacements réservés \\
+        \hline
+        \multicolumn{3}{l}{\textit{Second étage}} \\
+        \hline
+		0 & Programme de lancement & Déroulement complet d'un lancement \\
+        1 & Référence trappe & Recherche de butée de la trappe de parachute \\
+        2 & Man\oe uvre trappe & Déplacement d'une position à chaque appui \\
+        3 & Validation attitude & Contrôle des conditions d'allumage et de la chaîne associée \\
+        4 & Test allumage & Activation de la sortie d'allumage tant que la fonction est active \\
+        5 à 15 & --- & Emplacements réservés \\
+        \hline
+    \end{tabular}
+    \caption{Fonctions sol disponibles sur chaque étage}
+    \label{tab:ground_funcs}
+\end{table}
+
+\subparagraph*{Opérations sur les actionneurs} Les sous-programmes 1 à 6 pour le premier étage et 1 à 2 pour le second étage
+commandent des actionneurs. Il existe deux types d'opérations sur ces organes : la mise en référence et la man\oe uvre :
+\begin{itemize}
+	\item La \emph{mise en référence} lance, au premier appel, la recherche d'une buté mécanique d'un actionneur et active un
+	motif lumineux d'attente. Aux appels suivants, elle interroge l'avancement de l'opération et renvoie \texttt{RUNNING} tant
+	que celle-ci n'est pas achevée. Dès que la butée est atteinte, c'est à dire que le servomoteur n'arrive plus à évoluer, la
+	fonctionrenvoie \texttt{DONE}.
+	\item La \emph{man\oe uvre} met en mouement un actionneur. Ces derniers ont généralement plusieurs positions, correspondant
+	à des angles de rotation différents. La fonction de man\oe uvre progresse d'une position vers la suivante à chaque appui sur
+	le bouton, en changeant de sens une fois la dernière (ou la première) position atteinte. L'opérateur peut ainsi parcourir
+	l'ensemble des positions d'un organe par appuis successifs, et vérifier visuellement son débattement. La fonction refuse de
+	s'exécuter si l'actionneur n'a pas été préalablement mis en référence, ses positions n'ayant alors aucune signification.
+\end{itemize}
+
+\subparagraph*{Fonctions liées à l'allumage} La position 3 du deuxième étage valide la condition qui autorisera l'allumage du
+propulseur en vol. Cette fonction acquiert en continu les mesures de la centrale inertielle, en déduit l'élévation et l'azimut
+de la fusée, puis les compare aux valeurs attendues au moment de l'allumage. Le résultat est restitué par la couleur de la LED :
+\begin{itemize}
+	\item verte si les deux angles sont dans leur tolérance ;
+	\item bleue si un seul l'est ;
+	\item rouge sinon.
+\end{itemize}
+La sortie d'allumage est pilotée en conséquence, ce qui permet de valider la chaîne complète, depuis la mesure d'attitude jusqu'à
+la commande. Les grandeurs calculées sont par ailleurs émises sur la liaison \acrshort{USB}, afin de pouvoir être tracées et
+vérifiées finement en atelier. L'opérateur bascule entre les modes (accélération et gyromètre) et quitte la fonction par des
+appuis courts ou longs sur le bouton. Plus d'informations sur la mesure d'attitude sont disponibles en section
+\ref{subsec:mesure_attitude}.\\
+
+La position 4 est plus directe : elle maintient la sortie d'allumage active tant que la fonction s'exécute, et la désactive au
+moment d'en sortir. Elle permet de vérifier la continuité de la chaîne pyrotechnique indépendamment de toute condition
+d'attitude. Ces deux fonctions ne sont évidemment employées qu'avec un dispositif de mesure en lieu et place de l'allumeur.
+
+\newpage
+
+\subsubsubsection{Phase d'initialisation}
+\label{subsubsec:seq_initialisation}
+
+Sélectionner la position 0 engage le programme de campagne de lancement, qui s'ouvre sur une phase d'initialisation. Son rôle
+est d'amener la fusée, depuis un état quelconque, jusqu'à un état vérifié et prêt au décollage. Elle se distingue des fonctions
+sol sur un point essentiel : l'opérateur n'y choisit plus ce qu'il exécute. Le séquenceur impose un ordre, valide chaque étape
+avant de passer à la suivante, et refuse d'avancer tant que les conditions ne sont pas réunies. La procédure de préparation est
+ainsi rendue obligatoire par le logiciel, plutôt que confiée à la rigueur de l'opérateur.
+
+\subparagraph*{Une progression validée pas à pas} \subparagraph*{Une progression validée pas à pas} La phase se déroule comme une succession d'étapes séparées par des attentes
+d'appui sur le bouton. Ce découpage répond à une règle que s'est fixée l'équipe : aucun servomoteur ne doit jamais être mis en
+mouvement automatiquement. Toute commande d'actionneur est précédée d'une validation explicite de l'opérateur, qui s'assure au
+préalable que rien n'entrave la course du système concerné.\\
+
+Les étapes s'enchaînent dans l'ordre suivant sur le premier étage, représenté sur la figure \ref{fig:init_stage_1} : attente de
+l'insertion du \texttt{JACK READY}, puis mise en référence successive des aérofreins, de la trappe de parachute et du système de
+séparation, et enfin vérification globale de l'état de la fusée. Le second étage suit la même trame, réduite aux organes dont
+il dispose : \texttt{JACK READY}, mise en référence de sa trappe, puis vérification globale (\ref{fig:init_stage_2}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/elec/sequenceur_stage_1_init.drawio.png}
+    \caption{Phase d'initialisation du premier étage.}
+    \label{fig:init_stage_1}
+\end{figure}
+
+\newpage
+
+\subparagraph*{La vérification globale} Une fois les actionneurs mis en référence, la fusée entre dans une boucle de
+surveillance. L'opérateur n'y déclenche plus d'étape : le séquenceur évalue désormais de lui-même les conditions nécessaires au
+départ, et pilote au passage l'assemblage des étages décrit plus loin. Deux de ces conditions portent sur la configuration
+mécanique de la fusée : le \texttt{JACK\_LAUNCH} doit être inséré, et les deux étages doivent être assemblés avec le mécanisme
+de séparation verrouillé. La troisième, le retrait du \texttt{JACK\_READY}, n'est évaluée qu'une fois les deux premières
+satisfaites.\\
+ 
+La figure présente ces vérifications sous forme d'une chaîne de tests, mais il faut se garder de la lire comme une progression
+figée : l'ensemble du cycle est reparcouru à chaque itération de la boucle principale. Les conditions sont donc réévaluées en
+permanence, et rien n'est acquis une fois pour toutes. Si les étages sont désolidarisés après avoir été assemblés, ou si le
+\texttt{JACK\_LAUNCH} est retiré, la condition correspondante redevient insatisfaite et la fusée recule d'autant : c'est l'état
+courant du système qui compte, et non l'historique des étapes franchies.\\
+ 
+Le \texttt{JACK\_READY} est arraché par les derniers opérateurs quittant le pas de tir, rampe déjà érigée. Tant qu'il est en
+place, le séquenceur ne peut en aucun cas interpréter un faux contact ou une secousse liée aux manipulations comme un décollage,
+et donc engager sa séquence de vol, ce qui conduirait, sur le second étage, à l'allumage du propulseur alors que des personnes
+se trouvent à proximité immédiate. Son retrait constitue par ailleurs le signal de départ de la chaîne de télémesure de
+l'expérience APEX. C'est pourquoi sa présence est exigée en début de séquence, et son retrait demandé en toute fin.
+
+\hspace*{-\parindent}%
+\begin{minipage}{0.55\textwidth}
+\subparagraph*{L'assemblage des étages} La partie bleu de la figure détaille la séquence d'assemblage. Le premier étage,
+seul sur la rampe, déverrouille son mécanisme de séparation puis attend le couplage du second étage. Dès que le contact est
+détecté et maintenu pendant une seconde, il commande le verrouillage, puis vérifie pendant deux secondes supplémentaires que ce
+contact reste établi avant de considérer l'assemblage abouti. Toute perte de contact fait reculer la séquence à l'étape
+correspondante.\\
+ 
+L'assemblage est ainsi entièrement automatique : les opérateurs n'ont qu'à emboîter les deux étages, le séquenceur se chargeant
+du reste sans qu'aucune commande ne lui soit adressée. Si le contact est perdu, alors le séquenceur déverrouille le mécanisme de
+séparation pour permettre un retour à un état pouvant accueillir le deuxième étage. La double temporisation écarte par ailleurs
+les détections fugitives, fréquentes lors d'un emboîtement mécanique : une prise de contact intermittente pendant l'ajustement ne
+déclenche pas de verrouillage prématuré.\\
+\end{minipage}
+\hfill
+\begin{minipage}{0.35\textwidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{figures/elec/sequenceur_stage1_init_sepa_zoom.jpg}
+		\caption{Zoom sur la séquence d'assemblage des étages.}
+		\label{fig:init_stage_1_sepa_zoom}
+	\end{figure}
+\end{minipage}
+\hfill
+\hfill
+
+\vspace{0.4cm}
+ 
+Enfin, une action volontaire reste accessible à l'opérateur pendant toute la durée de cet état, bien qu'elle ne figure pas sur
+la figure \ref{fig:init_stage_1} pour ne pas en alourdir la lecture : la commande de déverrouillage du mécanisme de
+séparation. En sélectionnant la position correspondante du sélecteur et en appuyant sur le bouton, l'opérateur provoque le
+déverrouillage puis, après une temporisation, le retour à l'état de vérification, la machine d'assemblage étant réinitialisée à
+son premier état. Cette possibilité est nécessaire : elle permet de reprendre un assemblage qui s'avérerait incorrect sans avoir
+à couper l'alimentation du séquenceur ni à revenir aux \textit{ground functions}, désormais inaccessibles.
+
+\subparagraph*{La stabilisation finale} Lorsque toutes les conditions (\texttt{JACK\_LAUNCH}, assemblage des étages et
+\texttt{JACK\_READY}) sont réunies, la fusée entre dans un dernier état d'attente, qui exige que cette situation soit
+maintenue pendant cinq secondes. Toute rupture d'une condition durant ce délai ramène immédiatement à la boucle de
+surveillance.
+
+\newpage
+
+La figure \ref{fig:init_stage_2} illustre la phase d'initialisation du second étage, qui ne diffère de celle du premier que par
+la liste des actionneurs à mettre en référence et par l'absence de séquence d'assemblage. Bien que cet étage ne possède pas de
+\texttt{JACK\_LAUNCH}, la condition correspondante est tout de même évaluée. Lorsque les deux étages sont assemblés, l'action de
+brancher et débrancher le \texttt{JACK\_LAUNCH} sur le premier étage se voit répercutée sur le second. Retirer le
+\texttt{JACK\_LAUNCH} du premier étage a pour effet d'allumer la led verte sur les deux étages, le brancher de nouveau les
+éteint.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/elec/sequenceur_stage_2_init.drawio.png}
+    \caption{Phase d'initialisation du deuxième étage.}
+    \label{fig:init_stage_2}
+\end{figure}
+
+Cette étape d'initialisation de la fusée est conçue pour être vécue par l'opérateur plutôt que pour être franchie rapidement.
+Chaque condition non satisfaite active son propre motif lumineux, dont la couleur identifie ce qui manque : vert pour le
+\texttt{JACK\_LAUNCH}, bleu pour l'assemblage des étages, magenta pour le \texttt{JACK\_READY}. Le jaune, employé lors des
+étapes précédentes, signale quant à lui une opération d'actionneur en cours. D'un simple coup d'\oe il, et sans instrument,
+l'opérateur sait donc ce que le séquenceur attend de lui : une LED verte signifie que le \texttt{JACK\_LAUNCH} n'est pas inséré
+alors qu'il devrait l'être, etc. Les figures \ref{fig:ramp_jack_ready_1} à \ref{fig:ramp_ready_to_fly} illustrent cette séquence
+d'initialisation, avec les motifs lumineux correspondants.\\
+
+À la mise sous tension, les deux étages reposent séparément sur la rampe. Chacun attend l'insertion de son
+\texttt{JACK\_READY} et l'annonce par un motif magenta.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.15\textheight, draft]{figures/ramp_jack_ready_1.png}
+    \caption{Etages non assemblés en rampe, indicateurs magenta sur les deux étages.}
+    \label{fig:ramp_jack_ready_1}
+\end{figure}
+
+Les jacks insérés, l'opérateur valide successivement la mise en référence de chaque actionneur. Le motif jaune signale
+l'opération en cours : trois étapes sur le premier étage, une seule sur le second.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.15\textheight, draft]{figures/ramp_actuators.png}
+    \caption{Etages non assemblés en rampe, indicateurs jaunes sur les deux étages.}
+    \label{fig:ramp_actuators}
+\end{figure}
+
+Les actionneurs référencés, les deux étages entrent dans leur boucle de surveillance. Il leur manque alors les deux mêmes
+conditions : le \texttt{JACK\_LAUNCH} n'est pas inséré et les étages ne sont pas assemblés. Les motifs vert et bleu alternent
+donc sur les deux cartes.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.15\textheight, draft]{figures/ramp_jack_launch.png}
+    \caption{Etages non assemblés en rampe, indicateurs verts et bleus sur les deux étages.}
+    \label{fig:ramp_jack_launch}
+\end{figure}
+
+L'insertion du \texttt{JACK\_LAUNCH} sur le premier étage éteint son motif vert. Le second étage, encore désolidarisé,
+continue en revanche de l'afficher : le signal ne lui parvient que par le couplage mécanique, qui n'est pas encore établi. Les
+deux étages n'affichent donc temporairement pas la même chose, ce qui est attendu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.15\textheight, draft]{figures/ramp_sepa.png}
+    \caption{Etages non assemblés en rampe, indicateurs bleus sur les deux étages, vert également sur le 2e étage.}
+    \label{fig:ramp_sepa}
+\end{figure}
+
+Les opérateurs emboîtent alors les deux étages. Le premier détecte le contact, le confirme et commande le verrouillage : les
+motifs bleus s'éteignent de part et d'autre. Le second étage reçoit du même coup l'état du \texttt{JACK\_LAUNCH} et éteint son
+motif vert. Ne subsiste que le magenta, qui réclame cette fois le retrait du \texttt{JACK\_READY}, dernier geste avant
+l'évacuation du pas de tir.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.15\textheight, draft]{figures/ramp_jack_ready_2.png}
+    \caption{Etages assemblés en rampe, indicateur magenta sur les deux étages.}
+    \label{fig:ramp_jack_ready_2}
+\end{figure}
+
+Les \texttt{JACK\_READY} retirés et l'ensemble des conditions maintenues pendant cinq secondes, les deux étages basculent en
+phase de vol et l'annoncent par un motif rouge. La fusée est prête au décollage.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, height=0.15\textheight, draft]{figures/ramp_ready_to_fly.png}
+    \caption{Etages assemblés en rampe, indicateur rouge sur les deux étages.}
+    \label{fig:ramp_ready_to_fly}
+\end{figure}
+
+\newpage

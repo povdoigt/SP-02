@@ -1,0 +1,322 @@
+(.venv) C:\Users\alexi\Documents\scolaire\IPSA\AeroIpsa\SP-02\KODE\py_google_earth>py analyse_terrain.py etudes/etude_pro24.json -o vues/vue_pro24.json   
+======================================================================
+  ANALYSE DU DOMAINE DE VOL — Base de lancement de Ger
+======================================================================
+
+  Pas de tir
+  ------------------------------------------------------------------
+      rampe_fusex  Rampe FusEx           43.2184361,  -0.0473333   alt   429 m
+      rampe_minif  Rampe Minif           43.2207250,  -0.0522167   alt   433 m
+
+  Zones
+  ------------------------------------------------------------------
+      perimetre    Périmètre de la base   6 sommets  (décor)   plafond 3000 m
+      zone_rouge   Zone rouge             5 sommets  (décor)
+
+  Groupes de vols
+  ------------------------------------------------------------------
+      sp02_v3_F85  SP02 F85             4 vol(s)   portée    2143 m   (beta 45 nominal)
+      sp02_v3_G150 SP02 G150            4 vol(s)   portée    2300 m   (beta 45 nominal)
+
+
+  ==================================================================
+  DOMAINE — SP02 F85
+  ==================================================================
+    Pas de tir      : Rampe FusEx (rampe_fusex)
+    Zone            : Périmètre de la base (perimetre)
+    Portée retenue  : 2143 m   (vol « beta 45 nominal »)
+    Surface de zone : 823.2 ha
+
+    Distances de sortie de la zone depuis le pas de tir
+    --------------------------------------------------------------
+      azimut   0°   sortie à      820 m   [NON]
+      azimut  30°   sortie à      304 m   [NON]
+      azimut  60°   sortie à      171 m   [NON]
+      azimut  90°   sortie à      146 m   [NON]
+      azimut 120°   sortie à      167 m   [NON]
+      azimut 150°   sortie à      394 m   [NON]
+      azimut 180°   sortie à     1773 m   [NON]
+      azimut 210°   sortie à     3736 m   [OK ]
+      azimut 240°   sortie à     2553 m   [OK ]
+      azimut 270°   sortie à     2149 m   [OK ]
+      azimut 300°   sortie à     1220 m   [NON]
+      azimut 330°   sortie à      850 m   [NON]
+
+    Secteurs admissibles pour R = 2143 m
+    --------------------------------------------------------------
+       187.9° ->  280.8°   ouverture   92.9°   bissectrice  234.4° <== le plus large
+
+    RECOMMANDATION
+    --------------------------------------------------------------
+      Azimut de tir   : 234.4°
+      Demi-angle      : ± 46.4°
+      Sortie sur axe  : 2740 m  (marge 596 m)
+
+
+  ==================================================================
+  DOMAINE — SP02 G150
+  ==================================================================
+    Pas de tir      : Rampe FusEx (rampe_fusex)
+    Zone            : Périmètre de la base (perimetre)
+    Portée retenue  : 2300 m   (vol « beta 45 nominal »)
+    Surface de zone : 823.2 ha
+
+    Distances de sortie de la zone depuis le pas de tir
+    --------------------------------------------------------------
+      azimut   0°   sortie à      820 m   [NON]
+      azimut  30°   sortie à      304 m   [NON]
+      azimut  60°   sortie à      171 m   [NON]
+      azimut  90°   sortie à      146 m   [NON]
+      azimut 120°   sortie à      167 m   [NON]
+      azimut 150°   sortie à      394 m   [NON]
+      azimut 180°   sortie à     1773 m   [NON]
+      azimut 210°   sortie à     3736 m   [OK ]
+      azimut 240°   sortie à     2553 m   [OK ]
+      azimut 270°   sortie à     2149 m   [NON]
+      azimut 300°   sortie à     1220 m   [NON]
+      azimut 330°   sortie à      850 m   [NON]
+
+    Secteurs admissibles pour R = 2300 m
+    --------------------------------------------------------------
+       190.4° ->  251.7°   ouverture   61.3°   bissectrice  221.0° <== le plus large
+
+    RECOMMANDATION
+    --------------------------------------------------------------
+      Azimut de tir   : 221.0°
+      Demi-angle      : ± 30.7°
+      Sortie sur axe  : 3466 m  (marge 1165 m)
+
+======================================================================
+Vue écrite : vues/vue_pro24.json   (2 domaine(s) sur 2 groupe(s))
+  -> édite-la si besoin, puis : python3 genere_kml.py vues/vue_pro24.json
+
+>py analyse_terrain.py etudes/etude_pro38.json -o vues/vue_pro38.json
+======================================================================
+  ANALYSE DU DOMAINE DE VOL — Base de lancement de Ger
+======================================================================
+
+  Pas de tir
+  ------------------------------------------------------------------
+      rampe_fusex  Rampe FusEx           43.2184361,  -0.0473333   alt   429 m
+      rampe_minif  Rampe Minif           43.2207250,  -0.0522167   alt   433 m
+
+  Zones
+  ------------------------------------------------------------------
+      perimetre    Périmètre de la base   6 sommets  (décor)   plafond 3000 m
+      zone_rouge   Zone rouge             5 sommets  (décor)
+
+  Groupes de vols
+  ------------------------------------------------------------------
+      sp02_v3_J285 SP02 J285            4 vol(s)   portée    3169 m   (beta 45 nominal)
+
+
+  ==================================================================
+  DOMAINE — SP02 J285
+  ==================================================================
+    Pas de tir      : Rampe FusEx (rampe_fusex)
+    Zone            : Périmètre de la base (perimetre)
+    Portée retenue  : 3169 m   (vol « beta 45 nominal »)
+    Surface de zone : 823.2 ha
+
+    Distances de sortie de la zone depuis le pas de tir
+    --------------------------------------------------------------
+      azimut   0°   sortie à      820 m   [NON]
+      azimut  30°   sortie à      304 m   [NON]
+      azimut  60°   sortie à      171 m   [NON]
+      azimut  90°   sortie à      146 m   [NON]
+      azimut 120°   sortie à      167 m   [NON]
+      azimut 150°   sortie à      394 m   [NON]
+      azimut 180°   sortie à     1773 m   [NON]
+      azimut 210°   sortie à     3736 m   [OK ]
+      azimut 240°   sortie à     2553 m   [NON]
+      azimut 270°   sortie à     2149 m   [NON]
+      azimut 300°   sortie à     1220 m   [NON]
+      azimut 330°   sortie à      850 m   [NON]
+
+    Secteurs admissibles pour R = 3169 m
+    --------------------------------------------------------------
+       199.0° ->  225.4°   ouverture   26.4°   bissectrice  212.2° <== le plus large
+
+    RECOMMANDATION
+    --------------------------------------------------------------
+      Azimut de tir   : 212.2°
+      Demi-angle      : ± 13.2°
+      Sortie sur axe  : 3774 m  (marge 605 m)
+
+======================================================================
+Vue écrite : vues/vue_pro38.json   (1 domaine(s) sur 1 groupe(s))
+  -> édite-la si besoin, puis : python3 genere_kml.py vues/vue_pro38.json
+
+>py analyse_terrain.py etudes/etude_pro54_k570.json -o vues/vue_pro54_k570.json
+======================================================================
+  ANALYSE DU DOMAINE DE VOL — Base de lancement de Ger
+======================================================================
+
+  Pas de tir
+  ------------------------------------------------------------------
+      rampe_fusex  Rampe FusEx           43.2184361,  -0.0473333   alt   429 m
+      rampe_minif  Rampe Minif           43.2207250,  -0.0522167   alt   433 m
+
+  Zones
+  ------------------------------------------------------------------
+      perimetre    Périmètre de la base   6 sommets  (décor)   plafond 3000 m
+      zone_rouge   Zone rouge             5 sommets  (décor)
+
+  Groupes de vols
+  ------------------------------------------------------------------
+      sp02_v3_K570 SP02 K570            4 vol(s)   portée    4229 m   (beta 45 nominal)
+
+
+  ==================================================================
+  DOMAINE — SP02 K570
+  ==================================================================
+    Pas de tir      : Rampe FusEx (rampe_fusex)
+    Zone            : Périmètre de la base (perimetre)
+    Portée retenue  : 4229 m   (vol « beta 45 nominal »)
+    Surface de zone : 823.2 ha
+
+    Distances de sortie de la zone depuis le pas de tir
+    --------------------------------------------------------------
+      azimut   0°   sortie à      820 m   [NON]
+      azimut  30°   sortie à      304 m   [NON]
+      azimut  60°   sortie à      171 m   [NON]
+      azimut  90°   sortie à      146 m   [NON]
+      azimut 120°   sortie à      167 m   [NON]
+      azimut 150°   sortie à      394 m   [NON]
+      azimut 180°   sortie à     1773 m   [NON]
+      azimut 210°   sortie à     3736 m   [NON]
+      azimut 240°   sortie à     2553 m   [NON]
+      azimut 270°   sortie à     2149 m   [NON]
+      azimut 300°   sortie à     1220 m   [NON]
+      azimut 330°   sortie à      850 m   [NON]
+
+    Aucun secteur admissible pour cette portée.
+
+    [!] aucun azimut ne permet 4229 m sans sortir de la zone (sortie la plus lointaine : 146 m environ) — 'demi_angle_deg' manquant, aucun domaine produit.
+
+======================================================================
+[!] groupe « sp02_v3_K570 » : aucun azimut ne permet 4229 m sans sortir de la zone (sortie la plus lointaine : 146 m environ).
+      'azimut_deg' est fixé à 214.6° mais pas 'demi_angle_deg' : impossible de déduire l'ouverture.
+      Aucun domaine produit.
+Vue écrite : vues/vue_pro54_k570.json   (0 domaine(s) sur 1 groupe(s))
+  -> édite-la si besoin, puis : python3 genere_kml.py vues/vue_pro54_k570.json
+
+>py analyse_terrain.py etudes/etude_pro54_k1200.json -o vues/vue_pro54_k1200.json
+======================================================================
+  ANALYSE DU DOMAINE DE VOL — Base de lancement de Ger
+======================================================================
+
+  Pas de tir
+  ------------------------------------------------------------------
+      rampe_fusex  Rampe FusEx           43.2184361,  -0.0473333   alt   429 m
+      rampe_minif  Rampe Minif           43.2207250,  -0.0522167   alt   433 m
+
+  Zones
+  ------------------------------------------------------------------
+      perimetre    Périmètre de la base   6 sommets  (décor)   plafond 3000 m
+      zone_rouge   Zone rouge             5 sommets  (décor)
+
+  Groupes de vols
+  ------------------------------------------------------------------
+      sp02_v3_K1200 SP02 K1200           4 vol(s)   portée    3762 m   (beta 45 nominal)
+
+
+  ==================================================================
+  DOMAINE — SP02 K1200
+  ==================================================================
+    Pas de tir      : Rampe FusEx (rampe_fusex)
+    Zone            : Périmètre de la base (perimetre)
+    Portée retenue  : 3762 m   (vol « beta 45 nominal »)
+    Surface de zone : 823.2 ha
+
+    Distances de sortie de la zone depuis le pas de tir
+    --------------------------------------------------------------
+      azimut   0°   sortie à      820 m   [NON]
+      azimut  30°   sortie à      304 m   [NON]
+      azimut  60°   sortie à      171 m   [NON]
+      azimut  90°   sortie à      146 m   [NON]
+      azimut 120°   sortie à      167 m   [NON]
+      azimut 150°   sortie à      394 m   [NON]
+      azimut 180°   sortie à     1773 m   [NON]
+      azimut 210°   sortie à     3736 m   [NON]
+      azimut 240°   sortie à     2553 m   [NON]
+      azimut 270°   sortie à     2149 m   [NON]
+      azimut 300°   sortie à     1220 m   [NON]
+      azimut 330°   sortie à      850 m   [NON]
+
+    Secteurs admissibles pour R = 3762 m
+    --------------------------------------------------------------
+       211.6° ->  217.5°   ouverture    6.0°   bissectrice  214.6° <== le plus large
+
+    RECOMMANDATION
+    --------------------------------------------------------------
+      Azimut de tir   : 214.6°
+      Demi-angle      : ± 3.0°
+      Sortie sur axe  : 3822 m  (marge 59 m)
+
+======================================================================
+Vue écrite : vues/vue_pro54_k1200.json   (1 domaine(s) sur 1 groupe(s))
+  -> édite-la si besoin, puis : python3 genere_kml.py vues/vue_pro54_k1200.json
+
+>py genere_kml.py vues/vue_pro24.json -o output/pro24.kml
+Zones           : 2   Pas de tir : 2   Domaines : 2
+  [sp02_v3_F85] SP02 F85
+      Pas de tir  : Rampe FusEx (rampe_fusex)   zone Périmètre de la base (perimetre)
+      Cône        : 234.4° ± 46.4°   portée 2143 m   surface 649.6 ha
+      Conformité  : le secteur reste dans la zone
+  [sp02_v3_G150] SP02 G150
+      Pas de tir  : Rampe FusEx (rampe_fusex)   zone Périmètre de la base (perimetre)
+      Cône        : 221.0° ± 30.7°   portée 2300 m   surface 518.0 ha
+      Conformité  : le secteur reste dans la zone
+Trajectoires    :
+  [sp02_v3_F85] SP02 F85   portée groupe 2143 m
+      alpha 80 nominal        150 /  407 pts   apogée    1071 m   portée     463 m   rideau quadrillage_45 (12 segments)
+      beta 80 nominal         150 /  482 pts   apogée    1340 m   portée     590 m   rideau quadrillage_45 (15 segments)
+      alpha 45 nominal        150 /  461 pts   apogée     497 m   portée    1607 m   rideau quadrillage_45 (15 segments)
+      beta 45 nominal         150 /  496 pts   apogée     572 m   portée    2143 m   rideau quadrillage_45 (20 segments)
+  [sp02_v3_G150] SP02 G150   portée groupe 2300 m
+      alpha 80 nominal        150 /  406 pts   apogée    1063 m   portée     462 m   rideau quadrillage_45 (12 segments)
+      beta 80 nominal         150 /  504 pts   apogée    1456 m   portée     647 m   rideau quadrillage_45 (17 segments)
+      alpha 45 nominal        150 /  466 pts   apogée     494 m   portée    1599 m   rideau quadrillage_45 (15 segments)
+      beta 45 nominal         150 /  517 pts   apogée     604 m   portée    2300 m   rideau quadrillage_45 (21 segments)
+KML écrit       : output/pro24.kml
+
+>py genere_kml.py vues/vue_pro38.json -o output/pro38.kml
+Zones           : 2   Pas de tir : 2   Domaines : 1
+  [sp02_v3_J285] SP02 J285
+      Pas de tir  : Rampe FusEx (rampe_fusex)   zone Périmètre de la base (perimetre)
+      Cône        : 212.2° ± 13.2°   portée 3169 m   surface 301.6 ha
+      Conformité  : le secteur reste dans la zone
+Trajectoires    :
+  [sp02_v3_J285] SP02 J285   portée groupe 3169 m
+      alpha 80 nominal        150 /  403 pts   apogée    1034 m   portée     459 m   rideau quadrillage_45 (12 segments)
+      beta 80 nominal         150 /  629 pts   apogée    2191 m   portée     975 m   rideau quadrillage_45 (25 segments)
+      alpha 45 nominal        150 /  457 pts   apogée     472 m   portée    1573 m   rideau quadrillage_45 (14 segments)
+      beta 45 nominal         150 /  599 pts   apogée     779 m   portée    3169 m   rideau quadrillage_45 (29 segments)
+KML écrit       : output/pro38.kml
+
+>py genere_kml.py vues/vue_pro54_k570.json -o output/pro54_k570.kml
+Zones           : 2   Pas de tir : 2   Domaines : 0   (aucun domaine à dessiner)
+Trajectoires    :
+  [sp02_v3_K570] SP02 K570   portée groupe 4229 m
+      alpha 80 nominal        150 /  394 pts   apogée     993 m   portée     429 m   rideau quadrillage_45 (12 segments)
+      beta 80 nominal         150 /  832 pts   apogée    3292 m   portée    1302 m   rideau quadrillage_45 (38 segments)
+      alpha 45 nominal        150 /  452 pts   apogée     458 m   portée    1492 m   rideau quadrillage_45 (14 segments)
+      beta 45 nominal         150 /  917 pts   apogée    1186 m   portée    4229 m   rideau quadrillage_45 (40 segments)
+[!] aucun domaine dans la vue : seuls les zones, les pas de tir et les trajectoires sont dessinés.
+      Pour en obtenir un, fixe 'azimut_deg' et 'demi_angle_deg' sur le groupe, puis relance l'analyse.
+KML écrit       : output/pro54_k570.kml
+
+>py genere_kml.py vues/vue_pro54_k1200.json -o output/pro54_k1200.kml
+Zones           : 2   Pas de tir : 2   Domaines : 1
+  [sp02_v3_K1200] SP02 K1200
+      Pas de tir  : Rampe FusEx (rampe_fusex)   zone Périmètre de la base (perimetre)
+      Cône        : 214.6° ± 3.0°   portée 3762 m   surface 75.7 ha
+      Conformité  : le secteur reste dans la zone
+Trajectoires    :
+  [sp02_v3_K1200] SP02 K1200   portée groupe 3762 m
+      alpha 80 nominal        150 /  354 pts   apogée     878 m   portée     344 m   rideau quadrillage_45 (9 segments)
+      beta 80 nominal         150 /  740 pts   apogée    2990 m   portée     962 m   rideau quadrillage_45 (33 segments)
+      alpha 45 nominal        150 /  435 pts   apogée     470 m   portée    1288 m   rideau quadrillage_45 (12 segments)
+      beta 45 nominal         150 /  823 pts   apogée    1516 m   portée    3762 m   rideau quadrillage_45 (37 segments)
+KML écrit       : output/pro54_k1200.kml
