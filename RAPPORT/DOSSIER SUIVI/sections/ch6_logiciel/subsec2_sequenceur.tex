@@ -417,7 +417,7 @@ d'initialisation, avec les motifs lumineux correspondants.\\
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.15\textheight, draft]{figures/ramp_jack_ready_1.png}
+    \includegraphics[width=\textwidth, height=0.15\textheight]{figures/elec/SP02_ramp_1.png}
     \caption{Etages non assemblés en rampe, indicateurs magenta sur les deux étages.}
     \label{fig:ramp_jack_ready_1}
 \end{figure}
@@ -427,7 +427,7 @@ l'opération en cours : trois étapes sur le premier étage, une seule sur le se
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.15\textheight, draft]{figures/ramp_actuators.png}
+    \includegraphics[width=\textwidth, height=0.15\textheight]{figures/elec/SP02_ramp_2.png}
     \caption{Etages non assemblés en rampe, indicateurs jaunes sur les deux étages.}
     \label{fig:ramp_actuators}
 \end{figure}
@@ -438,7 +438,7 @@ donc sur les deux cartes.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.15\textheight, draft]{figures/ramp_jack_launch.png}
+    \includegraphics[width=\textwidth, height=0.15\textheight]{figures/elec/SP02_ramp_3.png}
     \caption{Etages non assemblés en rampe, indicateurs verts et bleus sur les deux étages.}
     \label{fig:ramp_jack_launch}
 \end{figure}
@@ -449,7 +449,7 @@ deux étages n'affichent donc temporairement pas la même chose, ce qui est atte
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.15\textheight, draft]{figures/ramp_sepa.png}
+    \includegraphics[width=\textwidth, height=0.15\textheight]{figures/elec/SP02_ramp_4.png}
     \caption{Etages non assemblés en rampe, indicateurs bleus sur les deux étages, vert également sur le 2e étage.}
     \label{fig:ramp_sepa}
 \end{figure}
@@ -461,7 +461,7 @@ l'évacuation du pas de tir.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.15\textheight, draft]{figures/ramp_jack_ready_2.png}
+    \includegraphics[width=\textwidth, height=0.15\textheight]{figures/elec/SP02_ramp_5.png}
     \caption{Etages assemblés en rampe, indicateur magenta sur les deux étages.}
     \label{fig:ramp_jack_ready_2}
 \end{figure}
@@ -471,9 +471,381 @@ phase de vol et l'annoncent par un motif rouge. La fusée est prête au décolla
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth, height=0.15\textheight, draft]{figures/ramp_ready_to_fly.png}
+    \includegraphics[width=\textwidth, height=0.15\textheight]{figures/elec/SP02_ramp_6.png}
     \caption{Etages assemblés en rampe, indicateur rouge sur les deux étages.}
     \label{fig:ramp_ready_to_fly}
 \end{figure}
+
+\newpage
+
+\subsubsubsection{Phase de vol}
+\label{subsubsec:seq_flight}
+
+\newpage
+
+\subsubsection{Bibliothèques logicielles du séquenceur}
+
+Cette section présente quelques bibliothèques logicielles développées pour le projet et utilisées par le séquenceur. Elles sont
+détaillées ici pour leur intérêt pédagogique et pour la compréhension du niveau d'abstraction atteint par le programme du
+séquenceur.
+
+\subsubsubsection{Contrôle des actionneurs}
+\label{par:seq_actionneurs}
+
+Les organes mécaniques de la fusée (aérofreins, trappes de parachute, système de séparation) sont tous mus par des servomoteurs
+Feetech STS3215. Leur commande repose sur deux bibliothèques logicielles :
+\begin{itemize}
+    \item le pilote \texttt{STS}, qui implémente le protocole série du servomoteur ;
+    \item l'utilitaire \texttt{actuator}, qui créer une couche d'abstraction du système mécanique dans lequel il se place.
+\end{itemize}
+Ce dernier permet de gérer les actionneurs de manière plus abstraite, en permettant de désigner une liste de positions pour
+chaque système, de passer d'une position à une autre simplement et de pouvoir effectuer une calibration en trouvant les points de
+référence de chaque système mécanique. La figure \ref{fig:sts_actuator} représente l'articulation de ces deux couches.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/elec/STS_actuator.drawio.png}
+    \caption{Articulation du pilote \texttt{STS} et de l'utilitaire \texttt{actuator}}
+    \label{fig:sts_actuator}
+\end{figure}
+
+\vspace{-0.4cm}
+
+\subparagraph*{Un bus série partagé et protocole de communication} Comme dit précédemment en partie \ref{subsec:elec_servomoteur},
+les servomoteurs utilisés dans le projet communiquent sur un bus série partagé \texttt{UART Half-Duplex}.
+
+\vspace{0.1cm}
+
+\hspace*{-\parindent}%
+\begin{minipage}{0.45\textwidth}
+Le protocole de communication est propriétaire et documenté par le fabricant. Les servomoteurs sont des composants esclaves qui
+agissent et répondent aux commandes envoyées par le microcontrôleur maître. Le protocole se découpe en deux types de trames :
+\begin{itemize}
+	\item les trames d'instruction, qui contiennent les ordres envoyés par le microcontrôleur maître vers le servomoteur esclave ;
+	\item les trames de réponse, qui contiennent les réponses du servomoteur esclave vers le microcontrôleur maître.
+\end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.5\textwidth}
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{l l | l l}
+			\hline
+			\multicolumn{2}{l|}{\textbf{Trames d'instruction}} & \multicolumn{2}{l}{\textbf{Trames de réponse}} \\
+			\hline
+			Taille	& Nom			& Taille	& Nom			\\
+			2		& Préambule		& 2			& Préambule		\\
+			1		& Identifiant	& 1			& Identifiant	\\
+			1		& Longueur		& 1			& Longueur		\\
+			1		& Instruction	& 1			& Code d'erreur	\\
+			N		& Paramètres	& N			& Paramètres	\\
+			1		& checksum		& 1			& checksum		\\
+			\hline
+		\end{tabular}
+		\caption{Types de trames dans le protocole série du servomoteur Feetech STS3215}
+		\label{tab:sts_trames}
+	\end{table}
+\end{minipage}
+
+\vspace{0.1cm}
+
+Le tableau \ref{tab:sts_trames} résume les différents types de trames et leur rôle dans le protocole.
+
+\newpage
+
+\subparagraph*{Read / Write} La figure distingue deux chemins d'exécution dans le pilote. \textit{Write} Consiste à l'envoie d'une
+trame d'instruction vers le servmoteur sans attente de réponse. Toute opération sur un servomoteur se rapporte à l'écriture d'une
+valeur dans un registre de celui-ci. \textit{Read} cependant nécessite deux actions : l'envoi d'une trame d'instruction vers le
+servomoteur, puis la lecture de la trame de réponse. Lorsque le pilote est sollicité pour lire un registre, il envoie la trame
+d'instruction correspondante, puis attend la réponse du servomoteur via une interruption matérielle sur le bus série concerné. Le
+pilote vérifie ensuite la validité de la trame reçue et en extrait la valeur du registre demandé. Si la trame n'est pas valide, le
+pilote signale une erreur. Egalement, si aucune réponse n'est reçue dans un délai fixé, le pilote signale un timeout.\\
+
+L'aspect partagé du bus série est géré par le pilote d'une manière très simplifié mais robuste, efficace et suffisante pour le
+projet. Le logiciel du séquenceur ne s'adresse qu'à un servomoteur à la fois. Puisque les servomoteurs agissent comme des
+esclaves, il n'y a pas de risque de collision sur le bus série. Lors d'une opération de lecture, le pilote attend la réponse
+provenant nécessairement du dernier servomoteur solicitée. Le champ d'identifiant dans la trame de réponse permet de vérifier que
+la réponse provient bien du bon servomoteur.\\
+
+L'abstraction de ce protocole et la gestion des mécanismes de \textit{Read / Write} sont encapsulés dans le pilote \texttt{STS}.
+
+\vspace{0.8cm}
+
+% \hspace*{-\parindent}%
+\begin{minipage}{0.32\textwidth}
+\subparagraph*{L'abstraction d'un actionneur} L'utilitaire \texttt{actuator}  associe à chaque servomoteur une configuration
+décrivant l'organe qu'il motorise, et conserve l'état de cet organe :
+	
+La configuration énumère les positions utiles d'un actionneur, exprimées en degrés, et désigne parmi elles celle qui correspond à
+sa butée mécanique. Le reste du programme n'a donc jamais à manipuler d'angle : il demande une position par son indice, et la
+conversion reste interne à la bibliothèque.
+\end{minipage}
+\hfill
+\begin{minipage}{0.50\textwidth}
+\begin{lstlisting}[language=C, frame=tb, basicstyle=\small]
+// .../utils/actuator.h
+
+typedef struct {
+    float   homing_speed_rpm;
+    uint8_t homing_calibration_idx;
+    float   positions_deg[256];
+    uint8_t num_positions;
+} Actuator_Config_t;
+
+typedef struct Actuator_t {
+    STS_Servo_t       *servo;
+    Actuator_Config_t  config;
+    bool               is_homed;
+    uint8_t            current_position;
+    ...
+} Actuator_t;
+\end{lstlisting}
+\end{minipage}
+\hfill
+\hfill
+
+
+\subparagraph*{Mise en référence} Les positions n'ont de sens qu'une fois le repère interne du servomoteur mis en correspondance
+avec le repère mécanique du système mécanique qu'il contrôle. Les servomoteurs utilisés dans le projet disposant d'un suivi du
+couple exercé, les points de référence les plus simples à détecter sont les butées mécaniques de chaque actionneur. La mise en
+référence consiste donc à déplacer le servomoteur jusqu'à ce qu'il atteigne sa butée, puis à marquer cette position comme repère.\\
+
+La procédure, représentée sur la figure \ref{fig:sts_actuator}, bascule le servomoteur en commande de vitesse, le déplace à
+vitesse réduite en direction de la butée, puis surveille sa charge jusqu'à détecter la surcharge caractéristique du blocage. Le
+servomoteur est alors calibré, repassé en commande de position, et l'actionneur est marqué comme référencé.\\
+
+Cette opération dure plusieurs secondes et ne peut donc pas immobiliser la boucle. Non représenté dans la figure par soucis de
+simplicité, elle est découpée en étapes internes, chaque appel faisant progresser la procédure d'un pas avant de rendre la main
+(le même motif que celui employé pour les fonctions sol en section \ref{par:seq_ground_funcs}). Si la procédure de mise en
+référence dépasse un délai fixé, elle est abandonnée et l'actionneur n'est pas marqué comme référencé. Toute commande de position
+ultérieure sera alors refusée, conformément à la vérification effectuée en début de chemin de commande. Cela permet d'éviter
+d'ordonner un mouvement à un actionneur qui n'aurait pas été correctement calibré, ce qui pourrait conduire à une collision
+mécanique et potentiellement à un endommagement de la fusée. Les systèmes mécaniques étant couteux en temps de travail et en
+argent, il est préférable de prévenir toute erreur de manipulation.
+
+\newpage
+
+\subsubsubsection{Calcul d'attitude}
+
+Afin de réaliser la mission, le séquenceur doit être capable de calculer l'attitude de la fusée à partir des mesures issues d'une
+centrale inertielle. La construction de l'ordre de décision d'allumage du propulseur du second étage se découpe en 4 étapes
+principales :
+
+\begin{enumerate}
+	\item Acquisition des mesures de la centrale inertielle \texttt{WT901B}.
+	\item Filtrage des mesures pour réduire le bruit et les erreurs de mesure.
+	\item Calcul de l'attitude de la fusée à partir des mesures filtrées.
+	\item Comparaison de l'attitude calculée avec les valeurs attendues pour déterminer si l'allumage du propulseur est autorisé.
+\end{enumerate}
+
+\paragraph*{Acquisition des mesures et filtrage}
+
+L'acquisition des mesures de la centrale inertielle est réalisée par le séquenceur via une liaison série \texttt{UART} full-duplex.
+La \texttt{WT901B} est capable de fournir des mesures brutes d'accélération, de vitesse angulaire et de champ magnétique, ainsi que
+des mesures d'attitude calculées par la centrale elle-même sous forme d'angle d'Euler et de quaternion.\\
+
+Cependant, une incertitude sur les méthodes de calcul utilisées par la centrale et sur les paramètres de calibration de celle-ci
+ont conduit les équipes du projet à ne pas se fier à ces mesures d'attitude. Bien qu'il est écrit que la \texttt{WT901B} est
+capable de fournir des données cohérente en milieu dynamique, le risque que la forte poussée générée par le propulseur lors du
+décollage puis la décélération brutale lors de l'extinction de celui-ci fausse les mesures d'attitude est trop important. En
+effet, ce genre d'algorithme de calcul se sert de l'accélération pour corriger la dérive des gyromètres en considérant que le
+module se trouve sous l'effet de la gravité terrestre seul.\\
+
+Après avoir effectué des tests, il a été constaté que les simples mesures brutes des vitesses angulaires pouvaient suffire à
+la détermination de l'attitude de la fusée. Cette méthode est sujette à une dérive, mais cette dernière est suffisamment faible
+sur la durée du vol pour que l'attitude calculée reste cohérente. La chaine de calcul sera également connu et maitrisée par les
+équipes du projet, ce qui permet de s'assurer de la cohérence des résultats.\\
+
+La chaine d'aqcuisition et de filtrage utilise 3 bibliothèques logicielles développées pour le projet :
+\begin{itemize}
+	\item le pilote \texttt{wt901b} qui implémente le protocole série de la centrale inertielle ;
+	\item l'utilitaire \texttt{data\_topic} qui permet de gérer les données acquises et de les rendre accessibles à d'autres
+	parties du 	programme via un système de publication/abonnement ;
+	\item l'utilitaire \texttt{iir\_filter} qui permet de filtrer les données pour réduire le bruit et les erreurs de mesure.\\
+\end{itemize}
+
+Lors de la phase d'initialisation, la centrale inertielle est configurée de sorte à ce qu'elle fournisse les seuls mesures
+d'accélération et de vitesse angulaire à une fréquence fixe. A chaque envoi de trame par la \texttt{WT901B}, une interruption
+matérielle est levée sur le microcontrôleur du séquenceur qui remplie une mémoire tampon. A chaque itération de la boucle
+principale, le pilote \texttt{wt901b} est appelé pour lire les mesures de la mémoire tampon, décoder la ou les trames reçues et
+les publier grâce à l'utilitaire \texttt{data\_topic}.\\
+
+L'utilitaire \texttt{iir\_filter} est ensuite appelé pour filtrer les mesures et réduire le bruit et les erreurs de mesure. Cette
+bibliothèque permet de créer des filtres numériques de type IIR (Infinite Impulse Response) pour filtrer les données. Ici,
+un filtre passe bas de type \textit{moving average} d'ordre 5 est utilisé pour filtrer chaque axe d'accélération et de vitesse
+angulaire.
+
+\newpage
+
+\paragraph*{Calcul d'attitude}
+
+Le calcul d'attitude est un problème qui consiste à trouver un calcul de changment de base entre deux repères orthonormés. L'une
+des représentation la plus moderne et la plus utilisé en robotique est la représentation quaternionique. C'est celle qui est
+utilisée dans le projet pour calculer l'attitude de la fusée.\\
+
+On note $\mathcal{R}_{f,n}$ le repère fixe de la fusée à l'instant $t_n$ et $\mathcal{R}_T$ le repère fixe de la Terre.
+Le quaternion $q_{f,n}$ représente la rotation du repère $\mathcal{R}_{f,n}$ par rapport au repère $\mathcal{R}_T$. Un vecteur
+$\overrightarrow{v_{(f),n}}$ exprimé dans le repère de la fusée peut être exprimé dans le repère de la Terre par la relation
+suivante :
+\begin{equation}
+	\overrightarrow{v_{(T)}} = q_{f,n} \otimes \overrightarrow{v_{(f),n}} \otimes q_{f,n}^{-1}
+	\label{eq:quat_rotation}
+\end{equation}
+où $\otimes$ est le produit quaternionique et $q_{f,n}^{-1}$ est le quaternion conjugué de $q_{f,n}$.\\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/elec/attitude_asy.pdf}
+	\caption{Schéma 3D de la fusée et de ces repères.}
+\end{figure}
+
+Connaissant le quaternion $q_{f,n}$ à l'instant $t_n$, on peut calculer le quaternion à l'instant $t_{n+1}$ en utilisant les
+mesures de vitesse angulaire $\overrightarrow{\omega_{f,n}} = \begin{pmatrix}\omega_x & \omega_y & \omega_z \end{pmatrix}^T$
+fournies par la centrale inertielle. La relation est donnée par :
+\begin{align}
+	q_{f,n+1}' &\approx q_{f,n} + \frac{1}{2} \Delta t \cdot q_{f,n} \otimes \overrightarrow{\omega_{f,n}} \\
+	q_{f,n+1} &= \frac{q_{f,n+1}'}{\|q_{f,n+1}'\|}
+\end{align}
+où $\Delta t = t_{n+1} - t_n$ est l'intervalle de temps entre les deux instants. L'erreur associée à cette approximation tendant
+vers zéro lorsque $\Delta t$ tend vers zéro.\\
+
+\newpage
+
+Cette formule de récurrence permet de calculer l'attitude de la fusée à chaque itération de la boucle principale du séquenceur.
+Cependant, come toute formule de récurrence, nécessite une condition initiale. Le quaternion initial $q_{f,0}$ est calculé à
+partir des mesures d'accélération lorsque la fusée est immobile sur la rampe. La fusée n'étant soumis qu'à la gravité terrestre,
+l'accélération mesurée par la centrale inertielle donne un vecteur colinéaire à celui de l'axe $\overrightarrow{z_T}$ du repère
+$\mathcal{R}_T$ de la Terre. Pour deux vecteurs normés non colinéaires $\overrightarrow{a}$ et $\overrightarrow{b}$, le
+quaternion $q$ qui représente la rotation de $\overrightarrow{a}$ vers $\overrightarrow{b}$ est donné par :
+
+\begin{align}
+	q_{a \rightarrow b}' &= \begin{pmatrix} \overrightarrow{a} \cdot \overrightarrow{b} + 1 \\
+		\overrightarrow{a} \wedge \overrightarrow{b} \end{pmatrix} \\
+	q_{a \rightarrow b} &= \frac{q_{a \rightarrow b}'}{\|q_{a \rightarrow b}'\|}
+\end{align}
+
+En nottant $\overrightarrow{a_f}$ le vecteur d'accélération normé mesuré par la centrale inertielle dans le repère de la fusée,
+le quaternion initial est donc donné par : $q_{f,0} = q_{\overrightarrow{a_f} \rightarrow \overrightarrow{z_T}}$.\\
+
+A partir du quaternion $q_{f,n}$, il est possible de calculer les angles d'élévation $\theta$ et d'azimut $\phi$ de la fusée via
+des projections de vecteurs dans le repère de la Terre. L'angle d'élévation est l'angle entre l'axe $\overrightarrow{z_T}$ et le
+vecteur longitudinal de la fusée $\overrightarrow{y_{f,n}}$. Via la relation \ref{eq:quat_rotation}, on peut calculer le vecteur
+longitudinal de la fusée exprimé dans le repère de la Terre $\overrightarrow{y_{f,n,(T)}}$, puis on calcul l'angle par :
+\begin{equation}
+	\theta_{n} = \frac{\pi}{2} - \arccos\left(\overrightarrow{y_{f,n,(T)}} \cdot \overrightarrow{z_T}\right)
+\end{equation}
+
+La détermination de l'angle d'azimut nécessite de projeter le vecteur longitudinal de la fusée dans le plan horizontal du repère
+de la Terre. Le vecteur projeté $\overrightarrow{y_{f,n,(T),proj}}$ est donné par :
+\begin{align}
+	\overrightarrow{y_{f,n,(T),proj}}' &= \overrightarrow{y_{f,n,(T)}} - \left(\overrightarrow{y_{f,n,(T)}} \cdot \overrightarrow{z_T}\right) \overrightarrow{z_T} \\
+	\overrightarrow{y_{f,n,(T),proj}} &= \frac{\overrightarrow{y_{f,n,(T),proj}}'}{\|\overrightarrow{y_{f,n,(T),proj}}'\|}
+\end{align}
+
+Représentant le cap de la fusée, nous noterons $\overrightarrow{cap_n} = \overrightarrow{y_{f,n,(T),proj}}$. L'angle d'azimut,
+pris entre le vecteur $\overrightarrow{x_T}$ représentant la direction Nordet le vecteur $\overrightarrow{cap_n}$, n'est pas en
+sois une information utile à la décision d'allumage du propulseur. Ce qui donne cette décision est la différence entre l'angle
+d'azimut de la fusée et l'angle d'azimut de la cible. Cette différence notée $\Delta \phi_n$ est l'angle que forme les vecteurs
+$\overrightarrow{cap_n}$ et $\overrightarrow{cap_0}$. Similairement à l'angle d'élévation, il est calculé par :
+\begin{equation}
+	\Delta \phi_n = \arccos\left(\overrightarrow{cap_n} \cdot \overrightarrow{cap_0}\right)
+\end{equation}
+
+\vfill
+
+\hspace*{-\parindent}%
+A chaque itération de la boucle principale, le séquenceur détermine l'attitude de la fusée en calculant $q_{f,n}$. Lorsque la
+fusée n'a pas encore décollé, le séquenceur calcul $q_{f,0}$ à partir des mesures d'accélération.
+\begin{minipage}{0.64\textwidth}
+	\vspace{-0.6cm}
+	Il est réécrit à chaque itération jusqu'au décollage. Cela permet au système de se calibrer non pas à partir d'une position
+	initiale arbitraire, mais à partir de la position réelle de la fusée sur la rampe.Dès lors que le décollage est détecté, le
+	séquenceur calcule $q_{f,n}$ à partir de la formule  de récurrence. C'est seulement à ce moment qu'une dérive lié à
+	l'intégration des mesures de vitesse angulaire peut apparaître. Cependant, la durée du vol étant relativement courte, cette
+	dérive reste faible.\\
+
+	Toutes les briques mathématiques nécessaires pour la manipulation des vecteurs 3D et des quaternions sont implémentées dans
+	3 bibliothèques :
+	\begin{itemize}
+		\item \texttt{float3} pour la manipulation de vecteurs 3D, avec notamment les opérations de produit scalaire et
+		vectoriel ;
+		\item \texttt{quaternion} pour la manipulation de quaternions, avec notamment les opérations de produit ;
+		\item \texttt{quaterion\_dynamics} pour la formule de récurrence du calcul d'attitude.
+	\end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.34\textwidth}
+	\vspace{-0.4cm}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{figures/elec/calcul_attitude.drawio.png}
+		\caption{Calcul d'attitude}
+	\end{figure}
+\end{minipage}
+\hfill
+
+\newpage
+
+\paragraph*{Comparaison avec les valeurs attendues}
+
+Les valeurs d'attitude étant calculées, le séquenceur doit s'en servir afin de déterminer si l'allumage du propulseur du second
+étage est autorisé.
+
+\hspace*{-\parindent}%
+\begin{minipage}{0.35\textwidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{figures/elec/fenetre_attitude.jpg}
+		\caption{Fenêtre d'attitude autorisée pour l'allumage du propulseur du second étage.}
+	\end{figure}
+\end{minipage}
+\hfill
+\begin{minipage}{0.6\textwidth}
+	Les conditions d'allumage sont les suivantes :
+	\begin{itemize}
+		\item l'angle d'élévation $\theta_n$ doit se trouver dans un intervalle de tolérence de $\pm10°$ autour de l'angle
+		d'élévation nominal $\theta_{nom,n}$ ;
+		\item l'angle d'azimut $\phi_n$ doit se trouver dans un intervalle de tolérence de $\pm45°$ autour de l'angle
+		d'azimut nominal $\phi_{nom,n}$.
+	\end{itemize}
+	Ces angles nominaux représentent ceux que la fusée doit théoriquement atteindre à l'instant $t_n$ lors d'un vol stable sans
+	vent et sans perturbation. L'angle $\phi_{nom,n}$ est déterminé par la direction choisi par les équipes du \acrshort{CNES}
+	lors de l'orientation de la rampe de lancement. L'angle $\theta_{nom,n}$ est lui déterminé via la simulation de vol donnée
+	par le \gls{Stabtraj}.
+\end{minipage}
+
+\vspace{0.4cm}
+
+A l'aide d'Excel, l'évolution théorique de l'angle d'élévation $\theta_{nom,n}$ a été modélisé en fonction du temps par une
+équation polynomiale du 3ème degré. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/elec/theta_excel.png}
+	\caption{Fenêtre d'attitude autorisée pour l'allumage du propulseur du second étage.}
+\end{figure}
+
+% y = -0,0002x3 + 0,0017x2 - 0,0189x + 1,3843 ; R² = 1
+
+La méthode des moindre carrés a été utilisée sur une portion du vol allant de \SI{3.6}{\second} à \SI{10.0}{\second}. Sur
+cette portion de vol, l'évolution de l'angle d'élévation est modélisé par l'équation polynomiale suivante :
+\begin{equation}
+	\theta_{nom,n} = -0.0002 t_n^3 + 0.0017 t_n^2 - 0.0189 t_n + 1.3843
+\end{equation}
+Le coefficient de détermination $R^2$ est très proche de 1, ce qui signifie que l'équation polynomiale du 3ème degré est une
+bonne approximation de l'évolution de l'angle théorique.\\
+
+A chaque itération, la condition d'allumage est alors :
+
+\begin{equation}
+	\begin{cases}
+		\left\|\Delta \theta_n\right\| = \left\|\theta_{nom,n} - \theta_n \right\| \leq 10\degres \\
+		\left\|\Delta \phi_n \right\| = \left\|\phi_{nom,n} - \phi_n \right\| \leq 45\degres
+	\end{cases}
+\end{equation}
+
+\newpage
+
+\subsubsubsection{Gestion des événements lumineux}
 
 \newpage

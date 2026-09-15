@@ -23,9 +23,8 @@ partagent la ligne de réception.
 
 \subsubsection{Développement du code}
 
-Le protocole de commande UART a été repris à partir du dépôt \href{https://github.com/steemandavid/RunCam-Thumb-ESP32-C3-Controller}{RunCam
-Thumb ESP32-C3 Controller}, puis adapté au fonctionnement de la carte. La temporisation de démarrage est fixée à
-\SI{10}{\minute}.
+Le protocole de commande UART a été repris à partir du dépôt RunCam Thumb ESP32-C3 Controller\cite{RunCam}, puis adapté au
+fonctionnement de la carte. La temporisation de démarrage est fixée à \SI{10}{\minute}.\\
 
 Les caméras enregistrent les vidéos sur leurs cartes SD et conservent les fichiers même lorsque leur alimentation est coupée.
 Il n'est donc pas nécessaire de prévoir une commande d'arrêt spécifique en fin de vol. Lorsque les batteries arrivent en fin de
@@ -33,14 +32,16 @@ décharge, leur BMS coupe l'alimentation afin de les protéger. La carte caméra
 d'alimenter les caméras, sans que les vidéos déjà enregistrées soient perdues. La capacité des cartes SD permet de stocker
 plusieurs heures de vidéo, soit une durée supérieure à l'autonomie des batteries. De plus, les caméras découpent les
 enregistrements en fichiers de \SI{10}{\minute}, ce qui limite les risques de perte d'un enregistrement complet lors de la
-coupure d'alimentation.
+coupure d'alimentation.\\
 
 Des essais au sol ont permis de valider les ordres de déclenchement et d'arrêt, ainsi que la récupération des vidéos enregistrées.
 La réception des commandes par les entrées de la PCB, après mise en forme par les triggers de Schmitt, a également été vérifiée.
-Ces essais ont confirmé le fonctionnement de la chaîne de commande et de l'enregistrement vidéo.
+Ces essais ont confirmé le fonctionnement de la chaîne de commande et de l'enregistrement vidéo.\\
 
 La commande par les entrées n'a toutefois pas été utilisée pendant le vol. La configuration retenue reposait uniquement sur le
 compteur de \SI{10}{\minute} intégré au logiciel de la carte caméra.
+
+\newpage
 
 \begin{figure}[H]
     \centering
