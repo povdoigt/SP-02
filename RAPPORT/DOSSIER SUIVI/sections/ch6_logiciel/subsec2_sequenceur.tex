@@ -267,6 +267,8 @@ par leur numéro depuis l'\acrshort{IHF}.
     \label{tab:ground_funcs}
 \end{table}
 
+\vspace{-0.8cm}
+
 \subparagraph*{Opérations sur les actionneurs} Les sous-programmes 1 à 6 pour le premier étage et 1 à 2 pour le second étage
 commandent des actionneurs. Il existe deux types d'opérations sur ces organes : la mise en référence et la man\oe uvre :
 \begin{itemize}
@@ -274,12 +276,156 @@ commandent des actionneurs. Il existe deux types d'opérations sur ces organes :
 	motif lumineux d'attente. Aux appels suivants, elle interroge l'avancement de l'opération et renvoie \texttt{RUNNING} tant
 	que celle-ci n'est pas achevée. Dès que la butée est atteinte, c'est à dire que le servomoteur n'arrive plus à évoluer, la
 	fonctionrenvoie \texttt{DONE}.
-	\item La \emph{man\oe uvre} met en mouement un actionneur. Ces derniers ont généralement plusieurs positions, correspondant
-	à des angles de rotation différents. La fonction de man\oe uvre progresse d'une position vers la suivante à chaque appui sur
-	le bouton, en changeant de sens une fois la dernière (ou la première) position atteinte. L'opérateur peut ainsi parcourir
-	l'ensemble des positions d'un organe par appuis successifs, et vérifier visuellement son débattement. La fonction refuse de
-	s'exécuter si l'actionneur n'a pas été préalablement mis en référence, ses positions n'ayant alors aucune signification.
+	\item La \emph{man\oe uvre} met en mouement un actionneur. La fonction de man\oe uvre progresse d'une position vers la
+	suivante à chaque appui sur le bouton, en changeant de sens une fois la dernière (ou la première) position atteinte.
+	% L'opérateur peut ainsi parcourir l'ensemble des positions d'un organe par appuis successifs, et vérifier visuellement son
+	% débattement. La fonction refuse de s'exécuter si l'actionneur n'a pas été préalablement mis en référence, ses positions
+	% n'ayant alors aucune signification.
 \end{itemize}
+
+Tous les systèmes mécaniques du projet SP-02 possèdent 3 positions distinctes, correspondant à des angles de rotation
+différents mais 3 n'est pas une limite imposée, seulement une coincidence du besoin de chaque organe. Le tableau
+\ref{tab:positions_actionneurs} ci-après récapitule les positions de chaque actionneur, ainsi que l'angle de rotation
+correspondant :
+
+\vspace{-0.1cm}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ r r l }
+		\hline
+		\textbf{Position} & \textbf{Angle ($\degres$)} & \textbf{Description} \\
+		\hline
+		\multicolumn{3}{l}{\textit{Aérofreins}} \\
+		\hline
+		0 & 0	& Position fermée (maximale servant au démontage du système) \\
+		1 & 30	& Position fermée (à fleur de la surface de la fusée) \\
+		2 & 120 & Position ouverte \\
+		\hline
+		\multicolumn{3}{l}{\textit{Trappes (1er \& 2ème étage)}} \\
+		\hline
+		0 & 0	& Position verouillée \\
+		1 & 45	& Position déverouillée \\
+		2 & 90	& Position poussée \\
+		\hline
+		\multicolumn{3}{l}{\textit{Système de séparation}} \\
+		\hline
+		0 & 0	& Position verouillée \\
+		1 & 590	& Position déverouillée \\
+		2 & 740	& Position ressorts déclenchés \\
+		\hline
+	\end{tabular}
+	\caption{Positions des actionneurs et angles de rotation correspondants}
+	\label{tab:positions_actionneurs}
+\end{table}
+
+\newpage
+
+\noindent Pour la suite, nous prendrons l'exemple du système d'aérofrein.
+
+\hspace*{-\parindent}%
+\begin{minipage}{0.55\textwidth}
+	Une opération sur un organe mécanique ne peut se faire que si ce dernier a préalablement été calibré via l'opération de
+	\textit{mise en référence}. Pour la réaliser sur les aérofrein, l'opérateur doit sélectionner via l'\acrshort{IHF} le
+	programme \texttt{1} puis appuiyer sur le bouton \texttt{RUN}. La led se met alors à clignoter rapidement en jaune indiquant
+	que l'opération est en cours. Le système peut se trouvé dans n'importe quelle des positions (qu'elle soit préalablement
+	défini ou non), cette action le ramènera forcément dans la position 0 (\ref{fig:positions_af:subfig:0}). Le clignotement de
+	la led s'arrête lorsque l'opération se termine.\\
+
+	Ensuite, pour passer d'une position à une autre, l'opérateur doit effectuer le programme \texttt{2} (\textit{man \oe vre}).
+	Il permet de jouer l'ensemble des positions. Les seules transition admisent sont celles entre deux positions adjacentes,
+	soit : $0 \longleftrightarrow 1$ et $1 \longleftrightarrow 2$. Avec le programme \texttt{2} de sélectioné, à chaque appuie
+	sur le bouton \texttt{RUN}, une transition est réalisé. Par exemple, en partant de la position 0 et en appuyant 5 fois sur
+	le bouton, la séquence suivante est réalisée :
+	$$0 \longrightarrow 1 \longrightarrow 2 \longrightarrow 1 \longrightarrow 0 \longrightarrow 1$$ 
+\end{minipage}
+\hfill
+\begin{minipage}{0.35\textwidth}
+	\vspace{-0.55cm}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{figures/elec/AF_2.png}
+			\caption{Position 2}
+			\label{fig:positions_af:subfig:2}
+		\end{subfigure}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{figures/elec/AF_1.png}
+			\caption{Position 1}
+			\label{fig:positions_af:subfig:1}
+		\end{subfigure}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{figures/elec/AF_0.png}
+			\caption{Position 0}
+			\label{fig:positions_af:subfig:0}
+		\end{subfigure}
+		\caption{Les 3 positions du système d'aérofrein}
+		\label{fig:positions_af}
+	\end{figure}
+\end{minipage}
+\hfill\hfill
+
+% \begin{figure}[H]
+% 	\centering
+% 	\begin{subfigure}{0.32\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/elec/AF_2.png}
+% 		\caption{Position 2}
+% 	\end{subfigure}
+% 	\begin{subfigure}{0.32\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/elec/AF_1.png}
+% 		\caption{Position 1}
+% 	\end{subfigure}
+% 	\begin{subfigure}{0.32\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/elec/AF_0.png}
+% 		\caption{Position 0}
+% 	\end{subfigure}
+% 	\caption{Les 3 positions du système d'aérofrein}
+% \end{figure}
+
+% \begin{figure}[H]
+% 	\centering
+% 	\begin{subfigure}{0.49\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/elec/AF_2.png}
+% 		\caption{Position 2}
+% 	\end{subfigure}
+% 	\begin{subfigure}{0.49\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/elec/AF_1.png}
+% 		\caption{Position 1}
+% 	\end{subfigure}
+% 	\begin{subfigure}{0.49\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/elec/AF_0.png}
+% 		\caption{Position 0}
+% 	\end{subfigure}
+% 	\caption{Les 3 positions du système d'aérofrein}
+% \end{figure}
+
+\vspace{0.2cm}
+
+\noindent Un autre exemple qui est intéressant d'étudier est la procédure pour coupler les étages après l'allumage du premier
+étage et hors du programme de vol (programme \texttt{0}). Toutes opérations s'effectue sur le premier étage :
+\begin{enumerate}
+	\item Vérifier visuellement qu'aucun objet ne gêne le système mécanique de séparation. 
+	\item Choisir le programme \texttt{3} et le lancer en appuyant sur le bouton pour réaliser la mise en référence du système.
+	\item Choisir le programme \texttt{6} et le lancer 3 fois en attendant que le servomoteur ait fini d'atteindre sa position
+	à chaque itération. Le système a alors effectué la séquence suivante $0 \longrightarrow 1 \longrightarrow 2 \longrightarrow 1$
+	\item Armer les ressorts du système.
+	\item Assembler les étages et s'assurer que le jeu entre les étages est suffisament faible pour permettre le verouillage.
+	\item Lancer une 4ème fois le programme \texttt{6}. Cela ramènera le système à la position 0 et verouillera les étages.
+\end{enumerate}
+
+Tout ce système de mise d'opération réalisable sur les actionneur est rendu possible grâce aux outils logiciels présenté en
+section \ref{subsubsubsec:seq_actionneurs}.
+
+\vfill
 
 \subparagraph*{Fonctions liées à l'allumage} La position 3 du deuxième étage valide la condition qui autorisera l'allumage du
 propulseur en vol. Cette fonction acquiert en continu les mesures de la centrale inertielle, en déduit l'élévation et l'azimut
@@ -483,6 +629,227 @@ phase de vol et l'annoncent par un motif rouge. La fusée est prête au décolla
 
 \newpage
 
+\subsubsection{Calcul d'attitude}
+
+Afin de réaliser la mission, le séquenceur doit être capable de calculer l'attitude de la fusée à partir des mesures issues d'une
+centrale inertielle. La construction de l'ordre de décision d'allumage du propulseur du second étage se découpe en 4 étapes
+principales :
+
+\begin{enumerate}
+	\item Acquisition des mesures de la centrale inertielle \texttt{WT901B}.
+	\item Filtrage des mesures pour réduire le bruit et les erreurs de mesure.
+	\item Calcul de l'attitude de la fusée à partir des mesures filtrées.
+	\item Comparaison de l'attitude calculée avec les valeurs attendues pour déterminer si l'allumage du propulseur est autorisé.
+\end{enumerate}
+
+\subsubsubsection{Acquisition des mesures et filtrage}
+
+L'acquisition des mesures de la centrale inertielle est réalisée par le séquenceur via une liaison série \texttt{UART} full-duplex.
+La \texttt{WT901B} est capable de fournir des mesures brutes d'accélération, de vitesse angulaire et de champ magnétique, ainsi que
+des mesures d'attitude calculées par la centrale elle-même sous forme d'angle d'Euler et de quaternion.\\
+
+Cependant, une incertitude sur les méthodes de calcul utilisées par la centrale et sur les paramètres de calibration de celle-ci
+ont conduit les équipes du projet à ne pas se fier à ces mesures d'attitude. Bien qu'il est écrit que la \texttt{WT901B} est
+capable de fournir des données cohérente en milieu dynamique, le risque que la forte poussée générée par le propulseur lors du
+décollage puis la décélération brutale lors de l'extinction de celui-ci fausse les mesures d'attitude est trop important. En
+effet, ce genre d'algorithme de calcul se sert de l'accélération pour corriger la dérive des gyromètres en considérant que le
+module se trouve sous l'effet de la gravité terrestre seul.\\
+
+Après avoir effectué des tests, il a été constaté que les simples mesures brutes des vitesses angulaires pouvaient suffire à
+la détermination de l'attitude de la fusée. Cette méthode est sujette à une dérive, mais cette dernière est suffisamment faible
+sur la durée du vol pour que l'attitude calculée reste cohérente. La chaine de calcul sera également connu et maitrisée par les
+équipes du projet, ce qui permet de s'assurer de la cohérence des résultats.\\
+
+La chaine d'aqcuisition et de filtrage utilise 3 bibliothèques logicielles développées pour le projet :
+\begin{itemize}
+	\item le pilote \texttt{wt901b} qui implémente le protocole série de la centrale inertielle ;
+	\item l'utilitaire \texttt{data\_topic} qui permet de gérer les données acquises et de les rendre accessibles à d'autres
+	parties du 	programme via un système de publication/abonnement ;
+	\item l'utilitaire \texttt{iir\_filter} qui permet de filtrer les données pour réduire le bruit et les erreurs de mesure.\\
+\end{itemize}
+
+Lors de la phase d'initialisation, la centrale inertielle est configurée de sorte à ce qu'elle fournisse les seuls mesures
+d'accélération et de vitesse angulaire à une fréquence fixe. A chaque envoi de trame par la \texttt{WT901B}, une interruption
+matérielle est levée sur le microcontrôleur du séquenceur qui remplie une mémoire tampon. A chaque itération de la boucle
+principale, le pilote \texttt{wt901b} est appelé pour lire les mesures de la mémoire tampon, décoder la ou les trames reçues et
+les publier grâce à l'utilitaire \texttt{data\_topic}.\\
+
+L'utilitaire \texttt{iir\_filter} est ensuite appelé pour filtrer les mesures et réduire le bruit et les erreurs de mesure. Cette
+bibliothèque permet de créer des filtres numériques de type IIR (Infinite Impulse Response) pour filtrer les données. Ici,
+un filtre passe bas de type \textit{moving average} d'ordre 5 est utilisé pour filtrer chaque axe d'accélération et de vitesse
+angulaire.
+
+\newpage
+
+\subsubsubsection{Quaternion et détermination de l'attitude}
+
+Le calcul d'attitude est un problème qui consiste à trouver un calcul de changment de base entre deux repères orthonormés. L'une
+des représentation la plus moderne et la plus utilisé en robotique est la représentation quaternionique. C'est celle qui est
+utilisée dans le projet pour calculer l'attitude de la fusée.\\
+
+On note $\mathcal{R}_{f,n}$ le repère fixe de la fusée à l'instant $t_n$ et $\mathcal{R}_T$ le repère fixe de la Terre.
+Le quaternion $q_{f,n}$ représente la rotation du repère $\mathcal{R}_{f,n}$ par rapport au repère $\mathcal{R}_T$. Un vecteur
+$\overrightarrow{v_{(f),n}}$ exprimé dans le repère de la fusée peut être exprimé dans le repère de la Terre par la relation
+suivante :
+\begin{equation}
+	\overrightarrow{v_{(T)}} = q_{f,n} \otimes \overrightarrow{v_{(f),n}} \otimes q_{f,n}^{-1}
+	\label{eq:quat_rotation}
+\end{equation}
+où $\otimes$ est le produit quaternionique et $q_{f,n}^{-1}$ est le quaternion conjugué de $q_{f,n}$.\\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{figures/elec/attitude_asy.pdf}
+	\caption{Schéma 3D de la fusée et de ces repères.}
+\end{figure}
+
+Connaissant le quaternion $q_{f,n}$ à l'instant $t_n$, on peut calculer le quaternion à l'instant $t_{n+1}$ en utilisant les
+mesures de vitesse angulaire $\overrightarrow{\omega_{f,n}} = \begin{pmatrix}\omega_x & \omega_y & \omega_z \end{pmatrix}^T$
+fournies par la centrale inertielle. La relation est donnée par :
+\begin{align}
+	q_{f,n+1}' &\approx q_{f,n} + \frac{1}{2} \Delta t \cdot q_{f,n} \otimes \overrightarrow{\omega_{f,n}} \\
+	q_{f,n+1} &= \frac{q_{f,n+1}'}{\|q_{f,n+1}'\|}
+\end{align}
+où $\Delta t = t_{n+1} - t_n$ est l'intervalle de temps entre les deux instants. L'erreur associée à cette approximation tendant
+vers zéro lorsque $\Delta t$ tend vers zéro.\\
+
+\newpage
+
+Cette formule de récurrence permet de calculer l'attitude de la fusée à chaque itération de la boucle principale du séquenceur.
+Cependant, come toute formule de récurrence, nécessite une condition initiale. Le quaternion initial $q_{f,0}$ est calculé à
+partir des mesures d'accélération lorsque la fusée est immobile sur la rampe. La fusée n'étant soumis qu'à la gravité terrestre,
+l'accélération mesurée par la centrale inertielle donne un vecteur colinéaire à celui de l'axe $\overrightarrow{z_T}$ du repère
+$\mathcal{R}_T$ de la Terre. Pour deux vecteurs normés non colinéaires $\overrightarrow{a}$ et $\overrightarrow{b}$, le
+quaternion $q$ qui représente la rotation de $\overrightarrow{a}$ vers $\overrightarrow{b}$ est donné par :
+
+\begin{align}
+	q_{a \rightarrow b}' &= \begin{pmatrix} \overrightarrow{a} \cdot \overrightarrow{b} + 1 \\
+		\overrightarrow{a} \wedge \overrightarrow{b} \end{pmatrix} \\
+	q_{a \rightarrow b} &= \frac{q_{a \rightarrow b}'}{\|q_{a \rightarrow b}'\|}
+\end{align}
+
+En nottant $\overrightarrow{a_f}$ le vecteur d'accélération normé mesuré par la centrale inertielle dans le repère de la fusée,
+le quaternion initial est donc donné par : $q_{f,0} = q_{\overrightarrow{a_f} \rightarrow \overrightarrow{z_T}}$.\\
+
+A partir du quaternion $q_{f,n}$, il est possible de calculer les angles d'élévation $\theta$ et d'azimut $\phi$ de la fusée via
+des projections de vecteurs dans le repère de la Terre. L'angle d'élévation est l'angle entre l'axe $\overrightarrow{z_T}$ et le
+vecteur longitudinal de la fusée $\overrightarrow{y_{f,n}}$. Via la relation \ref{eq:quat_rotation}, on peut calculer le vecteur
+longitudinal de la fusée exprimé dans le repère de la Terre $\overrightarrow{y_{f,n,(T)}}$, puis on calcul l'angle par :
+\begin{equation}
+	\theta_{n} = \frac{\pi}{2} - \arccos\left(\overrightarrow{y_{f,n,(T)}} \cdot \overrightarrow{z_T}\right)
+\end{equation}
+
+La détermination de l'angle d'azimut nécessite de projeter le vecteur longitudinal de la fusée dans le plan horizontal du repère
+de la Terre. Le vecteur projeté $\overrightarrow{y_{f,n,(T),proj}}$ est donné par :
+\begin{align}
+	\overrightarrow{y_{f,n,(T),proj}}' &= \overrightarrow{y_{f,n,(T)}} - \left(\overrightarrow{y_{f,n,(T)}} \cdot \overrightarrow{z_T}\right) \overrightarrow{z_T} \\
+	\overrightarrow{y_{f,n,(T),proj}} &= \frac{\overrightarrow{y_{f,n,(T),proj}}'}{\|\overrightarrow{y_{f,n,(T),proj}}'\|}
+\end{align}
+
+Représentant le cap de la fusée, nous noterons $\overrightarrow{cap_n} = \overrightarrow{y_{f,n,(T),proj}}$. L'angle d'azimut,
+pris entre le vecteur $\overrightarrow{x_T}$ représentant la direction Nordet le vecteur $\overrightarrow{cap_n}$, n'est pas en
+sois une information utile à la décision d'allumage du propulseur. Ce qui donne cette décision est la différence entre l'angle
+d'azimut de la fusée et l'angle d'azimut de la cible. Cette différence notée $\Delta \phi_n$ est l'angle que forme les vecteurs
+$\overrightarrow{cap_n}$ et $\overrightarrow{cap_0}$. Similairement à l'angle d'élévation, il est calculé par :
+\begin{equation}
+	\Delta \phi_n = \arccos\left(\overrightarrow{cap_n} \cdot \overrightarrow{cap_0}\right)
+\end{equation}
+
+\vfill
+
+\hspace*{-\parindent}%
+A chaque itération de la boucle principale, le séquenceur détermine l'attitude de la fusée en calculant $q_{f,n}$. Lorsque la
+fusée n'a pas encore décollé, le séquenceur calcul $q_{f,0}$ à partir des mesures d'accélération.
+\begin{minipage}{0.64\textwidth}
+	\vspace{-0.6cm}
+	Il est réécrit à chaque itération jusqu'au décollage. Cela permet au système de se calibrer non pas à partir d'une position
+	initiale arbitraire, mais à partir de la position réelle de la fusée sur la rampe.Dès lors que le décollage est détecté, le
+	séquenceur calcule $q_{f,n}$ à partir de la formule  de récurrence. C'est seulement à ce moment qu'une dérive lié à
+	l'intégration des mesures de vitesse angulaire peut apparaître. Cependant, la durée du vol étant relativement courte, cette
+	dérive reste faible.\\
+
+	Toutes les briques mathématiques nécessaires pour la manipulation des vecteurs 3D et des quaternions sont implémentées dans
+	3 bibliothèques :
+	\begin{itemize}
+		\item \texttt{float3} pour la manipulation de vecteurs 3D, avec notamment les opérations de produit scalaire et
+		vectoriel ;
+		\item \texttt{quaternion} pour la manipulation de quaternions, avec notamment les opérations de produit ;
+		\item \texttt{quaterion\_dynamics} pour la formule de récurrence du calcul d'attitude.
+	\end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.34\textwidth}
+	\vspace{-0.4cm}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{figures/elec/calcul_attitude.drawio.png}
+		\caption{Calcul d'attitude}
+	\end{figure}
+\end{minipage}
+\hfill
+
+\newpage
+
+\subsubsubsection{Comparaison avec les valeurs attendues}
+
+Les valeurs d'attitude étant calculées, le séquenceur doit s'en servir afin de déterminer si l'allumage du propulseur du second
+étage est autorisé.
+
+\hspace*{-\parindent}%
+\begin{minipage}{0.35\textwidth}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{figures/elec/fenetre_attitude.jpg}
+		\caption{Fenêtre d'attitude autorisée pour l'allumage du propulseur du second étage.}
+	\end{figure}
+\end{minipage}
+\hfill
+\begin{minipage}{0.6\textwidth}
+	Les conditions d'allumage sont les suivantes :
+	\begin{itemize}
+		\item l'angle d'élévation $\theta_n$ doit se trouver dans un intervalle de tolérence de $\pm10°$ autour de l'angle
+		d'élévation nominal $\theta_{nom,n}$ ;
+		\item l'angle d'azimut $\phi_n$ doit se trouver dans un intervalle de tolérence de $\pm45°$ autour de l'angle
+		d'azimut nominal $\phi_{nom,n}$.
+	\end{itemize}
+	Ces angles nominaux représentent ceux que la fusée doit théoriquement atteindre à l'instant $t_n$ lors d'un vol stable sans
+	vent et sans perturbation. L'angle $\phi_{nom,n}$ est déterminé par la direction choisi par les équipes du \acrshort{CNES}
+	lors de l'orientation de la rampe de lancement. L'angle $\theta_{nom,n}$ est lui déterminé via la simulation de vol donnée
+	par le \gls{Stabtraj}.
+\end{minipage}
+
+\vspace{0.4cm}
+
+A l'aide d'Excel, l'évolution théorique de l'angle d'élévation $\theta_{nom,n}$ a été modélisé en fonction du temps par une
+équation polynomiale du 3ème degré. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/elec/theta_excel.png}
+	\caption{Fenêtre d'attitude autorisée pour l'allumage du propulseur du second étage.}
+\end{figure}
+
+% y = -0,0002x3 + 0,0017x2 - 0,0189x + 1,3843 ; R² = 1
+
+La méthode des moindre carrés a été utilisée sur une portion du vol allant de \SI{3.6}{\second} à \SI{10.0}{\second}. Sur
+cette portion de vol, l'évolution de l'angle d'élévation est modélisé par l'équation polynomiale suivante :
+\begin{equation}
+	\theta_{nom,n} = -0.0002 t_n^3 + 0.0017 t_n^2 - 0.0189 t_n + 1.3843
+\end{equation}
+Le coefficient de détermination $R^2$ est très proche de 1, ce qui signifie que l'équation polynomiale du 3ème degré est une
+bonne approximation de l'évolution de l'angle théorique.\\
+
+A chaque itération, la condition d'allumage est alors :
+
+\begin{equation}
+	\begin{cases}
+		\left\|\Delta \theta_n\right\| = \left\|\theta_{nom,n} - \theta_n \right\| \leq 10\degres \\
+		\left\|\Delta \phi_n \right\| = \left\|\phi_{nom,n} - \phi_n \right\| \leq 45\degres
+	\end{cases}
+\end{equation}
+
+\newpage
+
 \subsubsection{Bibliothèques logicielles du séquenceur}
 
 Cette section présente quelques bibliothèques logicielles développées pour le projet et utilisées par le séquenceur. Elles sont
@@ -490,7 +857,7 @@ détaillées ici pour leur intérêt pédagogique et pour la compréhension du n
 séquenceur.
 
 \subsubsubsection{Contrôle des actionneurs}
-\label{par:seq_actionneurs}
+\label{subsubsubsec:seq_actionneurs}
 
 Les organes mécaniques de la fusée (aérofreins, trappes de parachute, système de séparation) sont tous mus par des servomoteurs
 Feetech STS3215. Leur commande repose sur deux bibliothèques logicielles :
@@ -622,227 +989,6 @@ ultérieure sera alors refusée, conformément à la vérification effectuée en
 d'ordonner un mouvement à un actionneur qui n'aurait pas été correctement calibré, ce qui pourrait conduire à une collision
 mécanique et potentiellement à un endommagement de la fusée. Les systèmes mécaniques étant couteux en temps de travail et en
 argent, il est préférable de prévenir toute erreur de manipulation.
-
-\newpage
-
-\subsubsubsection{Calcul d'attitude}
-
-Afin de réaliser la mission, le séquenceur doit être capable de calculer l'attitude de la fusée à partir des mesures issues d'une
-centrale inertielle. La construction de l'ordre de décision d'allumage du propulseur du second étage se découpe en 4 étapes
-principales :
-
-\begin{enumerate}
-	\item Acquisition des mesures de la centrale inertielle \texttt{WT901B}.
-	\item Filtrage des mesures pour réduire le bruit et les erreurs de mesure.
-	\item Calcul de l'attitude de la fusée à partir des mesures filtrées.
-	\item Comparaison de l'attitude calculée avec les valeurs attendues pour déterminer si l'allumage du propulseur est autorisé.
-\end{enumerate}
-
-\paragraph*{Acquisition des mesures et filtrage}
-
-L'acquisition des mesures de la centrale inertielle est réalisée par le séquenceur via une liaison série \texttt{UART} full-duplex.
-La \texttt{WT901B} est capable de fournir des mesures brutes d'accélération, de vitesse angulaire et de champ magnétique, ainsi que
-des mesures d'attitude calculées par la centrale elle-même sous forme d'angle d'Euler et de quaternion.\\
-
-Cependant, une incertitude sur les méthodes de calcul utilisées par la centrale et sur les paramètres de calibration de celle-ci
-ont conduit les équipes du projet à ne pas se fier à ces mesures d'attitude. Bien qu'il est écrit que la \texttt{WT901B} est
-capable de fournir des données cohérente en milieu dynamique, le risque que la forte poussée générée par le propulseur lors du
-décollage puis la décélération brutale lors de l'extinction de celui-ci fausse les mesures d'attitude est trop important. En
-effet, ce genre d'algorithme de calcul se sert de l'accélération pour corriger la dérive des gyromètres en considérant que le
-module se trouve sous l'effet de la gravité terrestre seul.\\
-
-Après avoir effectué des tests, il a été constaté que les simples mesures brutes des vitesses angulaires pouvaient suffire à
-la détermination de l'attitude de la fusée. Cette méthode est sujette à une dérive, mais cette dernière est suffisamment faible
-sur la durée du vol pour que l'attitude calculée reste cohérente. La chaine de calcul sera également connu et maitrisée par les
-équipes du projet, ce qui permet de s'assurer de la cohérence des résultats.\\
-
-La chaine d'aqcuisition et de filtrage utilise 3 bibliothèques logicielles développées pour le projet :
-\begin{itemize}
-	\item le pilote \texttt{wt901b} qui implémente le protocole série de la centrale inertielle ;
-	\item l'utilitaire \texttt{data\_topic} qui permet de gérer les données acquises et de les rendre accessibles à d'autres
-	parties du 	programme via un système de publication/abonnement ;
-	\item l'utilitaire \texttt{iir\_filter} qui permet de filtrer les données pour réduire le bruit et les erreurs de mesure.\\
-\end{itemize}
-
-Lors de la phase d'initialisation, la centrale inertielle est configurée de sorte à ce qu'elle fournisse les seuls mesures
-d'accélération et de vitesse angulaire à une fréquence fixe. A chaque envoi de trame par la \texttt{WT901B}, une interruption
-matérielle est levée sur le microcontrôleur du séquenceur qui remplie une mémoire tampon. A chaque itération de la boucle
-principale, le pilote \texttt{wt901b} est appelé pour lire les mesures de la mémoire tampon, décoder la ou les trames reçues et
-les publier grâce à l'utilitaire \texttt{data\_topic}.\\
-
-L'utilitaire \texttt{iir\_filter} est ensuite appelé pour filtrer les mesures et réduire le bruit et les erreurs de mesure. Cette
-bibliothèque permet de créer des filtres numériques de type IIR (Infinite Impulse Response) pour filtrer les données. Ici,
-un filtre passe bas de type \textit{moving average} d'ordre 5 est utilisé pour filtrer chaque axe d'accélération et de vitesse
-angulaire.
-
-\newpage
-
-\paragraph*{Calcul d'attitude}
-
-Le calcul d'attitude est un problème qui consiste à trouver un calcul de changment de base entre deux repères orthonormés. L'une
-des représentation la plus moderne et la plus utilisé en robotique est la représentation quaternionique. C'est celle qui est
-utilisée dans le projet pour calculer l'attitude de la fusée.\\
-
-On note $\mathcal{R}_{f,n}$ le repère fixe de la fusée à l'instant $t_n$ et $\mathcal{R}_T$ le repère fixe de la Terre.
-Le quaternion $q_{f,n}$ représente la rotation du repère $\mathcal{R}_{f,n}$ par rapport au repère $\mathcal{R}_T$. Un vecteur
-$\overrightarrow{v_{(f),n}}$ exprimé dans le repère de la fusée peut être exprimé dans le repère de la Terre par la relation
-suivante :
-\begin{equation}
-	\overrightarrow{v_{(T)}} = q_{f,n} \otimes \overrightarrow{v_{(f),n}} \otimes q_{f,n}^{-1}
-	\label{eq:quat_rotation}
-\end{equation}
-où $\otimes$ est le produit quaternionique et $q_{f,n}^{-1}$ est le quaternion conjugué de $q_{f,n}$.\\
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{figures/elec/attitude_asy.pdf}
-	\caption{Schéma 3D de la fusée et de ces repères.}
-\end{figure}
-
-Connaissant le quaternion $q_{f,n}$ à l'instant $t_n$, on peut calculer le quaternion à l'instant $t_{n+1}$ en utilisant les
-mesures de vitesse angulaire $\overrightarrow{\omega_{f,n}} = \begin{pmatrix}\omega_x & \omega_y & \omega_z \end{pmatrix}^T$
-fournies par la centrale inertielle. La relation est donnée par :
-\begin{align}
-	q_{f,n+1}' &\approx q_{f,n} + \frac{1}{2} \Delta t \cdot q_{f,n} \otimes \overrightarrow{\omega_{f,n}} \\
-	q_{f,n+1} &= \frac{q_{f,n+1}'}{\|q_{f,n+1}'\|}
-\end{align}
-où $\Delta t = t_{n+1} - t_n$ est l'intervalle de temps entre les deux instants. L'erreur associée à cette approximation tendant
-vers zéro lorsque $\Delta t$ tend vers zéro.\\
-
-\newpage
-
-Cette formule de récurrence permet de calculer l'attitude de la fusée à chaque itération de la boucle principale du séquenceur.
-Cependant, come toute formule de récurrence, nécessite une condition initiale. Le quaternion initial $q_{f,0}$ est calculé à
-partir des mesures d'accélération lorsque la fusée est immobile sur la rampe. La fusée n'étant soumis qu'à la gravité terrestre,
-l'accélération mesurée par la centrale inertielle donne un vecteur colinéaire à celui de l'axe $\overrightarrow{z_T}$ du repère
-$\mathcal{R}_T$ de la Terre. Pour deux vecteurs normés non colinéaires $\overrightarrow{a}$ et $\overrightarrow{b}$, le
-quaternion $q$ qui représente la rotation de $\overrightarrow{a}$ vers $\overrightarrow{b}$ est donné par :
-
-\begin{align}
-	q_{a \rightarrow b}' &= \begin{pmatrix} \overrightarrow{a} \cdot \overrightarrow{b} + 1 \\
-		\overrightarrow{a} \wedge \overrightarrow{b} \end{pmatrix} \\
-	q_{a \rightarrow b} &= \frac{q_{a \rightarrow b}'}{\|q_{a \rightarrow b}'\|}
-\end{align}
-
-En nottant $\overrightarrow{a_f}$ le vecteur d'accélération normé mesuré par la centrale inertielle dans le repère de la fusée,
-le quaternion initial est donc donné par : $q_{f,0} = q_{\overrightarrow{a_f} \rightarrow \overrightarrow{z_T}}$.\\
-
-A partir du quaternion $q_{f,n}$, il est possible de calculer les angles d'élévation $\theta$ et d'azimut $\phi$ de la fusée via
-des projections de vecteurs dans le repère de la Terre. L'angle d'élévation est l'angle entre l'axe $\overrightarrow{z_T}$ et le
-vecteur longitudinal de la fusée $\overrightarrow{y_{f,n}}$. Via la relation \ref{eq:quat_rotation}, on peut calculer le vecteur
-longitudinal de la fusée exprimé dans le repère de la Terre $\overrightarrow{y_{f,n,(T)}}$, puis on calcul l'angle par :
-\begin{equation}
-	\theta_{n} = \frac{\pi}{2} - \arccos\left(\overrightarrow{y_{f,n,(T)}} \cdot \overrightarrow{z_T}\right)
-\end{equation}
-
-La détermination de l'angle d'azimut nécessite de projeter le vecteur longitudinal de la fusée dans le plan horizontal du repère
-de la Terre. Le vecteur projeté $\overrightarrow{y_{f,n,(T),proj}}$ est donné par :
-\begin{align}
-	\overrightarrow{y_{f,n,(T),proj}}' &= \overrightarrow{y_{f,n,(T)}} - \left(\overrightarrow{y_{f,n,(T)}} \cdot \overrightarrow{z_T}\right) \overrightarrow{z_T} \\
-	\overrightarrow{y_{f,n,(T),proj}} &= \frac{\overrightarrow{y_{f,n,(T),proj}}'}{\|\overrightarrow{y_{f,n,(T),proj}}'\|}
-\end{align}
-
-Représentant le cap de la fusée, nous noterons $\overrightarrow{cap_n} = \overrightarrow{y_{f,n,(T),proj}}$. L'angle d'azimut,
-pris entre le vecteur $\overrightarrow{x_T}$ représentant la direction Nordet le vecteur $\overrightarrow{cap_n}$, n'est pas en
-sois une information utile à la décision d'allumage du propulseur. Ce qui donne cette décision est la différence entre l'angle
-d'azimut de la fusée et l'angle d'azimut de la cible. Cette différence notée $\Delta \phi_n$ est l'angle que forme les vecteurs
-$\overrightarrow{cap_n}$ et $\overrightarrow{cap_0}$. Similairement à l'angle d'élévation, il est calculé par :
-\begin{equation}
-	\Delta \phi_n = \arccos\left(\overrightarrow{cap_n} \cdot \overrightarrow{cap_0}\right)
-\end{equation}
-
-\vfill
-
-\hspace*{-\parindent}%
-A chaque itération de la boucle principale, le séquenceur détermine l'attitude de la fusée en calculant $q_{f,n}$. Lorsque la
-fusée n'a pas encore décollé, le séquenceur calcul $q_{f,0}$ à partir des mesures d'accélération.
-\begin{minipage}{0.64\textwidth}
-	\vspace{-0.6cm}
-	Il est réécrit à chaque itération jusqu'au décollage. Cela permet au système de se calibrer non pas à partir d'une position
-	initiale arbitraire, mais à partir de la position réelle de la fusée sur la rampe.Dès lors que le décollage est détecté, le
-	séquenceur calcule $q_{f,n}$ à partir de la formule  de récurrence. C'est seulement à ce moment qu'une dérive lié à
-	l'intégration des mesures de vitesse angulaire peut apparaître. Cependant, la durée du vol étant relativement courte, cette
-	dérive reste faible.\\
-
-	Toutes les briques mathématiques nécessaires pour la manipulation des vecteurs 3D et des quaternions sont implémentées dans
-	3 bibliothèques :
-	\begin{itemize}
-		\item \texttt{float3} pour la manipulation de vecteurs 3D, avec notamment les opérations de produit scalaire et
-		vectoriel ;
-		\item \texttt{quaternion} pour la manipulation de quaternions, avec notamment les opérations de produit ;
-		\item \texttt{quaterion\_dynamics} pour la formule de récurrence du calcul d'attitude.
-	\end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}{0.34\textwidth}
-	\vspace{-0.4cm}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.9\textwidth]{figures/elec/calcul_attitude.drawio.png}
-		\caption{Calcul d'attitude}
-	\end{figure}
-\end{minipage}
-\hfill
-
-\newpage
-
-\paragraph*{Comparaison avec les valeurs attendues}
-
-Les valeurs d'attitude étant calculées, le séquenceur doit s'en servir afin de déterminer si l'allumage du propulseur du second
-étage est autorisé.
-
-\hspace*{-\parindent}%
-\begin{minipage}{0.35\textwidth}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=\textwidth]{figures/elec/fenetre_attitude.jpg}
-		\caption{Fenêtre d'attitude autorisée pour l'allumage du propulseur du second étage.}
-	\end{figure}
-\end{minipage}
-\hfill
-\begin{minipage}{0.6\textwidth}
-	Les conditions d'allumage sont les suivantes :
-	\begin{itemize}
-		\item l'angle d'élévation $\theta_n$ doit se trouver dans un intervalle de tolérence de $\pm10°$ autour de l'angle
-		d'élévation nominal $\theta_{nom,n}$ ;
-		\item l'angle d'azimut $\phi_n$ doit se trouver dans un intervalle de tolérence de $\pm45°$ autour de l'angle
-		d'azimut nominal $\phi_{nom,n}$.
-	\end{itemize}
-	Ces angles nominaux représentent ceux que la fusée doit théoriquement atteindre à l'instant $t_n$ lors d'un vol stable sans
-	vent et sans perturbation. L'angle $\phi_{nom,n}$ est déterminé par la direction choisi par les équipes du \acrshort{CNES}
-	lors de l'orientation de la rampe de lancement. L'angle $\theta_{nom,n}$ est lui déterminé via la simulation de vol donnée
-	par le \gls{Stabtraj}.
-\end{minipage}
-
-\vspace{0.4cm}
-
-A l'aide d'Excel, l'évolution théorique de l'angle d'élévation $\theta_{nom,n}$ a été modélisé en fonction du temps par une
-équation polynomiale du 3ème degré. 
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{figures/elec/theta_excel.png}
-	\caption{Fenêtre d'attitude autorisée pour l'allumage du propulseur du second étage.}
-\end{figure}
-
-% y = -0,0002x3 + 0,0017x2 - 0,0189x + 1,3843 ; R² = 1
-
-La méthode des moindre carrés a été utilisée sur une portion du vol allant de \SI{3.6}{\second} à \SI{10.0}{\second}. Sur
-cette portion de vol, l'évolution de l'angle d'élévation est modélisé par l'équation polynomiale suivante :
-\begin{equation}
-	\theta_{nom,n} = -0.0002 t_n^3 + 0.0017 t_n^2 - 0.0189 t_n + 1.3843
-\end{equation}
-Le coefficient de détermination $R^2$ est très proche de 1, ce qui signifie que l'équation polynomiale du 3ème degré est une
-bonne approximation de l'évolution de l'angle théorique.\\
-
-A chaque itération, la condition d'allumage est alors :
-
-\begin{equation}
-	\begin{cases}
-		\left\|\Delta \theta_n\right\| = \left\|\theta_{nom,n} - \theta_n \right\| \leq 10\degres \\
-		\left\|\Delta \phi_n \right\| = \left\|\phi_{nom,n} - \phi_n \right\| \leq 45\degres
-	\end{cases}
-\end{equation}
 
 \newpage
 
