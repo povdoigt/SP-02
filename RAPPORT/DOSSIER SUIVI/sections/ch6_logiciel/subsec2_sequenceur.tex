@@ -1,65 +1,5 @@
 \subsection{Séquenceur}
 
-% \subsubsection{Contrôle des actionneurs}
-
-% \newpage
-
-% \subsubsection{Mesure d'attitude}
-
-% \newpage
-
-% \subsubsection{Séquenceur : partie sol}
-
-% \newpage
-
-% \subsubsection{Séquenceur : partie vol}
-
-% Le fonctionnement repose sur une succession d’états décrits dans le logigramme de chaque séquenceur, cadencés par un
-% chronomètre démarré au décollage.
-
-% \begin{figure}[h!]
-%     \centering
-%     \begin{subfigure}{0.48\linewidth}
-%         \centering
-%         \includegraphics[width=\linewidth]{figures/elec/Sequenceur1.drawio.png}
-%         \caption{1er étage}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}{0.48\linewidth}
-%         \centering
-%         \includegraphics[width=\linewidth]{figures/elec/Sequenceur2.drawio.png}
-%         \caption{2e étage}
-%     \end{subfigure}
-%     \caption{Schémas fonctionnels des séquenceurs des deux étages}
-% \end{figure}
-
-% Voici les principaux évènements surveillés et partagés par les deux séquenceurs :
-% \begin{itemize}
-%     \item $T0$ : instant du décollage ;
-%     \item $T_{\alpha\beta0}$ : fin de la propulsion du premier étage ;
-%     \item $T_{\alpha\beta1}$ : séparation inter-étage ;
-%     \item $T_{\alpha\beta2}$ : apogée de l'ensemble du lanceur sans séparation ;
-%     \item $T_{\alpha\beta3}$ : atterrissage de l'ensemble du lanceur sans séparation.\\
-% \end{itemize}
-
-% \newpage
-
-% Voici les principaux évènements surveillés par le séquenceur du premier étage :
-% \begin{itemize}
-%     \item $T_{\alpha0}$ : apogée du premier étage seul si séparation ;
-%     \item $T_{\alpha1}$ : atterrissage du premier étage seul si séparation.\\
-% \end{itemize}
-
-% Voici les principaux évènements surveillés par le séquenceur du second étage :
-% \begin{itemize}
-%     \item $T_{\beta0}$ : allumage du moteur du second étage si séparation ;
-%     \item $T_{\beta1}$ : date de mesure de la confirmation d’allumage du moteur du second étage ;
-%     \item $T_{\beta2}$ : apogée du second étage seul si séparation et allumage confirmé ;
-%     \item $T_{\beta3}$ : atterrissage du second étage seul si séparation et allumage confirmé ;
-%     \item $T_{\beta4}$ : apogée du second étage seul si séparation et allumage non confirmé ;
-%     \item $T_{\beta5}$ : atterrissage du second étage seul si séparation et allumage non confirmé.\\
-% \end{itemize}
-
 \subsubsection{Architecture générale du programme de vol}
 
 Les deux étages de la fusée embarquent une carte séquenceur identique. Les rôles de ces deux cartes diffèrent pourtant
@@ -71,7 +11,7 @@ du programme est représentée sur la figure \ref{fig:main_sequenceur} ci-après
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.9\textwidth]{figures/elec/main_sequenceur.drawio.png}
+	\includegraphics[width=0.9\textwidth]{figures/elec/main_sequenceur.drawio.pdf}
 	\caption{Architecture générale du programme du séquenceur}
 	\label{fig:main_sequenceur}
 \end{figure}
@@ -79,7 +19,7 @@ du programme est représentée sur la figure \ref{fig:main_sequenceur} ci-après
 Le programme se décompose en deux temps, visibles sur la figure. La fonction \texttt{setup()}, exécutée une seule fois à la
 mise sous tension, réalise l'initialisation de la carte : configuration du matériel, puis détection de l'étage sur lequel elle
 est installée, d'où découle l'initialisation des organes qui lui sont propres. La fonction \texttt{loop()} prend ensuite le
-relais et s'exécute indéfiniment : c'est la boucle séquentielle décrite en section \ref{subsec:seq_loop}.\\
+relais et s'exécute indéfiniment.\\
 
 Ce firmware unique ne réalise pas une action unique. Il embarque un ensemble de sous-programmes, correspondant chacun à une
 opération que la carte doit pouvoir exécuter, dont un seul s'exécute à la fois. C'est la boucle qui, à chaque itération, fait
@@ -87,18 +27,19 @@ progresser le sous-programme actif. Le choix de ce dernier revient à l'opérate
 l'\acrshort{IHF}. Le schéma en distingue deux natures :
 
 \begin{itemize}
-	\item Les fonctions sol (\textit{ground functions}), en vert, regroupent les opérations de maintenance et de vérification
-	employées pendant les campagnes de test et lors de l'assemblage. Chacune se termine d'elle-même et rend la main au
-	séquenceur, qui se remet en attente d'une nouvelle consigne.
-	\item Le programme de campagne de lancement, en violet, correspond quant à lui au déroulement d'un lancement : une fois engagé,
-	il ne rend jamais la main et enchaîne l'armement de la fusée puis son vol.
+	\item Les fonctions sol (\textit{gnd\_func}), en vert, regroupent les opérations de maintenance et de vérification employées
+	pendant les campagnes de test et lors de l'assemblage. Chacune se termine d'elle-même et rend la main au séquenceur, qui se
+	remet en attente d'une nouvelle consigne.
+	\item Le programme de campagne de lancement (\textit{stage[1/2]\_loop}), en violet, correspond quant à lui au déroulement d'un
+	lancement : une fois engagé, il ne rend jamais la main et enchaîne l'armement de la fusée puis son vol.
 \end{itemize}
 
 \paragraph*{Détection de l'étage} Le firmware étant commun aux deux cartes, celles-ci doivent pouvoir déterminer seules le rôle
-qu'elles ont à tenir. Lors du monatge de la fusée, un jumper peut être placé sur le séquenceur selon deux configurations
+qu'elles ont à tenir. Lors du montage de la fusée, un jumper peut être placé sur le séquenceur selon deux configurations
 différentes, correspondant à l'étage sur lequel il est installé. Le programme lit cette configuration au démarrage. Si aucune des
-deux états est détecté, du fait que le jumper n'est pas présent par exemple, la configuration est jugée invalide : la LED passe
-au rouge et le programme s'arrête, plutôt que de laisser une carte s'exécuter sans savoir quel étage elle pilote.\\
+deux états n'est détecté, du fait que le jumper n'est pas présent par exemple, la configuration est jugée invalide : la LED passe
+au rouge et le programme s'arrête, plutôt que de laisser une carte s'exécuter sans savoir quel étage elle pilote. Si la LED est
+clignote une fois en vert, alors le 1er étage est détecté, si elle est bleu, alors c'est le 2e étage qui est détecté.\\
 
 Cette lecture, effectuée une seule fois, conditionne tout le reste de l'exécution. Elle détermine d'une part la fonction
 d'initialisation appelée (\texttt{setup\_stage\_1} ou \texttt{setup\_stage\_2}), qui déclare les entrées utilisées par l'étage
@@ -175,7 +116,7 @@ void loop() {
 	survenus dans le séquenceur. Son fonctionnement est détaillé en section \ref{subsec:log_apex}.\\
 
 	\item \texttt{LED\_RGB\_SetColor} met à jour la LED de signalisation, unique retour d'information disponible sur la fusée une
-	fois celle-ci refermée.
+	fois celle-ci refermée. (Plus de détails sur la gestion de la LED en section \ref{subsubsubsec:seq_leds}.)
 \end{itemize}
 
 \paragraph*{Une contrainte d'écriture} La boucle ne doit jamais être bloquée durablement, sous peine de retarder la
@@ -220,7 +161,7 @@ par leur numéro depuis l'\acrshort{IHF}.
 	fonction active. Le tableau \ref{tab:ground_funcs} récapitule les fonctions disponibles sur chaque étage.\\
 
 	\subparagraph*{Contrat d'une fonction sol} Toutes les fonctions sol partagent la même signature et le même contrat. Appelées
-	àchaque itération de la boucle tant qu'elles sont actives, elles renvoient \texttt{GROUND\_FUNC\_STATE\_RUNNING} pour
+	à chaque itération de la boucle tant qu'elles sont actives, elles renvoient \texttt{GROUND\_FUNC\_STATE\_RUNNING} pour
 	signaler qu'elles n'ont pas terminé, ou \texttt{GROUND\_FUNC\_STATE\_DONE} pour rendre la main au séquenceur, qui se remet
 	alors en attente d'une nouvelle consigne. Une opération de plusieurs secondes n'est donc jamais exécutée d'un seul tenant :
 	elle conserve son avancement dans des variables persistantes et progresse d'un pas à chaque appel.
@@ -229,7 +170,7 @@ par leur numéro depuis l'\acrshort{IHF}.
 \begin{minipage}{0.45\textwidth}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.9\textwidth]{figures/elec/Gnd_func.drawio.png}
+		\includegraphics[width=0.9\textwidth]{figures/elec/Gnd_func.drawio.pdf}
 		\caption{Sélection et exécution d'une fonction sol}
 	\end{figure}
 \end{minipage}
@@ -244,7 +185,7 @@ par leur numéro depuis l'\acrshort{IHF}.
         \hline
         \multicolumn{3}{l}{\textit{Premier étage}} \\
         \hline
-		0 & Programme de lancement & Déroulement complet d'un lancement \\
+		0 & Programme de lancement & Déroulement complet d'une campagne de lancement \\
         1 & Référence aérofreins & Recherche de butée de l'actionneur d'aérofreins \\
         2 & Référence trappe & Recherche de butée de la trappe de parachute \\
         3 & Référence séparation & Recherche de butée du système de séparation \\
@@ -255,7 +196,7 @@ par leur numéro depuis l'\acrshort{IHF}.
         \hline
         \multicolumn{3}{l}{\textit{Second étage}} \\
         \hline
-		0 & Programme de lancement & Déroulement complet d'un lancement \\
+		0 & Programme de lancement & Déroulement complet d'une campagne lancement \\
         1 & Référence trappe & Recherche de butée de la trappe de parachute \\
         2 & Man\oe uvre trappe & Déplacement d'une position à chaque appui \\
         3 & Validation attitude & Contrôle des conditions d'allumage et de la chaîne associée \\
@@ -272,19 +213,20 @@ par leur numéro depuis l'\acrshort{IHF}.
 \subparagraph*{Opérations sur les actionneurs} Les sous-programmes 1 à 6 pour le premier étage et 1 à 2 pour le second étage
 commandent des actionneurs. Il existe deux types d'opérations sur ces organes : la mise en référence et la man\oe uvre :
 \begin{itemize}
-	\item La \emph{mise en référence} lance, au premier appel, la recherche d'une buté mécanique d'un actionneur et active un
+	\item La \emph{mise en référence} lance, au premier appel, la recherche d'une butée mécanique d'un actionneur et active un
 	motif lumineux d'attente. Aux appels suivants, elle interroge l'avancement de l'opération et renvoie \texttt{RUNNING} tant
 	que celle-ci n'est pas achevée. Dès que la butée est atteinte, c'est à dire que le servomoteur n'arrive plus à évoluer, la
-	fonctionrenvoie \texttt{DONE}.
-	\item La \emph{man\oe uvre} met en mouement un actionneur. La fonction de man\oe uvre progresse d'une position vers la
-	suivante à chaque appui sur le bouton, en changeant de sens une fois la dernière (ou la première) position atteinte.
+	fonction renvoie \texttt{DONE}.
+	\item La \emph{man\oe uvre} met en mouement un actionneur. Elle fait progresser le système mécanique auquel elle réfère d'une
+	position vers une autre à chaque appui sur le bouton, en changeant de sens une fois la dernière (ou la première) position
+	atteinte.
 	% L'opérateur peut ainsi parcourir l'ensemble des positions d'un organe par appuis successifs, et vérifier visuellement son
 	% débattement. La fonction refuse de s'exécuter si l'actionneur n'a pas été préalablement mis en référence, ses positions
 	% n'ayant alors aucune signification.
 \end{itemize}
 
-Tous les systèmes mécaniques du projet SP-02 possèdent 3 positions distinctes, correspondant à des angles de rotation
-différents mais 3 n'est pas une limite imposée, seulement une coincidence du besoin de chaque organe. Le tableau
+Tous les systèmes mécaniques du projet SP-02 possèdent 3 positions distinctes, correspondant à des angles de rotation différents.
+Le nombre 3 n'est pas une limite imposée, seulement une coincidence du besoin de chaque organe. Le tableau
 \ref{tab:positions_actionneurs} ci-après récapitule les positions de chaque actionneur, ainsi que l'angle de rotation
 correspondant :
 
@@ -306,7 +248,7 @@ correspondant :
 		\hline
 		0 & 0	& Position verouillée \\
 		1 & 45	& Position déverouillée \\
-		2 & 90	& Position poussée \\
+		2 & 90	& Position poussant la trappe pour forcer son ouverture \\
 		\hline
 		\multicolumn{3}{l}{\textit{Système de séparation}} \\
 		\hline
@@ -321,26 +263,28 @@ correspondant :
 
 \newpage
 
-\noindent Pour la suite, nous prendrons l'exemple du système d'aérofrein.
+% \noindent Pour la suite, nous prendrons l'exemple du système d'aérofrein.
 
 \hspace*{-\parindent}%
-\begin{minipage}{0.55\textwidth}
-	Une opération sur un organe mécanique ne peut se faire que si ce dernier a préalablement été calibré via l'opération de
-	\textit{mise en référence}. Pour la réaliser sur les aérofrein, l'opérateur doit sélectionner via l'\acrshort{IHF} le
-	programme \texttt{1} puis appuiyer sur le bouton \texttt{RUN}. La led se met alors à clignoter rapidement en jaune indiquant
-	que l'opération est en cours. Le système peut se trouvé dans n'importe quelle des positions (qu'elle soit préalablement
-	défini ou non), cette action le ramènera forcément dans la position 0 (\ref{fig:positions_af:subfig:0}). Le clignotement de
-	la led s'arrête lorsque l'opération se termine.\\
+\begin{minipage}{0.64\textwidth}
+	Prendrons l'exemple du système d'aérofrein. Une opération sur un organe mécanique ne peut se faire que si ce dernier a
+	préalablement été calibré via l'opération de \textit{mise en référence}. Pour la réaliser sur les aérofrein, l'opérateur
+	doit sélectionner via l'\acrshort{IHF} le programme \texttt{1} puis appuyer sur le bouton \texttt{RUN}. La led se met alors
+	à clignoter rapidement en jaune indiquant que l'opération est en cours. Le système peut se trouvé dans n'importe quelle des
+	positions (qu'elle soit préalablement défini ou non), cette action le ramènera forcément dans la position 0
+	(\ref{fig:positions_af:subfig:0}). Le clignotement de la led s'arrête lorsque l'opération se termine.\\
 
-	Ensuite, pour passer d'une position à une autre, l'opérateur doit effectuer le programme \texttt{2} (\textit{man \oe vre}).
-	Il permet de jouer l'ensemble des positions. Les seules transition admisent sont celles entre deux positions adjacentes,
-	soit : $0 \longleftrightarrow 1$ et $1 \longleftrightarrow 2$. Avec le programme \texttt{2} de sélectioné, à chaque appuie
-	sur le bouton \texttt{RUN}, une transition est réalisé. Par exemple, en partant de la position 0 et en appuyant 5 fois sur
-	le bouton, la séquence suivante est réalisée :
-	$$0 \longrightarrow 1 \longrightarrow 2 \longrightarrow 1 \longrightarrow 0 \longrightarrow 1$$ 
+	Ensuite, pour passer d'une position à une autre, l'opérateur utilise le programme \texttt{2} (\textit{man\oe vre}). Il
+	permet de jouer l'ensemble des positions. Les seules transition admisent sont celles entre deux positions adjacentes, soit :
+	$0 \longleftrightarrow 1$ et $1 \longleftrightarrow 2$. Avec le programme \texttt{2} de sélectioné, à chaque appuie sur le
+	bouton \texttt{RUN}, une transition est réalisé. Par exemple, en partant de la position 0 et en appuyant 5 fois sur le
+	bouton, la séquence suivante est réalisée :
+	$$0 \longrightarrow 1 \longrightarrow 2 \longrightarrow 1 \longrightarrow 0 \longrightarrow 1$$
+	L'opérateur peut ainsi parcourir l'ensemble des positions d'un organe par appuis successifs, et vérifier visuellement son
+	débattement.
 \end{minipage}
 \hfill
-\begin{minipage}{0.35\textwidth}
+\begin{minipage}{0.32\textwidth}
 	\vspace{-0.55cm}
 	\begin{figure}[H]
 		\centering
@@ -368,53 +312,14 @@ correspondant :
 \end{minipage}
 \hfill\hfill
 
-% \begin{figure}[H]
-% 	\centering
-% 	\begin{subfigure}{0.32\textwidth}
-% 		\centering
-% 		\includegraphics[width=\textwidth]{figures/elec/AF_2.png}
-% 		\caption{Position 2}
-% 	\end{subfigure}
-% 	\begin{subfigure}{0.32\textwidth}
-% 		\centering
-% 		\includegraphics[width=\textwidth]{figures/elec/AF_1.png}
-% 		\caption{Position 1}
-% 	\end{subfigure}
-% 	\begin{subfigure}{0.32\textwidth}
-% 		\centering
-% 		\includegraphics[width=\textwidth]{figures/elec/AF_0.png}
-% 		\caption{Position 0}
-% 	\end{subfigure}
-% 	\caption{Les 3 positions du système d'aérofrein}
-% \end{figure}
-
-% \begin{figure}[H]
-% 	\centering
-% 	\begin{subfigure}{0.49\textwidth}
-% 		\centering
-% 		\includegraphics[width=\textwidth]{figures/elec/AF_2.png}
-% 		\caption{Position 2}
-% 	\end{subfigure}
-% 	\begin{subfigure}{0.49\textwidth}
-% 		\centering
-% 		\includegraphics[width=\textwidth]{figures/elec/AF_1.png}
-% 		\caption{Position 1}
-% 	\end{subfigure}
-% 	\begin{subfigure}{0.49\textwidth}
-% 		\centering
-% 		\includegraphics[width=\textwidth]{figures/elec/AF_0.png}
-% 		\caption{Position 0}
-% 	\end{subfigure}
-% 	\caption{Les 3 positions du système d'aérofrein}
-% \end{figure}
-
 \vspace{0.2cm}
 
-\noindent Un autre exemple qui est intéressant d'étudier est la procédure pour coupler les étages après l'allumage du premier
-étage et hors du programme de vol (programme \texttt{0}). Toutes opérations s'effectue sur le premier étage :
+\noindent Un autre exemple qui est intéressant d'étudier est la procédure pour coupler les étages après la mise sous tension du
+premier étage et hors du programme de vol (programme \texttt{0}). Toutes opérations s'effectue sur le premier étage :
 \begin{enumerate}
 	\item Vérifier visuellement qu'aucun objet ne gêne le système mécanique de séparation. 
-	\item Choisir le programme \texttt{3} et le lancer en appuyant sur le bouton pour réaliser la mise en référence du système.
+	\item Choisir le programme \texttt{3} et le lancer en appuyant sur le bouton afin de réaliser la mise en référence du
+	système.
 	\item Choisir le programme \texttt{6} et le lancer 3 fois en attendant que le servomoteur ait fini d'atteindre sa position
 	à chaque itération. Le système a alors effectué la séquence suivante $0 \longrightarrow 1 \longrightarrow 2 \longrightarrow 1$
 	\item Armer les ressorts du système.
@@ -422,8 +327,8 @@ correspondant :
 	\item Lancer une 4ème fois le programme \texttt{6}. Cela ramènera le système à la position 0 et verouillera les étages.
 \end{enumerate}
 
-Tout ce système de mise d'opération réalisable sur les actionneur est rendu possible grâce aux outils logiciels présenté en
-section \ref{subsubsubsec:seq_actionneurs}.
+Tout ce système d'opération réalisable sur les actionneur est rendu possible grâce aux outils logiciels présenté en section
+\ref{subsubsubsec:seq_actionneurs}.
 
 \vfill
 
@@ -441,22 +346,23 @@ vérifiées finement en atelier. L'opérateur bascule entre les modes (accélér
 appuis courts ou longs sur le bouton. Plus d'informations sur la mesure d'attitude sont disponibles en section
 \ref{subsec:mesure_attitude}.\\
 
-La position 4 est plus directe : elle maintient la sortie d'allumage active tant que la fonction s'exécute, et la désactive au
-moment d'en sortir. Elle permet de vérifier la continuité de la chaîne pyrotechnique indépendamment de toute condition
-d'attitude. Ces deux fonctions ne sont évidemment employées qu'avec un dispositif de mesure en lieu et place de l'allumeur.
+La position 4 est plus directe : elle maintient l'ordre d'allumage du propulseur du 2e étage active tant que la fonction
+s'exécute, et la désactive au moment d'en sortir. Elle permet de vérifier la continuité de la chaîne pyrotechnique indépendamment
+de toute condition d'attitude. Ces deux fonctions ne sont évidemment employées qu'avec un dispositif de mesure en lieu et place
+de l'allumeur.
 
 \newpage
 
 \subsubsubsection{Phase d'initialisation}
 \label{subsubsec:seq_initialisation}
 
-Sélectionner la position 0 engage le programme de campagne de lancement, qui s'ouvre sur une phase d'initialisation. Son rôle
-est d'amener la fusée, depuis un état quelconque, jusqu'à un état vérifié et prêt au décollage. Elle se distingue des fonctions
-sol sur un point essentiel : l'opérateur n'y choisit plus ce qu'il exécute. Le séquenceur impose un ordre, valide chaque étape
-avant de passer à la suivante, et refuse d'avancer tant que les conditions ne sont pas réunies. La procédure de préparation est
-ainsi rendue obligatoire par le logiciel, plutôt que confiée à la rigueur de l'opérateur.
+Sélectionner le programme \texttt{0} engage le programme de campagne de lancement, qui s'ouvre sur une phase d'initialisation.
+Son rôle est d'amener la fusée, depuis un état quelconque, jusqu'à un état vérifié et prêt au décollage. Elle se distingue des
+fonctions sol sur un point essentiel : l'opérateur n'y choisit plus ce qu'il exécute. Le séquenceur impose un ordre, valide chaque
+étape avant de passer à la suivante, et refuse d'avancer tant que les conditions ne sont pas réunies. La procédure de préparation
+est ainsi rendue obligatoire par le logiciel, plutôt que confiée à la rigueur de l'opérateur.
 
-\subparagraph*{Une progression validée pas à pas} \subparagraph*{Une progression validée pas à pas} La phase se déroule comme une succession d'étapes séparées par des attentes
+\subparagraph*{Une progression validée pas à pas} La phase se déroule comme une succession d'étapes séparées par des attentes
 d'appui sur le bouton. Ce découpage répond à une règle que s'est fixée l'équipe : aucun servomoteur ne doit jamais être mis en
 mouvement automatiquement. Toute commande d'actionneur est précédée d'une validation explicite de l'opérateur, qui s'assure au
 préalable que rien n'entrave la course du système concerné.\\
@@ -468,7 +374,7 @@ il dispose : \texttt{JACK READY}, mise en référence de sa trappe, puis vérifi
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/elec/sequenceur_stage_1_init.drawio.png}
+    \includegraphics[width=\textwidth]{figures/elec/sequenceur_stage_1_init.drawio.pdf}
     \caption{Phase d'initialisation du premier étage.}
     \label{fig:init_stage_1}
 \end{figure}
@@ -482,11 +388,11 @@ mécanique de la fusée : le \texttt{JACK\_LAUNCH} doit être inséré, et les d
 de séparation verrouillé. La troisième, le retrait du \texttt{JACK\_READY}, n'est évaluée qu'une fois les deux premières
 satisfaites.\\
  
-La figure présente ces vérifications sous forme d'une chaîne de tests, mais il faut se garder de la lire comme une progression
-figée : l'ensemble du cycle est reparcouru à chaque itération de la boucle principale. Les conditions sont donc réévaluées en
-permanence, et rien n'est acquis une fois pour toutes. Si les étages sont désolidarisés après avoir été assemblés, ou si le
-\texttt{JACK\_LAUNCH} est retiré, la condition correspondante redevient insatisfaite et la fusée recule d'autant : c'est l'état
-courant du système qui compte, et non l'historique des étapes franchies.\\
+La figure \ref{fig:init_stage_1} présente ces vérifications sous forme d'une chaîne de tests, mais il faut se garder de la lire
+comme une progression figée : l'ensemble du cycle est reparcouru à chaque itération de la boucle principale. Les conditions sont
+donc réévaluées en permanence, et rien n'est acquis une fois pour toutes. Si les étages sont désolidarisés après avoir été
+assemblés, ou si le \texttt{JACK\_LAUNCH} est retiré, la condition correspondante redevient insatisfaite et la fusée recule
+d'autant : c'est l'état courant du système qui compte, et non l'historique des étapes franchies.\\
  
 Le \texttt{JACK\_READY} est arraché par les derniers opérateurs quittant le pas de tir, rampe déjà érigée. Tant qu'il est en
 place, le séquenceur ne peut en aucun cas interpréter un faux contact ou une secousse liée aux manipulations comme un décollage,
@@ -512,7 +418,7 @@ déclenche pas de verrouillage prématuré.\\
 \begin{minipage}{0.35\textwidth}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=\textwidth]{figures/elec/sequenceur_stage1_init_sepa_zoom.jpg}
+		\includegraphics[width=\textwidth]{figures/elec/sequenceur_stage1_init_sepa_zoom.drawio.pdf}
 		\caption{Zoom sur la séquence d'assemblage des étages.}
 		\label{fig:init_stage_1_sepa_zoom}
 	\end{figure}
@@ -545,7 +451,7 @@ brancher et débrancher le \texttt{JACK\_LAUNCH} sur le premier étage se voit r
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/elec/sequenceur_stage_2_init.drawio.png}
+    \includegraphics[width=\textwidth]{figures/elec/sequenceur_stage_2_init.drawio.pdf}
     \caption{Phase d'initialisation du deuxième étage.}
     \label{fig:init_stage_2}
 \end{figure}
@@ -627,9 +533,75 @@ phase de vol et l'annoncent par un motif rouge. La fusée est prête au décolla
 \subsubsubsection{Phase de vol}
 \label{subsubsec:seq_flight}
 
+\subsubsection{Phase de vol}
+
+La phase de vol constitue la dernière phase du programme de vol. Elle est atteinte à l'issue de la phase d'initialisation et
+exécute la séquence des événements de vol jusqu'à l'ouverture de la trappe à parachute. L'ensemble des instants qui la
+composent est défini relativement à $T_0$, l'instant du décollage, déterminé par l'arrachage du \texttt{JACK\_LAUNCH}.\\
+
+La séquence est construite à partir de deux briques élémentaires, représentées sur la figure~\ref{fig:briques_sequence}. La\\
+temporisation, notée $\mathrm{Wait}(T_x)$, maintient l'état courant tant que l'instant $T_x$ n'est pas atteint, puis exécute
+l'action qui lui est associée. La fenêtre de détection, notée $\left\{T_x, \Delta T_x\right\}$ où $T_x$ désigne l'instant
+d'ouverture de la fenêtre et $\Delta T_x$ sa durée, teste une condition physique et possède trois issues : le maintien dans
+l'état tant que la condition n'est pas vérifiée, la confirmation lorsqu'elle l'est à l'intérieur de la fenêtre, et l'expiration
+au-delà de $T_x + \Delta T_x$.\\
+
+Les deux bornes de la fenêtre remplissent des rôles distincts. La borne inférieure écarte les détections prématurées : une
+condition vérifiée avant $T_x$ ne peut correspondre à l'événement attendu. La borne supérieure garantit la progression de la
+séquence en l'absence de détection, en orientant le programme vers une branche dégradée plutôt qu'en le laissant en attente
+d'un événement qui ne surviendra pas.
+
+\vfill
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.8\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/elec/WAIT.drawio.pdf}
+		\caption{Temporisation}
+		\label{fig:brique_wait}
+	\end{subfigure}
+	\vspace{0.2cm}
+	\begin{subfigure}{0.8\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{figures/elec/FT.drawio.pdf}
+		\caption{Fenêtre de détection}
+		\label{fig:brique_ft}
+	\end{subfigure}
+	\caption{Briques élémentaires de la séquence de vol et leur notation compacte}
+	\label{fig:briques_sequence}
+\end{figure}
+
+\newpage
+
+Les séquences de vol des deux étages sont représentées sur la figure~\ref{fig:sequences_vol}. Construites à partir des deux
+briques précédentes, chaque étage exécute la séquence qui lui est propre : le 1er étage enchaîne les commandes du système de
+séparation et des aérofreins, tandis que le 2e étage subordonne l'allumage de son moteur à la confirmation de la séparation
+puis à la vérification de son attitude, selon la fenêtre d'attitude autorisée.\\
+
+Les issues des fenêtres de détection déterminent le chemin suivi dans la séquence. Chacun de ces chemins correspond à un
+scénario de vol, auquel est associée une fenêtre de détection de l'apogée qui lui est propre.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/elec/sequ1.drawio.pdf}
+        \caption{1er étage}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{figures/elec/sequ2.drawio.pdf}
+        \caption{2e étage}
+    \end{subfigure}
+    \caption{Schémas fonctionnels des séquenceurs des deux étages}
+\end{figure}
+
 \newpage
 
 \subsubsection{Calcul d'attitude}
+\label{subsec:mesure_attitude}
 
 Afin de réaliser la mission, le séquenceur doit être capable de calculer l'attitude de la fusée à partir des mesures issues d'une
 centrale inertielle. La construction de l'ordre de décision d'allumage du propulseur du second étage se découpe en 4 étapes
@@ -782,7 +754,7 @@ fusée n'a pas encore décollé, le séquenceur calcul $q_{f,0}$ à partir des m
 	\vspace{-0.4cm}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.9\textwidth]{figures/elec/calcul_attitude.drawio.png}
+		\includegraphics[width=0.9\textwidth]{figures/elec/calcul_attitude.drawio.pdf}
 		\caption{Calcul d'attitude}
 	\end{figure}
 \end{minipage}
@@ -871,7 +843,7 @@ référence de chaque système mécanique. La figure \ref{fig:sts_actuator} repr
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figures/elec/STS_actuator.drawio.png}
+    \includegraphics[width=0.95\textwidth]{figures/elec/STS_actuator.drawio.pdf}
     \caption{Articulation du pilote \texttt{STS} et de l'utilitaire \texttt{actuator}}
     \label{fig:sts_actuator}
 \end{figure}
@@ -993,5 +965,810 @@ argent, il est préférable de prévenir toute erreur de manipulation.
 \newpage
 
 \subsubsubsection{Gestion des événements lumineux}
+\label{subsubsubsec:seq_leds}
+
+\paragraph*{Motivation} La LED est l'unique canal de communication en temps réel vers l'opérateur au sol. Le programme du
+séquenceur a cependant une exécution non linéaire : à un instant donné, plusieurs conditions peuvent être vraies ou en attente
+simultanément, plutôt qu'un unique état à la fois. L'opérateur doit donc pouvoir déterminer, par la seule observation de la LED,
+ce qu'il se passe : si le séquenceur attend une action, laquelle, et si une condition est remplie ou non, ycompris lorsque
+plusieurs de ces informations sont pertinentes en même temps. Une couleur fixe par état ne suffit ni à distinguer un nombre
+suffisant de situations, ni à signaler qu'une condition est en cours d'évaluation plutôt qu'acquise. Le choix retenu est de
+représenter chaque condition par un motif dans le temps plutôt que par une couleur statique, ce qui nécessite une abstraction
+manipulant le temps : c'est le rôle de la bibliothèque \texttt{waveform}, qui permet de définir un nombre arbitraire de motifs
+distincts. Plusieurs motifs pouvant être actifs simultanément, il faut ensuite un mécanisme qui les fasse cohabiter sans
+qu'aucune partie du programme n'ait à connaître ce qui est affiché par ailleurs : c'est le rôle de l'ordonnanceur
+\texttt{led\_scheduler}.
+
+\paragraph{Modèle temporel} Un motif lumineux est représenté par une fonction du temps, indépendante de la couleur ou de
+l'intensité qu'il portera une fois affiché. Deux domaines sont distingués selon la nature de la grandeur représentée : un motif
+d'intensité est une fonction $f_{1D} : [0,1] \to [0,1]$, tandis qu'un motif de couleur est une fonction $f_{3D} : [0,1] \to [0,1]^3$
+dont les trois composantes correspondent aux canaux rouge, vert et bleu de la LED.\\
+
+La figure~\ref{fig:waveform_fa} illustre un motif d'intensité $f_a(t)$ construit à titre d'exemple : une bosse sinusoïdale
+suivie de deux portes de largeurs différentes, dont la somme est bornée à $[0,1]$.
+
+% $$ f_a(t) = \max(0, \min(1, \text{bosse}(t, 0, 0.4) + \text{porte}(t, 0.35, 0.6) + \text{porte}(t, 0.75, 0.8))) $$
+$$ f_a(t) = \text{clap}\left(0, 1, \left[0.5 - 0.5 \cos{\left(2\pi\frac{t - 0.2}{0.4}\right)}\right]\prod\left(\frac{t-0.2}{0.4}\right) + \bigwedge\left(\frac{t-0.4}{0.2}\right)+ \prod\left(\frac{t-0.8}{0.1}\right)\right)$$ % )) $$
+
+\noindent où $\text{clap}(a, b, x) = \max(a, \min(b, x))$ est la fonction de limitation à l'intervalle
+$[a,b]$, $\prod(x)$ est la fonction porte définie par $\prod(x) = \left\{1 \text{ si } -\frac{1}{2} \leq x < \frac{1}{2}, 0 \text{ sinon}\right\}$
+et $\bigwedge(x)$ est la fonction triangle définie par $\bigwedge(x) = \left\{1 - |2x| \text{ si } -\frac{1}{2} \leq x < \frac{1}{2}, 0 \text{ sinon}\right\}$.\\
+
+\pgfplotsset{compat=1.18}
+
+% ---- Paramètres génériques (à modifier ici uniquement) ----
+\pgfmathsetmacro{\SinStart}{0}
+\pgfmathsetmacro{\SinEnd}{0.4}
+\pgfmathsetmacro{\GateOneStart}{0.3}
+\pgfmathsetmacro{\GateOneEnd}{0.5}
+\pgfmathsetmacro{\GateTwoStart}{0.75}
+\pgfmathsetmacro{\GateTwoEnd}{0.85}
+\pgfmathsetmacro{\Dephasage}{1/50}
+
+% ---- Formes de base ----
+\pgfmathdeclarefunction{gate}{3}{%
+  \pgfmathparse{ifthenelse((#1 >= #2) && (#1 < #3), 1, 0)}%
+}
+\pgfmathdeclarefunction{bosse}{3}{%
+  \pgfmathparse{ifthenelse((#1 >= #2) && (#1 < #3), 0.5 - 0.5*cos(360*(#1-#2)/(#3-#2)), 0)}%
+}
+\pgfmathdeclarefunction{clap}{3}{%
+  \pgfmathparse{min(#1, max(#2, #3))}%
+}
+\pgfmathdeclarefunction{triangle}{3}{%
+  \pgfmathparse{ifthenelse((#1 >= #2) && (#1 < #3), 1 - abs(2*(#1-#2)/(#3-#2)-1), 0)}%
+}
+
+% ---- f_a(t) : composition bornée ----
+\pgfmathdeclarefunction{fa}{1}{%
+  \pgfmathparse{min(1, max(0, %
+    bosse(#1,\SinStart,\SinEnd) + triangle(#1,\GateOneStart,\GateOneEnd) + gate(#1,\GateTwoStart,\GateTwoEnd) %
+  ))}%
+}
+
+% ---- f_b(t) : f_a déphasée sur les 3 voies ----
+\pgfmathdeclarefunction{wrap}{1}{\pgfmathparse{#1 - floor(#1)}}
+\pgfmathdeclarefunction{fbR}{1}{\pgfmathparse{fa(wrap(#1))}}
+\pgfmathdeclarefunction{fbG}{1}{\pgfmathparse{fa(wrap(#1-\Dephasage))}}
+\pgfmathdeclarefunction{fbB}{1}{\pgfmathparse{fa(wrap(#1-2*\Dephasage))}}
+
+\vspace{-0.4cm}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.9\linewidth, height=4.5cm,
+    xlabel={$t$}, ylabel={$f_a(t)$},
+    xmin=0, xmax=1, ymin=-0.05, ymax=1.15,
+    xtick={0,0.2,0.4,0.6,0.8,1}, ytick={0,0.5,1},
+    axis lines=left,
+    domain=0:1, samples=200,
+    legend pos=outer north east,
+]
+\addplot[thick, black] {fa(x)}; \addlegendentry{$I$}
+\end{axis}
+\end{tikzpicture}
+\caption{Motif $f_a(t)$ : bosse sinusoïdale suivie de deux portes de largeurs différentes.}
+\label{fig:waveform_fa}
+\end{figure}
+
+\vspace{-0.4cm}
+
+La figure~\ref{fig:waveform_fb} illustre un motif de couleur $f_b(t)$ construit à partir de $f_a$, en appliquant le même motif à
+chacun des trois canaux avec un déphasage entre eux.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.9\linewidth, height=4.5cm,
+    xlabel={$t$}, ylabel={$f_b(t)$},
+    xmin=0, xmax=1, ymin=-0.05, ymax=1.15,
+    xtick={0,0.2,0.4,0.6,0.8,1}, ytick={0,0.5,1},
+    axis lines=left,
+    domain=0:1, samples=200,
+    legend pos=outer north east,
+]
+\addplot[thick, red] {fbR(x)}; \addlegendentry{$R$}
+\addplot[thick, green!60!black] {fbG(x)}; \addlegendentry{$G$}
+\addplot[thick, blue] {fbB(x)}; \addlegendentry{$B$}
+\end{axis}
+\end{tikzpicture}
+\caption{Motif $f_b(t)$ : même motif que $f_a$, déphasé d'un décalage $\Delta = 1/50$ entre chaque voie colorimétrique.}
+\label{fig:waveform_fb}
+\end{figure}
+
+\newpage
+
+\paragraph*{Structure générique} Pour être manipulé de façon uniforme (combiné avec d'autres motifs), un motif doit exposer une
+même interface, quelle que soit sa nature ou sa complexité. Une fonction associée à un motif d'intensité ou
+\textit{wave\_func\_scalar\_t} ($f_{1D}$) et une fonction associée à un motif de couleur ou \textit{wave\_func\_space\_t}
+($f_{3D}$) ne prennent donc, l'une comme l'autre, que deux arguments : la phase $t$, et un pointeur de contexte non typé
+(\texttt{const void *}).\\
+
+\begin{lstlisting}[language=C, frame=tb, basicstyle=\small]
+// t in [0, 1] ; returns intensity in [0, 1]
+typedef float (*wave_func_scalar_t)(float t, const void *ctx);
+
+// t in [0, 1] ; returns  color in [0, 1]^3
+typedef float3_t (*wave_func_space_t)(float t, const void *ctx);
+\end{lstlisting}
+
+Ce pointeur de contexte permet à chaque fonction de recevoir les paramètres qui lui sont propres (les bornes d'une porte, le
+coefficient de décroissance d'une impulsion, ou les motifs et facteurs à combiner) sans que cela n'altère la signature commune.
+Chaque fonction se charge elle-même de convertir ce pointeur vers le type de structure qu'elle attend. C'est ce mécanisme qui
+permet de traiter indifféremment un motif élémentaire ou une composition de plusieurs motifs : les deux exposent la même
+interface, seul le contenu du contexte diffère.
+
+\paragraph*{Formes de base et opérateurs de composition} La bibliothèque fournit un petit nombre de motifs de base, prêtes à
+l'emploi (tableau~\ref{tab:formes_base}), ainsi que des opérateurs arithmétiques permettant de les combiner entre elles ou avec
+des constantes (tableau~\ref{tab:operateurs}). Un opérateur de composition expose la même interface qu'une forme de base : son
+contexte contient simplement les motifs (fonction et pointeur de contexte) sur lesquels il opère, ce qui lui permet d'être à
+son tour combiné avec d'autres motifs, y compris d'autres compositions.\\
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{p{6cm} l p{6.2cm} }
+\hline
+\textbf{Description} & \textbf{Attribut} & \textbf{Description de l'attribut} \\
+\hline
+
+\multicolumn{3}{l}{\texttt{gate}} \\
+\hline
+\multirow{2}{6cm}{Intensité de 1 sur l'intervalle actif, 0 en dehors} &
+\texttt{start} & Borne inférieure de l'intervalle actif \\
+\cline{2-3}
+ & \texttt{end} & Borne supérieure de l'intervalle actif \\
+\hline
+
+\multicolumn{3}{l}{\texttt{ramp}} \\
+\hline
+\multirow{2}{6cm}{Rampe linéaire croissante sur l'intervalle actif} &
+\texttt{start} & Borne inférieure de l'intervalle actif \\
+\cline{2-3}
+ & \texttt{end} & Borne supérieure de l'intervalle actif \\
+\hline
+
+\multicolumn{3}{l}{\texttt{triangle}} \\
+\hline
+\multirow{2}{6cm}{Montée puis descente linéaires sur l'intervalle actif} &
+\texttt{start} & Borne inférieure de l'intervalle actif \\
+\cline{2-3}
+ & \texttt{end} & Borne supérieure de l'intervalle actif \\
+\hline
+
+\multicolumn{3}{l}{\texttt{sine}} \\
+\hline
+\multirow{2}{6cm}{Bosse sinusoïdale (montée puis descente) sur l'intervalle actif} &
+\texttt{start} & Borne inférieure de l'intervalle actif \\
+\cline{2-3}
+ & \texttt{end} & Borne supérieure de l'intervalle actif \\
+\hline
+
+\multicolumn{3}{l}{\texttt{impulse}} \\
+\hline
+\multirow{3}{6cm}{Décroissance exponentielle sur l'intervalle actif} &
+\texttt{start} & Borne inférieure de l'intervalle actif \\
+\cline{2-3}
+ & \texttt{end} & Borne supérieure de l'intervalle actif \\
+\cline{2-3}
+ & \texttt{k} & Coefficient de décroissance exponentielle \\
+\hline
+
+\end{tabular}
+\caption{Formes de base de la bibliothèque \texttt{waveform}}
+\label{tab:formes_base}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{5.5cm} l p{5.5cm}}
+\hline
+\textbf{Description} & \textbf{Attribut} & \textbf{Description de l'attribut} \\
+\hline
+
+\multicolumn{3}{l}{\texttt{scale\_add\_const}} \\
+\hline
+\multirow{3}{5cm}{Ajoute une constante à une fonction scalaire} &
+\texttt{wave\_function\_add} & Fonction \\
+\cline{2-3}
+ & \texttt{ctx\_add} & Contexte de la fonction \\
+\cline{2-3}
+ & \texttt{offset} & Constante ajoutée \\
+\hline
+
+\multicolumn{3}{l}{\texttt{scale\_add}} \\
+\hline
+\multirow{3}{5cm}{Additionne deux fonctions scalaires} &
+\texttt{wave\_function\_add\_1} & 1er fonction \\
+\cline{2-3}
+ & \texttt{ctx\_add\_1} & Contexte de la 1ere fonction \\
+\cline{2-3}
+ & \texttt{wave\_function\_add\_2} & 2e fonction \\
+\cline{2-3}
+ & \texttt{ctx\_add\_2} & Contexte de la 2e fonction \\
+\hline
+
+\multicolumn{3}{l}{\texttt{scale\_mult\_const}} \\
+\hline
+\multirow{3}{5cm}{Multiplie une fonction scalaire par une constante} &
+\texttt{wave\_function\_mult} & Fonction \\
+\cline{2-3}
+ & \texttt{ctx\_mult} & Contexte de la fonction \\
+\cline{2-3}
+ & \texttt{factor} & Constante multiplicative \\
+\hline
+
+\multicolumn{3}{l}{\texttt{scale\_mult}} \\
+\hline
+\multirow{3}{5cm}{Multiplie deux fonctions scalaires} &
+\texttt{wave\_function\_mult\_1} & 1er fonction \\
+\cline{2-3}
+ & \texttt{ctx\_mult\_1} & Contexte de la 1ere fonction \\
+\cline{2-3}
+ & \texttt{wave\_function\_mult\_2} & 2e fonction \\
+\cline{2-3}
+ & \texttt{ctx\_mult\_2} & Contexte de la 2e fonction \\
+\hline
+
+\multicolumn{3}{l}{\texttt{space\_add\_const}} \\
+\hline
+\multirow{3}{5cm}{Ajoute une couleur constante à une fonction spatiale} &
+\texttt{wave\_function\_add} & Fonction  \\
+\cline{2-3}
+ & \texttt{ctx\_add} & Contexte de la fonction \\
+\cline{2-3}
+ & \texttt{offset} & Couleur ajoutée \\
+\hline
+
+\multicolumn{3}{l}{\texttt{space\_add}} \\
+\hline
+\multirow{4}{5cm}{Additionne deux fonctions spatiales} &
+\texttt{wave\_function\_add\_1} & 1er fonction \\
+\cline{2-3}
+ & \texttt{ctx\_add\_1} & Contexte de la 1ere fonction \\
+\cline{2-3}
+ & \texttt{wave\_function\_add\_2} & 2e fonction \\
+\cline{2-3}
+ & \texttt{ctx\_add\_2} & Contexte de la 2e fonction \\
+\hline
+
+\multicolumn{3}{l}{\texttt{space\_mult\_const}} \\
+\hline
+\multirow{3}{5cm}{Multiplie une fonction scalaire par une couleur constante} &
+\texttt{wave\_function\_mult} & Fonction scalaire \\
+\cline{2-3}
+ & \texttt{ctx\_mult} & Contexte de la fonction scalaire \\
+\cline{2-3}
+ & \texttt{factor} & Couleur de référence \\
+\hline
+
+\end{tabular}
+\caption{Opérateurs de composition de la bibliothèque \texttt{waveform}}
+\label{tab:operateurs}
+\end{table}
+
+Parmi ces opérateurs, un cas particulier assure la transition entre les deux domaines introduits précédemment :
+\texttt{space\_mult\_const} met à l'échelle une couleur constante par un motif d'intensité, convertissant ainsi un motif
+d'intensité en motif de couleur.
+
+\paragraph*{Persistance et temporalité} Une forme de base ou une composition, telle que décrite précédemment, n'est qu'une
+fonction pure de la phase : elle ne conserve aucun état d'un appel à l'autre. Pour être effectivement jouée, elle est
+enveloppée dans une structure qui lui associe une temporalité propre : une durée $T$, un indicateur de périodicité, ainsi qu'une
+horloge interne démarrée au premier instant où le motif est effectivement évalué. Un motif non périodique devient inactif dès
+que sa durée s'est écoulée une fois. Un motif périodique reprend au contraire indéfiniment à $t=0$ à l'issue de chaque période.\\
+
+\noindent La composition de cette structure avec la fonction forme l'entité complète d'un motif appelé \texttt{waveform}.
+
+\newpage
+
+\paragraph{Exemple de composition} Le code ci-dessous illustre la construction d'un motif de couleur à partir des seules formes
+de base et opérateurs de composition présentés précédemment, sans qu'aucune fonction supplémentaire ne soit écrite. Le motif
+obtenu additionne deux contributions :
+\begin{itemize}
+	\item une décroissance exponentielle combinée à une porte, toutes deux mises à l'échelle d'une même teinte
+	\item une bosse sinusoïdale, mise à l'échelle d'une seconde teinte.
+\end{itemize}
+Chaque opérateur ne fait que porter, dans son contexte, les motifs et les paramètres sur lesquels il opère. La structure du
+code reflète directement l'arbre de composition du motif.
+\begin{lstlisting}[language=C, frame=tb, basicstyle=\small]
+const waveform_space_add_t wfm_exemple_ctx = {
+    .wave_function_add_1 = waveform_space_mult_const,
+    .ctx_add_1 = &(const waveform_space_mult_const_t) {
+        .wave_function_mult = waveform_scale_add,
+        .ctx_mult = &(const waveform_scale_add_t) {
+            .wave_function_add_1 = waveform_impulse,
+            .ctx_add_1 = &(const waveform_impulse_t) {
+                .start = 0.2f,
+                .end = 0.4f,
+                .k = 5.0f
+            },
+            .wave_function_add_2 = waveform_gate,
+            .ctx_add_2 = &(const waveform_gate_t) {
+                .start = 0.8f,
+                .end = 0.9f
+            },
+        },
+        .factor = (float3_t){ .x = 0.2f, .y = 0.7f, .z = 0.8f }
+    },
+    .wave_function_add_2 = waveform_space_mult_const,
+    .ctx_add_2 = &(const waveform_space_mult_const_t) {
+        .wave_function_mult = waveform_sine,
+        .ctx_mult = &(const waveform_sine_t) {
+            .start = 0.3f,
+            .end = 0.7f,
+        },
+        .factor = (float3_t){ .x = 1.0f, .y = 0.8f, .z = 0.0f }
+    }
+};
+\end{lstlisting}
+
+\vfill
+
+\noindent La figure~\ref{fig:waveform_exemple} représente l'exécution de ce motif sur les trois canaux de couleur en fonction de
+la phase $t$.
+
+% Nouvelles déclarations : gate et bosse sont déjà définies plus haut (figures f_a/f_b),
+% ne pas les redéclarer sous peine d'erreur de compilation.
+\pgfmathdeclarefunction{impulse}{4}{%
+  \pgfmathparse{ifthenelse((#1 >= #2) && (#1 < #3), exp(-#4*(#1-#2)/(#3-#2)), 0)}%
+}
+\pgfmathdeclarefunction{branchA}{1}{%
+  \pgfmathparse{impulse(#1,0.2,0.4,5) + gate(#1,0.8,0.9)}%
+}
+\pgfmathdeclarefunction{branchB}{1}{%
+  \pgfmathparse{bosse(#1,0.3,0.7)}%
+}
+\pgfmathdeclarefunction{ExR}{1}{\pgfmathparse{0.2*branchA(#1) + 1.0*branchB(#1)}}
+\pgfmathdeclarefunction{ExG}{1}{\pgfmathparse{0.7*branchA(#1) + 0.8*branchB(#1)}}
+\pgfmathdeclarefunction{ExB}{1}{\pgfmathparse{0.8*branchA(#1) + 0.0*branchB(#1)}}
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			width=0.9\linewidth, height=5cm,
+			xlabel={$t$}, ylabel={intensité},
+			xmin=0, xmax=1, ymin=-0.05, ymax=1.15,
+			xtick={0,0.2,0.4,0.6,0.8,1}, ytick={0,0.5,1},
+			axis lines=left,
+			domain=0:1, samples=200,
+			legend pos=outer north east,
+		]
+			\addplot[thick, red] {ExR(x)}; \addlegendentry{$R$}
+			\addplot[thick, green!60!black] {ExG(x)}; \addlegendentry{$G$}
+			\addplot[thick, blue] {ExB(x)}; \addlegendentry{$B$}
+		\end{axis}
+	\end{tikzpicture}
+	\caption{Exécution du motif sur les trois canaux de couleur.}
+	\label{fig:waveform_exemple}
+\end{figure}
+
+\vfill\vfill
+
+\newpage
+
+Une fois défini, ce motif est instancié dans la structure introduite précédemment, avec une durée de 5 secondes et un
+fonctionnement périodique. Il peut ensuite être joué par dans une boucle infinie. Le pointeur \texttt{wfm} représente le motif
+à jouer, et est passé à la fonction \texttt{Waveform\_Play\_Space} à chaque itération. Cette fonction ne fait qu'évaluer le
+motif à l'instant courant, et renvoie la couleur correspondante. Ce résultat est ensuite transmis à la LED.
+
+\begin{lstlisting}[language=C, frame=tb, basicstyle=\small]
+waveform_space_t waveform_exemple;
+Waveform_Init_Space(
+	&wfm_exemple,
+	waveform_space_add,
+	&wfm_exemple_ctx,
+	5000,
+	true
+);
+
+waveform_space_t *wfm = &wfm_exemple;
+while (1) {
+    float3_t result = Waveform_Play_Space(
+		wfm,
+		HAL_GetTick()
+	);
+    LED_RGB_SetColor(&led_rgb, result);
+}
+\end{lstlisting}
+
+\newpage
+
+\paragraph*{LED\_SCHEDULER} Là où la bibliothèque \texttt{waveform} décrit un motif lumineux, l'ordonnanceur
+\texttt{led\_scheduler} détermine, à chaque itération de boucle, lesquels des motifs actifs sont visibles et comment ils se
+combinent en une unique couleur. L'unité manipulée par l'ordonnanceur est l'événement lumineux : un motif de couleur, associé
+aux règles qui régissent sa cohabitation avec les autres événements. L'ensemble de l'interface exposée à l'utilisateur est
+donné par le code ci-dessous.
+
+\begin{lstlisting}[language=C, frame=tb, basicstyle=\small]
+#define LED_SCHED_MAX_EVENTS 8	// Aribitraire. Peut etre augmente si besoin
+
+typedef int32_t led_evt_handle_t;
+#define LED_SCHED_HANDLE_INVALID ((led_evt_handle_t)-1)
+
+typedef enum {
+    LED_SCHED_NO_FORCE,
+    LED_SCHED_SOFT_FORCE,
+    LED_SCHED_HARD_FORCE,
+} led_evt_force_t;
+
+void             LedSched_Init(void);
+led_evt_handle_t LedSched_Add(waveform_space_t *waveform, uint8_t priority,
+                              bool transparent, uint32_t pause_timeout_ms,
+                              led_evt_force_t force);
+void             LedSched_Remove(led_evt_handle_t evt);
+void             LedSched_Clear(void);
+bool             LedSched_IsHandleValid(led_evt_handle_t evt);
+float3_t         LedSched_Process(uint32_t now_ms);
+\end{lstlisting}
+
+L'ajout d'un événement est réalisé par \texttt{LedSched\_Add}, dont les cinq paramètres, détaillés dans le
+tableau~\ref{tab:led_sched_add}, suffisent à définir l'intégralité de son comportement. La fonction renvoie un identifiant de
+l'événement créé, ou la valeur \texttt{LED\_SCHED\_HANDLE\_INVALID} si l'ajout a échoué. La capacité de l'ordonnanceur est
+fixée à la compilation par \texttt{LED\_SCHED\_MAX\_EVENTS} : les événements sont stockés dans une \og pool \fg{} (réserve)
+statique, sans allocation dynamique.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|>{\raggedright\arraybackslash}p{3.5cm}|l|>{\raggedright\arraybackslash}p{5.75cm}|}
+\hline
+\textbf{Paramètre} & \textbf{Description} & \textbf{Valeur} & \textbf{Effet} \\
+\hline
+\texttt{waveform} & Motif de couleur joué par l'événement & -- & Le motif est redémarré à l'ajout \\
+\hline
+\texttt{priority} & Niveau de visibilité de l'événement & $0$ à $255$ & Une valeur plus élevée correspond à un événement plus prioritaire \\
+\hline
+\multirow{2}{*}{\texttt{transparent}} & \multirow{2}{3cm}{Mode de cohabitation avec les autres événements} & \texttt{false} & Opaque : masque les événements de priorité inférieure \\
+\cline{3-4}
+ & & \texttt{true} & Transparent : la couleur s'additionne à celle des autres événements visibles \\
+\hline
+\multirow{3}{*}{\texttt{timeout\_ms}} & \multirow{3}{3cm}{Comportement de l'événement lorsqu'il est masqué} & $0$ & Jamais mis en pause : le motif continue de s'écouler sans être affiché \\
+\cline{3-4}
+ & & Autre valeur $d$ & Mis en pause, puis écoulé sans être affiché une fois le délai $d$ dépassé \\
+\cline{3-4}
+ & & \texttt{HAL\_MAX\_DELAY} & Mis en pause sans limite de durée \\
+\hline
+\multirow{3}{*}{\texttt{force}} & \multirow{3}{3cm}{Politique appliquée lorsque la pool est pleine} & \texttt{NO\_FORCE} & L'ajout échoue \\
+\cline{3-4}
+ & & \texttt{SOFT\_FORCE} & Évince l'événement le moins prioritaire s'il est strictement moins prioritaire que le nouvel événement, échoue sinon \\
+\cline{3-4}
+ & & \texttt{HARD\_FORCE} & Évince dans tous les cas l'événement le moins prioritaire \\
+\hline
+\end{tabular}
+\caption{Paramètres de la fonction \texttt{LedSched\_Add}}
+\label{tab:led_sched_add}
+\end{table}
+
+\newpage
+
+Les autres fonctions de l'interface complètent la gestion des événements :
+\begin{itemize}
+	\item \texttt{LedSched\_Remove} retire l'événement désigné par un identifiant, l'appel est sans effet si cet événement a
+	déjà disparu de la pool ;
+	\item \texttt{LedSched\_IsHandleValid} indique si un identifiant désigne toujours l'événement pour lequel il a été délivré ;
+	\item \texttt{LedSched\_Clear} retire l'ensemble des événements ;
+	\item \texttt{LedSched\_Init} initialise la pool au démarrage du programme ;
+	\item \texttt{LedSched\_Process} résout l'ensemble des événements présents à l'instant \texttt{now\_ms} et renvoie la
+	couleur à afficher. Cette fonction est non bloquante et doit être appelée une fois par itération de la boucle, son
+	résultat étant transmis directement au pilote \texttt{led}.\\
+\end{itemize}
+
+L'utilisation de l'interface est soumise à trois règles :
+\begin{itemize}
+	\item Un événement dont le motif est périodique ne se termine jamais de lui-même et doit être retiré explicitement ;
+	\item L'ordonnanceur ne conservant qu'une référence vers le motif, celui-ci doit rester alloué pendant toute la durée de
+	vie de l'événement ; 
+	\item Une même instance de motif ne peut être portée simultanément par deux événements actifs, son horloge interne étant
+	propre à l'instance.
+\end{itemize}
+
+\subparagraph*{Pool statique et identification des événements} Les événements sont stockés dans un pool alloué statiquement.
+L'occupation mémoire de l'ordonnanceur est ainsi fixée à la compilation, et le temps de résolution des événements,
+proportionnel au nombre d'emplacements, est borné. Un emplacement libéré, que ce soit par la fin de son événement, par un
+retrait ou par une éviction, peut être réoccupé par un nouvel événement. Un identifiant réduit à l'indice de l'emplacement ne
+permettrait donc pas de distinguer l'événement pour lequel il a été délivré de celui qui lui a succédé : un retrait tardif
+affecterait alors un événement étranger à l'appelant. Pour lever cette ambiguïté, chaque emplacement porte un compteur de
+génération, incrémenté à chaque réoccupation ainsi qu'à chaque effacement global du pool. L'identifiant délivré à l'ajout
+encode à la fois l'indice de l'emplacement, sur les 8 bits de poids faible, et la génération de l'emplacement au moment de
+l'ajout, sur les 24 bits de poids fort : \texttt{h = gen[idx] < < 8 | idx} (figure~\ref{fig:led_sched_handle_bits}).
+
+% Préambule : \usetikzlibrary{decorations.pathreplacing}
+\begin{figure}[h]
+\centering
+\def\NbBits{32}      % taille totale de l'identifiant
+\def\IdxBits{8}      % bits d'indice (poids faible)
+\def\CellW{0.48}     % largeur d'une case (cm)
+\def\CellH{0.8}      % hauteur d'une case (cm)
+\begin{tikzpicture}
+  \pgfmathtruncatemacro{\LastBit}{\NbBits-1}
+  \pgfmathtruncatemacro{\GenBits}{\NbBits-\IdxBits}
+  \pgfmathtruncatemacro{\IdxTop}{\IdxBits-1}
+  % cases : bit de poids fort à gauche
+  \foreach \b in {0,...,\LastBit}{
+    \pgfmathsetmacro{\x}{(\LastBit-\b)*\CellW}
+    \ifnum\b<\IdxBits \def\fillc{green!15}\else \def\fillc{blue!12}\fi
+    \draw[fill=\fillc] (\x,0) rectangle ++(\CellW,\CellH);
+  }
+  % numéros de bits aux frontières des champs
+  \foreach \b in {0,\IdxBits,\IdxTop,\LastBit}{
+    \pgfmathsetmacro{\x}{(\LastBit-\b+0.5)*\CellW}
+    \node[font=\scriptsize, below] at (\x,0) {\b};
+  }
+  % accolades
+  \draw[decorate, decoration={brace, amplitude=6pt}]
+    (0,\CellH+0.1) -- ({\GenBits*\CellW},\CellH+0.1)
+    node[midway, above=7pt, font=\small] {Génération de l'emplacement (\GenBits~bits)};
+  \draw[decorate, decoration={brace, amplitude=6pt}]
+    ({\GenBits*\CellW},\CellH+0.1) -- ({\NbBits*\CellW},\CellH+0.1)
+    node[midway, above=7pt, font=\small] {Indice (\IdxBits~bits)};
+\end{tikzpicture}
+\caption{Structure d'un identifiant d'événement}
+\label{fig:led_sched_handle_bits}
+\end{figure}
+
+\begin{minipage}{0.4\textwidth}
+	À l'ajout d'un événement, un emplacement est recherché dans la pool. Si aucun emplacement n'est obtenu, l'identifiant renvoyé
+	est \texttt{LED\_SCHED\_HANDLE\_INVALID}.\\
+	
+	Dans le cas contraire, la génération de l'emplacement est incrémentée, puis l'identifiant est construit à partir de cette
+	génération et de l'indice de l'emplacement (figure~\ref{fig:led_sched_add_event}).
+\end{minipage}
+\hfill
+\begin{minipage}{0.50\textwidth}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/elec/led_sched_add_event.drawio.pdf}
+	\caption{Délivrance d'un identifiant à l'ajout d'un événement}
+	\label{fig:led_sched_add_event}
+	\end{figure}
+\end{minipage}
+\hfill\hfill
+
+\newpage
+
+\begin{minipage}{0.40\textwidth}
+\vspace{-1cm}
+La validation d'un identifiant consiste à en extraire l'indice de l'emplacement désigné, puis à vérifier que cet emplacement est
+occupé et que sa génération coïncide avec celle encodée dans l'identifiant (figure~\ref{fig:led_sched_handle_valid}).\\
+
+Le retrait et le test de validité reposent tous deux sur cette vérification.\\
+
+Un identifiant dont l'événement a disparu devient ainsi inopérant sans que son détenteur ait à en être informé, et ne peut en
+aucun cas affecter l'événement qui occupe désormais l'emplacement.
+\end{minipage}
+\hfill
+\begin{minipage}{0.30\textwidth}
+	\vspace{-1cm}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{figures/elec/led_sched_handler_valid.drawio.pdf}
+		\caption{Validation d'un identifiant d'événement}
+		\label{fig:led_sched_handle_valid}
+	\end{figure}
+\end{minipage}
+\hfill\hfill
+
+\subparagraph*{Résolution des événements : priorité et opacité} À chaque appel de \texttt{LedSched\_Process}, l'ordonnanceur
+détermine, parmi les événements présents dans la pool, ceux dont la couleur contribue à l'affichage. Cette résolution repose
+uniquement sur deux paramètres de chaque événement, sa priorité et son opacité, et s'effectue en deux passes sur la pool.
+
+\hspace*{-\parindent}%
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{figures/elec/led_sched_process.drawio.pdf}
+	\caption{Algorithme de résolution des événements}
+	\label{fig:led_sched_resolution}
+\end{figure}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+La première passe élit un unique événement opaque : celui de plus haute priorité et, à priorité égale, le plus récemment ajouté.
+La priorité de cet événement définit un seuil de visibilité pour l'ensemble de la pool. La seconde passe détermine le sort de
+chaque événement. Sont joués l'opaque élu ainsi que tous les événements transparents de priorité supérieure ou égale au seuil
+En l'absence de tout événement opaque, l'ensemble des événements transparents est joué.\\
+
+Les couleurs des événements joués sont additionnées canal par canal, chaque canal étant borné à 1. Tous les autres événements
+sont masqués et ne contribuent pas à la couleur affichée. La figure~\ref{fig:led_sched_resolution} présente l'algorithme de
+résolution correspondant.
+\end{minipage}
+
+\vspace{0.4cm}
+
+Les paramètres de priorité et d'opacité suffisent à exprimer plusieurs modes de cohabitation entre événements, sans qu'aucune
+coordination ne soit nécessaire entre les parties du programme qui les ajoutent :
+\begin{itemize}
+    \item \textbf{Exclusion} : des événements opaques de même priorité se remplacent mutuellement, le dernier ajouté étant le
+	seul affiché.
+    \item \textbf{Superposition} : des événements transparents de même niveau sont affichés simultanément. Lorsque leurs motifs
+	occupent des portions disjointes d'une même période, chacun reste distinctement perceptible.
+    \item \textbf{Masquage} : un événement opaque de priorité élevée recouvre l'ensemble des événements de priorité inférieure.
+    \item \textbf{Surimpression} : un événement transparent de priorité supérieure à celle de l'opaque élu s'ajoute à sa couleur
+	au lieu de la remplacer.
+\end{itemize}
+
+La résolution ne conserve aucun état d'une itération à l'autre : elle est intégralement recalculée à chaque appel à partir du
+contenu du pool. Lorsqu'un événement masquant disparaît, les événements qu'il recouvrait redeviennent visibles dès l'itération
+suivante, sans qu'aucune sauvegarde ni restauration de l'affichage précédent ne soit réalisée par le programme appelant.
+
+\newpage
+
+\paragraph{Exemple d'utilisation} Le code ci-dessous met en \oe uvre un scénario de trois événements, dont l'exécution est
+représentée sur la figure~\ref{fig:led_sched_frise}. Les motifs A et B sont périodiques, de période 1~s, et consistent
+respectivement en un créneau vert sur la première moitié de la période et en un créneau bleu sur la seconde moitié. Ils sont
+ajoutés comme événements transparents de même priorité, et ne diffèrent que par leur délai de pause : infini pour A et de 1~s
+pour B. Le motif C, non périodique et d'une durée de 2,5~s, consiste en une bosse sinusoïdale rouge. Il est ajouté comme
+événement opaque de priorité supérieure.
+
+\vfill
+
+\begin{lstlisting}[language=C, frame=tb, basicstyle=\small]
+static waveform_space_t wave_a, wave_b, wave_c;
+
+static waveform_space_mult_const_t ctx_a = {
+    .wave_function_mult = waveform_gate,
+    .ctx_mult = &(const waveform_gate_t) {
+        .start = 0.0f, .end = 0.5f
+    },
+    .factor = (float3_t){ .x = 0.0f, .y = 1.0f, .z = 0.0f }
+};
+
+static waveform_space_mult_const_t ctx_b = {
+    .wave_function_mult = waveform_gate,
+    .ctx_mult = &(const waveform_gate_t) {
+        .start = 0.5f, .end = 1.0f
+    },
+    .factor = (float3_t){ .x = 0.0f, .y = 0.0f, .z = 1.0f }
+};
+
+static waveform_space_mult_const_t ctx_c = {
+    .wave_function_mult = waveform_sine,
+    .ctx_mult = &(const waveform_sine_t) {
+        .start = 0.0f, .end = 1.0f
+    },
+    .factor = (float3_t){ .x = 1.0f, .y = 0.0f, .z = 0.0f }
+};
+
+static led_evt_handle_t h_a = LED_SCHED_HANDLE_INVALID;
+static led_evt_handle_t h_b = LED_SCHED_HANDLE_INVALID;
+static led_evt_handle_t h_c = LED_SCHED_HANDLE_INVALID;
+
+void setup() {
+    Waveform_Init_Space(&wave_a, waveform_space_mult_const, &ctx_a, 1000, true);
+    Waveform_Init_Space(&wave_b, waveform_space_mult_const, &ctx_b, 1000, true);
+    Waveform_Init_Space(&wave_c, waveform_space_mult_const, &ctx_c, 2500, false);
+
+    LedSched_Init();
+    h_a = LedSched_Add(&wave_a, 0, true, HAL_MAX_DELAY, LED_SCHED_NO_FORCE);
+    h_b = LedSched_Add(&wave_b, 0, true, 1000, LED_SCHED_NO_FORCE);
+}
+
+void loop() {
+    uint32_t now = HAL_GetTick();
+    if (!Led_Sched_IsValid(h_c) && now >= 3000) {
+        h_c = LedSched_Add(&wave_c, 1, false, 0, LED_SCHED_NO_FORCE);
+    }
+    if (Led_Sched_IsValid(h_a) && now >= 7000) {
+        LedSched_Remove(h_a);
+    }
+    LED_RGB_SetColor(&led_rgb, LedSched_Process(now));
+}
+\end{lstlisting}
+
+\vfill\vfill
+
+\newpage
+
+\begin{itemize}
+	\item De 0 à 3~s, A et B sont joués simultanément : leurs motifs occupant des portions disjointes de la période, la LED
+	alterne entre le vert et le bleu.\\
+
+	\item L'ajout de C à 3~s masque les deux événements transparents, qui sont mis en pause, et seul C est affiché.\\
+
+	\item À 4~s, le délai de pause de B expire : B poursuit alors son exécution sans être affiché, tandis que A reste en pause.\\
+
+	\item À 5,5~s, C se termine et libère son emplacement. A et B redeviennent visibles et dans la même phase.\\
+
+	\item À 7~s, A est retiré de la pool et B reste seul affiché.
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+% ================== Paramètres du scénario (s) ==================
+\pgfmathsetmacro{\Per}{1}        % période des motifs A et B
+\pgfmathsetmacro{\TaddC}{3}      % ajout de C
+\pgfmathsetmacro{\DurC}{2.5}     % durée de C
+\pgfmathsetmacro{\PauseB}{1}     % délai de pause de B
+\pgfmathsetmacro{\TremA}{7}      % retrait de A
+\pgfmathtruncatemacro{\Tend}{10} % fin de la frise (entier)
+% ---- grandeurs dérivées ----
+\pgfmathsetmacro{\TfinC}{\TaddC+\DurC}
+\pgfmathsetmacro{\OffA}{\DurC}                % A : pause illimitée
+\pgfmathsetmacro{\OffB}{min(\PauseB,\DurC)}   % B : pause bornée par son délai
+\pgfmathsetmacro{\TfinPB}{\TaddC+\OffB}
+% ================== Paramètres graphiques ==================
+\def\Xs{1.2}      % cm par seconde
+\def\LaneH{1.1}   % hauteur d'une ligne
+\def\Amp{0.7}     % amplitude des courbes
+\def\Nstrip{400}  % échantillons du bandeau
+% ================== Motifs ==================
+\pgfmathdeclarefunction{fr}{1}{\pgfmathparse{#1-floor(#1)}}
+\pgfmathdeclarefunction{gA}{1}{\pgfmathparse{ifthenelse(fr((#1)/\Per)<0.5,1,0)}}
+\pgfmathdeclarefunction{gB}{1}{\pgfmathparse{ifthenelse(fr((#1)/\Per)>=0.5,1,0)}}
+\pgfmathdeclarefunction{bC}{1}{\pgfmathparse{0.5-0.5*cos(360*((#1)-\TaddC)/\DurC)}}
+% couleur affichée
+\pgfmathdeclarefunction{ledR}{1}{\pgfmathparse{ifthenelse((#1>=\TaddC)&&(#1<\TfinC), bC(#1), 0)}}
+\pgfmathdeclarefunction{ledG}{1}{\pgfmathparse{ifthenelse(#1<\TaddC, gA(#1), ifthenelse((#1>=\TfinC)&&(#1<\TremA), gA(#1-\OffA), 0))}}
+\pgfmathdeclarefunction{ledB}{1}{\pgfmathparse{ifthenelse(#1<\TaddC, gB(#1), ifthenelse(#1>=\TfinC, gB(#1-\OffB), 0))}}
+
+\begin{tikzpicture}[x=\Xs cm, y=1cm,
+  lane/.style={draw=black!25},
+  played/.style={thick},
+  silent/.style={thick, dashed, opacity=0.35},
+  paused/.style={pattern=north east lines, pattern color=black!40},
+  evt/.style={densely dashed, black!60}]
+
+  \foreach \k/\name in {0/A, 1/B, 2/C}{
+    \draw[lane] (0,-\k*\LaneH) -- (\Tend,-\k*\LaneH);
+    \node[anchor=east] at (-0.1,{-\k*\LaneH+0.35}) {\name};
+  }
+  \pgfmathsetmacro{\yA}{0}
+  \pgfmathsetmacro{\yB}{-\LaneH}
+  \pgfmathsetmacro{\yC}{-2*\LaneH}
+  \pgfmathsetmacro{\yL}{-3*\LaneH}
+
+  % ---- A : joué, pause (illimitée), joué déphasé, retiré ----
+  \draw[played, green!60!black] plot[domain=0:\TaddC, samples=241] (\x,{\yA+\Amp*gA(\x)});
+  \fill[paused] (\TaddC,\yA) rectangle (\TfinC,\yA+\Amp);
+  \node[font=\scriptsize, fill=white, inner sep=1pt] at ({(\TaddC+\TfinC)/2},{\yA+\Amp/2}) {pause};
+  \draw[played, green!60!black] plot[domain=\TfinC:\TremA, samples=201] (\x,{\yA+\Amp*gA(\x-\OffA)});
+
+  % ---- B : joué, pause, exécution silencieuse, joué ----
+  \draw[played, blue] plot[domain=0:\TaddC, samples=241] (\x,{\yB+\Amp*gB(\x)});
+  \fill[paused] (\TaddC,\yB) rectangle (\TfinPB,\yB+\Amp);
+  \node[font=\scriptsize, fill=white, inner sep=1pt] at ({(\TaddC+\TfinPB)/2},{\yB+\Amp/2}) {pause};
+  \pgfmathparse{\OffB<\DurC}
+  \ifnum\pgfmathresult=1
+    \draw[silent, blue] plot[domain=\TfinPB:\TfinC, samples=121] (\x,{\yB+\Amp*gB(\x-\OffB)});
+  \fi
+  \draw[played, blue] plot[domain=\TfinC:\Tend, samples=441] (\x,{\yB+\Amp*gB(\x-\OffB)});
+
+  % ---- C : joué puis terminé ----
+  \draw[played, red] plot[domain=\TaddC:\TfinC, samples=81] (\x,{\yC+\Amp*bC(\x)});
+
+  % ---- bandeau de la couleur affichée ----
+  \node[anchor=east] at (-0.1,{\yL+0.3}) {LED};
+  \pgfmathsetmacro{\dt}{\Tend/\Nstrip}
+  \pgfmathtruncatemacro{\Nlast}{\Nstrip-1}
+  \foreach \i in {0,...,\Nlast}{
+    \pgfmathsetmacro{\t}{(\i+0.5)*\dt}
+    \pgfmathsetmacro{\r}{ledR(\t)}
+    \pgfmathsetmacro{\g}{ledG(\t)}
+    \pgfmathsetmacro{\b}{ledB(\t)}
+    \definecolor{ledc}{rgb}{\r,\g,\b}
+    \fill[ledc] ({\i*\dt},\yL) rectangle ({(\i+1)*\dt+0.004},\yL+0.6);
+  }
+  \draw (0,\yL) rectangle (\Tend,\yL+0.6);
+
+  % ---- instants des appels ----
+  \foreach \t/\lab in {0/{ajout A, B}, \TaddC/{ajout C}, \TfinC/{fin de C}, \TremA/{retrait A}}{
+    \draw[evt] (\t,\yL) -- (\t,\Amp+0.3);
+    \node[font=\scriptsize, above] at (\t,\Amp+0.3) {\lab};
+  }
+
+  % ---- axe temporel ----
+  \draw[->] (0,\yL-0.25) -- (\Tend+0.3,\yL-0.25) node[right] {$t$ (s)};
+  \foreach \s in {0,...,\Tend}{
+    \draw (\s,\yL-0.3) -- (\s,\yL-0.2);
+    \node[font=\scriptsize, below] at (\s,\yL-0.3) {\s};
+  }
+\end{tikzpicture}
+\caption{Exécution du scénario \texttt{led\_sched}. Trait plein : événement joué ; trait pointillé transparent : exécution silencieuse ; hachures : pause. Le bandeau inférieur représente la couleur affichée par la LED.}
+\label{fig:led_sched_frise}
+\end{figure}
 
 \newpage
