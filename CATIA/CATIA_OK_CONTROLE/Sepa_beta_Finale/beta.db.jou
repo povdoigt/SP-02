@@ -1,0 +1,39 @@
+$# Creating journal file 
+$# Z:\Documents\COURS\IPSA\AeroIPSA\Projets\Fusees\SP-02\CATIA\CATIA_new\Sepa_
+$# beta_Finale\beta.db.jou at 24-Jan-26 22:59:42
+uil_file_rebuild.start("C:\Users\lucaspichon\AppData\Roaming\MSC.Software\" // @
+"MSC Nastran and Patran Student Editions\20241\Patran/template.db", @
+"Z:\Documents\COURS\IPSA\AeroIPSA\Projets\Fusees\SP-02\CATIA\CATIA_new\Sep" // @
+"a_beta_Finale\beta.db")
+$# Synchronizing the User Data Manager
+set_current_dir( "Z:\Documents\COURS\IPSA\AeroIPSA\Projets\Fusees\SP-02\CA" // @
+"TIA\CATIA_new\Sepa_beta_Finale" )
+$# The current working directory has been changed to the database location 
+$# shown.                                                                     
+$#                                                                            
+$#                                   
+$# Checking for Patran 2024.1  (Student Edition) module license...
+$# Question from application FILE
+$#     The Model Units must match the Geometry Scale Factor Preference value. 
+$# Do you want to change the Geometry Scale Factor Preference value from 
+$# 39.370079 to 1000. ?
+$? YES 20066 
+pref_geo_set_scale_factor( 1000. )
+$# The Geometry Scale Factor Preference value has been changed to 1000. (
+$# Millimeters).
+p3_express_options_file( "express.opt", FALSE, 3, 1, 52054, TRUE, [1000., 0.,  @
+0., 0., 1000., 0., 0., 0., 1000., 0., 0., 0.], 0, ["0"], [[-1]], [[-1]], [[-1] @
+], TRUE, [0], TRUE, [0], TRUE, [0], 3, 1, 3 )
+utl_process_spawn( "cttrans -i ""Z:\Documents\COURS\IPSA\AeroIPSA\Projets\" // @
+"Fusees\SP-02\CATIA\CATIA_new\Sepa_beta_Finale\SP02_BETA5_SEPA2_PRINCIPALE" // @
+".CATPart"" -o SP02_BETA5_SEPA2_PRINCIPALE MSC.Patran +a2 -iformat CATIAV5" // @
+" -oformat Parasolid  +hT +sF +sewF", TRUE )
+$# Error reported from application FILE
+$#     Catia File version is not supported.
+$? NO 20148 
+$# File display controlled by settings.pcl file entry: pref_env_set_integer(
+$# ""max_num_recent_files"",#)                                                
+$#                                                                            
+$#                                  
+$# Flushing the User Data Manager
+$# Journal file stopped recording at 24-Jan-26 23:11:21

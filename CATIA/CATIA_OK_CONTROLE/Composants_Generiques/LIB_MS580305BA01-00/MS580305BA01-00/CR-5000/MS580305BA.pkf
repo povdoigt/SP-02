@@ -1,0 +1,10 @@
+(unit MM)
+
+(package "MS580305BA"
+    (type UNDEF)
+    (uver 2)
+    (mountForm default
+        (footprintRef "MS580305BA")
+        (spec "default")
+    )
+)
